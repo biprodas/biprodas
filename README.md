@@ -1,5 +1,6 @@
 
-[<img align="right" width="400" src="https://github-readme-stats.vercel.app/api?username=biprodas&&show_icons=true&theme=tokyonight&count_private=true" alt="Biprodas's Github Stats"/>](https://github.com/biprodas)
+<img align="right" width="400" src="https://github-readme-stats.vercel.app/api?username=biprodas&&show_icons=true&theme=tokyonight&count_private=true" alt="Biprodas's Github Stats"/>
+<!-- <img align="center" src="https://github-readme-stats.vercel.app/api/top-langs?username=biprodas&show_icons=true&locale=en&layout=compact" alt="biprodas" /> -->
 
 ## Biprodas Roy
 
