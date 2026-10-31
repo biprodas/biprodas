@@ -21,8 +21,8 @@
     - CI/CD (GitHub Actions)
     - Nginx
     - Vercel
-    - Linux
-    - Git
+- group: Tools
+  items: [Linux, VS Code, Git, GitHub]
 - group: Security & Auth
   items: [OAuth 2.0, JWT, RBAC, ABAC, Row-Level Security]
 - group: AI & LLMs

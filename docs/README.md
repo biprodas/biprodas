@@ -7,6 +7,7 @@ Monorepo for Biprodas Roy's sites. The root `README.md` is the GitHub profile RE
 | `apps/academic` | Academic site (Astro) — not yet scaffolded | biprodas.com |
 | `apps/dev` | Engineering portfolio (Next.js) — not yet scaffolded | biprodas.dev |
 | `packages/content` | Single source of truth: YAML data + Zod schemas + typed loaders | — |
+| `packages/readme` | Generates the content blocks of the root `README.md` (GitHub profile) | — |
 | `packages/tokens` | Brand-neutral design primitives (spacing, type scale, radii) | — |
 | `packages/config` | Shared tsconfig | — |
 
@@ -18,6 +19,7 @@ apps read only their slice via `projects("academic")`, `experience("engineering"
 ```sh
 corepack enable        # once, provides pnpm
 pnpm install
-pnpm validate          # schema + duplicate-id check (also runs before every build)
+pnpm validate          # schema, id/reference checks, README freshness (also runs before every build)
+pnpm readme            # regenerate the profile README blocks after editing content
 pnpm check-types
 ```

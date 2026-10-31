@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 140" width="1000" height="140" aria-hidden="true">
+  <defs>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2563EB" />
+      <stop offset="1" stop-color="#06B6D4" />
+    </linearGradient>
+    <linearGradient id="edge-fade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fff" stop-opacity="0" />
+      <stop offset="0.15" stop-color="#fff" stop-opacity="1" />
+      <stop offset="0.85" stop-color="#fff" stop-opacity="1" />
+      <stop offset="1" stop-color="#fff" stop-opacity="0" />
+    </linearGradient>
+    <mask id="edges"><rect width="1000" height="140" fill="url(#edge-fade)" /></mask>
+    <linearGradient id="top-fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="0" />
+      <stop offset="0.45" stop-color="#fff" stop-opacity="1" />
+    </linearGradient>
+    <mask id="top"><rect width="1000" height="140" fill="url(#top-fade)" /></mask>
+  </defs>
+  <style>
+    .w1 { opacity: 0.10; animation: drift-left 20s linear infinite; }
+    .w2 { opacity: 0.16; animation: drift-right 14s linear infinite; }
+    .w3 { opacity: 0.24; animation: drift-left 10s linear infinite; }
+    @keyframes drift-left { to { transform: translateX(-320px); } }
+    @keyframes drift-right { from { transform: translateX(-260px); } to { transform: translateX(0); } }
+    @media (prefers-reduced-motion: reduce) { .w1, .w2, .w3 { animation: none; } }
+  </style>
+  <g mask="url(#edges)"><g mask="url(#top)">
+    <path class="w1" d="M0 52 q 80 -14 160 0 t 160 0 q 80 -14 160 0 t 160 0 q 80 -14 160 0 t 160 0 q 80 -14 160 0 t 160 0 q 80 -14 160 0 t 160 0 q 80 -14 160 0 t 160 0 V 140 H 0 Z" fill="url(#accent)" />
+    <path class="w2" d="M0 74 q 65 -11 130 0 t 130 0 q 65 -11 130 0 t 130 0 q 65 -11 130 0 t 130 0 q 65 -11 130 0 t 130 0 q 65 -11 130 0 t 130 0 q 65 -11 130 0 t 130 0 V 140 H 0 Z" fill="url(#accent)" />
+    <path class="w3" d="M0 98 q 80 -8 160 0 t 160 0 q 80 -8 160 0 t 160 0 q 80 -8 160 0 t 160 0 q 80 -8 160 0 t 160 0 q 80 -8 160 0 t 160 0 q 80 -8 160 0 t 160 0 V 140 H 0 Z" fill="url(#accent)" />
+  </g></g>
+</svg>

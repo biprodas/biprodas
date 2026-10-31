@@ -311,7 +311,10 @@ export const Certification = Item.extend({
   issued: PartialDate,
   expires: PartialDate.optional(),
   credentialId: z.string().optional(),
+  /** Personal credential / verification link (e.g. Credly). Preferred when linking. */
   url: z.url().optional(),
+  /** Official page describing the certification; used when there's no `url`. */
+  infoUrl: z.url().optional(),
   skills: z.array(z.string()).default([]),
 });
 export type Certification = z.output<typeof Certification>;

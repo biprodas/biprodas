@@ -22,14 +22,16 @@
 #   researchSummary: ...   # shown on biprodas.com
 #   caseStudy: ...         # MDX path, shown on biprodas.dev
 
-# TODO: type, status, role, period, experience, links for each project
-#       (PitchPool and StartDescribe have links on the CV PDF).
+# TODO: type, status, role, period, experience; public repo links where available.
 - id: pitchpool
   title: PitchPool
   summary: >-
     Multi-tenant SaaS platform for competition prediction pools with automated scoring, live
     leaderboards, and subscription billing.
   featured: true
+  links:
+    - { kind: live, url: "https://pitchpool.io" }
+    # repo: github.com/biprodas/pitchpool is private — add { kind: repo, url } if made public
   tech: [Next.js, React, TypeScript, NestJS, PostgreSQL, Prisma, Redis, BullMQ, JWT/OAuth, Docker]
   topics: [SaaS, Multi-tenancy, Billing]
   highlights:
@@ -45,6 +47,8 @@
   summary: >-
     AI SaaS platform for e-commerce product descriptions and image generation, with multi-tenant
     architecture and Stripe-based subscriptions.
+  links:
+    - { kind: live, url: "https://startdescribe.com" }
   tech: [Next.js, TypeScript, Tailwind, Supabase, Stripe, OpenAI, Perplexity]
   topics: [AI, SaaS, E-commerce]
   highlights:
@@ -52,6 +56,52 @@
       and SEO-optimized pages.
     - Increased onboarding conversion by 40% and reduced content generation time by 30% through
       optimized workflows and automation.
+
+- id: akaunty
+  title: Akaunty
+  summary: >-
+    Multi-tenant SaaS that gives freelancers, agencies, NGOs and small businesses simple financial
+    tracking, with proper double-entry accounting underneath.
+  type: product
+  links:
+    - { kind: live, url: "https://akaunty.vercel.app" }
+    # akaunty.com is configured but not live yet · repo: github.com/biprodas/akaunty is private
+  tech: [Next.js, NestJS, PostgreSQL, Drizzle, Redis, BullMQ, TanStack Query, Paddle]
+  topics: [FinTech, Accounting, SaaS]
+  highlights:
+    - Users record "I got paid" or "I spent money"; the system generates balanced journal entries
+      underneath.
+    - Profit & loss, cash flow, balance sheet, trial balance and general ledger reporting.
+
+- id: school-erp
+  title: School ERP
+  summary: >-
+    School administration platform covering admissions, academics, students, parents and staff,
+    finance, campus services, communication and reporting.
+  type: product
+  links:
+    - { kind: repo, url: "https://github.com/biprodas/school-erp" }
+  tech: [Next.js, React, NestJS, PostgreSQL, TypeORM, Redis, BullMQ, TanStack Query, Tailwind CSS]
+  topics: [EdTech, ERP, Multi-tenancy]
+  highlights:
+    - Tenant isolation with PostgreSQL row-level security on tenanted tables.
+    - Next.js dashboard with a configurable sidebar, backed by a NestJS API.
+
+- id: cloud-prep
+  title: Cloud Prep
+  summary: >-
+    Practice app for AWS certification exams — questions organized by certification and AWS
+    service, with an explanation on every answer and per-topic accuracy tracking.
+  type: product
+  links:
+    - { kind: live, url: "https://cloudprep.biprodas.dev" }
+    # repo: github.com/biprodas/cloud-prep is private
+  tech: [Next.js, TypeScript, Supabase, TanStack Query, Tailwind CSS, Paddle]
+  topics: [EdTech, AWS, Certification Prep]
+  highlights:
+    - Covers Cloud Practitioner, AI Practitioner, Developer Associate and Solutions Architect
+      Associate.
+    - Weak-area tracking per topic, in-app cheat sheets, bookmarks and review loops.
 
 - id: microfinance-core-banking
   title: Microfinance Core Banking System

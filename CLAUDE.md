@@ -9,6 +9,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
    - Never add `.github/README.md`. It would take priority over the root README on the repo page.
    - The repo must stay public.
    - Monorepo docs live in `docs/README.md`.
+   - The README is partly generated. Blocks between `<!-- content:<name>:start/end -->` markers are rendered from `packages/content` by `packages/readme/src/generate.ts`. Never hand-edit inside the markers: change the YAML and run `pnpm readme`. Everything outside the markers is hand-written. The header and footer images `packages/readme/assets/{header,footer}.svg` are also generated, by `src/header-svg.ts`; the header's text comes from `profile.yaml`. Don't edit them by hand. `pnpm validate` fails if any of these files is stale.
+   - The README tech stack shows only skills that have a logo in the `logos` map in `generate.ts`, which uses skillicons.dev ids or local `tile:<slug>` tiles. Tiles are built from Simple Icons by `pnpm --filter @biprodas/readme icons` (`src/build-icons.ts`) and committed in `assets/icons/`.
 2. It is a **pnpm + Turborepo monorepo** for Biprodas Roy's personal sites:
    - `apps/academic`: Astro, deployed to biprodas.com. Audience: MS/PhD committees and researchers. Engineering readers are secondary.
    - `apps/dev`: Next.js App Router, deployed to biprodas.dev. Audience: recruiters and clients. Creative and interactive.
@@ -20,7 +22,8 @@ pnpm may not be on PATH. Use `corepack pnpm …`, or run `corepack enable` once.
 
 ```sh
 pnpm install
-pnpm validate            # content schema + duplicate-id check (turbo runs it before every build)
+pnpm validate            # content schema + id/reference checks + README freshness (turbo runs it before every build)
+pnpm readme              # regenerate the content blocks in the root README.md
 pnpm check-types         # tsc across all packages
 pnpm build | pnpm dev    # turbo run build/dev
 pnpm turbo run <task> --filter=@biprodas/content   # single package

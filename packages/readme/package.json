@@ -1,0 +1,20 @@
+{
+  "name": "@biprodas/readme",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "readme": "node src/generate.ts",
+    "icons": "node src/build-icons.ts",
+    "validate": "node src/generate.ts --check",
+    "check-types": "tsc"
+  },
+  "dependencies": {
+    "@biprodas/content": "workspace:*"
+  },
+  "devDependencies": {
+    "@biprodas/config": "workspace:*",
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.3"
+  }
+}
