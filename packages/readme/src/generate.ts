@@ -156,7 +156,7 @@ const blocks: Record<string, () => string> = {
   stack: () => {
     const rows = skills(site).flatMap((g) => {
       if (hiddenGroups.has(g.group)) return [];
-      const imgs = g.items.flatMap((s) => logos[s.name] ?? []).map(icon);
+      const imgs = g.items.flatMap((s) => logos[s.name] ?? []).map((logo) => icon(logo));
       if (!imgs.length) return [];
       // GitHub sizes tables to their content; a 100%-wide cell makes the table fill the
       // page. Non-breaking spaces keep the category label on one line.
