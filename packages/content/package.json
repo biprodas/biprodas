@@ -1,0 +1,23 @@
+{
+  "name": "@biprodas/content",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema": "./src/schema/index.ts"
+  },
+  "scripts": {
+    "validate": "node src/validate.ts",
+    "check-types": "tsc"
+  },
+  "dependencies": {
+    "yaml": "^2.9.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@biprodas/config": "workspace:*",
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.3"
+  }
+}

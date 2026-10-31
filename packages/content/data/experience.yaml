@@ -1,0 +1,9 @@
+# Dates are YYYY or YYYY-MM; end may be "present".
+# audience: academic | engineering | both (default both)
+- id: semicolon-founder
+  role: Founder & COO
+  org: Semicolon IT Solutions
+  start: "2020" # TODO: confirm
+  end: present
+  highlights: []
+# TODO: add Sr. Software Engineer role(s)
