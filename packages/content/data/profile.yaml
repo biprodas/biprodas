@@ -1,13 +1,30 @@
 name: Biprodas Roy
+# pronouns: ...
+# avatar: { src: /images/avatar.jpg, alt: Portrait of Biprodas Roy }
 headline:
-  academic: TODO — e.g. "Software Engineer & Prospective PhD Student in <field>"
-  engineering: Sr. Software Engineer · Founder & COO at Semicolon IT Solutions
+  academic: TODO — e.g. "Software Engineer · Prospective graduate student in <field>"
+  engineering: Software Engineer · Full Stack Developer · AI Researcher
 tagline: Coding the future, one commit at a time!
+summary:
+  # TODO: academic summary (research motivation, interests, goals)
+  engineering: >-
+    Full-stack Engineer with 8+ years of experience designing and building scalable SaaS and
+    real-time systems for ERP, FinTech, and AI platforms. Expertise in TypeScript, Node.js/NestJS,
+    Python/FastAPI, React/Next.js, PostgreSQL, and AWS, specializing in system architecture,
+    multi-tenant applications, and low-latency infrastructure. Led small engineering teams and
+    delivered platforms serving 100+ businesses.
 email: biprodas.cse@gmail.com
+location: { city: Jashore, country: Bangladesh }
+timezone: Asia/Dhaka
 sites:
   academic: https://biprodas.com
   engineering: https://biprodas.dev
 social:
   github: https://github.com/biprodas
   linkedin: https://www.linkedin.com/in/biprodas-roy/
+  # TODO as available: scholar, orcid, researchgate, codeforces, leetcode, x
 researchInterests: [] # TODO
+openTo: [] # TODO, e.g. "MS/PhD positions (Fall 2027)", "Senior backend roles"
+languages: [] # TODO, e.g. { name: Bengali, proficiency: native }
+              # proficiency: native | full-professional | professional | limited-working | elementary
+# cv: { academic: /cv.pdf, engineering: /resume.pdf }   # filled once packages/cv generates them

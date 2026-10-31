@@ -1,13 +1,47 @@
+# - group: ...
+#   audience: engineering          # default engineering
+#   items:
+#     - TypeScript                 # plain name, or:
+#     - { name: TypeScript, level: expert, years: 6 }
+#                                  # level: expert | advanced | intermediate | familiar
+
 - group: Languages
-  items: [TypeScript, JavaScript, C, C++, Python, Java, PHP]
-- group: Frontend
-  items: [React, Next.js, React Native, Vue.js, Nuxt.js, Tailwind CSS, Framer Motion]
-- group: Backend
-  items: [Node.js, Express.js, NestJS, Laravel, REST, GraphQL, Microservices]
-- group: Databases
-  items: [PostgreSQL, MySQL, MongoDB, Redis]
-- group: DevOps & Cloud
-  items: [Docker, Kubernetes, CI/CD, AWS, Google Cloud, DigitalOcean]
-- group: Foundations
   audience: both
-  items: [Data Structures, Algorithms, Competitive Programming, OOP, TDD]
+  items: [TypeScript, JavaScript, Python, SQL, Java, C++, Object-Oriented Programming]
+- group: Frontend
+  items: [React, Next.js, React Native, Tailwind CSS, TanStack Query, Zustand, Redux, shadcn/ui]
+- group: Backend & Architecture
+  items: [Node.js, NestJS, Express, FastAPI, REST APIs, GraphQL, Microservices, WebSockets]
+- group: Data & Messaging
+  items: [PostgreSQL, Redis, MongoDB, MySQL, DynamoDB, BullMQ, TypeORM, Prisma]
+- group: Cloud & DevOps
+  items:
+    - AWS (EC2, S3, Lambda, RDS)
+    - Docker
+    - CI/CD (GitHub Actions)
+    - Nginx
+    - Vercel
+- group: Tools
+  items: [Linux, VS Code, Git, GitHub]
+- group: Security & Auth
+  items: [OAuth 2.0, JWT, RBAC, ABAC, Row-Level Security]
+- group: AI & LLMs
+  audience: both
+  items:
+    - LLM integration
+    - RAG
+    - Agentic workflows
+    - LangGraph
+    - OpenAI/Anthropic APIs
+    - Pinecone
+    - pgvector
+    - Prompt engineering
+- group: Engineering Practices
+  items:
+    - System Design
+    - Software Testing
+    - Debugging
+    - Code Review
+    - Technical Documentation
+    - Agile
+    - Product Thinking

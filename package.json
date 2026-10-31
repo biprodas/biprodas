@@ -9,6 +9,7 @@
     "lint": "turbo run lint",
     "check-types": "turbo run check-types",
     "validate": "turbo run validate",
+    "readme": "pnpm --filter @biprodas/readme readme",
     "format": "prettier --write ."
   },
   "devDependencies": {

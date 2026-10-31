@@ -22,7 +22,12 @@ export function loadContent(): Content {
     experience: readYaml("experience.yaml"),
     education: readYaml("education.yaml"),
     projects: readYaml("projects.yaml"),
+    publications: readYaml("publications.yaml"),
+    talks: readYaml("talks.yaml"),
+    teaching: readYaml("teaching.yaml"),
     awards: readYaml("awards.yaml"),
+    certifications: readYaml("certifications.yaml"),
+    testScores: readYaml("test-scores.yaml"),
     skills: readYaml("skills.yaml"),
   });
   if (!result.success) {
@@ -35,17 +40,29 @@ export function loadContent(): Content {
 /** Site audience: what a given app renders. Items tagged "both" appear everywhere. */
 export type Site = Exclude<Audience, "both">;
 
-export function forSite<T extends { audience: Audience }>(items: T[], site: Site): T[] {
-  return items.filter((item) => item.audience === "both" || item.audience === site);
+/** Items visible on a site: matching audience and not a draft. */
+export function forSite<T extends { audience: Audience; draft: boolean }>(items: T[], site: Site): T[] {
+  return items.filter((item) => !item.draft && (item.audience === "both" || item.audience === site));
 }
 
-const byEndDesc = (a: { end: string }, b: { end: string }) =>
-  (b.end === "present" ? "9999" : b.end).localeCompare(a.end === "present" ? "9999" : a.end);
+const endKey = (d: string | undefined) => (d === "present" ? "9999" : (d ?? ""));
+const byEndDesc = (a: { end?: string }, b: { end?: string }) => endKey(b.end).localeCompare(endKey(a.end));
+const byDateDesc = (a: { date?: string }, b: { date?: string }) => (b.date ?? "").localeCompare(a.date ?? "");
 
 export const profile = () => loadContent().profile;
 export const experience = (site: Site) => forSite(loadContent().experience, site).sort(byEndDesc);
-export const education = () => [...loadContent().education].sort(byEndDesc);
+export const education = (site: Site) => forSite(loadContent().education, site).sort(byEndDesc);
 export const projects = (site: Site) =>
-  forSite(loadContent().projects, site).sort((a, b) => Number(b.featured) - Number(a.featured) || b.year - a.year);
-export const awards = (site: Site) => forSite(loadContent().awards, site).sort((a, b) => b.date.localeCompare(a.date));
+  forSite(loadContent().projects, site).sort(
+    (a, b) => Number(b.featured) - Number(a.featured) || byEndDesc(a.period ?? {}, b.period ?? {}),
+  );
+export const publications = (site: Site) => forSite(loadContent().publications, site).sort(byDateDesc);
+export const talks = (site: Site) => forSite(loadContent().talks, site).sort(byDateDesc);
+export const teaching = (site: Site) => forSite(loadContent().teaching, site).sort(byEndDesc);
+export const awards = (site: Site) => forSite(loadContent().awards, site).sort(byDateDesc);
+export const certifications = (site: Site) =>
+  forSite(loadContent().certifications, site).sort((a, b) => b.issued.localeCompare(a.issued));
+/** Only scores marked `public: true`. */
+export const testScores = (site: Site) =>
+  forSite(loadContent().testScores, site).filter((t) => t.public).sort(byDateDesc);
 export const skills = (site: Site) => forSite(loadContent().skills, site);

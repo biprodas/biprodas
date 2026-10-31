@@ -39,6 +39,22 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
+  packages/readme:
+    dependencies:
+      '@biprodas/content':
+        specifier: workspace:*
+        version: link:../content
+    devDependencies:
+      '@biprodas/config':
+        specifier: workspace:*
+        version: link:../config
+      '@types/node':
+        specifier: ^24.0.0
+        version: 24.19.2
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
   packages/tokens:
     devDependencies:
       '@biprodas/config':

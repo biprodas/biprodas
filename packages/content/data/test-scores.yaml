@@ -1,0 +1,11 @@
+# IELTS / TOEFL / GRE etc. Stored privately by default: only `public: true` entries are shown.
+#
+# - id: kebab-case
+#   test: IELTS       # IELTS | TOEFL | PTE | Duolingo | GRE | GMAT | other
+#   name: ...         # when test is "other"
+#   date: "YYYY-MM"
+#   score: "7.5"
+#   sections: { listening: "8.0", reading: "7.5", writing: "6.5", speaking: "7.0" }
+#   validUntil: "YYYY-MM"
+#   public: false
+[]
