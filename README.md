@@ -50,12 +50,11 @@ Today I'm going deeper into **AI** — LLM-powered systems, RAG and agentic work
       <br/><br/>
       <code>Software Engineer</code> · <code>AI Researcher</code>
       <br/><br/>
-      <a href="https://github.com/biprodas"><img alt="GitHub" src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" /></a>
-      <a href="https://www.linkedin.com/in/biprodas-roy/"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
+      <a href="https://biprodas.com"><img alt="Website" src="https://img.shields.io/badge/biprodas.com-1E3A8A?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI%2BPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiLz48ZWxsaXBzZSBjeD0iMTIiIGN5PSIxMiIgcng9IjQiIHJ5PSIxMCIvPjxwYXRoIGQ9Ik0yIDEyaDIwIi8%2BPC9zdmc%2B" /></a><br/>
+      <a href="https://www.linkedin.com/in/biprodas-roy/"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI%2BPHJlY3QgeD0iMiIgeT0iMiIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiByeD0iMyIgZmlsbD0iI2ZmZiIvPjxjaXJjbGUgY3g9IjcuMyIgY3k9IjcuNCIgcj0iMS43IiBmaWxsPSIjMEE2NkMyIi8%2BPHJlY3QgeD0iNS44IiB5PSIxMCIgd2lkdGg9IjMiIGhlaWdodD0iOC4yIiBmaWxsPSIjMEE2NkMyIi8%2BPHBhdGggZD0iTTEwLjYgMTBoMi45djEuMmMuNS0uOCAxLjQtMS40IDIuOC0xLjQgMi42IDAgMy4xIDEuNyAzLjEgMy45djQuNWgtM3YtNGMwLTEgMC0yLjItMS4zLTIuMnMtMS41IDEtMS41IDIuMXY0LjFoLTN6IiBmaWxsPSIjMEE2NkMyIi8%2BPC9zdmc%2B&logoColor=white" /></a>
       <a href="mailto:biprodas.cse@gmail.com"><img alt="Email" src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" /></a>
       <!-- Add once live:
       <a href="https://biprodas.dev"><img alt="Portfolio" src="https://img.shields.io/badge/biprodas.dev-111111?style=for-the-badge&logo=googlechrome&logoColor=white" /></a>
-      <a href="https://biprodas.com"><img alt="Academic" src="https://img.shields.io/badge/biprodas.com-1F4E79?style=for-the-badge&logo=googlescholar&logoColor=white" /></a>
       -->
     </td>
   </tr>
