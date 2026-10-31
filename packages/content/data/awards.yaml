@@ -1,2 +1,13 @@
-# TODO: add awards (competitive programming contests, scholarships, ...)
-[]
+# TODO: placements/ranks for the contests below, if any
+- id: icpc-dhaka-2015
+  title: ACM-ICPC Asia Dhaka Regional — participant
+  issuer: ACM-ICPC
+  date: "2015"
+- id: just-intra-contest-2014
+  title: Intra-university programming contest — participant
+  issuer: Jashore University of Science & Technology
+  date: "2014"
+  description: Also organized programming contest preparation sessions at JUST.
+- id: problem-solving-2000
+  title: 2,000+ algorithmic problems solved
+  description: Across Codeforces, LeetCode, UVa, CodeChef, and HackerRank.

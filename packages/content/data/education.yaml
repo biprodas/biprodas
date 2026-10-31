@@ -1,10 +1,7 @@
-# TODO: add degrees, e.g.
-# - id: bsc-cse
-#   degree: B.Sc. in Computer Science & Engineering
-#   institution: <University>
-#   start: "2014"
-#   end: "2018"
-#   gpa: "3.xx / 4.00"
-#   thesis: <title>
-#   advisor: <name>
-[]
+# TODO (valuable for the academic site): gpa, thesis, advisor, notable coursework
+- id: bsc-cse-just
+  degree: B.Sc. in Computer Science & Engineering
+  institution: Jashore University of Science & Technology
+  location: Jashore, Bangladesh
+  start: "2013-05"
+  end: "2017-09"

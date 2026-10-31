@@ -1,9 +1,18 @@
 name: Biprodas Roy
 headline:
-  academic: TODO — e.g. "Software Engineer & Prospective PhD Student in <field>"
-  engineering: Sr. Software Engineer · Founder & COO at Semicolon IT Solutions
+  academic: TODO — e.g. "Software Engineer · Prospective graduate student in <field>"
+  engineering: Software Engineer
 tagline: Coding the future, one commit at a time!
+summary:
+  # TODO: academic summary (research motivation, interests, goals)
+  engineering: >-
+    Full-stack Engineer with 8+ years of experience designing and building scalable SaaS and
+    real-time systems for ERP, FinTech, and AI platforms. Expertise in TypeScript, Node.js/NestJS,
+    Python/FastAPI, React/Next.js, PostgreSQL, and AWS, specializing in system architecture,
+    multi-tenant applications, and low-latency infrastructure. Led small engineering teams and
+    delivered platforms serving 100+ businesses.
 email: biprodas.cse@gmail.com
+location: Jashore, Bangladesh
 sites:
   academic: https://biprodas.com
   engineering: https://biprodas.dev

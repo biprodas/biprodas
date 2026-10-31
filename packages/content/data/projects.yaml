@@ -1,4 +1,52 @@
-# Each project: id, title, summary, year, audience, tags, links, featured,
+# Each project: id, title, summary, year, audience, tags, highlights, links, featured,
 # researchSummary (shown on .com), caseStudy (MDX path, shown on .dev).
-# TODO: add projects
-[]
+# TODO: years and links (PitchPool and StartDescribe have links on the CV PDF).
+- id: pitchpool
+  title: PitchPool
+  summary: >-
+    Multi-tenant SaaS platform for competition prediction pools with automated scoring, live
+    leaderboards, and subscription billing.
+  featured: true
+  tags: [Next.js, React, TypeScript, NestJS, PostgreSQL, Prisma, Redis, BullMQ, JWT/OAuth, Docker]
+  highlights:
+    - Shipped subscription billing (plans, entitlement gating, and webhooks) behind a
+      provider-agnostic gateway; designed three-tier RBAC with privilege-escalation safeguards.
+    - Cut idle database traffic by ~90% through in-memory job scheduling and consolidated tasks,
+      enabling serverless PostgreSQL to scale to zero.
+    - Built BullMQ ingestion with rate limiting, circuit breaking, and retry/backoff — leaderboards
+      held accurate through match-day spikes.
+
+- id: startdescribe
+  title: StartDescribe
+  summary: >-
+    AI SaaS platform for e-commerce product descriptions and image generation, with multi-tenant
+    architecture and Stripe-based subscriptions.
+  tags: [Next.js, TypeScript, Tailwind, Supabase, Stripe, OpenAI, Perplexity]
+  highlights:
+    - Implemented secure authentication, an AI content generation pipeline, transactional emails,
+      and SEO-optimized pages.
+    - Increased onboarding conversion by 40% and reduced content generation time by 30% through
+      optimized workflows and automation.
+
+- id: microfinance-core-banking
+  title: Microfinance Core Banking System
+  summary: >-
+    Multi-tenant core banking platform for NGO microfinance operations, deployed across 3
+    organizations and 20 branches.
+  featured: true
+  tags: [Next.js, NestJS, PostgreSQL, Redis, BullMQ, TypeORM]
+  highlights:
+    - Covers group lending, savings products, loan disbursement, repayment scheduling, and
+      field-agent collection, with training and technical support for deployments.
+    - Engineered the double-entry accounting ledger with transaction posting and reconciliation,
+      alongside microcredit portfolio management, HR/payroll, and MIS/AIS reporting.
+
+- id: larmts
+  title: Land Acquisition and Resettlement Management Tracking System (LARMTS)
+  summary: >-
+    Government GIS platform for land acquisition, compensation tracking, and resettlement of
+    affected individuals across infrastructure projects.
+  tags: [Node.js, Express, PostgreSQL/PostGIS, React, Leaflet, GIS]
+  highlights:
+    - Implemented grievance management and reporting.
+    - Deployed in the MRT-5 and CEIP-1 national projects in Bangladesh.

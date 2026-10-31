@@ -1,0 +1,27 @@
+# TODO: credential URLs (e.g. Credly) for the AWS certifications
+- id: aws-developer-associate
+  title: AWS Certified Developer – Associate
+  issuer: Amazon Web Services
+  date: "2026"
+- id: aws-solutions-architect-associate
+  title: AWS Certified Solutions Architect – Associate
+  issuer: Amazon Web Services
+  date: "2025"
+- id: aws-ai-practitioner
+  title: AWS Certified AI Practitioner
+  issuer: Amazon Web Services
+  date: "2025"
+- id: aws-cloud-practitioner
+  title: AWS Certified Cloud Practitioner
+  issuer: Amazon Web Services
+  date: "2025"
+- id: hackerrank-sql-intermediate
+  title: SQL (Intermediate)
+  issuer: HackerRank
+  date: "2020"
+  audience: engineering
+- id: hackerrank-problem-solving-intermediate
+  title: Problem Solving (Intermediate)
+  issuer: HackerRank
+  date: "2020"
+  audience: engineering

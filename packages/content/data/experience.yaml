@@ -1,9 +1,68 @@
 # Dates are YYYY or YYYY-MM; end may be "present".
 # audience: academic | engineering | both (default both)
-- id: semicolon-founder
-  role: Founder & COO
+- id: must-company
+  role: Software Engineer
+  org: MUST Company
+  location: Seoul, South Korea
+  remote: true
+  start: "2024-05"
+  end: "2026-06"
+  tech: [Python, FastAPI, DynamoDB, Next.js, TypeScript]
+  highlights:
+    - Developed MustBreak, an AI-powered real-time meeting platform for transcription, translation,
+      and multilingual collaboration across distributed teams — with AI-generated summaries and
+      searchable conversation history.
+    - Integrated Slack workflows and low-latency real-time communication infrastructure to support
+      enterprise-grade multilingual collaboration.
+    - Developed responsive frontend features for MSquare Market, a blockchain-based digital asset
+      marketplace, implementing crypto wallet connection flows and transaction UIs.
+
+- id: codepal
+  role: Software Engineer
+  org: CodePal
+  location: Sydney, Australia
+  remote: true
+  contract: true
+  start: "2023-06"
+  end: "2024-11"
+  tech: [NestJS, PostgreSQL, Next.js, Pay Advantage]
+  highlights:
+    - Architected and delivered Drivus, a CRM/ERP platform for car-rental and rent-to-own operators,
+      covering fleet, vehicle tracking, contract management, payments, tolls/fines, and financial
+      reporting.
+    - Engineered accounting, payroll, and loan-amortization engines with automated workflows,
+      cutting manual reconciliation time by 35%.
+    - Integrated Pay Advantage for recurring billing and built an event-driven notification system
+      for payments, contracts, and compliance.
+
+- id: semicolon
+  role: Co-Founder · Full-stack Engineer (2019–2022), CTO (2022–2023)
   org: Semicolon IT Solutions
-  start: "2020" # TODO: confirm
-  end: present
-  highlights: []
-# TODO: add Sr. Software Engineer role(s)
+  location: Jashore, Bangladesh
+  start: "2019-08"
+  end: "2023-12"
+  highlights:
+    - Co-founded a software firm serving 50+ clients globally, directed technical strategies,
+      engineering roadmap, and delivery.
+    - Led 10–15 engineers across frontend, backend, and QA; established coding standards, code
+      review, software testing, and agile processes.
+    - Architected multi-tenant enterprise applications from schema design through production,
+      ensuring scalable and maintainable systems.
+    - Reduced ERP report generation time from ~40s to under 5s and cut API latency by 35% through
+      query optimization and backend refactoring.
+    - Mentored 20+ junior engineers and interns through code reviews and pairing, growing them into
+      independent contributors on client projects.
+
+- id: utshab
+  role: Web Developer
+  org: Utshab Technology Ltd
+  location: Jashore, Bangladesh
+  start: "2018-01"
+  end: "2019-03"
+  tech: [MongoDB, Express, React, Node.js, C, C++]
+  highlights:
+    - Built full-stack web apps on the MERN stack, translating business requirements into
+      production features — owning REST API design, MongoDB schema modeling, and modular,
+      maintainable frontend components.
+    - Delivered Data Structures & Algorithms training in C/C++, mentoring entry-level developers and
+      interns.

@@ -23,6 +23,7 @@ export function loadContent(): Content {
     education: readYaml("education.yaml"),
     projects: readYaml("projects.yaml"),
     awards: readYaml("awards.yaml"),
+    certifications: readYaml("certifications.yaml"),
     skills: readYaml("skills.yaml"),
   });
   if (!result.success) {
@@ -46,6 +47,11 @@ export const profile = () => loadContent().profile;
 export const experience = (site: Site) => forSite(loadContent().experience, site).sort(byEndDesc);
 export const education = () => [...loadContent().education].sort(byEndDesc);
 export const projects = (site: Site) =>
-  forSite(loadContent().projects, site).sort((a, b) => Number(b.featured) - Number(a.featured) || b.year - a.year);
-export const awards = (site: Site) => forSite(loadContent().awards, site).sort((a, b) => b.date.localeCompare(a.date));
+  forSite(loadContent().projects, site).sort(
+    (a, b) => Number(b.featured) - Number(a.featured) || (b.year ?? 0) - (a.year ?? 0),
+  );
+export const awards = (site: Site) =>
+  forSite(loadContent().awards, site).sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
+export const certifications = (site: Site) =>
+  forSite(loadContent().certifications, site).sort((a, b) => b.date.localeCompare(a.date));
 export const skills = (site: Site) => forSite(loadContent().skills, site);

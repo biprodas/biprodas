@@ -13,6 +13,7 @@ export const Profile = z.object({
   name: z.string(),
   headline: z.object({ academic: z.string(), engineering: z.string() }),
   tagline: z.string().optional(),
+  summary: z.object({ academic: z.string().optional(), engineering: z.string() }),
   email: z.email(),
   location: z.string().optional(),
   sites: z.object({ academic: z.url(), engineering: z.url() }),
@@ -27,9 +28,12 @@ export const Experience = z.object({
   org: z.string(),
   orgUrl: z.url().optional(),
   location: z.string().optional(),
+  remote: z.boolean().default(false),
+  contract: z.boolean().default(false),
   start: PartialDate,
   end: PartialDate.or(z.literal("present")),
   audience: Audience.default("both"),
+  tech: z.array(z.string()).default([]),
   highlights: z.array(z.string()).default([]),
 });
 export type Experience = z.infer<typeof Experience>;
@@ -53,8 +57,9 @@ export const Project = z.object({
   title: z.string(),
   summary: z.string(),
   audience: Audience.default("both"),
-  year: z.number().int(),
+  year: z.number().int().optional(),
   tags: z.array(z.string()).default([]),
+  highlights: z.array(z.string()).default([]),
   links: z.array(Link).default([]),
   featured: z.boolean().default(false),
   /** Shown on biprodas.com: problem, method, findings. */
@@ -67,12 +72,22 @@ export type Project = z.infer<typeof Project>;
 export const Award = z.object({
   id: z.string(),
   title: z.string(),
-  issuer: z.string(),
-  date: PartialDate,
+  issuer: z.string().optional(),
+  date: PartialDate.optional(),
   audience: Audience.default("both"),
   description: z.string().optional(),
 });
 export type Award = z.infer<typeof Award>;
+
+export const Certification = z.object({
+  id: z.string(),
+  title: z.string(),
+  issuer: z.string(),
+  date: PartialDate,
+  audience: Audience.default("both"),
+  url: z.url().optional(),
+});
+export type Certification = z.infer<typeof Certification>;
 
 export const SkillGroup = z.object({
   group: z.string(),
@@ -87,6 +102,7 @@ export const Content = z.object({
   education: z.array(Education),
   projects: z.array(Project),
   awards: z.array(Award),
+  certifications: z.array(Certification),
   skills: z.array(SkillGroup),
 });
 export type Content = z.infer<typeof Content>;
