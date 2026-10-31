@@ -1,0 +1,4 @@
+# Each project: id, title, summary, year, audience, tags, links, featured,
+# researchSummary (shown on .com), caseStudy (MDX path, shown on .dev).
+# TODO: add projects
+[]

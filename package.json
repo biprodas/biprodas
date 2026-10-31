@@ -1,0 +1,19 @@
+{
+  "name": "biprodas",
+  "private": true,
+  "packageManager": "pnpm@10.15.0",
+  "engines": { "node": ">=22.18" },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "check-types": "turbo run check-types",
+    "validate": "turbo run validate",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "^3.9.10",
+    "turbo": "^2.11.10",
+    "typescript": "^5.9.3"
+  }
+}

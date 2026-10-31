@@ -1,0 +1,1 @@
+{ "extends": "@biprodas/config/tsconfig.base.json", "include": ["src"] }

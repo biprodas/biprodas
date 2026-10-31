@@ -1,0 +1,13 @@
+- group: Languages
+  items: [TypeScript, JavaScript, C, C++, Python, Java, PHP]
+- group: Frontend
+  items: [React, Next.js, React Native, Vue.js, Nuxt.js, Tailwind CSS, Framer Motion]
+- group: Backend
+  items: [Node.js, Express.js, NestJS, Laravel, REST, GraphQL, Microservices]
+- group: Databases
+  items: [PostgreSQL, MySQL, MongoDB, Redis]
+- group: DevOps & Cloud
+  items: [Docker, Kubernetes, CI/CD, AWS, Google Cloud, DigitalOcean]
+- group: Foundations
+  audience: both
+  items: [Data Structures, Algorithms, Competitive Programming, OOP, TDD]
