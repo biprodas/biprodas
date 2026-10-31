@@ -1,3 +1,10 @@
+# - group: ...
+#   audience: engineering          # default engineering
+#   items:
+#     - TypeScript                 # plain name, or:
+#     - { name: TypeScript, level: expert, years: 6 }
+#                                  # level: expert | advanced | intermediate | familiar
+
 - group: Languages
   audience: both
   items: [TypeScript, JavaScript, Python, SQL, Java, C++, Object-Oriented Programming]

@@ -1,0 +1,10 @@
+# - id: kebab-case
+#   title: ...
+#   kind: talk        # talk | keynote | workshop | seminar | panel | poster | webinar | podcast
+#   event: ...
+#   date: "YYYY-MM-DD"
+#   location: { city, country }
+#   online: false
+#   summary: ...
+#   links: [ { kind: slides | video | article, url } ]
+[]

@@ -1,12 +1,32 @@
-# Dates are YYYY or YYYY-MM; end may be "present".
-# audience: academic | engineering | both (default both)
+# One entry per organization. Promotions = several positions in the same entry;
+# the entry's title/start/end are derived from its positions.
+#
+# - id: kebab-case                       # required, unique
+#   audience: both                       # academic | engineering | both
+#   draft: false                         # true = hidden on every site
+#   org: { name, url, logo, industry, location: { city, region, country } }
+#   employmentType: full-time            # full-time | part-time | contract | freelance | internship |
+#                                        # self-employed | founder | apprenticeship | volunteer
+#   workMode: remote                     # on-site | remote | hybrid
+#   location: { city, country }          # where YOU worked from, if different from org.location
+#   positions:                           # newest first or any order; at least one
+#     - { title, start: "YYYY-MM", end: "YYYY-MM" | present, employmentType?, workMode?, summary? }
+#   summary: one line
+#   highlights: [ ... ]
+#   tech: [ ... ]
+#   projects: [ project-id, ... ]        # ids from projects.yaml
+#   links: [ { kind, url, label } ]
+#   featured: false
+
 - id: must-company
-  role: Software Engineer
-  org: MUST Company
-  location: Seoul, South Korea
-  remote: true
-  start: "2024-05"
-  end: "2026-06"
+  org:
+    name: MUST Company
+    location: { city: Seoul, country: South Korea }
+  workMode: remote
+  positions:
+    - title: Software Engineer
+      start: "2024-05"
+      end: "2026-06"
   tech: [Python, FastAPI, DynamoDB, Next.js, TypeScript]
   highlights:
     - Developed MustBreak, an AI-powered real-time meeting platform for transcription, translation,
@@ -18,13 +38,15 @@
       marketplace, implementing crypto wallet connection flows and transaction UIs.
 
 - id: codepal
-  role: Software Engineer
-  org: CodePal
-  location: Sydney, Australia
-  remote: true
-  contract: true
-  start: "2023-06"
-  end: "2024-11"
+  org:
+    name: CodePal
+    location: { city: Sydney, country: Australia }
+  employmentType: contract
+  workMode: remote
+  positions:
+    - title: Software Engineer
+      start: "2023-06"
+      end: "2024-11"
   tech: [NestJS, PostgreSQL, Next.js, Pay Advantage]
   highlights:
     - Architected and delivered Drivus, a CRM/ERP platform for car-rental and rent-to-own operators,
@@ -36,11 +58,17 @@
       for payments, contracts, and compliance.
 
 - id: semicolon
-  role: Co-Founder · Full-stack Engineer (2019–2022), CTO (2022–2023)
-  org: Semicolon IT Solutions
-  location: Jashore, Bangladesh
-  start: "2019-08"
-  end: "2023-12"
+  org:
+    name: Semicolon IT Solutions
+    location: { city: Jashore, country: Bangladesh }
+  employmentType: founder
+  positions:
+    - title: Co-Founder & CTO
+      start: "2022"
+      end: "2023-12"
+    - title: Co-Founder & Full-stack Engineer
+      start: "2019-08"
+      end: "2022"
   highlights:
     - Co-founded a software firm serving 50+ clients globally, directed technical strategies,
       engineering roadmap, and delivery.
@@ -54,11 +82,13 @@
       independent contributors on client projects.
 
 - id: utshab
-  role: Web Developer
-  org: Utshab Technology Ltd
-  location: Jashore, Bangladesh
-  start: "2018-01"
-  end: "2019-03"
+  org:
+    name: Utshab Technology Ltd
+    location: { city: Jashore, country: Bangladesh }
+  positions:
+    - title: Web Developer
+      start: "2018-01"
+      end: "2019-03"
   tech: [MongoDB, Express, React, Node.js, C, C++]
   highlights:
     - Built full-stack web apps on the MERN stack, translating business requirements into

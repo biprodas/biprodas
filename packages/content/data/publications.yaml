@@ -1,0 +1,21 @@
+# Publications — shown on biprodas.com by default (audience: academic).
+#
+# - id: kebab-case
+#   title: ...
+#   authors: [Biprodas Roy, Co Author]       # in published order
+#   type: conference   # journal | conference | workshop | preprint | thesis | book | book-chapter |
+#                      # technical-report | patent | poster
+#   status: published  # published | accepted | under-review | submitted | in-preparation
+#   venue: Full venue name
+#   venueShort: ACRONYM '25
+#   date: "YYYY-MM"
+#   volume / issue / pages / publisher: ...
+#   doi: 10.xxxx/...
+#   arxiv: 2501.01234
+#   abstract: ...
+#   keywords: [ ... ]
+#   links: [ { kind: pdf | paper | repo | slides | video, url } ]
+#   bibtex: |                                # optional; generated if omitted
+#     @inproceedings{...}
+#   featured: false
+[]
