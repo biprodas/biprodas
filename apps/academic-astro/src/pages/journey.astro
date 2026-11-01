@@ -125,17 +125,11 @@ const label = (s?: string) => s?.replace(/-/g, " ");
   {
     certifications.length > 0 && (
       <Section title="Certifications" id="certifications">
-        <ul class={ui.compact}>
-          {certifications.map((c) => (
-            <li>
-              <span class="text-meta">{fmtDate(c.issued)}</span>
-              <div>
-                {c.url || c.infoUrl ? <a href={c.url ?? c.infoUrl}>{c.title}</a> : c.title}
-                <div class={ui.sub}>{c.issuer}</div>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <p>
+          {certifications.length} certifications from {[...new Set(certifications.map((c) => c.issuer))].join(", ")}, most recently{" "}
+          <i>{[...certifications].sort((x, y) => y.issued.localeCompare(x.issued))[0]!.title}</i>.{" "}
+          <a href="/skills/#certifications">See all, with verification links</a>.
+        </p>
       </Section>
     )
   }

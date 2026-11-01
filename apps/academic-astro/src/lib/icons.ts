@@ -19,6 +19,7 @@ export const uiIcons = {
   download: "lucide:download",
   location: "lucide:map-pin",
   arrow: "lucide:arrow-right",
+  arrowUp: "lucide:arrow-up",
   clock: "lucide:clock",
   external: "lucide:arrow-up-right",
   lock: "lucide:lock",
