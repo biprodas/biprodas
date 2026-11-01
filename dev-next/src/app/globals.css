@@ -1,0 +1,369 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* Theme = `dark` class on <html>, set before paint by src/lib/theme.ts. */
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-mono);
+  --font-heading: var(--font-geist-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  /* Extra tokens: secondary ink and a faint accent wash. */
+  --color-ink-2: var(--ink-2);
+  --color-wash: var(--wash);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@theme {
+  --spacing-side: 20rem;
+  /* Same measures as biprodas.com: reading column, gap, notes column. */
+  --spacing-main: 38rem;
+  --spacing-gap: 2.75rem;
+  --spacing-note: 13.5rem;
+  /* Wide enough for the notes column beside the sidebar (~1376px). */
+  --breakpoint-notes: 86rem;
+}
+
+:root {
+  --pad: 1rem;
+}
+@media (min-width: 64rem) {
+  :root {
+    --pad: 2.5rem;
+  }
+}
+
+/* Light: warm paper and graphite ink, steel-blue accent. */
+:root {
+  --background: #f9f8f5;
+  --foreground: #1f2328;
+  --ink-2: #3f454d;
+  --card: #fefdfb;
+  --card-foreground: #1f2328;
+  --popover: #fefdfb;
+  --popover-foreground: #1f2328;
+  --primary: #33598a;
+  --primary-foreground: #f9f8f5;
+  --secondary: #f0eee8;
+  --secondary-foreground: #1f2328;
+  --muted: #f0eee8;
+  --muted-foreground: #6b7079;
+  --accent: #ebe8e1;
+  --accent-foreground: #1f2328;
+  --wash: #33598a14;
+  --destructive: #b42318;
+  --border: #e3dfd6;
+  --input: #d9d4c9;
+  --ring: #33598a;
+  --chart-1: #33598a;
+  --chart-2: #5b7fae;
+  --chart-3: #8aa4c6;
+  --chart-4: #b5c6dc;
+  --chart-5: #dbe3ee;
+  --radius: 0.125rem;
+  --sidebar: #f3f1ec;
+  --sidebar-foreground: #1f2328;
+  --sidebar-primary: #33598a;
+  --sidebar-primary-foreground: #f9f8f5;
+  --sidebar-accent: #e9e6df;
+  --sidebar-accent-foreground: #1f2328;
+  --sidebar-border: #e3dfd6;
+  --sidebar-ring: #33598a;
+  color-scheme: light;
+}
+
+/* Dark: warm charcoal, pale ink, soft blue accent. */
+.dark {
+  --background: #15171b;
+  --foreground: #e8e6e1;
+  --ink-2: #c4c2bc;
+  --card: #1b1e23;
+  --card-foreground: #e8e6e1;
+  --popover: #1d2025;
+  --popover-foreground: #e8e6e1;
+  --primary: #8fb0da;
+  --primary-foreground: #15171b;
+  --secondary: #23262c;
+  --secondary-foreground: #e8e6e1;
+  --muted: #23262c;
+  --muted-foreground: #9a9da4;
+  --accent: #262a31;
+  --accent-foreground: #e8e6e1;
+  --wash: #8fb0da17;
+  --destructive: #f97066;
+  --border: #2e3239;
+  --input: #383c44;
+  --ring: #8fb0da;
+  --chart-1: #8fb0da;
+  --chart-2: #6f93c2;
+  --chart-3: #5277a6;
+  --chart-4: #3b5a82;
+  --chart-5: #2a405e;
+  --sidebar: #181a1f;
+  --sidebar-foreground: #e8e6e1;
+  --sidebar-primary: #8fb0da;
+  --sidebar-primary-foreground: #15171b;
+  --sidebar-accent: #23262c;
+  --sidebar-accent-foreground: #e8e6e1;
+  --sidebar-border: #2e3239;
+  --sidebar-ring: #8fb0da;
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply bg-background font-sans text-foreground;
+    font-size: 106.25%;
+    line-height: 1.7;
+  }
+  body {
+    min-height: 100dvh;
+    overflow-x: clip;
+  }
+  ::selection {
+    @apply bg-primary/20 text-foreground;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  h1,
+  h2,
+  h3 {
+    line-height: 1.2;
+    text-wrap: balance;
+    letter-spacing: -0.015em;
+  }
+  p,
+  li {
+    text-wrap: pretty;
+  }
+}
+
+/* Body-copy links: underlined in a soft accent. */
+@utility prose-link {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in oklab, var(--primary) 50%, transparent);
+  text-underline-offset: 0.2em;
+  &:hover {
+    color: var(--primary);
+    text-decoration-color: currentColor;
+  }
+}
+
+/* Small secondary text: dates, places, stacks. */
+@utility text-meta {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted-foreground);
+  font-variant-numeric: tabular-nums;
+}
+
+@layer components {
+  /* Page grid: one centred reading column; from 86rem a notes column opens on the right.
+     Children sit in the main column; `.wide` children span main + notes. */
+  .page {
+    display: grid;
+    grid-template-columns: [main-start] minmax(0, var(--spacing-main)) [main-end];
+    padding-inline: var(--pad);
+  }
+  .page > * {
+    grid-column: main;
+  }
+  @media (min-width: 64rem) {
+    .page {
+      grid-template-columns: minmax(0, 1fr) [main-start] minmax(0, var(--spacing-main)) [main-end] minmax(0, 1fr);
+    }
+  }
+  @media (min-width: 86rem) {
+    .page {
+      grid-template-columns:
+        minmax(0, 1fr) [main-start] var(--spacing-main) [main-end] var(--spacing-gap)
+        [note-start] var(--spacing-note) [note-end] minmax(0, 1fr);
+    }
+    .page > .wide {
+      grid-column: main-start / note-end;
+    }
+  }
+
+  /* Margin notes: an inline callout on narrow screens, floated into the notes column when it exists. */
+  .margin-note {
+    margin: 0 0 1.4rem;
+    padding: 0.6rem 0.8rem;
+    border-left: 2px solid var(--primary);
+    background: var(--wash);
+    font-size: 0.86rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+  @media (min-width: 86rem) {
+    .margin-note {
+      float: right;
+      clear: right;
+      width: var(--spacing-note);
+      margin: 0.2rem calc(-1 * (var(--spacing-note) + var(--spacing-gap))) 1.2rem 0;
+      padding: 0;
+      border-left: 0;
+      background: none;
+      font-size: 0.82rem;
+      color: var(--muted-foreground);
+    }
+  }
+
+  /* Horizontal variant of the timeline from md up. */
+  @media (min-width: 48rem) {
+    .timeline.horizontal {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(0, 1fr);
+      gap: 1.25rem;
+      padding-top: 1.5rem;
+    }
+    .timeline.horizontal::before {
+      left: 0;
+      right: 0;
+      top: 0.3rem;
+      bottom: auto;
+      width: auto;
+      height: 1px;
+    }
+    .timeline.horizontal > li {
+      padding: 0;
+    }
+    .timeline.horizontal > li::before {
+      top: -1.5rem;
+    }
+  }
+
+  /* Vertical timeline: a rule with markers. Circle = role, diamond = education. */
+  .timeline {
+    position: relative;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 0.3rem;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 1px;
+    background: var(--border);
+  }
+  .timeline > li {
+    position: relative;
+    padding: 0 0 2rem 1.75rem;
+  }
+  .timeline > li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    width: 0.62rem;
+    height: 0.62rem;
+    border-radius: 50%;
+    background: var(--background);
+    border: 1.5px solid var(--muted-foreground);
+  }
+  .timeline > li[data-kind="education"]::before {
+    border-radius: 1px;
+    transform: rotate(45deg) scale(0.86);
+    border-color: var(--primary);
+  }
+  .timeline > li[data-kind="milestone"]::before,
+  .timeline > li[data-current]::before {
+    background: var(--primary);
+    border-color: var(--primary);
+  }
+
+  /* Short dash bullets. */
+  .dashes > li {
+    position: relative;
+    padding-left: 1.1rem;
+  }
+  .dashes > li + li {
+    margin-top: 0.45em;
+  }
+  .dashes > li::before {
+    content: "";
+    position: absolute;
+    left: 0.15rem;
+    top: 0.8em;
+    width: 0.4rem;
+    height: 1px;
+    background: var(--muted-foreground);
+  }
+
+  /* Sidebar scrollbar: thin, shown only while hovered. */
+  @media (min-width: 64rem) {
+    .identity {
+      scrollbar-width: thin;
+      scrollbar-color: transparent transparent;
+    }
+    .identity:hover,
+    .identity:focus-within {
+      scrollbar-color: color-mix(in oklab, var(--muted-foreground) 45%, transparent) transparent;
+    }
+  }
+}
+
+/* Architecture diagrams: edges draw in as the figure scrolls into view. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    [data-diagram="animated"] [data-edge]:not([data-async]) {
+      stroke-dasharray: 1;
+      animation: draw-edge linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 35%;
+    }
+  }
+}
+
+@keyframes draw-edge {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
