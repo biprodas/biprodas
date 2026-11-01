@@ -40,7 +40,7 @@ Today I'm going deeper into **AI** — LLM-powered systems, RAG and agentic work
 
 </td>
     <td width="36%" align="center" valign="middle">
-      <img alt="Biprodas Roy" src="https://github.com/biprodas.png?size=320" width="160" />
+      <img alt="Watercolour portrait of Biprodas Roy" src="readme/biprodas-roy.png" width="160" />
       <br/><br/>
       <code>Software Engineer</code> · <code>AI Researcher</code>
       <br/><br/>
