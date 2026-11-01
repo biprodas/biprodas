@@ -5,12 +5,14 @@ interface Props {
   id?: string;
   class?: string;
 }
-const { n, title, id, class: cls } = Astro.props;
+const { title, id, class: cls } = Astro.props;
 ---
-<section class:list={["section", cls]} id={id} aria-labelledby={id ? `${id}-h` : undefined}>
-  <header class="section-head">
-    <span class="sec-num">§ {n}</span>
-    <h2 id={id ? `${id}-h` : undefined}>{title}</h2>
+<section class:list={["mt-16 scroll-mt-6 print:mt-5", cls]} id={id} aria-labelledby={id ? `${id}-h` : undefined}>
+  <header class="mb-6">
+    <h2 id={id ? `${id}-h` : undefined} class="flex items-center gap-5 text-[1.55rem] font-semibold">
+      <span>{title}</span>
+      <span class="h-[2px] flex-1 bg-[radial-gradient(circle,var(--rule)_1px,transparent_1.5px)] bg-size-[8px_2px] bg-repeat-x" aria-hidden="true"></span>
+    </h2>
   </header>
   <slot />
 </section>

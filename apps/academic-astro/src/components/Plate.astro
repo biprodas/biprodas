@@ -3,9 +3,12 @@
 // project gets a stable, distinct illustration without needing screenshots.
 interface Props {
   seed: string;
-  label: string;
+  /** Draw the outer border (off when the plate sits inside a card). */
+  framed?: boolean;
+  /** Extra classes, e.g. a different aspect ratio. */
+  class?: string;
 }
-const { seed, label } = Astro.props;
+const { seed, framed = true, class: cls } = Astro.props;
 
 let h = 2166136261;
 for (const c of seed) h = Math.imul(h ^ c.charCodeAt(0), 16777619);
@@ -30,15 +33,21 @@ const path = (pts: readonly (readonly [number, number])[]) => pts.map(([x, y], i
 const dots = Array.from({ length: 16 }, () => [pad + rand() * (W - pad * 2), pad + rand() * (H - pad * 2), 1.5 + rand() * 2.5] as const);
 const mark = a[Math.floor(8 + rand() * 10)]!;
 ---
-<div class="plate" aria-hidden="true">
-  <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none">
+<div
+  class:list={[
+    "relative aspect-[16/6] overflow-hidden bg-paper bg-[linear-gradient(var(--rule)_1px,transparent_1px),linear-gradient(90deg,var(--rule)_1px,transparent_1px)] bg-size-[1.2rem_1.2rem]",
+    { "border border-rule": framed },
+    cls,
+  ]}
+  aria-hidden="true"
+>
+  <svg class="absolute inset-0 size-full" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none">
     <line x1={pad} y1={H - pad} x2={W - pad} y2={H - pad} stroke="var(--muted)" stroke-width="1" />
     <line x1={pad} y1={pad} x2={pad} y2={H - pad} stroke="var(--muted)" stroke-width="1" />
     {Array.from({ length: 9 }, (_, i) => <line x1={pad + (i * (W - pad * 2)) / 8} y1={H - pad} x2={pad + (i * (W - pad * 2)) / 8} y2={H - pad + 5} stroke="var(--muted)" />)}
     {dots.map(([x, y, r]) => <circle cx={x} cy={y} r={r} fill="var(--muted)" opacity="0.35" />)}
     <path d={path(b)} fill="none" stroke="var(--muted)" stroke-width="1.4" stroke-dasharray="4 4" vector-effect="non-scaling-stroke" />
-    <path d={path(a)} fill="none" stroke="var(--accent)" stroke-width="2" vector-effect="non-scaling-stroke" />
-    <circle cx={mark[0]} cy={mark[1]} r="5" fill="var(--paper)" stroke="var(--accent)" stroke-width="2" />
+    <path d={path(a)} fill="none" stroke="var(--pen)" stroke-width="2" vector-effect="non-scaling-stroke" />
+    <circle cx={mark[0]} cy={mark[1]} r="5" fill="var(--paper)" stroke="var(--pen)" stroke-width="2" />
   </svg>
-  <span class="plate-label">{label}</span>
 </div>

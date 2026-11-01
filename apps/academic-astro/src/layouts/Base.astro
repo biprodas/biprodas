@@ -1,31 +1,58 @@
 ---
 import "../styles/global.css";
+import { Image } from "astro:assets";
+import { ClientRouter } from "astro:transitions";
+import Ph from "../components/Ph.astro";
 import { profile, placeholderReport } from "../lib/data.ts";
+import { contentImage } from "../lib/images.ts";
 import { personBibtex } from "../lib/cite.ts";
+import { Icon } from "astro-icon/components";
+import { socialIcons, uiIcons } from "../lib/icons.ts";
+import { nav } from "../lib/nav.ts";
 
 interface Props {
   title?: string;
   description?: string;
 }
 const { title, description = profile.summary.value } = Astro.props;
-const fullTitle = title ? `${title} · ${profile.name}` : `${profile.name}`;
+const fullTitle = title ? `${title} | ${profile.name}` : profile.name;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 
-const nav = [
-  { href: "/about/", label: "About" },
-  { href: "/research/", label: "Research" },
-  { href: "/work/", label: "Work" },
-  { href: "/journey/", label: "Journey" },
-  { href: "/cv/", label: "CV" },
+// nav comes from lib/nav.ts
+const isCurrent = (href: string) => (href === "/" ? path === "/" : path.startsWith(href.replace(/\/$/, "")));
+
+const portrait = await contentImage(profile.avatar?.src);
+const platform: Record<string, string> = { github: "GitHub", linkedin: "LinkedIn", scholar: "Google Scholar", orcid: "ORCID", researchgate: "ResearchGate", x: "X" };
+const links = [
+  ...Object.entries(profile.social)
+    .filter(([k]) => socialIcons[k])
+    .map(([k, href]) => ({ label: platform[k] ?? k, short: platform[k] ?? k, href, icon: socialIcons[k]! })),
+  { label: "Website, biprodas.dev", short: "Website", href: profile.sites.engineering, icon: uiIcons.website },
 ];
-const isCurrent = (href: string) => path === href.replace(/\/$/, "") || path.startsWith(href);
+const city = [profile.location?.city, profile.location?.country].filter(Boolean).join(", ");
+const utc = profile.timezone
+  ? new Intl.DateTimeFormat("en", { timeZone: profile.timezone, timeZoneName: "shortOffset" })
+      .formatToParts(new Date())
+      .find((x) => x.type === "timeZoneName")
+      ?.value.replace("GMT", "UTC")
+  : undefined;
+const subtitle = profile.role;
+// Keep each role whole so the line only wraps at a "·" separator.
+const roleParts = subtitle?.split(/\s*·\s*/) ?? [];
+// The CV PDF: profile.cv.academic, or public/cv.pdf by default (the build warns if it's missing).
+const cvHref = profile.cv ?? "/cv.pdf";
+
+// Shared class lists
+const themeBtn =
+  "inline-grid cursor-pointer place-items-center rounded-full text-muted transition-colors hover:bg-pen-wash hover:text-pen [&_svg]:size-[1.05rem]";
+const chip =
+  "inline-flex items-center gap-1 rounded-full border border-rule bg-paper px-2 py-[0.32rem] font-sans text-[0.76rem] leading-snug font-medium text-ink-2 no-underline transition-colors hover:border-[color-mix(in_oklab,var(--pen)_45%,var(--rule))] hover:text-pen [&_svg]:size-[0.9rem]";
+const dash = "h-px border-0 bg-[linear-gradient(to_right,var(--rule)_50%,transparent_50%)] bg-size-[9px_1px]";
 
 const dev = import.meta.env.DEV;
 const phCount = dev ? placeholderReport().length : 0;
 const year = new Date().getFullYear();
-
-const sameAs = Object.values(profile.social);
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -34,7 +61,7 @@ const jsonLd = {
   email: `mailto:${profile.email}`,
   jobTitle: "Software Engineer",
   alumniOf: "Jashore University of Science & Technology",
-  sameAs: [profile.sites.engineering, ...sameAs],
+  sameAs: [profile.sites.engineering, ...Object.values(profile.social)],
 };
 ---
 <!doctype html>
@@ -47,8 +74,8 @@ const jsonLd = {
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta name="theme-color" content="#f6f2e9" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#16140f" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f7f7f3" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#11141b" media="(prefers-color-scheme: dark)" />
     <meta property="og:type" content="profile" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
@@ -56,56 +83,204 @@ const jsonLd = {
     <meta name="twitter:card" content="summary" />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <script is:inline>
-      try {
-        const t = localStorage.getItem("theme");
-        if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
-      } catch {}
+      // Apply the saved theme before paint, and again after each client-side navigation
+      // (the router replaces <html> attributes with the new page's, which drops data-theme).
+      (() => {
+        const apply = () => {
+          try {
+            const t = localStorage.getItem("theme");
+            if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+          } catch {}
+        };
+        apply();
+        document.addEventListener("astro:after-swap", apply);
+      })();
     </script>
+    <!-- Smooth in-page navigation with hover prefetch, instead of full page reloads. -->
+    <ClientRouter />
   </head>
   <body>
-    <a class="skip" href="#main">Skip to content</a>
-    <header class="site-head nb">
-      <div class="bar wide">
-        <a class="wordmark" href="/" aria-label={`${profile.name}, home`}>{profile.name}<span>.</span></a>
-        <nav class="site-nav" aria-label="Main">
-          {nav.map((n) => <a href={n.href} aria-current={isCurrent(n.href) ? "page" : undefined}>{n.label}</a>)}
-          <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle>◐</button>
+    <a class="absolute -top-12 left-4 z-50 bg-ink px-3 py-1.5 text-paper focus:top-4" href="#main">Skip to content</a>
+    <div
+      class="grid grid-cols-1 lg:grid-cols-[var(--side-w)_minmax(0,1fr)] lg:bg-[linear-gradient(to_right,var(--side)_var(--side-w),transparent_var(--side-w))] lg:bg-no-repeat print:block"
+    >
+      <aside
+        transition:name="sidebar"
+        transition:animate="none"
+        class="identity relative bg-side px-(--pad) pt-4 pb-3.5 motion-reduce:scroll-auto lg:sticky lg:top-0 lg:flex lg:h-dvh lg:flex-col lg:overflow-y-auto lg:overscroll-contain lg:scroll-smooth lg:px-7 lg:pt-[1.9rem] lg:pb-[1.1rem] lg:*:shrink-0 print:hidden"
+        aria-label="About the author"
+      >
+        <div class="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 lg:grid-cols-[auto_minmax(0,1fr)] lg:gap-[0.85rem]">
+          {
+            portrait && (
+              <a
+                class="block size-[2.9rem] overflow-hidden rounded-full bg-paper-2 lg:size-[3.4rem]"
+                href="/"
+                tabindex="-1"
+                aria-hidden="true"
+              >
+                <Image
+                  src={portrait}
+                  alt=""
+                  width={128}
+                  widths={[64, 128]}
+                  sizes="3.4rem"
+                  loading="eager"
+                  class="size-full object-cover object-[50%_30%] dark:brightness-[.86] dark:contrast-[1.05]"
+                />
+              </a>
+            )
+          }
+          <div class="min-w-0">
+            <a class="block font-serif text-[1.15rem] leading-tight font-semibold text-ink no-underline" href="/">{profile.name}</a>
+            {subtitle && (
+              <p class="mt-0.5 truncate font-sans text-[0.74rem] leading-snug text-muted lg:whitespace-normal" title={subtitle}>
+                {roleParts.map((r, i) => (<>{i > 0 && " · "}<span class="whitespace-nowrap">{r}</span></>))}
+              </p>
+            )}
+          </div>
+          <button class:list={[themeBtn, "size-9 lg:hidden"]} type="button" data-theme-toggle aria-label="Switch to dark mode" title="Switch to dark mode">
+            <Icon name={uiIcons.moon} class="dark:hidden" aria-hidden="true" focusable="false" />
+            <Icon name={uiIcons.sun} class="hidden dark:block" aria-hidden="true" focusable="false" />
+          </button>
+        </div>
+
+        <Ph f={profile.bio} tag="p" class="mt-4 hidden font-serif text-[0.92rem] leading-[1.6] text-ink-2 italic lg:block">“{profile.bio.value}”</Ph>
+        <hr class:list={[dash, "mt-4 mb-3 hidden lg:block"]} />
+
+        <nav class="lg:-mx-3" aria-label="Main">
+          <ol class="mt-3 flex flex-wrap gap-x-[1.05rem] gap-y-0.5 lg:m-0 lg:grid lg:gap-0.5">
+            {
+              nav.map((n, i) => (
+                <li>
+                  <a
+                    href={n.href}
+                    aria-current={isCurrent(n.href) ? "page" : undefined}
+                    class="group flex items-baseline gap-[0.9rem] py-0.5 text-[0.95rem] text-ink-2 no-underline hover:text-pen aria-[current=page]:font-semibold aria-[current=page]:text-ink lg:relative lg:rounded-[0.6rem] lg:px-3 lg:py-[0.3rem] lg:text-[1rem] lg:transition-colors lg:hover:bg-pen-wash/60 lg:aria-[current=page]:bg-[color-mix(in_oklab,var(--pen)_11%,var(--side))] lg:aria-[current=page]:after:absolute lg:aria-[current=page]:after:top-1/2 lg:aria-[current=page]:after:right-[0.95rem] lg:aria-[current=page]:after:-mt-[0.16rem] lg:aria-[current=page]:after:size-[0.32rem] lg:aria-[current=page]:after:rounded-full lg:aria-[current=page]:after:bg-pen lg:aria-[current=page]:after:content-['']"
+                  >
+                    <span
+                      class="hidden min-w-[1.2rem] font-sans text-[0.7rem] font-semibold text-muted/70 tabular-nums group-aria-[current=page]:text-pen lg:inline"
+                      aria-hidden="true"
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span class="font-serif">{n.label}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ol>
         </nav>
-      </div>
-    </header>
 
-    <main id="main" class="nb">
-      <slot />
-    </main>
-
-    <footer class="site-foot nb">
-      <div class="cols wide">
-        <div>
-          <h4>Colophon</h4>
-          <p>
-            Set in <i>Newsreader</i> and <span class="mono">IBM Plex Mono</span>. Built with Astro from a single YAML
-            source that also feeds <a href={profile.sites.engineering}>biprodas.dev</a> and my{" "}
-            <a href={profile.social.github}>GitHub profile</a>. No trackers, near-zero JavaScript.
-          </p>
-          <p style="margin-top:.8rem">© {year} {profile.name} · <a href={`mailto:${profile.email}`}>{profile.email}</a></p>
+        <div class="mt-auto hidden pt-4 lg:block">
+          <section class="rounded-[0.9rem] border border-rule/80 bg-paper px-4 pt-3 pb-3.5" aria-labelledby="now-h">
+            <h2 class="mb-2 flex items-center gap-2 font-sans text-[0.68rem] font-bold tracking-[0.14em] text-ink-2 uppercase" id="now-h">
+              <span class="size-2 rounded-full bg-pen shadow-[0_0_0_3px_var(--pen-wash)]" aria-hidden="true"></span>Now
+            </h2>
+            <Ph f={profile.currentlyFocus} tag="p" class="font-serif text-[0.88rem] leading-[1.55] text-ink-2 italic">{profile.currentlyFocus.value}</Ph>
+            <Ph f={profile.openTo} tag="p" class="mt-2 font-sans text-[0.76rem] leading-snug text-muted">Open to {profile.openTo.value[0]}</Ph>
+          </section>
+          <hr class:list={[dash, "mt-3.5 mb-3"]} />
+          <ul class="flex flex-wrap gap-1.5" aria-label="Profiles">
+            {
+              links.map(({ label, href, icon, short }) => (
+                <li>
+                  <a class={chip} href={href} aria-label={label}>
+                    <Icon name={icon} aria-hidden="true" focusable="false" />
+                    {short}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+          <a class:list={[chip, "mt-1.5"]} href={`mailto:${profile.email}`} aria-label={`Email ${profile.email}`}>
+            <Icon name={uiIcons.email} aria-hidden="true" focusable="false" />
+            {profile.email}
+          </a>
+          <a
+            class="mt-3 flex items-center justify-center gap-2 rounded-full bg-pen px-4 py-2 font-sans text-[0.86rem] font-semibold text-paper no-underline transition-colors hover:bg-ink hover:text-paper"
+            href={cvHref}
+            download
+          >
+            <Icon name={uiIcons.download} class="size-4" aria-hidden="true" focusable="false" />
+            Download CV
+          </a>
+          <div class="mt-1.5 -mr-2 flex items-center justify-between gap-2">
+            {
+              (city || utc) && (
+                <p class="flex items-center gap-1.5 font-sans text-[0.74rem] text-muted [&_svg]:size-[0.85rem]">
+                  <Icon name={uiIcons.location} aria-hidden="true" focusable="false" />
+                  {[city, utc].filter(Boolean).join(" · ")}
+                </p>
+              )
+            }
+            <button class:list={[themeBtn, "size-8"]} type="button" data-theme-toggle aria-label="Switch to dark mode" title="Switch to dark mode">
+              <Icon name={uiIcons.moon} class="dark:hidden" aria-hidden="true" focusable="false" />
+              <Icon name={uiIcons.sun} class="hidden dark:block" aria-hidden="true" focusable="false" />
+            </button>
+          </div>
         </div>
-        <div>
-          <h4>Cite this page</h4>
-          <pre class="bibtex">{personBibtex(profile.name, profile.sites.academic, year)}</pre>
-        </div>
-      </div>
-    </footer>
+      </aside>
 
-    {dev && phCount > 0 && <div class="ph-banner">{phCount} placeholder fields in use. Hover the amber underlines to see which.</div>}
+      <div
+        class="min-w-0 bg-paper"
+      >
+        <main id="main" class="nb pt-9 lg:pt-18 print:p-0">
+          <slot />
+        </main>
+        <footer class="nb mt-24 pt-6 pb-12 text-[0.86rem] text-muted print:hidden">
+          <div class="wide grid gap-6 border-t border-rule pt-6 md:grid-cols-2">
+            <div>
+              <h4 class="mb-1.5 text-[0.95rem] font-semibold text-ink-2">About this site</h4>
+              <p>
+                Set in Lora and Nunito Sans. Built with Astro from one YAML source that also feeds{" "}
+                <a href={profile.sites.engineering}>biprodas.dev</a> and my <a href={profile.social.github}>GitHub profile</a>.
+                No trackers.
+              </p>
+              <p class="mt-3">© {year} {profile.name}</p>
+            </div>
+            <div>
+              <h4 class="mb-1.5 text-[0.95rem] font-semibold text-ink-2">Cite this page</h4>
+              <pre class="overflow-x-auto border border-rule bg-paper-2 px-3.5 py-3 font-mono text-[0.7rem] leading-[1.55] whitespace-pre text-ink-2">{personBibtex(profile.name, profile.sites.academic, year)}</pre>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    {dev && phCount > 0 && <div class="fixed right-3 bottom-3 z-60 max-w-72 border border-dashed border-(--ph) bg-paper px-2.5 py-1 text-[0.78rem] text-(--ph)">{phCount} fields still use placeholder text. Hover a dotted underline to see which.</div>}
 
     <script is:inline>
-      document.querySelector("[data-theme-toggle]")?.addEventListener("click", () => {
+      (() => {
+        if (window.__themeToggle) return;
+        window.__themeToggle = true;
         const root = document.documentElement;
-        const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
-        const next = dark ? "light" : "dark";
-        root.dataset.theme = next;
-        try { localStorage.setItem("theme", next); } catch {}
-      });
+        const isDark = () => (root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches);
+        const setup = () => {
+          const btns = document.querySelectorAll("[data-theme-toggle]");
+          const label = () => {
+            const text = isDark() ? "Switch to light mode" : "Switch to dark mode";
+            btns.forEach((b) => {
+              b.setAttribute("aria-label", text);
+              b.title = text;
+            });
+          };
+          label();
+          btns.forEach((b) => {
+            if (b.dataset.bound) return;
+            b.dataset.bound = "1";
+            b.addEventListener("click", () => {
+              const next = isDark() ? "light" : "dark";
+              root.dataset.theme = next;
+              try { localStorage.setItem("theme", next); } catch {}
+              label();
+            });
+          });
+        };
+        setup();
+        // Runs again after each client-side navigation, when the sidebar's buttons are new elements.
+        document.addEventListener("astro:page-load", setup);
+      })();
     </script>
   </body>
 </html>

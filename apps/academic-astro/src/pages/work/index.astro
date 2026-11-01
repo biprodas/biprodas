@@ -1,18 +1,20 @@
 ---
+import Eyebrow from "../../components/Eyebrow.astro";
 import Base from "../../layouts/Base.astro";
 import Figure from "../../components/Figure.astro";
 import { projects } from "../../lib/data.ts";
+import { ui } from "../../lib/ui.ts";
 ---
 <Base title="Work" description="Systems I have built, written up as figures with the questions they raised.">
   <header>
-    <p class="page-kicker">Work</p>
-    <h1 class="page-title">Systems, <em>as figures</em></h1>
-    <p class="lede">
+    <Eyebrow />
+    <h1 class={ui.pageTitle}>Systems I have built</h1>
+    <p class={ui.lede}>
       Each project is described like an experiment: the problem, what made it hard, and the question it left me with.
       Several were built for clients under NDA, so some have no public link.
     </p>
   </header>
-  <div class="figures" style="margin-top:3.5rem">
+  <div class="mt-14 grid gap-11">
     {projects.map((p, i) => <Figure project={p} n={i + 1} />)}
   </div>
 </Base>

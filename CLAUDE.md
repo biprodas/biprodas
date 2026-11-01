@@ -15,6 +15,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
    - `apps/academic-astro`: Astro, deployed to biprodas.com. Audience: MS/PhD committees and researchers. Engineering readers are secondary.
    - `apps/dev`: Next.js App Router, deployed to biprodas.dev. Audience: recruiters and clients. Creative and interactive.
    - `apps/academic-astro` is scaffolded (Astro 7, static, "research notebook" design). `apps/dev` is not yet. Both deploy as separate Vercel projects from this repo.
+   - `apps/academic-astro` styles with Tailwind v4 utilities in the markup. Theme tokens and the few CSS-only mechanics live in `src/styles/global.css`; repeated class lists live in `src/lib/ui.ts`. Don't add new named CSS classes for one-off styling.
    - `apps/academic-astro/src/content/placeholders.ts` holds invented stand-in copy, shown only while the matching YAML field is empty. It is the one place invented text is allowed. Never move it into the YAML. `src/lib/data.ts` merges real data with these placeholders.
 
 ## Commands

@@ -1,0 +1,55 @@
+---
+import Base from "../layouts/Base.astro";
+import Eyebrow from "../components/Eyebrow.astro";
+import Section from "../components/Section.astro";
+import { experience, projects, skills } from "../lib/data.ts";
+import { ui } from "../lib/ui.ts";
+
+const levelLabel: Record<string, string> = { expert: "expert", advanced: "advanced", intermediate: "intermediate", familiar: "familiar" };
+
+// Where each technology was used, from experience.yaml and projects.yaml (case-insensitive).
+const usedIn = new Map<string, Set<string>>();
+const note = (tech: string, where: string) => {
+  const key = tech.toLowerCase();
+  if (!usedIn.has(key)) usedIn.set(key, new Set());
+  usedIn.get(key)!.add(where);
+};
+for (const e of experience) for (const t of e.tech) note(t, e.org.name);
+for (const p of projects) for (const t of p.tech) note(t, p.title);
+const whereUsed = (name: string) => [...(usedIn.get(name.toLowerCase()) ?? [])];
+---
+<Base title="Skills" description="Languages, frameworks, infrastructure and practices I work with.">
+  <header>
+    <Eyebrow />
+    <h1 class={ui.pageTitle}>What I work with</h1>
+    <p class={ui.lede}>
+      The languages, frameworks and practices I use, grouped by area. Hover a skill to see where I have used it; the{" "}
+      <a href="/work/">work</a> and <a href="/journey/">journey</a> pages have the details, including certifications.
+    </p>
+  </header>
+
+  <Section title="By area" id="areas" class="wide">
+    <div class="grid gap-3 md:grid-cols-2">
+      {
+        skills.map((g) => (
+          <section class:list={[ui.card, "px-5 pt-4 pb-5"]} aria-labelledby={`g-${g.group}`}>
+            <h3 id={`g-${g.group}`} class="text-[1.05rem] font-semibold">{g.group}</h3>
+            <ul class="mt-3 flex flex-wrap gap-1.5">
+              {g.items.map((s) => {
+                const where = whereUsed(s.name);
+                return (
+                  <li class={ui.pill} title={where.length ? `Used in ${where.join(", ")}` : undefined}>
+                    {s.name}
+                    {s.level && <span class="ml-1.5 text-[0.72rem] text-muted">{levelLabel[s.level]}</span>}
+                    {s.years && <span class="ml-1.5 text-[0.72rem] text-muted">{s.years} yrs</span>}
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </Section>
+
+</Base>

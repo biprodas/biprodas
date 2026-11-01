@@ -14,7 +14,10 @@ import type { ResearchInterest } from "@biprodas/content";
 
 export const placeholders = {
   // PLACEHOLDER → profile.headline.academic
-  headline: "Software engineer, working my way toward research on reliable AI systems.",
+  headline: "I build systems people can rely on.",
+
+  // PLACEHOLDER → profile.bio.academic
+  bio: "I build data-intensive systems for a living and want to study how to make AI-driven ones trustworthy.",
 
   // PLACEHOLDER → profile.summary.academic
   summary:
@@ -69,6 +72,47 @@ export const placeholders = {
     "After graduating I built software for a living. I co-founded Semicolon IT Solutions, led a team of engineers, and shipped systems for microfinance NGOs, government land-acquisition projects and companies in Seoul and Sydney. Along the way I mentored more than twenty junior engineers, which is still the work I am proudest of.",
     "Outside of work I read widely, mostly history and popular science, and I teach algorithms to anyone who will sit still long enough. I am happiest when explaining something hard in a way that finally clicks.",
   ].join("\n\n"),
+
+  // PLACEHOLDER → profile.contact.*
+  contact: {
+    intro:
+      "I read every message myself. If you include a specific question, my reply will be specific too.",
+    responseTime: "Usually replies within a few days",
+    topics: [
+      {
+        title: "Graduate admissions",
+        body: "If you are on an admissions committee or a prospective advisor, I am glad to share my research statement, transcripts, or the code behind the projects on this site.",
+      },
+      {
+        title: "Research collaboration",
+        body: "I am open to working on evaluation of LLM-based systems, reliability of agentic workflows, and Bengali language technology.",
+      },
+      {
+        title: "Engineering opportunities",
+        body: "For recruiters and teams: the engineering side of my work, products and case studies, lives at biprodas.dev.",
+      },
+      {
+        title: "Mentoring",
+        body: "If you are an early-career engineer looking for direction, or want to talk algorithms, just write. No agenda needed.",
+      },
+    ],
+  },
+
+  // PLACEHOLDER → profile.principles
+  principles: [
+    {
+      title: "Measure before believing.",
+      note: "If a system matters, I want a number for how often it is wrong, and I want to know how that number was produced.",
+    },
+    {
+      title: "Invariants over heroics.",
+      note: "The best production fix I made was a constraint that made a whole class of bug impossible.",
+    },
+    {
+      title: "Explain it to someone new.",
+      note: "Mentoring taught me that if I cannot explain a design to a junior engineer, I do not yet understand it.",
+    },
+  ],
 
   // PLACEHOLDER → profile.languages
   languages: [

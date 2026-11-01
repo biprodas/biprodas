@@ -1,52 +1,59 @@
 ---
+import Eyebrow from "../components/Eyebrow.astro";
 import Base from "../layouts/Base.astro";
 import Section from "../components/Section.astro";
 import Timeline from "../components/Timeline.astro";
 import Ph from "../components/Ph.astro";
-import { education, experience, teaching, awards, certifications, testScores, skills } from "../lib/data.ts";
+import { profile, education, experience, teaching, awards, certifications, testScores } from "../lib/data.ts";
 import { fmtRange, fmtDate, yearRange, duration } from "../lib/dates.ts";
 import { buildTimeline } from "../lib/timeline.ts";
+import { ui } from "../lib/ui.ts";
 
 const timeline = buildTimeline(education, experience);
+const cvHref = profile.cv ?? "/cv.pdf";
 const place = (l?: { city?: string; country: string }) => (l ? [l.city, l.country].filter(Boolean).join(", ") : "");
 const label = (s?: string) => s?.replace(/-/g, " ");
-let sec = 0;
-const n = () => ++sec;
 ---
 <Base title="Journey" description="Education, research-adjacent work, teaching, awards and certifications.">
   <header>
-    <p class="page-kicker">Journey</p>
-    <h1 class="page-title">From a CSE lab in Jashore <em>to here</em></h1>
-    <p class="lede">The long version of my CV, in chronological layers. A one-page version is on the <a href="/cv/">CV page</a>.</p>
+    <Eyebrow />
+    <h1 class={ui.pageTitle}>Education and work, in order</h1>
+    <p class={ui.lede}>The long version of my CV, in chronological layers. <a href={cvHref} download>Download the PDF</a>.</p>
   </header>
 
-  <div class="wide" style="margin-top:3rem"><Timeline nodes={timeline} horizontal /></div>
+  <div class="wide mt-12"><Timeline nodes={timeline} horizontal /></div>
 
-  <Section n={n()} title="Education" id="education">
-    <ul class="entries">
+  <Section title="Education" id="education">
+    <ul class={ui.entries}>
       {
         education.map((e) => (
-          <li class="entry has-hang">
-            <span class="hang">{yearRange(e.start, e.end)}</span>
-            <h3>{e.degree.name}</h3>
-            <div class="org">{e.institution.url ? <a href={e.institution.url}>{e.institution.name}</a> : e.institution.name}</div>
-            <div class="where">{place(e.institution.location)} · {fmtRange(e.start, e.end)}{e.status !== "completed" && ` · ${e.status}`}</div>
-            <div class="body prose">
+          <li class="print:break-inside-avoid">
+            <span class="mb-0.5 block text-meta">{yearRange(e.start, e.end)}</span>
+            <h3 class={ui.entryTitle}>{e.degree.name}</h3>
+            <div class={ui.entryOrg}>{e.institution.url ? <a href={e.institution.url}>{e.institution.name}</a> : e.institution.name}</div>
+            <div class="text-meta">{place(e.institution.location)}, {fmtRange(e.start, e.end)}{e.status !== "completed" && `, ${e.status}`}</div>
+            <div class:list={[ui.prose, "mt-3"]}>
               {e.gradeF.value && (
-                <p><Ph f={e.gradeF}><span class="mono muted">{e.gradeF.value.kind.toUpperCase()}</span> {e.gradeF.value.value}{e.gradeF.value.scale && ` / ${e.gradeF.value.scale}`}{e.gradeF.value.rank && ` · ${e.gradeF.value.rank}`}</Ph></p>
+                <p>
+                  <Ph f={e.gradeF}>
+                    <span class="text-meta">{e.gradeF.value.kind.toUpperCase()}</span> {e.gradeF.value.value}
+                    {e.gradeF.value.scale && ` / ${e.gradeF.value.scale}`}
+                    {e.gradeF.value.rank && `, ${e.gradeF.value.rank}`}
+                  </Ph>
+                </p>
               )}
               {e.thesisF.value && (
-                <Ph f={e.thesisF} tag="div" class="note-box" style="font-style:normal">
-                  <div class="mono" style="color:var(--accent);margin-bottom:.2rem">{e.thesisF.value.kind}</div>
-                  <div style="font-weight:500">{e.thesisF.value.title}</div>
-                  {e.thesisF.value.supervisors.length > 0 && <div class="muted" style="font-size:.9rem">Supervised by {e.thesisF.value.supervisors.join(", ")}</div>}
-                  {e.thesisF.value.abstract && <p style="font-size:.93rem;margin-top:.4rem">{e.thesisF.value.abstract}</p>}
+                <Ph f={e.thesisF} tag="div" class={ui.noteBox}>
+                  <div class="mb-1 text-meta text-pen!">{e.thesisF.value.kind}</div>
+                  <div class="font-medium text-ink">{e.thesisF.value.title}</div>
+                  {e.thesisF.value.supervisors.length > 0 && <div class="text-[0.9rem] text-muted">Supervised by {e.thesisF.value.supervisors.join(", ")}</div>}
+                  {e.thesisF.value.abstract && <p class="mt-1.5 text-[0.93rem]">{e.thesisF.value.abstract}</p>}
                 </Ph>
               )}
               {e.courseworkF.value.length > 0 && (
                 <div>
-                  <div class="mono muted" style="margin-bottom:.35rem">selected coursework</div>
-                  <Ph f={e.courseworkF} tag="ul" class="tags">{e.courseworkF.value.map((c) => <li class="tag">{c}</li>)}</Ph>
+                  <div class="mb-1.5 text-meta">selected coursework</div>
+                  <Ph f={e.courseworkF} tag="ul" class={ui.tags}>{e.courseworkF.value.map((c) => <li>{c}</li>)}</Ph>
                 </div>
               )}
               {e.honors.length > 0 && <ul class="bullets">{e.honors.map((h) => <li>{h}</li>)}</ul>}
@@ -57,23 +64,23 @@ const n = () => ++sec;
     </ul>
   </Section>
 
-  <Section n={n()} title="Experience" id="experience">
-    <ul class="entries">
+  <Section title="Experience" id="experience">
+    <ul class={ui.entries}>
       {
         experience.map((e) => (
-          <li class="entry has-hang">
-            <span class="hang">{yearRange(e.start, e.end)}</span>
-            <h3>{e.org.url ? <a href={e.org.url}>{e.org.name}</a> : e.org.name}</h3>
-            <div class="where">
-              {[place(e.org.location), label(e.workMode), label(e.positions[0]?.employmentType), duration(e.start, e.end)].filter(Boolean).join(" · ")}
+          <li class="print:break-inside-avoid">
+            <span class="mb-0.5 block text-meta">{yearRange(e.start, e.end)}</span>
+            <h3 class={ui.entryTitle}>{e.org.url ? <a href={e.org.url} class="text-ink">{e.org.name}</a> : e.org.name}</h3>
+            <div class="text-meta">
+              {[place(e.org.location), label(e.workMode), label(e.positions[0]?.employmentType), duration(e.start, e.end)].filter(Boolean).join(", ")}
             </div>
-            <ul class="roles">
-              {e.positions.map((p) => (<li><span>{p.title}</span><span class="mono">{fmtRange(p.start, p.end)}</span></li>))}
+            <ul class="mt-1.5 text-[0.95rem] *:flex *:justify-between *:gap-4 *:border-b *:border-rule *:py-0.5">
+              {e.positions.map((p) => (<li><span>{p.title}</span><span class="text-meta whitespace-nowrap">{fmtRange(p.start, p.end)}</span></li>))}
             </ul>
             {e.highlights.length > 0 && (
-              <div class="body prose"><ul class="bullets">{e.highlights.map((h) => <li>{h}</li>)}</ul></div>
+              <ul class="bullets mt-3 text-ink-2">{e.highlights.map((h) => <li>{h}</li>)}</ul>
             )}
-            {e.tech.length > 0 && <ul class="tags" style="margin-top:.7rem">{e.tech.map((t) => <li class="tag">{t}</li>)}</ul>}
+            {e.tech.length > 0 && <ul class:list={[ui.tags, "mt-3"]}>{e.tech.map((t) => <li>{t}</li>)}</ul>}
           </li>
         ))
       }
@@ -82,14 +89,14 @@ const n = () => ++sec;
 
   {
     teaching.length > 0 && (
-      <Section n={n()} title="Teaching & mentoring" id="teaching">
-        <ul class="entries">
+      <Section title="Teaching & mentoring" id="teaching">
+        <ul class={ui.entries}>
           {teaching.map((t) => (
-            <li class="entry has-hang">
-              {t.start && <span class="hang">{yearRange(t.start, t.end)}</span>}
-              <h3>{t.title}</h3>
-              <div class="where">{[label(t.role), t.org.name, t.audienceDescription].filter(Boolean).join(" · ")}</div>
-              {t.summary && <p class="body">{t.summary}</p>}
+            <li class="print:break-inside-avoid">
+              {t.start && <span class="mb-0.5 block text-meta">{yearRange(t.start, t.end)}</span>}
+              <h3 class={ui.entryTitle}>{t.title}</h3>
+              <div class="text-meta">{[label(t.role), t.org.name, t.audienceDescription].filter(Boolean).join(", ")}</div>
+              {t.summary && <p class="mt-3">{t.summary}</p>}
             </li>
           ))}
         </ul>
@@ -99,14 +106,14 @@ const n = () => ++sec;
 
   {
     awards.length > 0 && (
-      <Section n={n()} title="Awards & achievements" id="awards">
-        <ul class="compact">
+      <Section title="Awards & achievements" id="awards">
+        <ul class={ui.compact}>
           {awards.map((a) => (
             <li>
-              <span class="mono">{fmtDate(a.date) || "—"}</span>
+              <span class="text-meta">{fmtDate(a.date) || "—"}</span>
               <div>
-                {a.title}{a.result && <span class="muted"> · {a.result}</span>}
-                <div class="sub">{[a.issuer, a.description].filter(Boolean).join(" · ")}</div>
+                {a.title}{a.result && <span class="text-muted">, {a.result}</span>}
+                <div class={ui.sub}>{[a.issuer, a.description].filter(Boolean).join(", ")}</div>
               </div>
             </li>
           ))}
@@ -117,14 +124,14 @@ const n = () => ++sec;
 
   {
     certifications.length > 0 && (
-      <Section n={n()} title="Certifications" id="certifications">
-        <ul class="compact">
+      <Section title="Certifications" id="certifications">
+        <ul class={ui.compact}>
           {certifications.map((c) => (
             <li>
-              <span class="mono">{fmtDate(c.issued)}</span>
+              <span class="text-meta">{fmtDate(c.issued)}</span>
               <div>
                 {c.url || c.infoUrl ? <a href={c.url ?? c.infoUrl}>{c.title}</a> : c.title}
-                <div class="sub">{c.issuer}</div>
+                <div class={ui.sub}>{c.issuer}</div>
               </div>
             </li>
           ))}
@@ -135,14 +142,14 @@ const n = () => ++sec;
 
   {
     testScores.length > 0 && (
-      <Section n={n()} title="Test scores" id="tests">
-        <ul class="compact">
+      <Section title="Test scores" id="tests">
+        <ul class={ui.compact}>
           {testScores.map((t) => (
             <li>
-              <span class="mono">{fmtDate(t.date)}</span>
+              <span class="text-meta">{fmtDate(t.date)}</span>
               <div>
                 {t.test === "other" ? t.name : t.test} <b>{t.score}</b>
-                <div class="sub">{Object.entries(t.sections).map(([k, v]) => `${k} ${v}`).join(" · ")}</div>
+                <div class={ui.sub}>{Object.entries(t.sections).map(([k, v]) => `${k} ${v}`).join(", ")}</div>
               </div>
             </li>
           ))}
@@ -151,18 +158,4 @@ const n = () => ++sec;
     )
   }
 
-  {
-    skills.length > 0 && (
-      <Section n={n()} title="Technical foundations" id="skills">
-        <ul class="compact">
-          {skills.map((g) => (
-            <li style="grid-template-columns:9rem 1fr">
-              <span class="mono">{g.group}</span>
-              <ul class="tags">{g.items.map((s) => <li class="tag">{s.name}</li>)}</ul>
-            </li>
-          ))}
-        </ul>
-      </Section>
-    )
-  }
 </Base>

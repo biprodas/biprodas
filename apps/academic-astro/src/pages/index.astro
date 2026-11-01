@@ -1,85 +1,302 @@
 ---
 import Base from "../layouts/Base.astro";
 import Section from "../components/Section.astro";
-import Sidenote from "../components/Sidenote.astro";
-import Figure from "../components/Figure.astro";
+import WorkCard from "../components/WorkCard.astro";
 import Timeline from "../components/Timeline.astro";
-import Currently from "../components/Currently.astro";
 import Ph from "../components/Ph.astro";
-import { profile, selectedProjects, education, experience, projects, teaching } from "../lib/data.ts";
+import { profile, selectedProjects, education, experience, projects, paragraphs, skills, awards, certifications } from "../lib/data.ts";
+import MarginNote from "../components/MarginNote.astro";
 import { buildTimeline } from "../lib/timeline.ts";
+import Interests from "../components/Interests.astro";
+import { ui } from "../lib/ui.ts";
+import { glanceFacts } from "../lib/glance.ts";
+import { fmtRange } from "../lib/dates.ts";
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import { contentImage } from "../lib/images.ts";
+import { uiIcons } from "../lib/icons.ts";
 
-const firstJob = experience.map((e) => e.start).sort()[0] ?? "2018";
-const years = new Date().getFullYear() - Number(firstJob.slice(0, 4));
 const timeline = buildTimeline(education, experience);
-const selected = selectedProjects(3);
-const loc = [profile.location?.city, profile.location?.country].filter(Boolean).join(", ");
-const social = Object.entries(profile.social);
+const selected = selectedProjects(4);
+const portrait = await contentImage(profile.avatar?.src);
+const firstName = profile.name.split(" ")[0];
+const city = [profile.location?.city, profile.location?.country].filter(Boolean).join(", ");
+// Each item stays whole, so the line only wraps at a "·".
+const eyebrowParts = profile.titles;
+const icpc = awards.find((a) => a.kind === "competition" && /ICPC/.test(a.title));
+const solved = awards.find((a) => a.kind === "achievement");
+const utc = profile.timezone
+  ? new Intl.DateTimeFormat("en", { timeZone: profile.timezone, timeZoneName: "shortOffset" })
+      .formatToParts(new Date())
+      .find((x) => x.type === "timeZoneName")
+      ?.value.replace("GMT", "UTC")
+  : undefined;
+const story = paragraphs(profile.about.value);
+const facts = glanceFacts();
+// "At a glance" beside the hero (notes column, wide screens). Off for now: the section below
+// the hero shows at every width. Set to true to bring the side version back.
+const showGlanceBesideHero = false;
+// Home shows the groups most relevant to research first; /skills has everything.
+const previewOrder = ["Languages", "AI & LLMs", "Backend & Architecture", "Data & Messaging", "Cloud & DevOps"];
+const skillsPreview = previewOrder.map((name) => skills.find((g) => g.group === name)).filter((g) => g !== undefined);
+const skillCount = skills.reduce((n, g) => n + g.items.length, 0);
+const latest = experience[0];
+const cardLabel = "font-sans text-[0.66rem] font-bold tracking-[0.16em] text-muted uppercase";
+// Dividers that fade out toward both ends.
+const vLine = "absolute inset-y-0 w-px bg-[linear-gradient(to_bottom,transparent,var(--rule)_22%,var(--rule)_78%,transparent)]";
+const hLine = "absolute inset-x-0 h-px bg-[linear-gradient(to_right,transparent,var(--rule)_18%,var(--rule)_82%,transparent)]";
+const prof: Record<string, string> = {
+  native: "native",
+  "full-professional": "full professional",
+  professional: "professional",
+  "limited-working": "limited working",
+  elementary: "elementary",
+};
 ---
 <Base>
-  <header class="hero">
-    <p class="page-kicker reveal">Personal homepage · est. {firstJob.slice(0, 4)}</p>
-    <h1 class="hero-name reveal d1">{profile.name}<span class="dot">.</span></h1>
-    <Ph f={profile.headline} tag="p" class="hero-headline reveal d2">{profile.headline.value}</Ph>
-    <p class="lede reveal d3">
-      <Ph f={profile.summary}>{profile.summary.value}</Ph>
-      <Sidenote n="1">
-        In numbers: {years}+ years in industry, {experience.length} organisations, {projects.length} systems described on this site,
-        and {teaching.length} stints teaching or mentoring. The full record is in the <a href="/journey/">journey</a>.
-      </Sidenote>
+  <header>
+    {
+      portrait && (
+        <Image
+          src={portrait}
+          alt={profile.avatar?.alt ?? ""}
+          width={256}
+          widths={[128, 256]}
+          sizes="8rem"
+          loading="eager"
+          class="size-28 rounded-full bg-paper-2 object-cover object-[50%_30%] sm:size-32 dark:brightness-[.86]"
+        />
+      )
+    }
+    <!--
+      At a glance, in the notes column beside the hero (wide screens only). Placed just before the
+      role line and given the same top margin, so it starts level with it. Two lines per fact.
+    -->
+    {showGlanceBesideHero && (
+    <aside class="margin-block hidden notes:mt-8 notes:block" aria-labelledby="glance-side-h">
+      <h2 id="glance-side-h" class="font-sans text-[0.7rem] leading-normal font-bold tracking-[0.18em] text-ink-2 uppercase">At a glance</h2>
+      <dl class="mt-2">
+        {
+          facts.map((f, i) => (
+            <div class="group relative py-2">
+              {i > 0 && <span class:list={[hLine, "top-0"]} aria-hidden="true" />}
+              <div class="flex items-baseline justify-between gap-3">
+                <dt class="font-sans text-[0.6rem] font-bold tracking-[0.16em] text-muted uppercase">{f.label}</dt>
+                <dd class="font-serif text-[1.08rem] leading-tight font-semibold whitespace-nowrap text-ink transition-colors duration-200 group-hover:text-pen">
+                  {f.value}
+                </dd>
+              </div>
+              {f.detail && <dd class="mt-0.5 truncate text-[0.74rem] leading-snug text-muted" title={f.detail}>{f.detail}</dd>}
+            </div>
+          ))
+        }
+      </dl>
+    </aside>
+    )}
+    <p class="mt-8 font-sans text-[0.7rem] leading-relaxed font-bold tracking-[0.18em] text-ink-2 uppercase">
+      {eyebrowParts.map((part, i) => (<>{i > 0 && " · "}<span class="whitespace-nowrap">{part}</span></>))}
     </p>
-    <div class="hero-meta reveal d3">
-      {loc && <span>{loc}</span>}
-      <Ph f={profile.openTo} class="live">{profile.openTo.value[0]}</Ph>
-    </div>
-    <div class="btn-row reveal d3">
-      <a class="btn primary" href="/research/">Read my research statement</a>
-      <a class="btn" href="/cv/">CV</a>
-      <a class="btn" href={`mailto:${profile.email}`}>Email</a>
+    <h1 class="mt-3 text-[clamp(2.2rem,1.6rem+2.6vw,3.2rem)] leading-[1.15] font-semibold tracking-[-0.01em]">
+      Hi, I'm {firstName}.
+      <Ph f={profile.headline} class="block font-medium text-pen italic">{profile.headline.value}</Ph>
+    </h1>
+    <p class="mt-6 text-[1.05rem] leading-[1.75] text-ink-2">
+      <Ph f={profile.summary}>{profile.summary.value}</Ph>
+    </p>
+    <Ph f={profile.openTo} tag="p" class="mt-4 text-[0.92rem] text-muted italic lg:hidden">Open to {profile.openTo.value[0]}</Ph>
+    <div class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
+      <a class={ui.btnPrimary} href="/research/">
+        My research direction
+        <Icon name={uiIcons.arrow} class="size-4" aria-hidden="true" focusable="false" />
+      </a>
+      <a class="font-semibold text-ink underline-offset-4" href={`mailto:${profile.email}`}>Say hello — {profile.email}</a>
     </div>
   </header>
 
-  <Section n="1" title="Research interests" id="interests">
-    <div class="margin-block"><Currently /></div>
-    <Ph f={profile.interests} tag="ol" class="interests">
+
+  <Section title="At a glance" id="glance" class={showGlanceBesideHero ? "notes:hidden" : undefined}>
+    <!--
+      Internal dividers only, each fading out along its length. Rows are equal height, so the lines
+      sit exactly between cells: 3 columns × 2 rows on wider screens, 2 × 3 on phones.
+    -->
+    <div class="relative">
+      <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+        <span class:list={[vLine, "left-1/2 sm:hidden"]} />
+        <span class:list={[vLine, "left-1/3 hidden sm:block"]} />
+        <span class:list={[vLine, "left-2/3 hidden sm:block"]} />
+        <span class:list={[hLine, "top-1/3 sm:hidden"]} />
+        <span class:list={[hLine, "top-2/3 sm:hidden"]} />
+        <span class:list={[hLine, "top-1/2 hidden sm:block"]} />
+      </div>
+      <dl class="relative grid auto-rows-fr grid-cols-2 sm:grid-cols-3">
+        {
+          facts.map((f) => (
+            <div class="group px-5 pt-4 pb-5">
+              <dt class={cardLabel}>{f.label}</dt>
+              <dd class="mt-2 font-serif text-[1.5rem] leading-tight font-semibold text-ink transition-colors duration-200 group-hover:text-pen">
+                {f.value}
+              </dd>
+              {f.detail && <dd class="mt-1 text-[0.8rem] leading-snug text-muted transition-colors duration-200 group-hover:text-ink-2">{f.detail}</dd>}
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </Section>
+
+  <Section title="Who I am" id="about">
+    {
+      (icpc || solved) && (
+        <MarginNote label="Competitive programming">
+          {icpc && <p>{icpc.title}{icpc.date && `, ${icpc.date}`}.</p>}
+          {solved && <p class="mt-1">{solved.title}{solved.description && `. ${solved.description}`}</p>}
+        </MarginNote>
+      )
+    }
+    <Ph f={profile.about} tag="div" class={ui.prose}>
       {
-        profile.interests.value.map((i) => (
-          <li>
+        story.map((para) => <p>{para}</p>)
+      }
+    </Ph>
+  </Section>
+
+  <Section title="What I’m up to" id="now">
+    <dl class="border-t border-rule *:grid *:gap-x-6 *:gap-y-1 *:border-b *:border-rule *:py-4 sm:*:grid-cols-[7.5rem_1fr]">
+      <div>
+        <dt class:list={[cardLabel, "pt-1"]}>Focus</dt>
+        <dd><Ph f={profile.currentlyFocus} class="font-serif text-[1.02rem] leading-relaxed text-ink italic">{profile.currentlyFocus.value}</Ph></dd>
+      </div>
+      <div>
+        <dt class:list={[cardLabel, "pt-1"]}>Reading</dt>
+        <dd>
+          <Ph f={profile.currentlyReading} tag="ul" class="space-y-1 font-serif text-[1rem] leading-snug text-ink-2 italic">
+            {profile.currentlyReading.value.map((r) => <li>{r}</li>)}
+          </Ph>
+        </dd>
+      </div>
+      <div>
+        <dt class:list={[cardLabel, "pt-1"]}>Open to</dt>
+        <dd>
+          <Ph f={profile.openTo} tag="ul" class="space-y-1 text-[0.95rem] leading-snug text-ink-2">
+            {profile.openTo.value.map((o) => <li>{o}</li>)}
+          </Ph>
+        </dd>
+      </div>
+      {
+        latest && (
+          <div>
+            <dt class:list={[cardLabel, "pt-1"]}>Recently</dt>
+            <dd class="text-[0.95rem] leading-snug text-ink-2">
+              <span class="font-serif font-semibold text-ink">{latest.title}</span> at {latest.org.name}
+              <span class="mt-0.5 block text-meta whitespace-nowrap sm:mt-0 sm:ml-1 sm:inline">{fmtRange(latest.start, latest.end)}</span>
+            </dd>
+          </div>
+        )
+      }
+    </dl>
+  </Section>
+
+  <Section title="Research interests" id="interests">
+    <MarginNote label="Open questions">
+      <p>The <a href="/research/">research page</a> connects these interests to open questions from my projects.</p>
+    </MarginNote>
+    <Interests f={profile.interests} items={profile.interests.value.map((i) => ({ title: i.topic, note: i.note }))} />
+    <p class={ui.more}><a href="/research/">How these grew out of my engineering work</a></p>
+  </Section>
+
+  <Section title="How I think" id="thinking">
+    <Ph f={profile.principles} tag="ol" class="grid gap-8">
+      {
+        profile.principles.value.map((pr, i) => (
+          <li class="grid grid-cols-[3.25rem_1fr] items-baseline gap-x-3">
+            <span
+              class="font-serif text-[2.2rem] leading-none font-semibold text-[color-mix(in_oklab,var(--pen)_58%,var(--paper))] tabular-nums"
+              aria-hidden="true"
+            >
+              {String(i + 1).padStart(2, "0")}
+            </span>
             <div>
-              <h3>{i.topic}</h3>
-              {i.note && <p>{i.note}</p>}
+              <h3 class="text-[1.12rem] font-semibold">{pr.title}</h3>
+              {pr.note && <p class="mt-1.5 leading-[1.75] text-ink-2">{pr.note}</p>}
             </div>
           </li>
         ))
       }
     </Ph>
-    <p class="mono muted" style="margin-top:1rem">→ <a href="/research/">How these grew out of my engineering work</a></p>
   </Section>
 
-  <Section n="2" title="Selected work" id="work">
-    <p class="muted" style="margin-bottom:1.6rem">
+  <Section title="Skills" id="skills">
+    {
+      certifications.length > 0 && (
+        <MarginNote label="Certified">
+          <ul class="space-y-1">
+            {certifications.map((c) => (
+              <li>
+                {c.url || c.infoUrl ? <a href={c.url ?? c.infoUrl}>{c.title.replace(/^AWS Certified /, "AWS ")}</a> : c.title}
+                <span class="text-meta"> {c.issued.slice(0, 4)}</span>
+              </li>
+            ))}
+          </ul>
+        </MarginNote>
+      )
+    }
+    <ul class:list={[ui.card, "px-5"]}>
+      {
+        skillsPreview.map((g) => (
+          <li class="grid gap-x-5 gap-y-2 border-b border-rule py-3.5 last:border-b-0 sm:grid-cols-[9.5rem_1fr]">
+            <span class="pt-0.5 font-serif text-[0.95rem] leading-snug font-semibold text-ink">{g.group}</span>
+            <ul class="flex flex-wrap gap-1.5">{g.items.slice(0, 6).map((s) => <li class={ui.pill}>{s.name}</li>)}</ul>
+          </li>
+        ))
+      }
+    </ul>
+    <p class={ui.more}><a href="/skills/">All {skillCount} skills, by area</a></p>
+  </Section>
+
+  <Section title="Featured works" id="work" class="wide">
+    <p class="mb-6 max-w-(--main-w) text-muted">
       Systems I built, written up the way I would describe an experiment: what the problem was, what was hard, and what
       question it left me with.
     </p>
-    <div class="figures">
-      {selected.map((p, i) => <Figure project={p} n={i + 1} />)}
+    <!-- 1px lines between cells: the rule colour shows through a 1px gap. -->
+    <div class="grid gap-px overflow-hidden border border-rule bg-rule sm:grid-cols-2">
+      {selected.map((p) => <WorkCard project={p} />)}
     </div>
-    <p class="mono muted" style="margin-top:1.6rem">→ <a href="/work/">All {projects.length} projects</a></p>
+    <p class={ui.more}><a href="/work/">All {projects.length} projects</a></p>
   </Section>
 
-  <Section n="3" title="Journey" id="journey" class="wide">
+  <Section title="Journey" id="journey" class="wide">
     <Timeline nodes={timeline} horizontal />
-    <p class="mono muted" style="margin-top:1.2rem">→ <a href="/journey/">Education, roles, teaching and awards in full</a></p>
+    <p class={ui.more}><a href="/journey/">Education, roles, teaching and awards in full</a></p>
   </Section>
 
-  <Section n="4" title="Get in touch" id="contact">
+  {
+    profile.languages.value.length > 0 && (
+      <Section title="Languages" id="languages">
+        <Ph f={profile.languages} tag="ul" class={ui.pairs}>
+          {profile.languages.value.map((l) => (<li><span class={ui.pairLabel}>{prof[l.proficiency]}</span><span>{l.name}</span></li>))}
+        </Ph>
+      </Section>
+    )
+  }
+
+  <Section title="Get in touch" id="contact">
+    {
+      (city || utc) && (
+        <MarginNote label="Based in">
+          <p>{city}{utc && <span class="text-meta"> · {utc}</span>}</p>
+        </MarginNote>
+      )
+    }
     <p>
       I am glad to hear from professors, researchers and engineers, especially about the questions above. Email is the best way to reach me.
     </p>
-    <ul class="contact-list" style="margin-top:1.2rem">
-      <li><span class="mono">email</span><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
-      {social.map(([k, url]) => <li><span class="mono">{k}</span><a href={url}>{url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")}</a></li>)}
-      <li><span class="mono">engineering</span><a href={profile.sites.engineering}>{profile.sites.engineering.replace("https://", "")}</a></li>
-    </ul>
+    <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
+      <a class={ui.btnPrimary} href="/contact/">
+        Write to me
+        <Icon name={uiIcons.arrow} class="size-4" aria-hidden="true" focusable="false" />
+      </a>
+      <a class="font-semibold text-ink underline-offset-4" href={`mailto:${profile.email}`}>{profile.email}</a>
+    </div>
   </Section>
 </Base>

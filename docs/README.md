@@ -35,8 +35,21 @@ pnpm --filter @biprodas/academic dev     # http://localhost:4321
 pnpm turbo run build --filter=@biprodas/academic
 ```
 
-Static Astro 7 + Tailwind v4. Routes: `/`, `/research`, `/work`, `/work/[id]`, `/journey`, `/about`, `/cv` (print-ready).
+Static Astro 7 + Tailwind v4. Routes: `/` (About), `/research`, `/work`, `/work/[id]`, `/journey`, `/skills`, `/contact`; `/about` redirects to `/` (sidebar order lives in `src/lib/nav.ts`).
+The sidebar's **Download CV** button serves `public/cv.pdf` (or the path in `cv.academic` in `profile.yaml`); the build warns while that file is missing.
 All data comes from `packages/content` via `src/lib/data.ts`.
+
+**Styling.** Tailwind v4 utilities in the markup. Colours and fonts are theme tokens in `src/styles/global.css`
+(`bg-paper`, `text-ink-2`, `text-pen`, `border-rule`, `font-sans` …), and `dark:` follows both the toggle and the
+system setting. Class lists that repeat across pages live in `src/lib/ui.ts`. `global.css` keeps only tokens, base
+element styles and a few CSS-only mechanics (notebook grid, sidenotes, timeline markers, citation counters).
+
+**Navigation.** Astro's `<ClientRouter />` (in `Base.astro`) swaps pages in place with hover prefetch instead of full
+reloads. The sidebar doesn't animate between pages, and the saved theme is re-applied after each swap. Scripts that
+touch page elements must run on `astro:page-load`, not just once.
+
+Icons use [astro-icon](https://www.astroicon.dev/) with Iconify sets: `fa6-brands` for logos, `lucide` for interface icons.
+Map them in `src/lib/icons.ts` (only the icons listed there are bundled). Custom SVGs go in `src/icons/`.
 
 **Placeholders.** Fields that are still empty in the YAML (academic headline, summary, research interests and
 statement, about, project `researchSummary`/`questions`, thesis, publications…) render invented stand-in text from

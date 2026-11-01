@@ -40,13 +40,22 @@ export const profile = {
   cv: p.cv.academic,
   headline: fill(p.headline.academic, "profile.headline.academic", PH.headline),
   summary: fill(p.summary.academic, "profile.summary.academic", PH.summary),
+  bio: fill(p.bio.academic, "profile.bio.academic", PH.bio),
+  /** Role line under the name: profile.role.academic, else the latest job title from experience.yaml. */
+  role: p.role.academic ?? content.experience("academic")[0]?.title,
+  /** Hero titles: profile.titles.academic, else the role line split at "·". */
+  titles: p.titles.academic ?? (p.role.academic ? p.role.academic.split(/\s*·\s*/) : []),
   interests: fill(p.researchInterests, "profile.researchInterests", PH.researchInterests),
   statement: fill(p.researchStatement, "profile.researchStatement", PH.researchStatement),
   openTo: fill(p.openTo, "profile.openTo", PH.openTo),
   currentlyFocus: fill(p.currently?.focus, "profile.currently.focus", PH.currently.focus),
   currentlyReading: fill(p.currently?.reading, "profile.currently.reading", PH.currently.reading),
   about: fill(p.about, "profile.about", PH.about),
+  principles: fill(p.principles, "profile.principles", PH.principles),
   languages: fill(p.languages, "profile.languages", PH.languages),
+  contactIntro: fill(p.contact.intro, "profile.contact.intro", PH.contact.intro),
+  contactResponse: fill(p.contact.responseTime, "profile.contact.responseTime", PH.contact.responseTime),
+  contactTopics: fill(p.contact.topics, "profile.contact.topics", PH.contact.topics),
 };
 
 // ─── Collections ────────────────────────────────────────────────────────────

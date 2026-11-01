@@ -1,0 +1,24 @@
+---
+// A ruled list of titled items with an optional one-line note
+// (research interests, working principles).
+import type { Filled } from "../lib/data.ts";
+import { ui } from "../lib/ui.ts";
+import Ph from "./Ph.astro";
+
+interface Props {
+  items: { title: string; note?: string }[];
+  /** When the items may be placeholder content. */
+  f?: Filled<unknown>;
+}
+const { items, f = { value: null, ph: null } } = Astro.props;
+---
+<Ph f={f} tag="ol" class={ui.ruledList}>
+  {
+    items.map((i) => (
+      <li>
+        <h3 class="text-[1.12rem] font-semibold">{i.title}</h3>
+        {i.note && <p class="mt-0.5 text-[0.97rem] text-ink-2">{i.note}</p>}
+      </li>
+    ))
+  }
+</Ph>

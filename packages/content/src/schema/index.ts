@@ -68,6 +68,12 @@ export const Profile = z.object({
   avatar: Image.optional(),
   headline: z.object({ academic: z.string(), engineering: z.string() }),
   tagline: z.string().optional(),
+  /** Short role line under the name (e.g. "Software Engineer · AI Researcher"), per site. */
+  role: z.object({ academic: z.string().optional(), engineering: z.string().optional() }).default({}),
+  /** Full list of job titles for the home hero, per site (the sidebar uses the shorter `role`). */
+  titles: z.object({ academic: z.array(z.string()).optional(), engineering: z.array(z.string()).optional() }).default({}),
+  /** One or two sentences under the name in the sidebar, per site. */
+  bio: z.object({ academic: z.string().optional(), engineering: z.string().optional() }).default({}),
   summary: z.object({ academic: z.string().optional(), engineering: z.string() }),
   email: z.email(),
   location: Location.optional(),
@@ -80,6 +86,8 @@ export const Profile = z.object({
   researchStatement: z.string().optional(),
   /** Personal story for the About page (plain text, blank line = paragraph). */
   about: z.string().optional(),
+  /** "How I work": short principles, each with a one-line explanation. */
+  principles: z.array(z.object({ title: z.string(), note: z.string().optional() })).default([]),
   /** Short, frequently-updated status shown in the "Currently" card. */
   currently: z
     .object({ focus: z.string().optional(), reading: z.array(z.string()).default([]) })
@@ -92,6 +100,16 @@ export const Profile = z.object({
   cv: z
     .object({ academic: z.string().optional(), engineering: z.string().optional() })
     .default({}),
+  /** Contact page copy (academic site). */
+  contact: z
+    .object({
+      intro: z.string().optional(),
+      /** e.g. "Usually replies within 48 hours" */
+      responseTime: z.string().optional(),
+      /** "What you might be writing about" cards */
+      topics: z.array(z.object({ title: z.string(), body: z.string() })).default([]),
+    })
+    .default({ topics: [] }),
 });
 export type Profile = z.infer<typeof Profile>;
 
