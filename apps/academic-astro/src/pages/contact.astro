@@ -1,0 +1,96 @@
+---
+import Base from "../layouts/Base.astro";
+import Section from "../components/Section.astro";
+import Eyebrow from "../components/Eyebrow.astro";
+import Ph from "../components/Ph.astro";
+import { Icon } from "astro-icon/components";
+import { profile } from "../lib/data.ts";
+import { uiIcons } from "../lib/icons.ts";
+import { ui } from "../lib/ui.ts";
+
+const city = [profile.location?.city, profile.location?.country].filter(Boolean).join(", ");
+const utc = profile.timezone
+  ? new Intl.DateTimeFormat("en", { timeZone: profile.timezone, timeZoneName: "shortOffset" })
+      .formatToParts(new Date())
+      .find((x) => x.type === "timeZoneName")
+      ?.value.replace("GMT", "UTC")
+  : undefined;
+
+const platform: Record<string, string> = {
+  github: "GitHub",
+  linkedin: "LinkedIn",
+  scholar: "Google Scholar",
+  orcid: "ORCID",
+  researchgate: "ResearchGate",
+  x: "X",
+};
+/** The last path segment of a profile URL, e.g. github.com/biprodas → "biprodas". */
+const handle = (url: string) => url.replace(/\/+$/, "").split("/").pop() ?? url;
+const elsewhere = [
+  ...Object.entries(profile.social).map(([k, url]) => ({ name: platform[k] ?? k, url, detail: handle(url) })),
+  { name: "Engineering portfolio", url: profile.sites.engineering, detail: profile.sites.engineering.replace(/^https?:\/\//, "") },
+];
+const card = ui.card;
+---
+<Base title="Contact" description={`How to reach ${profile.name}: email, and what to write about.`}>
+  <header>
+    <Eyebrow />
+    <h1 class={ui.pageTitle}>Write to me</h1>
+    <Ph f={profile.contactIntro} tag="p" class={ui.lede}>{profile.contactIntro.value}</Ph>
+  </header>
+
+  <section class="mt-10 rounded-none border border-rule bg-side px-6 pt-5 pb-4" aria-labelledby="email-h">
+    <div class="flex flex-wrap items-center justify-between gap-4">
+      <div class="min-w-0">
+        <h2 id="email-h" class="font-sans text-[0.66rem] font-bold tracking-[0.16em] text-ink-2 uppercase">Email — the reliable channel</h2>
+        <p class="mt-1 font-serif text-[1.3rem] font-semibold break-all text-ink">{profile.email}</p>
+      </div>
+      <a class={ui.btnPrimary} href={`mailto:${profile.email}`}>
+        <Icon name={uiIcons.email} class="size-4" aria-hidden="true" focusable="false" />
+        Compose an email
+      </a>
+    </div>
+    <div class="mt-4 flex flex-wrap gap-x-6 gap-y-1 border-t border-rule pt-3 font-sans text-[0.78rem] text-muted [&_svg]:size-[0.9rem]">
+      <Ph f={profile.contactResponse} class="inline-flex items-center gap-1.5">
+        <Icon name={uiIcons.clock} aria-hidden="true" focusable="false" />
+        {profile.contactResponse.value}
+      </Ph>
+      {
+        (city || utc) && (
+          <span class="inline-flex items-center gap-1.5">
+            <Icon name={uiIcons.location} aria-hidden="true" focusable="false" />
+            {[city, utc].filter(Boolean).join(" · ")}
+          </span>
+        )
+      }
+    </div>
+  </section>
+
+  <Section title="What you might be writing about" id="topics">
+    <Ph f={profile.contactTopics} tag="ul" class="grid gap-3 sm:grid-cols-2">
+      {
+        profile.contactTopics.value.map((t) => (
+          <li class:list={[card, "px-5 pt-4 pb-5"]}>
+            <h3 class="text-[1.02rem] font-semibold">{t.title}</h3>
+            <p class="mt-1.5 text-[0.86rem] leading-[1.65] text-ink-2">{t.body}</p>
+          </li>
+        ))
+      }
+    </Ph>
+  </Section>
+
+  <Section title="Elsewhere" id="elsewhere">
+    <ul class:list={[card, "px-5"]}>
+      {
+        elsewhere.map((e) => (
+          <li class="border-b border-rule last:border-b-0">
+            <a href={e.url} class="group flex items-baseline justify-between gap-4 py-3 no-underline">
+              <span class="font-serif font-semibold text-ink group-hover:text-pen">{e.name}</span>
+              <span class="truncate font-sans text-[0.82rem] text-muted">{e.detail}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+</Base>

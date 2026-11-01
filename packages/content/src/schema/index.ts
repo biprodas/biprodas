@@ -56,12 +56,24 @@ export const LanguageProficiency = z.enum([
   "native", "full-professional", "professional", "limited-working", "elementary",
 ]);
 
+/** A research interest: a plain topic, or a topic with a one-line note on why it matters to you. */
+export const ResearchInterest = z
+  .union([z.string(), z.object({ topic: z.string(), note: z.string().optional() })])
+  .transform((r) => (typeof r === "string" ? { topic: r } : r));
+export type ResearchInterest = z.output<typeof ResearchInterest>;
+
 export const Profile = z.object({
   name: z.string(),
   pronouns: z.string().optional(),
   avatar: Image.optional(),
   headline: z.object({ academic: z.string(), engineering: z.string() }),
   tagline: z.string().optional(),
+  /** Short role line under the name (e.g. "Software Engineer · AI Researcher"), per site. */
+  role: z.object({ academic: z.string().optional(), engineering: z.string().optional() }).default({}),
+  /** Full list of job titles for the home hero, per site (the sidebar uses the shorter `role`). */
+  titles: z.object({ academic: z.array(z.string()).optional(), engineering: z.array(z.string()).optional() }).default({}),
+  /** One or two sentences under the name in the sidebar, per site. */
+  bio: z.object({ academic: z.string().optional(), engineering: z.string().optional() }).default({}),
   summary: z.object({ academic: z.string().optional(), engineering: z.string() }),
   email: z.email(),
   location: Location.optional(),
@@ -69,7 +81,17 @@ export const Profile = z.object({
   sites: z.object({ academic: z.url(), engineering: z.url() }),
   /** Keyed by platform: github, linkedin, scholar, orcid, researchgate, codeforces, leetcode, x … */
   social: z.record(z.string(), z.url()),
-  researchInterests: z.array(z.string()).default([]),
+  researchInterests: z.array(ResearchInterest).default([]),
+  /** A few paragraphs on research motivation and direction (markdown-free plain text, blank line = paragraph). */
+  researchStatement: z.string().optional(),
+  /** Personal story for the About page (plain text, blank line = paragraph). */
+  about: z.string().optional(),
+  /** "How I work": short principles, each with a one-line explanation. */
+  principles: z.array(z.object({ title: z.string(), note: z.string().optional() })).default([]),
+  /** Short, frequently-updated status shown in the "Currently" card. */
+  currently: z
+    .object({ focus: z.string().optional(), reading: z.array(z.string()).default([]) })
+    .optional(),
   /** e.g. "PhD positions (Fall 2027)", "Senior backend roles", "Consulting". */
   openTo: z.array(z.string()).default([]),
   languages: z
@@ -78,6 +100,16 @@ export const Profile = z.object({
   cv: z
     .object({ academic: z.string().optional(), engineering: z.string().optional() })
     .default({}),
+  /** Contact page copy (academic site). */
+  contact: z
+    .object({
+      intro: z.string().optional(),
+      /** e.g. "Usually replies within 48 hours" */
+      responseTime: z.string().optional(),
+      /** "What you might be writing about" cards */
+      topics: z.array(z.object({ title: z.string(), body: z.string() })).default([]),
+    })
+    .default({ topics: [] }),
 });
 export type Profile = z.infer<typeof Profile>;
 
@@ -219,6 +251,8 @@ export const Project = Item.extend({
   gallery: z.array(Image).default([]),
   /** Shown on biprodas.com: problem, method, findings. */
   researchSummary: z.string().optional(),
+  /** Open questions the project raised, framed as research questions (shown on biprodas.com). */
+  questions: z.array(z.string()).default([]),
   /** Shown on biprodas.dev: path to an MDX case study, relative to data/. */
   caseStudy: z.string().optional(),
 });

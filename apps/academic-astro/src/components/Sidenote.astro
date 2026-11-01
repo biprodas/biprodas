@@ -1,0 +1,9 @@
+---
+// Tufte-style sidenote. Must be placed inside a <p> (renders only inline elements).
+interface Props {
+  n: string | number;
+  id?: string;
+}
+const { n, id = `sn-${n}` } = Astro.props;
+---
+<label for={id} class="sn-ref" aria-label={`Note ${n}`}>{n}</label><input type="checkbox" id={id} class="sn-toggle" /><span class="sidenote" role="note"><span class="sn-num">{n}</span><slot /></span>

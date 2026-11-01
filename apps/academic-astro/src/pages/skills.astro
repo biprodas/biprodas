@@ -1,0 +1,110 @@
+---
+import Base from "../layouts/Base.astro";
+import Eyebrow from "../components/Eyebrow.astro";
+import Section from "../components/Section.astro";
+import { Icon } from "astro-icon/components";
+import { certifications, experience, projects, skills } from "../lib/data.ts";
+import { fmtDate } from "../lib/dates.ts";
+import { uiIcons } from "../lib/icons.ts";
+import { ui } from "../lib/ui.ts";
+
+const levelLabel: Record<string, string> = { expert: "expert", advanced: "advanced", intermediate: "intermediate", familiar: "familiar" };
+
+// Where each technology was used, from experience.yaml and projects.yaml (case-insensitive).
+const usedIn = new Map<string, Set<string>>();
+const note = (tech: string, where: string) => {
+  const key = tech.toLowerCase();
+  if (!usedIn.has(key)) usedIn.set(key, new Set());
+  usedIn.get(key)!.add(where);
+};
+for (const e of experience) for (const t of e.tech) note(t, e.org.name);
+for (const p of projects) for (const t of p.tech) note(t, p.title);
+const whereUsed = (name: string) => [...(usedIn.get(name.toLowerCase()) ?? [])];
+
+// Certifications, newest first; each row names its issuer.
+const certs = [...certifications].sort((a, b) => b.issued.localeCompare(a.issued) || a.title.localeCompare(b.title));
+const now = new Date().toISOString().slice(0, 7);
+const skillCount = skills.reduce((n, g) => n + g.items.length, 0);
+const summary = [`${skillCount} skills`, `${skills.length} areas`, certifications.length > 0 && `${certifications.length} certifications`].filter(Boolean) as string[];
+---
+<Base title="Skills" description="Languages, frameworks, infrastructure and practices I work with.">
+  <header>
+    <Eyebrow />
+    <h1 class={ui.pageTitle}>What I work with</h1>
+    <p class={ui.lede}>
+      The languages, frameworks and practices I use, grouped by area. Hover a skill to see where I have used it; the{" "}
+      <a href="/projects/">projects</a> and <a href="/journey/">journey</a> pages have the details.
+      {certifications.length > 0 && <> Verified credentials are under <a href="#certifications">certifications</a>.</>}
+    </p>
+    <p class="mt-4 font-sans text-[0.8rem] text-muted">{summary.join(" · ")}</p>
+  </header>
+
+  <Section title="By area" id="areas" class="wide">
+    <div class="grid gap-3 md:grid-cols-2">
+      {
+        skills.map((g) => (
+          <section class:list={[ui.card, "px-5 pt-4 pb-5"]} aria-labelledby={`g-${g.group}`}>
+            <h3 id={`g-${g.group}`} class="text-[1.05rem] font-semibold">{g.group}</h3>
+            <ul class="mt-3 flex flex-wrap gap-1.5">
+              {g.items.map((s) => {
+                const where = whereUsed(s.name);
+                return (
+                  <li class={ui.pill} title={where.length ? `Used in ${where.join(", ")}` : undefined}>
+                    {s.name}
+                    {s.level && <span class="ml-1.5 text-[0.72rem] text-muted">{levelLabel[s.level]}</span>}
+                    {s.years && <span class="ml-1.5 text-[0.72rem] text-muted">{s.years} yrs</span>}
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </Section>
+
+
+  {
+    certs.length > 0 && (
+      <Section title="Certifications" id="certifications" class="wide">
+        <p class="mb-6 max-w-(--main-w) text-muted">
+          Verify opens the issuer's credential page; About links to the certification itself.
+        </p>
+        <ul class="border-t border-ink/70">
+          {certs.map((c) => {
+            const expired = c.expires !== undefined && c.expires < now;
+            const details = [
+              c.issuer,
+              c.expires && `${expired ? "Expired" : "Valid until"} ${fmtDate(c.expires)}`,
+              c.credentialId && `ID ${c.credentialId}`,
+            ].filter(Boolean);
+            return (
+              <li class="grid grid-cols-[4rem_1fr] items-baseline gap-x-4 gap-y-1 border-b border-rule py-3 sm:grid-cols-[4.5rem_1fr_auto]">
+                <span class="font-sans text-[0.8rem] text-muted tabular-nums">{c.issued.slice(0, 4)}</span>
+                <div>
+                  <p class="font-serif text-[1rem] leading-snug font-semibold text-ink">{c.title}</p>
+                  <p class="mt-0.5 font-sans text-[0.78rem] text-muted">{details.join(" · ")}</p>
+                  {c.skills.length > 0 && (
+                    <ul class="mt-2 flex flex-wrap gap-1.5">{c.skills.map((s) => <li class={ui.pill}>{s}</li>)}</ul>
+                  )}
+                </div>
+                {(c.url || c.infoUrl) && (
+                  <a
+                    href={c.url ?? c.infoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${c.url ? "Verify" : "About"} ${c.title} (opens in a new tab)`}
+                    class="col-start-2 inline-flex items-center gap-1 justify-self-start font-sans text-[0.8rem] font-semibold text-ink-2 no-underline hover:text-pen sm:col-start-3 sm:justify-self-end [&_svg]:size-[0.9rem]"
+                  >
+                    {c.url ? "Verify" : "About"}
+                    <Icon name={uiIcons.external} aria-hidden="true" focusable="false" />
+                  </a>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </Section>
+    )
+  }
+</Base>

@@ -1,0 +1,414 @@
+@import "tailwindcss";
+@import "@biprodas/tokens/primitives.css";
+@import "@fontsource-variable/lora/wght.css";
+@import "@fontsource-variable/lora/wght-italic.css";
+@import "@fontsource-variable/nunito-sans/wght.css";
+@import "@fontsource-variable/nunito-sans/wght-italic.css";
+
+/* Styling lives in Tailwind utilities in the markup. This file holds only:
+   theme tokens, base element styles, one repeated text style, and the few
+   mechanics utilities can't express cleanly (named-line grid, CSS-only
+   sidenotes, timeline markers, citation counters, scrollbar, dev placeholders,
+   print). */
+
+/* ─── Theme ────────────────────────────────────────────────────────────────── */
+
+/* `dark:` follows the toggle (data-theme) and otherwise the system setting. */
+@custom-variant dark {
+  &:where([data-theme="dark"], [data-theme="dark"] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme="light"]) *) {
+      @slot;
+    }
+  }
+}
+
+:root {
+  --paper: #faf8f3;
+  --paper-2: #f2ede4;
+  --ink: #2b2620;
+  --ink-2: #4a4239;
+  --muted: #7d7365;
+  --rule: #e2d9ca;
+  --pen: #8b7355;
+  --pen-wash: #8b73551a;
+  --side: #f4efe6;
+  --card: #fffdf9;
+  --mark: #ece2cf;
+  --ph: #c2410c;
+  color-scheme: light;
+
+  /* Layout measures */
+  --side-w: 20rem;
+  --main-w: 38rem;
+  --gap-w: 2.75rem;
+  --note-w: 13.5rem;
+  --pad: 1rem;
+}
+@media (min-width: 64rem) {
+  :root {
+    --pad: 2.5rem;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #171512;
+    --paper-2: #221e19;
+    --ink: #ece6dc;
+    --ink-2: #cfc6b8;
+    --muted: #9c9182;
+    --rule: #3a332a;
+    --pen: #c9ad86;
+    --pen-wash: #c9ad861a;
+    --side: #1b1814;
+    --card: #1f1c18;
+    --mark: #3b3226;
+    --ph: #f59e0b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #171512;
+  --paper-2: #221e19;
+  --ink: #ece6dc;
+  --ink-2: #cfc6b8;
+  --muted: #9c9182;
+  --rule: #3a332a;
+  --pen: #c9ad86;
+  --pen-wash: #c9ad861a;
+  --side: #1b1814;
+  --card: #1f1c18;
+  --mark: #3b3226;
+  --ph: #f59e0b;
+  color-scheme: dark;
+}
+
+/* shadcn "Lyra" geometry: boxy and sharp. One small radius for chips, inputs and the nav
+   highlight; cards, panels and buttons are square (rounded-none). */
+@theme {
+  --radius-lyra: 0.125rem;
+}
+
+/* The notes column needs ~1350px beside the sidebar. Media queries measure rem against the
+   browser default (16px), so 86rem ≈ 1376px. Use the `notes:` / `max-notes:` variants for it. */
+@theme {
+  --breakpoint-notes: 86rem;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-rule: var(--rule);
+  --color-pen: var(--pen);
+  --color-pen-wash: var(--pen-wash);
+  --color-side: var(--side);
+  --color-card: var(--card);
+  --color-mark: var(--mark);
+  --font-serif: "Lora Variable", Georgia, serif;
+  --font-sans: "Nunito Sans Variable", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ─── Base ─────────────────────────────────────────────────────────────────── */
+
+@layer base {
+  html {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 106.25%;
+    line-height: 1.7;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    min-height: 100dvh;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--mark);
+    color: var(--ink);
+  }
+  a {
+    color: inherit;
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: color-mix(in oklab, var(--pen) 55%, transparent);
+    text-underline-offset: 0.2em;
+  }
+  a:hover {
+    color: var(--pen);
+    text-decoration-color: currentColor;
+  }
+  :focus-visible {
+    outline: 2px solid var(--pen);
+    outline-offset: 2px;
+    border-radius: 0;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+  p, li {
+    text-wrap: pretty;
+  }
+}
+
+/* Small secondary text: dates, places, roles. */
+@utility text-meta {
+  font-size: 0.84rem;
+  font-style: italic;
+  color: var(--muted);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* ─── Mechanics ────────────────────────────────────────────────────────────── */
+
+@layer components {
+  /* Page grid: one centred reading column, plus a notes column when there's room. */
+  .nb {
+    display: grid;
+    grid-template-columns: [main-start] minmax(0, var(--main-w)) [main-end];
+    padding-inline: var(--pad);
+  }
+  .nb > * {
+    grid-column: main;
+  }
+  @media (min-width: 64rem) {
+    .nb {
+      grid-template-columns: minmax(0, 1fr) [main-start] minmax(0, var(--main-w)) [main-end] minmax(0, 1fr);
+    }
+  }
+  @media (min-width: 86rem) {
+    .nb {
+      grid-template-columns:
+        minmax(0, 1fr) [main-start] var(--main-w) [main-end] var(--gap-w)
+        [note-start] var(--note-w) [note-end] minmax(0, 1fr);
+    }
+    .nb > .wide {
+      grid-column: main-start / note-end;
+    }
+  }
+
+  /* Sidenotes: float into the notes column on wide screens, tap-to-open otherwise. */
+  .sn-ref {
+    font-size: 0.68rem;
+    vertical-align: super;
+    line-height: 0;
+    color: var(--pen);
+    cursor: pointer;
+    padding: 0 0.1em;
+    font-variant-numeric: lining-nums;
+  }
+  .sn-toggle {
+    display: none;
+  }
+  .sidenote {
+    display: none;
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: var(--ink-2);
+    background: var(--pen-wash);
+    border-left: 2px solid var(--pen);
+    padding: 0.5rem 0.75rem;
+    margin: 0.6rem 0;
+  }
+  .sn-toggle:checked + .sidenote {
+    display: block;
+  }
+  .sidenote .sn-num {
+    font-size: 0.68rem;
+    color: var(--pen);
+    margin-right: 0.3rem;
+    vertical-align: 0.2em;
+  }
+  .margin-block {
+    margin: 1.4rem 0;
+  }
+  @media (min-width: 86rem) {
+    .sn-ref {
+      cursor: default;
+    }
+    .sidenote,
+    .sn-toggle:checked + .sidenote {
+      display: block;
+      float: right;
+      clear: right;
+      width: var(--note-w);
+      margin: 0.2rem calc(-1 * (var(--note-w) + var(--gap-w))) 0.9rem 0;
+      background: none;
+      border-left: 0;
+      padding: 0;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .margin-block {
+      float: right;
+      clear: right;
+      width: var(--note-w);
+      margin: 0.2rem calc(-1 * (var(--note-w) + var(--gap-w))) 1.2rem 0;
+    }
+  }
+
+  /* Short dash bullets */
+  .bullets > li {
+    position: relative;
+    padding-left: 1.1rem;
+  }
+  .bullets > li + li {
+    margin-top: 0.45em;
+  }
+  .bullets > li::before {
+    content: "";
+    position: absolute;
+    left: 0.15rem;
+    top: 0.72em;
+    width: 0.35rem;
+    height: 1px;
+    background: var(--muted);
+  }
+
+  /* Timeline markers: circle = work, diamond = education, filled = milestone/current. */
+  .timeline {
+    position: relative;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 0.3rem;
+    top: 0.45rem;
+    bottom: 0.45rem;
+    width: 1px;
+    background: var(--rule);
+  }
+  .timeline > li {
+    position: relative;
+    padding: 0 0 1.2rem 1.6rem;
+  }
+  .timeline > li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.45rem;
+    width: 0.62rem;
+    height: 0.62rem;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1.5px solid var(--muted);
+  }
+  .timeline > li[data-kind="education"]::before,
+  .legend-edu {
+    border-radius: 1px;
+    transform: rotate(45deg) scale(0.86);
+    border-color: var(--pen);
+  }
+  .timeline > li[data-kind="milestone"]::before,
+  .timeline > li[data-current]::before,
+  .legend-ms {
+    background: var(--pen);
+    border-color: var(--pen);
+  }
+  @media (min-width: 48rem) {
+    .timeline.horizontal {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(0, 1fr);
+      gap: 1rem;
+      padding-top: 1.4rem;
+    }
+    .timeline.horizontal::before {
+      left: 0;
+      right: 0;
+      top: 0.3rem;
+      bottom: auto;
+      width: auto;
+      height: 1px;
+    }
+    .timeline.horizontal > li {
+      padding: 0;
+    }
+    .timeline.horizontal > li::before {
+      top: -1.4rem;
+    }
+  }
+
+  /* Numbered citations: [1], [2] … */
+  .citations {
+    counter-reset: c;
+  }
+  .citation {
+    counter-increment: c;
+  }
+  .citation::before {
+    content: "[" counter(c) "]";
+    color: var(--muted);
+    font-variant-numeric: lining-nums;
+  }
+
+  /* Sidebar scrollbar: thin, and visible only while the sidebar is hovered or focused. */
+  @media (min-width: 64rem) {
+    .identity {
+      scrollbar-width: thin;
+      scrollbar-color: transparent transparent;
+      transition: scrollbar-color 0.3s ease;
+    }
+    .identity:hover,
+    .identity:focus-within {
+      scrollbar-color: color-mix(in oklab, var(--muted) 45%, transparent) transparent;
+    }
+    .identity::-webkit-scrollbar {
+      width: 6px;
+    }
+    .identity::-webkit-scrollbar-thumb {
+      background: transparent;
+      border-radius: 3px;
+    }
+    .identity:hover::-webkit-scrollbar-thumb,
+    .identity:focus-within::-webkit-scrollbar-thumb {
+      background: color-mix(in oklab, var(--muted) 45%, transparent);
+    }
+  }
+
+  /* Placeholder content, flagged in `astro dev` only. */
+  [data-ph-visible] [data-ph] {
+    text-decoration: underline dotted var(--ph) 2px;
+    text-underline-offset: 0.22em;
+    cursor: help;
+  }
+  [data-ph-visible] div[data-ph],
+  [data-ph-visible] ul[data-ph],
+  [data-ph-visible] ol[data-ph] {
+    text-decoration: none;
+    outline: 1.5px dashed var(--ph);
+    outline-offset: 6px;
+  }
+}
+
+/* ─── Print (the /cv page especially) ──────────────────────────────────────── */
+
+@media print {
+  :root {
+    --paper: #fff;
+    --paper-2: #fff;
+    --ink: #000;
+    --ink-2: #222;
+    --muted: #555;
+    --rule: #bbb;
+    --pen: #1d3566;
+  }
+  html {
+    font-size: 10pt;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  @page {
+    margin: 14mm 16mm;
+  }
+}

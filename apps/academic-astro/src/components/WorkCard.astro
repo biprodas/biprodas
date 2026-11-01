@@ -1,0 +1,97 @@
+---
+// A project as a grid cell: topics, title, summary and tech used. Repo (GitHub icon) and
+// live-site links sit in the top-right corner. A link is clickable only when its URL exists
+// in projects.yaml; otherwise the icon is faded and its tooltip says why.
+import { Icon } from "astro-icon/components";
+import type { AcademicProject } from "../lib/data.ts";
+import { socialIcons, uiIcons } from "../lib/icons.ts";
+import { ui } from "../lib/ui.ts";
+import Ph from "./Ph.astro";
+
+interface Props {
+  project: AcademicProject;
+  /** Link the title to the project page (Projects page). Off on the home page. */
+  link?: boolean;
+  /** Show a "Featured" tag for featured projects. */
+  badge?: boolean;
+  /** Let an odd last card span both columns (joined grids). Off where cards can be filtered. */
+  spanLast?: boolean;
+  class?: string;
+}
+const { project: p, link = false, badge = false, spanLast = true, class: cls } = Astro.props;
+const href = `/projects/${p.id}/`;
+const repo = p.confidential ? undefined : p.links.find((l) => l.kind === "repo");
+const live = p.confidential ? undefined : p.links.find((l) => l.kind === "live");
+const TECH_SHOWN = 5;
+const tech = p.tech.slice(0, TECH_SHOWN);
+const moreTech = p.tech.length - tech.length;
+
+const active = ui.iconBtn;
+const inactive = "inline-grid size-8 cursor-default place-items-center border border-transparent text-muted/40 [&_svg]:size-[1.05rem]";
+---
+<!-- With spanLast, an odd last card spans both columns so a joined grid never shows an empty cell. -->
+<article
+  class:list={[
+    "group relative flex flex-col bg-card px-6 pt-5 pb-5 transition-colors duration-200 hover:bg-[color-mix(in_oklab,var(--pen)_6%,var(--card))]",
+    { "sm:last:odd:col-span-2": spanLast },
+    cls,
+  ]}
+  data-topics={p.topics.join("|")}
+>
+  <div class="absolute top-3.5 right-3.5 flex items-center gap-0.5">
+    {
+      repo ? (
+        <a class={active} href={repo.url} aria-label={`${p.title} source code on GitHub`} title="Source code on GitHub">
+          <Icon name={socialIcons.github!} aria-hidden="true" focusable="false" />
+        </a>
+      ) : (
+        <span class={inactive} title="Source code is private">
+          <Icon name={socialIcons.github!} aria-hidden="true" focusable="false" />
+          <span class="sr-only">Source code is private</span>
+        </span>
+      )
+    }
+    {
+      live ? (
+        <a class={active} href={live.url} aria-label={`${p.title} live site`} title="Live site">
+          <Icon name={uiIcons.external} aria-hidden="true" focusable="false" />
+        </a>
+      ) : (
+        <span class={inactive} title="No public site">
+          <Icon name={uiIcons.external} aria-hidden="true" focusable="false" />
+          <span class="sr-only">No public site</span>
+        </span>
+      )
+    }
+  </div>
+
+  <p class="flex flex-wrap items-center gap-x-2 gap-y-1 pr-20 font-sans text-[0.74rem] tracking-[0.02em] text-muted">
+    {badge && p.featured && <span class="rounded-lyra border border-pen/40 px-1.5 py-px text-[0.62rem] font-bold tracking-[0.12em] text-pen uppercase">Featured</span>}
+    {p.topics.length > 0 && <span>{p.topics.slice(0, 3).join(" · ")}</span>}
+  </p>
+  <h3 class="mt-1.5 pr-14 text-[1.15rem] leading-snug font-semibold text-ink transition-colors duration-200 group-hover:text-pen">
+    {link ? <a href={href} class="text-inherit no-underline hover:underline">{p.title}</a> : p.title}
+  </h3>
+  {
+    p.summaryForResearch.value ? (
+      <Ph f={p.summaryForResearch} tag="p" class="mt-2 line-clamp-3 text-[0.9rem] leading-[1.6] text-ink-2">
+        {p.summaryForResearch.value}
+      </Ph>
+    ) : (
+      <p class="mt-2 line-clamp-3 text-[0.9rem] leading-[1.6] text-ink-2">{p.summary}</p>
+    )
+  }
+
+  {
+    tech.length > 0 && (
+      <ul class="mt-auto flex flex-wrap gap-1.5 pt-4" aria-label="Technology used">
+        {tech.map((t) => <li class:list={[ui.pill, "bg-paper text-[0.74rem]"]}>{t}</li>)}
+        {moreTech > 0 && (
+          <li class="inline-flex items-center px-1 font-sans text-[0.74rem] text-muted" title={p.tech.slice(TECH_SHOWN).join(", ")}>
+            +{moreTech} more
+          </li>
+        )}
+      </ul>
+    )
+  }
+</article>

@@ -1,0 +1,25 @@
+---
+import type { TimelineNode } from "../lib/timeline.ts";
+interface Props {
+  nodes: TimelineNode[];
+  horizontal?: boolean;
+}
+const { nodes, horizontal = false } = Astro.props;
+const swatch = "mr-1.5 inline-block size-2 border-[1.5px]";
+---
+<ol class:list={["timeline", { horizontal }]}>
+  {
+    nodes.map((n) => (
+      <li data-kind={n.kind} data-current={n.current ? "" : undefined}>
+        <div class="text-meta">{n.when}</div>
+        <div class="leading-snug font-semibold">{n.title}</div>
+        {n.sub && <div class="text-[0.9rem] text-ink-2">{n.sub}</div>}
+      </li>
+    ))
+  }
+</ol>
+<div class="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-[0.82rem] text-muted italic" aria-hidden="true">
+  <span><i class:list={[swatch, "legend-edu"]}></i>education</span>
+  <span><i class:list={[swatch, "rounded-full border-muted"]}></i>work</span>
+  <span><i class:list={[swatch, "legend-ms rounded-full"]}></i>milestone</span>
+</div>

@@ -1,7 +1,7 @@
 {
   "name": "biprodas",
   "private": true,
-  "packageManager": "pnpm@10.15.0",
+  "packageManager": "pnpm@12.16.1",
   "engines": { "node": ">=22.18" },
   "scripts": {
     "build": "turbo run build",

@@ -1,12 +1,21 @@
-import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
+import { existsSync, readFileSync } from "node:fs";
+import { createRequire } from "node:module";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { parse } from "yaml";
 import { z } from "zod";
 import { Content, type Audience } from "./schema/index.ts";
 
 export * from "./schema/index.ts";
 
-const dataDir = fileURLToPath(new URL("../data/", import.meta.url));
+// The YAML sits next to this file in the repo. When an app bundles this module (Vite, Next.js),
+// import.meta.url points into the app's build output instead, so fall back to resolving the
+// package by name, which lands on the real packages/content/src/index.ts.
+const dataDir = (() => {
+  const local = fileURLToPath(new URL("../data/", import.meta.url));
+  if (existsSync(local + "profile.yaml")) return local;
+  const entry = createRequire(import.meta.url).resolve("@biprodas/content");
+  return fileURLToPath(new URL("../data/", pathToFileURL(entry)));
+})();
 
 function readYaml(file: string): unknown {
   return parse(readFileSync(dataDir + file, "utf8")) ?? [];

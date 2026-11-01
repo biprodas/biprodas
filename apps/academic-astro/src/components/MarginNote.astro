@@ -1,0 +1,13 @@
+---
+// A short note in the right-hand notes column, beside the section it sits in.
+// Shown only where that column exists (the `notes` breakpoint); elsewhere it's hidden so the
+// reading flow stays clean. Place it first inside a main-column Section.
+interface Props {
+  label: string;
+}
+const { label } = Astro.props;
+---
+<aside class="margin-block hidden text-[0.82rem] leading-[1.5] text-muted notes:block" aria-label={label}>
+  <p class="mb-1.5 font-sans text-[0.64rem] font-bold tracking-[0.16em] text-ink-2 uppercase">{label}</p>
+  <slot />
+</aside>

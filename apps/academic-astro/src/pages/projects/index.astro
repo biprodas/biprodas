@@ -1,0 +1,83 @@
+---
+import Eyebrow from "../../components/Eyebrow.astro";
+import Base from "../../layouts/Base.astro";
+import WorkCard from "../../components/WorkCard.astro";
+import { projects } from "../../lib/data.ts";
+import { ui } from "../../lib/ui.ts";
+
+// Summary line, from projects.yaml.
+const live = projects.filter((p) => !p.confidential && p.links.some((l) => l.kind === "live")).length;
+const openSource = projects.filter((p) => !p.confidential && p.links.some((l) => l.kind === "repo")).length;
+const summary = [
+  `${projects.length} projects`,
+  live > 0 && `${live} live`,
+  openSource > 0 && `${openSource} open source`,
+].filter(Boolean) as string[];
+
+// Filter buttons: topics shared by at least two projects, most common first.
+const counts = new Map<string, number>();
+for (const p of projects) for (const t of p.topics) counts.set(t, (counts.get(t) ?? 0) + 1);
+const topics = [...counts.entries()].filter(([, n]) => n >= 2).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+
+const filterBtn =
+  "inline-flex cursor-pointer items-center gap-1.5 rounded-lyra border border-rule bg-card px-2.5 py-1 font-sans text-[0.78rem] font-medium text-ink-2 transition-colors hover:border-ink aria-pressed:border-pen aria-pressed:bg-pen aria-pressed:text-paper";
+---
+<Base title="Projects" description="Systems I have built: what the problem was, what made it hard, and the question it left me with.">
+  <header>
+    <Eyebrow />
+    <h1 class={ui.pageTitle}>Projects</h1>
+    <p class={ui.lede}>
+      Systems I have built, each written up like an experiment: the problem, what made it hard, and the question it left
+      me with. Several were built for clients under NDA, so not all of them have public links.
+    </p>
+    <p class="mt-4 font-sans text-[0.8rem] text-muted">{summary.join(" · ")}</p>
+  </header>
+
+  <section class="wide mt-12" aria-label="All projects">
+    {
+      topics.length > 0 && (
+        <div class="mb-5 flex flex-wrap items-center gap-1.5" data-filter role="group" aria-label="Filter by topic">
+          <button type="button" class={filterBtn} data-topic="" aria-pressed="true">
+            All <span class="opacity-60">{projects.length}</span>
+          </button>
+          {topics.map(([t, n]) => (
+            <button type="button" class={filterBtn} data-topic={t} aria-pressed="false">
+              {t} <span class="opacity-60">{n}</span>
+            </button>
+          ))}
+          <p class="ml-auto font-sans text-[0.78rem] text-muted" data-filter-status aria-live="polite" />
+        </div>
+      )
+    }
+    <div class="grid gap-3 sm:grid-cols-2" data-filter-grid>
+      {projects.map((p) => <WorkCard project={p} link badge spanLast={false} class="border border-rule" />)}
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Topic filter: show only cards whose data-topics include the chosen topic.
+  // Without JavaScript the buttons do nothing and every project stays visible.
+  function setupFilter() {
+    const bar = document.querySelector<HTMLElement>("[data-filter]");
+    const grid = document.querySelector<HTMLElement>("[data-filter-grid]");
+    if (!bar || !grid || bar.dataset.ready) return;
+    bar.dataset.ready = "1";
+    const status = bar.querySelector<HTMLElement>("[data-filter-status]");
+    const cards = [...grid.querySelectorAll<HTMLElement>("[data-topics]")];
+    bar.addEventListener("click", (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-topic]");
+      if (!btn) return;
+      const topic = btn.dataset.topic ?? "";
+      bar.querySelectorAll("button[data-topic]").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+      let shown = 0;
+      for (const card of cards) {
+        const match = !topic || (card.dataset.topics ?? "").split("|").includes(topic);
+        card.hidden = !match;
+        if (match) shown++;
+      }
+      if (status) status.textContent = topic ? `${shown} of ${cards.length} in ${topic}` : "";
+    });
+  }
+  document.addEventListener("astro:page-load", setupFilter);
+</script>

@@ -9,12 +9,16 @@
   audience: both
   items: [TypeScript, JavaScript, Python, SQL, Java, C++, Object-Oriented Programming]
 - group: Frontend
+  audience: both
   items: [React, Next.js, React Native, Tailwind CSS, TanStack Query, Zustand, Redux, shadcn/ui]
 - group: Backend & Architecture
+  audience: both
   items: [Node.js, NestJS, Express, FastAPI, REST APIs, GraphQL, Microservices, WebSockets]
 - group: Data & Messaging
+  audience: both
   items: [PostgreSQL, Redis, MongoDB, MySQL, DynamoDB, BullMQ, TypeORM, Prisma]
 - group: Cloud & DevOps
+  audience: both
   items:
     - AWS (EC2, S3, Lambda, RDS)
     - Docker
@@ -22,8 +26,10 @@
     - Nginx
     - Vercel
 - group: Tools
+  audience: both
   items: [Linux, VS Code, Git, GitHub]
 - group: Security & Auth
+  audience: both
   items: [OAuth 2.0, JWT, RBAC, ABAC, Row-Level Security]
 - group: AI & LLMs
   audience: both
@@ -37,6 +43,7 @@
     - pgvector
     - Prompt engineering
 - group: Engineering Practices
+  audience: both
   items:
     - System Design
     - Software Testing

@@ -20,6 +20,7 @@
 #   cover: { src, alt }
 #   gallery: [ { src, alt } ]
 #   researchSummary: ...   # shown on biprodas.com
+#   questions: [ ... ]     # open research questions it raised, shown on biprodas.com
 #   caseStudy: ...         # MDX path, shown on biprodas.dev
 
 # TODO: type, status, role, period, experience; public repo links where available.

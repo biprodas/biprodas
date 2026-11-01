@@ -1,0 +1,24 @@
+---
+// "06 —— CONTACT": the page's section number and name, from lib/nav.ts.
+import { sectionFor } from "../lib/nav.ts";
+interface Props {
+  /** Extra text after the section name, e.g. "Figure 2". */
+  extra?: string;
+  /** Link the section name back to its index page. */
+  link?: boolean;
+}
+const { extra, link = false } = Astro.props;
+const s = sectionFor(Astro.url.pathname);
+---
+{
+  s && (
+    <p class="mb-4 flex items-center gap-3 font-sans text-[0.68rem] font-bold tracking-[0.18em] text-muted uppercase">
+      <span>{s.num}</span>
+      <span class="h-px w-8 bg-rule" aria-hidden="true" />
+      <span class="text-ink-2">
+        {link ? <a href={s.href} class="no-underline">{s.label}</a> : s.label}
+        {extra && ` · ${extra}`}
+      </span>
+    </p>
+  )
+}

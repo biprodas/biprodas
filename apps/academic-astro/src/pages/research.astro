@@ -1,0 +1,113 @@
+---
+import Eyebrow from "../components/Eyebrow.astro";
+import Base from "../layouts/Base.astro";
+import Section from "../components/Section.astro";
+import Sidenote from "../components/Sidenote.astro";
+import Citation from "../components/Citation.astro";
+import Ph from "../components/Ph.astro";
+import { profile, publications, talks, teaching, projects, paragraphs } from "../lib/data.ts";
+import { fmtDate, yearRange } from "../lib/dates.ts";
+import { statusLabel } from "../lib/cite.ts";
+import Interests from "../components/Interests.astro";
+import { ui } from "../lib/ui.ts";
+
+const statement = paragraphs(profile.statement.value);
+const order = ["published", "accepted", "under-review", "submitted", "in-preparation"] as const;
+const pubGroups = order
+  .map((s) => ({ status: s, items: publications.value.filter((p) => p.status === s) }))
+  .filter((g) => g.items.length);
+const linked = projects.filter((p) => p.openQuestions.value.length).slice(0, 4);
+---
+<Base title="Research" description="Research statement, interests and publications.">
+  <header>
+    <Eyebrow />
+    <h1 class={ui.pageTitle}>Questions I picked up while shipping software</h1>
+  </header>
+
+  <Section title="Statement" id="statement">
+    <Ph f={profile.statement} tag="div" class={ui.prose}>
+      {
+        statement.map((para, i) =>
+          i === 0 ? (
+            <p>
+              {para}
+              <Sidenote n="1">This page is a living statement. Tailored versions for specific programmes are available on request.</Sidenote>
+            </p>
+          ) : (
+            <p>{para}</p>
+          ),
+        )
+      }
+    </Ph>
+  </Section>
+
+  <Section title="Interests, in more depth" id="interests">
+    <Interests f={profile.interests} items={profile.interests.value.map((i) => ({ title: i.topic, note: i.note }))} />
+  </Section>
+
+  {
+    linked.length > 0 && (
+      <Section title="Open questions from my projects" id="questions">
+        <p class="mb-5 text-muted">Each of these came out of a system I built. They are where I would start.</p>
+        <ul class={ui.compact}>
+          {linked.map((p) => (
+            <li>
+              <span class="text-meta">Q.</span>
+              <div>
+                <Ph f={p.openQuestions} tag="div"><i>{p.openQuestions.value[0]}</i></Ph>
+                <div class={ui.sub}>from <a href={`/projects/${p.id}/`}>{p.title}</a></div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    )
+  }
+
+  <Section title="Publications" id="publications">
+    {publications.ph && <p class:list={[ui.noteBox, "mb-6"]}>No publications yet. The entry below shows how they will appear.</p>}
+    <Ph f={publications} tag="div">
+      {
+        pubGroups.map((g) => (
+          <div class="mb-7">
+            <h3 class="mb-3 text-meta">{statusLabel(g.status)}</h3>
+            <ol class="citations grid gap-6">{g.items.map((pub) => <Citation pub={pub} />)}</ol>
+          </div>
+        ))
+      }
+    </Ph>
+  </Section>
+
+  {
+    talks.length > 0 && (
+      <Section title="Talks" id="talks">
+        <ul class={ui.compact}>
+          {talks.map((t) => (
+            <li>
+              <span class="text-meta">{fmtDate(t.date)}</span>
+              <div>{t.title}<div class={ui.sub}>{t.kind}, {t.event}</div></div>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    )
+  }
+
+  {
+    teaching.length > 0 && (
+      <Section title="Teaching & mentoring" id="teaching">
+        <ul class={ui.compact}>
+          {teaching.map((t) => (
+            <li>
+              <span class="text-meta">{t.start ? yearRange(t.start, t.end) : "—"}</span>
+              <div>
+                {t.title}
+                <div class={ui.sub}>{t.role.replace("-", " ")}, {t.org.name}{t.audienceDescription && `, ${t.audienceDescription}`}</div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    )
+  }
+</Base>
