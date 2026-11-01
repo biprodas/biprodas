@@ -20,7 +20,12 @@ export function bibtex(pub: Publication): string {
   if (pub.bibtex) return pub.bibtex.trim();
   const year = pub.date?.slice(0, 4);
   const key = `${lastName(pub.authors[0] ?? "anon").toLowerCase()}${year ?? ""}${pub.title.split(/\s+/)[0]?.toLowerCase().replace(/\W/g, "") ?? ""}`;
-  const venueField = pub.type === "journal" ? "journal" : pub.type.includes("conference") || pub.type === "workshop" ? "booktitle" : "howpublished";
+  const venueField =
+    pub.type === "journal"
+      ? "journal"
+      : pub.type.includes("conference") || pub.type === "workshop"
+        ? "booktitle"
+        : "howpublished";
   const fields: [string, string | undefined][] = [
     ["title", `{${pub.title}}`],
     ["author", pub.authors.join(" and ")],
@@ -42,7 +47,13 @@ export function bibtex(pub: Publication): string {
 }
 
 export function statusLabel(s: Publication["status"]): string {
-  return { published: "Published", accepted: "Accepted", "under-review": "Under review", submitted: "Submitted", "in-preparation": "In preparation" }[s];
+  return {
+    published: "Published",
+    accepted: "Accepted",
+    "under-review": "Under review",
+    submitted: "Submitted",
+    "in-preparation": "In preparation",
+  }[s];
 }
 
 /** "Cite this page": a small @misc entry for the person/site. */

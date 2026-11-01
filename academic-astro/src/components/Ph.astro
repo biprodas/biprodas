@@ -11,4 +11,10 @@ const { f, tag = "span", class: cls, ...rest } = Astro.props;
 const Tag = tag as any;
 const dev = import.meta.env.DEV;
 ---
-<Tag class={cls} data-ph={dev && f.ph ? f.ph : undefined} title={dev && f.ph ? `placeholder: ${f.ph}` : undefined} {...rest}><slot /></Tag>
+
+<Tag
+  class={cls}
+  data-ph={dev && f.ph ? f.ph : undefined}
+  title={dev && f.ph ? `placeholder: ${f.ph}` : undefined}
+  {...rest}><slot /></Tag
+>

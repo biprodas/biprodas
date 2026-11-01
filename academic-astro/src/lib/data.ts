@@ -23,7 +23,11 @@ export function fill<T>(real: T | undefined, key: string, fallback: T): Filled<T
 }
 
 /** Plain text with blank lines → paragraphs. */
-export const paragraphs = (s: string) => s.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+export const paragraphs = (s: string) =>
+  s
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .filter(Boolean);
 
 // ─── Profile ────────────────────────────────────────────────────────────────
 

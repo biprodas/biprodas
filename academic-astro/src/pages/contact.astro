@@ -28,10 +28,15 @@ const platform: Record<string, string> = {
 const handle = (url: string) => url.replace(/\/+$/, "").split("/").pop() ?? url;
 const elsewhere = [
   ...Object.entries(profile.social).map(([k, url]) => ({ name: platform[k] ?? k, url, detail: handle(url) })),
-  { name: "Engineering portfolio", url: profile.sites.engineering, detail: profile.sites.engineering.replace(/^https?:\/\//, "") },
+  {
+    name: "Engineering portfolio",
+    url: profile.sites.engineering,
+    detail: profile.sites.engineering.replace(/^https?:\/\//, ""),
+  },
 ];
 const card = ui.card;
 ---
+
 <Base title="Contact" description={`How to reach ${profile.name}: email, and what to write about.`}>
   <header>
     <Eyebrow />
@@ -42,7 +47,9 @@ const card = ui.card;
   <section class="mt-10 rounded-none border border-rule bg-side px-6 pt-5 pb-4" aria-labelledby="email-h">
     <div class="flex flex-wrap items-center justify-between gap-4">
       <div class="min-w-0">
-        <h2 id="email-h" class="font-sans text-[0.66rem] font-bold tracking-[0.16em] text-ink-2 uppercase">Email — the reliable channel</h2>
+        <h2 id="email-h" class="font-sans text-[0.66rem] font-bold tracking-[0.16em] text-ink-2 uppercase">
+          Email — the reliable channel
+        </h2>
         <p class="mt-1 font-serif text-[1.3rem] font-semibold break-all text-ink">{profile.email}</p>
       </div>
       <a class={ui.btnPrimary} href={`mailto:${profile.email}`}>
@@ -50,7 +57,9 @@ const card = ui.card;
         Compose an email
       </a>
     </div>
-    <div class="mt-4 flex flex-wrap gap-x-6 gap-y-1 border-t border-rule pt-3 font-sans text-[0.78rem] text-muted [&_svg]:size-[0.9rem]">
+    <div
+      class="mt-4 flex flex-wrap gap-x-6 gap-y-1 border-t border-rule pt-3 font-sans text-[0.78rem] text-muted [&_svg]:size-[0.9rem]"
+    >
       <Ph f={profile.contactResponse} class="inline-flex items-center gap-1.5">
         <Icon name={uiIcons.clock} aria-hidden="true" focusable="false" />
         {profile.contactResponse.value}

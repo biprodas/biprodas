@@ -105,5 +105,7 @@ export const certifications = (site: Site) =>
   forSite(loadContent().certifications, site).sort((a, b) => b.issued.localeCompare(a.issued));
 /** Only scores marked `public: true`. */
 export const testScores = (site: Site) =>
-  forSite(loadContent().testScores, site).filter((t) => t.public).sort(byDateDesc);
+  forSite(loadContent().testScores, site)
+    .filter((t) => t.public)
+    .sort(byDateDesc);
 export const skills = (site: Site) => forSite(loadContent().skills, site);

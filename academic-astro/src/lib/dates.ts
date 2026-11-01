@@ -17,7 +17,7 @@ export function fmtRange(start?: string, end?: string): string {
 
 /** Year only: "2019" or "2019–23" style compact ranges for the gutter. */
 export function yearRange(start?: string, end?: string): string {
-  const y = (d?: string) => (d === "present" ? "now" : d?.slice(0, 4) ?? "");
+  const y = (d?: string) => (d === "present" ? "now" : (d?.slice(0, 4) ?? ""));
   const a = y(start);
   const b = y(end);
   if (!b || a === b) return a;

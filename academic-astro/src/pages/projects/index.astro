@@ -22,7 +22,11 @@ const topics = [...counts.entries()].filter(([, n]) => n >= 2).sort((a, b) => b[
 const filterBtn =
   "inline-flex cursor-pointer items-center gap-1.5 rounded-lyra border border-rule bg-card px-2.5 py-1 font-sans text-[0.78rem] font-medium text-ink-2 transition-colors hover:border-ink aria-pressed:border-pen aria-pressed:bg-pen aria-pressed:text-paper";
 ---
-<Base title="Projects" description="Systems I have built: what the problem was, what made it hard, and the question it left me with.">
+
+<Base
+  title="Projects"
+  description="Systems I have built: what the problem was, what made it hard, and the question it left me with."
+>
   <header>
     <Eyebrow />
     <h1 class={ui.pageTitle}>Projects</h1>

@@ -12,6 +12,7 @@ interface Props {
 }
 const { items, f = { value: null, ph: null } } = Astro.props;
 ---
+
 <Ph f={f} tag="ol" class={ui.ruledList}>
   {
     items.map((i) => (

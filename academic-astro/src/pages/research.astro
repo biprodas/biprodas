@@ -18,6 +18,7 @@ const pubGroups = order
   .filter((g) => g.items.length);
 const linked = projects.filter((p) => p.openQuestions.value.length).slice(0, 4);
 ---
+
 <Base title="Research" description="Research statement, interests and publications.">
   <header>
     <Eyebrow />
@@ -31,7 +32,9 @@ const linked = projects.filter((p) => p.openQuestions.value.length).slice(0, 4);
           i === 0 ? (
             <p>
               {para}
-              <Sidenote n="1">This page is a living statement. Tailored versions for specific programmes are available on request.</Sidenote>
+              <Sidenote n="1">
+                This page is a living statement. Tailored versions for specific programmes are available on request.
+              </Sidenote>
             </p>
           ) : (
             <p>{para}</p>
@@ -54,8 +57,12 @@ const linked = projects.filter((p) => p.openQuestions.value.length).slice(0, 4);
             <li>
               <span class="text-meta">Q.</span>
               <div>
-                <Ph f={p.openQuestions} tag="div"><i>{p.openQuestions.value[0]}</i></Ph>
-                <div class={ui.sub}>from <a href={`/projects/${p.id}/`}>{p.title}</a></div>
+                <Ph f={p.openQuestions} tag="div">
+                  <i>{p.openQuestions.value[0]}</i>
+                </Ph>
+                <div class={ui.sub}>
+                  from <a href={`/projects/${p.id}/`}>{p.title}</a>
+                </div>
               </div>
             </li>
           ))}
@@ -65,13 +72,21 @@ const linked = projects.filter((p) => p.openQuestions.value.length).slice(0, 4);
   }
 
   <Section title="Publications" id="publications">
-    {publications.ph && <p class:list={[ui.noteBox, "mb-6"]}>No publications yet. The entry below shows how they will appear.</p>}
+    {
+      publications.ph && (
+        <p class:list={[ui.noteBox, "mb-6"]}>No publications yet. The entry below shows how they will appear.</p>
+      )
+    }
     <Ph f={publications} tag="div">
       {
         pubGroups.map((g) => (
           <div class="mb-7">
             <h3 class="mb-3 text-meta">{statusLabel(g.status)}</h3>
-            <ol class="citations grid gap-6">{g.items.map((pub) => <Citation pub={pub} />)}</ol>
+            <ol class="citations grid gap-6">
+              {g.items.map((pub) => (
+                <Citation pub={pub} />
+              ))}
+            </ol>
           </div>
         ))
       }
@@ -85,7 +100,12 @@ const linked = projects.filter((p) => p.openQuestions.value.length).slice(0, 4);
           {talks.map((t) => (
             <li>
               <span class="text-meta">{fmtDate(t.date)}</span>
-              <div>{t.title}<div class={ui.sub}>{t.kind}, {t.event}</div></div>
+              <div>
+                {t.title}
+                <div class={ui.sub}>
+                  {t.kind}, {t.event}
+                </div>
+              </div>
             </li>
           ))}
         </ul>
@@ -102,7 +122,10 @@ const linked = projects.filter((p) => p.openQuestions.value.length).slice(0, 4);
               <span class="text-meta">{t.start ? yearRange(t.start, t.end) : "—"}</span>
               <div>
                 {t.title}
-                <div class={ui.sub}>{t.role.replace("-", " ")}, {t.org.name}{t.audienceDescription && `, ${t.audienceDescription}`}</div>
+                <div class={ui.sub}>
+                  {t.role.replace("-", " ")}, {t.org.name}
+                  {t.audienceDescription && `, ${t.audienceDescription}`}
+                </div>
               </div>
             </li>
           ))}
