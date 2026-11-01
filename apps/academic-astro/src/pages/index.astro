@@ -253,7 +253,7 @@ const prof: Record<string, string> = {
     <p class={ui.more}><a href="/skills/">All {skillCount} skills, by area</a></p>
   </Section>
 
-  <Section title="Featured works" id="work" class="wide">
+  <Section title="Featured projects" id="projects" class="wide">
     <p class="mb-6 max-w-(--main-w) text-muted">
       Systems I built, written up the way I would describe an experiment: what the problem was, what was hard, and what
       question it left me with.
@@ -262,7 +262,7 @@ const prof: Record<string, string> = {
     <div class="grid gap-px overflow-hidden border border-rule bg-rule sm:grid-cols-2">
       {selected.map((p) => <WorkCard project={p} />)}
     </div>
-    <p class={ui.more}><a href="/work/">All {projects.length} projects</a></p>
+    <p class={ui.more}><a href="/projects/">All {projects.length} projects</a></p>
   </Section>
 
   <Section title="Journey" id="journey" class="wide">

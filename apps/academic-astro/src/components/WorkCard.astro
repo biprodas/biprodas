@@ -10,8 +10,16 @@ import Ph from "./Ph.astro";
 
 interface Props {
   project: AcademicProject;
+  /** Link the title to the project page (Projects page). Off on the home page. */
+  link?: boolean;
+  /** Show a "Featured" tag for featured projects. */
+  badge?: boolean;
+  /** Let an odd last card span both columns (joined grids). Off where cards can be filtered. */
+  spanLast?: boolean;
+  class?: string;
 }
-const { project: p } = Astro.props;
+const { project: p, link = false, badge = false, spanLast = true, class: cls } = Astro.props;
+const href = `/projects/${p.id}/`;
 const repo = p.confidential ? undefined : p.links.find((l) => l.kind === "repo");
 const live = p.confidential ? undefined : p.links.find((l) => l.kind === "live");
 const TECH_SHOWN = 5;
@@ -21,9 +29,14 @@ const moreTech = p.tech.length - tech.length;
 const active = ui.iconBtn;
 const inactive = "inline-grid size-8 cursor-default place-items-center border border-transparent text-muted/40 [&_svg]:size-[1.05rem]";
 ---
-<!-- An odd last card spans both columns so the grid never shows an empty cell. -->
+<!-- With spanLast, an odd last card spans both columns so a joined grid never shows an empty cell. -->
 <article
-  class="group relative flex flex-col bg-card px-6 pt-5 pb-5 transition-colors duration-200 hover:bg-[color-mix(in_oklab,var(--pen)_6%,var(--card))] sm:last:odd:col-span-2"
+  class:list={[
+    "group relative flex flex-col bg-card px-6 pt-5 pb-5 transition-colors duration-200 hover:bg-[color-mix(in_oklab,var(--pen)_6%,var(--card))]",
+    { "sm:last:odd:col-span-2": spanLast },
+    cls,
+  ]}
+  data-topics={p.topics.join("|")}
 >
   <div class="absolute top-3.5 right-3.5 flex items-center gap-0.5">
     {
@@ -52,8 +65,13 @@ const inactive = "inline-grid size-8 cursor-default place-items-center border bo
     }
   </div>
 
-  {p.topics.length > 0 && <p class="pr-20 font-sans text-[0.74rem] tracking-[0.02em] text-muted">{p.topics.slice(0, 3).join(" · ")}</p>}
-  <h3 class="mt-1.5 pr-14 text-[1.15rem] leading-snug font-semibold text-ink transition-colors duration-200 group-hover:text-pen">{p.title}</h3>
+  <p class="flex flex-wrap items-center gap-x-2 gap-y-1 pr-20 font-sans text-[0.74rem] tracking-[0.02em] text-muted">
+    {badge && p.featured && <span class="rounded-lyra border border-pen/40 px-1.5 py-px text-[0.62rem] font-bold tracking-[0.12em] text-pen uppercase">Featured</span>}
+    {p.topics.length > 0 && <span>{p.topics.slice(0, 3).join(" · ")}</span>}
+  </p>
+  <h3 class="mt-1.5 pr-14 text-[1.15rem] leading-snug font-semibold text-ink transition-colors duration-200 group-hover:text-pen">
+    {link ? <a href={href} class="text-inherit no-underline hover:underline">{p.title}</a> : p.title}
+  </h3>
   {
     p.summaryForResearch.value ? (
       <Ph f={p.summaryForResearch} tag="p" class="mt-2 line-clamp-3 text-[0.9rem] leading-[1.6] text-ink-2">

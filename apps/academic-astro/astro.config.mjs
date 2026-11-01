@@ -4,6 +4,7 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 import { iconInclude } from "./src/lib/icons.ts";
+import { projects } from "./src/lib/data.ts";
 import tailwindcss from "@tailwindcss/vite";
 
 /** After a build, list the placeholder fields still in use so it's clear which YAML to fill. */
@@ -33,8 +34,12 @@ function placeholderReport() {
 export default defineConfig({
   site: "https://biprodas.com",
   trailingSlash: "always",
-  // The About page became the home page.
-  redirects: { "/about": "/" },
+  // Old URLs: the About page became the home page, and Work was renamed Projects.
+  redirects: {
+    "/about": "/",
+    "/work": "/projects",
+    ...Object.fromEntries(projects.map((p) => [`/work/${p.id}`, `/projects/${p.id}`])),
+  },
   // astro-icon inlines SVGs at build time; `include` keeps only the icons the site uses.
   integrations: [icon({ include: iconInclude }), sitemap(), placeholderReport()],
   vite: {

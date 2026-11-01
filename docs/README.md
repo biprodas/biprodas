@@ -35,7 +35,7 @@ pnpm --filter @biprodas/academic dev     # http://localhost:4321
 pnpm turbo run build --filter=@biprodas/academic
 ```
 
-Static Astro 7 + Tailwind v4. Routes: `/` (About), `/research`, `/work`, `/work/[id]`, `/journey`, `/skills`, `/contact`; `/about` redirects to `/` (sidebar order lives in `src/lib/nav.ts`).
+Static Astro 7 + Tailwind v4. Routes: `/` (About), `/research`, `/projects`, `/projects/[id]`, `/journey`, `/skills`, `/contact`; `/about` → `/` and `/work/*` → `/projects/*` redirect (sidebar order lives in `src/lib/nav.ts`).
 The sidebar's **Download CV** button serves `public/cv.pdf` (or the path in `cv.academic` in `profile.yaml`); the build warns while that file is missing.
 All data comes from `packages/content` via `src/lib/data.ts`.
 

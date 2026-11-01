@@ -2,7 +2,7 @@
 export const nav = [
   { href: "/", label: "About" },
   { href: "/research/", label: "Research" },
-  { href: "/work/", label: "Work" },
+  { href: "/projects/", label: "Projects" },
   { href: "/journey/", label: "Journey" },
   { href: "/skills/", label: "Skills" },
   { href: "/contact/", label: "Contact" },

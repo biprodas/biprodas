@@ -55,7 +55,7 @@ const linked = projects.filter((p) => p.openQuestions.value.length).slice(0, 4);
               <span class="text-meta">Q.</span>
               <div>
                 <Ph f={p.openQuestions} tag="div"><i>{p.openQuestions.value[0]}</i></Ph>
-                <div class={ui.sub}>from <a href={`/work/${p.id}/`}>{p.title}</a></div>
+                <div class={ui.sub}>from <a href={`/projects/${p.id}/`}>{p.title}</a></div>
               </div>
             </li>
           ))}

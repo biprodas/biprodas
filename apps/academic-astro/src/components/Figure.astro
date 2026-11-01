@@ -11,7 +11,7 @@ interface Props {
 }
 const { project: p, n, link = true, plate = true } = Astro.props;
 const meta = [p.period ? fmtRange(p.period.start, p.period.end) : null, p.role, p.topics.slice(0, 3).join(", ") || null].filter(Boolean);
-const href = `/work/${p.id}/`;
+const href = `/projects/${p.id}/`;
 ---
 <figure class="grid gap-2.5">
   {plate && <Plate seed={p.id} />}
