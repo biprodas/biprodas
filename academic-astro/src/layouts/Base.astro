@@ -41,7 +41,7 @@ const utc = profile.timezone
 const subtitle = profile.role;
 // Keep each role whole so the line only wraps at a "·" separator.
 const roleParts = subtitle?.split(/\s*·\s*/) ?? [];
-// The CV PDF: profile.cv.academic, or public/cv.pdf by default (the build warns if it's missing).
+// The CV PDF: profile.cv, or public/cv.pdf by default (the build warns if it's missing).
 const cvHref = profile.cv ?? "/cv.pdf";
 
 // Shared class lists (Lyra components live in lib/ui.ts)

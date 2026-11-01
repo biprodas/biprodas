@@ -4,7 +4,7 @@
 //
 // Each value is used only while the matching field in src/data is
 // empty or still a TODO. Fill the YAML and the placeholder disappears on its own.
-// `pnpm build` prints the placeholders still in use. In `astro dev` they get a
+// `npm run build` prints the placeholders still in use. In `astro dev` they get a
 // dotted amber underline.
 //
 // Never copy these into the YAML as if they were real.
@@ -13,13 +13,13 @@
 import type { ResearchInterest } from "../data/index.ts";
 
 export const placeholders = {
-  // PLACEHOLDER → profile.headline.academic
+  // PLACEHOLDER → profile.headline
   headline: "I build systems people can rely on.",
 
-  // PLACEHOLDER → profile.bio.academic
+  // PLACEHOLDER → profile.bio
   bio: "I build data-intensive systems for a living and want to study how to make AI-driven ones trustworthy.",
 
-  // PLACEHOLDER → profile.summary.academic
+  // PLACEHOLDER → profile.summary
   summary:
     "Eight years of building production software, multi-tenant ledgers, real-time multilingual meetings and government GIS platforms, have left me with more questions than answers. I want to spend the next years studying them properly: how we make systems built on language models trustworthy, measurable and fair to the people who depend on them.",
 

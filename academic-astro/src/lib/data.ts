@@ -37,14 +37,14 @@ export const profile = {
   social: p.social,
   sites: p.sites,
   avatar: p.avatar,
-  cv: p.cv.academic,
-  headline: fill(p.headline.academic, "profile.headline.academic", PH.headline),
-  summary: fill(p.summary.academic, "profile.summary.academic", PH.summary),
-  bio: fill(p.bio.academic, "profile.bio.academic", PH.bio),
-  /** Role line under the name: profile.role.academic, else the latest job title from experience.yaml. */
-  role: p.role.academic ?? content.experience("academic")[0]?.title,
-  /** Hero titles: profile.titles.academic, else the role line split at "·". */
-  titles: p.titles.academic ?? (p.role.academic ? p.role.academic.split(/\s*·\s*/) : []),
+  cv: p.cv,
+  headline: fill(p.headline, "profile.headline", PH.headline),
+  summary: fill(p.summary, "profile.summary", PH.summary),
+  bio: fill(p.bio, "profile.bio", PH.bio),
+  /** Role line under the name: profile.role, else the latest job title from experience.yaml. */
+  role: p.role ?? content.experience("academic")[0]?.title,
+  /** Hero titles: profile.titles, else the role line split at "·". */
+  titles: p.titles ?? (p.role ? p.role.split(/\s*·\s*/) : []),
   interests: fill(p.researchInterests, "profile.researchInterests", PH.researchInterests),
   statement: fill(p.researchStatement, "profile.researchStatement", PH.researchStatement),
   openTo: fill(p.openTo, "profile.openTo", PH.openTo),

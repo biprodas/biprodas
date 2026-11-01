@@ -8,12 +8,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
    - Never replace the root `README.md` with project docs.
    - Never add `.github/README.md`. It would take priority over the root README on the repo page.
    - The repo must stay public.
-   - Project docs live in `docs/README.md`.
+   - Project docs live in each folder's own README: `academic-astro/README.md`, `data/README.md`.
    - The README is hand-written. Its images (header/footer SVGs, tech-stack icon tiles) are static files in `readme/`.
 2. It holds Biprodas Roy's two personal sites, as **independent folders**. There is no workspace, no shared packages and no Turborepo.
    - `academic-astro/`: Astro, deployed to biprodas.com. Audience: MS/PhD committees and researchers. Engineering readers are secondary.
    - `dev/`: Next.js App Router, deployed to biprodas.dev. Audience: recruiters and clients. Creative and interactive. Not yet scaffolded.
-   - Each site has its own `package.json`, lockfile and `node_modules`, and deploys as its own Vercel project (Root Directory = the folder).
+   - Each site uses npm and has its own `package.json`, `package-lock.json` and `node_modules`, and deploys as its own Vercel project (Root Directory = the folder).
    - Don't add shared code between the sites. The designs are different on purpose.
 
 ## Data
@@ -27,10 +27,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```sh
 cd academic-astro
-pnpm install      # pnpm 12 is pinned in package.json "packageManager"
-pnpm dev
-pnpm build        # also validates the data: Zod schema + duplicate-id/reference checks
-pnpm check-types  # astro check
+npm install
+npm run dev
+npm run build        # also validates the data: Zod schema + duplicate-id/reference checks
+npm run check-types  # astro check
 ```
 
 There is no test runner or linter configured yet.

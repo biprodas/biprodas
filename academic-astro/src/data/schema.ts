@@ -66,18 +66,19 @@ export const Profile = z.object({
   name: z.string(),
   pronouns: z.string().optional(),
   avatar: Image.optional(),
-  headline: z.object({ academic: z.string(), engineering: z.string() }),
+  headline: z.string().optional(),
   tagline: z.string().optional(),
-  /** Short role line under the name (e.g. "Software Engineer · AI Researcher"), per site. */
-  role: z.object({ academic: z.string().optional(), engineering: z.string().optional() }).default({}),
-  /** Full list of job titles for the home hero, per site (the sidebar uses the shorter `role`). */
-  titles: z.object({ academic: z.array(z.string()).optional(), engineering: z.array(z.string()).optional() }).default({}),
-  /** One or two sentences under the name in the sidebar, per site. */
-  bio: z.object({ academic: z.string().optional(), engineering: z.string().optional() }).default({}),
-  summary: z.object({ academic: z.string().optional(), engineering: z.string() }),
+  /** Short role line under the name (e.g. "Software Engineer · AI Researcher"). */
+  role: z.string().optional(),
+  /** Full list of job titles for the home hero (the sidebar uses the shorter `role`). */
+  titles: z.array(z.string()).optional(),
+  /** One or two sentences under the name in the sidebar. */
+  bio: z.string().optional(),
+  summary: z.string().optional(),
   email: z.email(),
   location: Location.optional(),
   timezone: z.string().optional(),
+  /** This site and the engineering portfolio, which the sidebar and contact page link to. */
   sites: z.object({ academic: z.url(), engineering: z.url() }),
   /** Keyed by platform: github, linkedin, scholar, orcid, researchgate, codeforces, leetcode, x … */
   social: z.record(z.string(), z.url()),
@@ -97,9 +98,8 @@ export const Profile = z.object({
   languages: z
     .array(z.object({ name: z.string(), proficiency: LanguageProficiency }))
     .default([]),
-  cv: z
-    .object({ academic: z.string().optional(), engineering: z.string().optional() })
-    .default({}),
+  /** Path or URL of the CV PDF. Defaults to /cv.pdf. */
+  cv: z.string().optional(),
   /** Contact page copy (academic site). */
   contact: z
     .object({
@@ -249,12 +249,10 @@ export const Project = Item.extend({
   featured: z.boolean().default(false),
   cover: Image.optional(),
   gallery: z.array(Image).default([]),
-  /** Shown on biprodas.com: problem, method, findings. */
+  /** Problem, method, findings. */
   researchSummary: z.string().optional(),
-  /** Open questions the project raised, framed as research questions (shown on biprodas.com). */
+  /** Open questions the project raised, framed as research questions. */
   questions: z.array(z.string()).default([]),
-  /** Shown on biprodas.dev: path to an MDX case study, relative to data/. */
-  caseStudy: z.string().optional(),
 });
 export type Project = z.output<typeof Project>;
 

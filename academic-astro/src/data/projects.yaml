@@ -19,9 +19,8 @@
 #   featured: false
 #   cover: { src, alt }
 #   gallery: [ { src, alt } ]
-#   researchSummary: ...   # shown on biprodas.com
-#   questions: [ ... ]     # open research questions it raised, shown on biprodas.com
-#   caseStudy: ...         # MDX path, shown on biprodas.dev
+#   researchSummary: ...   # problem, method, findings
+#   questions: [ ... ]     # open research questions it raised
 
 # TODO: type, status, role, period, experience; public repo links where available.
 - id: pitchpool
