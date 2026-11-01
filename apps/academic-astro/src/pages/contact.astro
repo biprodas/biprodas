@@ -30,7 +30,7 @@ const elsewhere = [
   ...Object.entries(profile.social).map(([k, url]) => ({ name: platform[k] ?? k, url, detail: handle(url) })),
   { name: "Engineering portfolio", url: profile.sites.engineering, detail: profile.sites.engineering.replace(/^https?:\/\//, "") },
 ];
-const card = "rounded-2xl border border-rule bg-card";
+const card = ui.card;
 ---
 <Base title="Contact" description={`How to reach ${profile.name}: email, and what to write about.`}>
   <header>
@@ -39,7 +39,7 @@ const card = "rounded-2xl border border-rule bg-card";
     <Ph f={profile.contactIntro} tag="p" class={ui.lede}>{profile.contactIntro.value}</Ph>
   </header>
 
-  <section class="mt-10 rounded-2xl border border-rule bg-side px-6 pt-5 pb-4" aria-labelledby="email-h">
+  <section class="mt-10 rounded-none border border-rule bg-side px-6 pt-5 pb-4" aria-labelledby="email-h">
     <div class="flex flex-wrap items-center justify-between gap-4">
       <div class="min-w-0">
         <h2 id="email-h" class="font-sans text-[0.66rem] font-bold tracking-[0.16em] text-ink-2 uppercase">Email — the reliable channel</h2>

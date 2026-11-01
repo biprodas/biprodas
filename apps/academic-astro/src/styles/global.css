@@ -85,6 +85,12 @@
   color-scheme: dark;
 }
 
+/* shadcn "Lyra" geometry: boxy and sharp. One small radius for chips, inputs and the nav
+   highlight; cards, panels and buttons are square (rounded-none). */
+@theme {
+  --radius-lyra: 0.125rem;
+}
+
 /* The notes column needs ~1350px beside the sidebar. Media queries measure rem against the
    browser default (16px), so 86rem ≈ 1376px. Use the `notes:` / `max-notes:` variants for it. */
 @theme {
@@ -139,7 +145,8 @@
   }
   :focus-visible {
     outline: 2px solid var(--pen);
-    outline-offset: 3px;
+    outline-offset: 2px;
+    border-radius: 0;
   }
   h1, h2, h3, h4 {
     font-family: var(--font-serif);

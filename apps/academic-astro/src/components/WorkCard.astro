@@ -18,9 +18,8 @@ const TECH_SHOWN = 5;
 const tech = p.tech.slice(0, TECH_SHOWN);
 const moreTech = p.tech.length - tech.length;
 
-const iconBtn = "inline-grid size-8 place-items-center rounded-full [&_svg]:size-[1.05rem]";
-const active = `${iconBtn} text-ink-2 no-underline transition-colors hover:bg-pen-wash hover:text-pen`;
-const inactive = `${iconBtn} cursor-default text-muted/40`;
+const active = ui.iconBtn;
+const inactive = "inline-grid size-8 cursor-default place-items-center border border-transparent text-muted/40 [&_svg]:size-[1.05rem]";
 ---
 <!-- An odd last card spans both columns so the grid never shows an empty cell. -->
 <article
