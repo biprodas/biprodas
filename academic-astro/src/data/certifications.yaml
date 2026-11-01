@@ -1,0 +1,52 @@
+# - id: kebab-case
+#   title: ...
+#   issuer: ...
+#   issued: "YYYY-MM"
+#   expires: "YYYY-MM"
+#   credentialId: ...
+#   url: https://...      # your personal verification link (e.g. Credly) — preferred when linking
+#   infoUrl: https://...  # official page about the certification — fallback link
+#   skills: [ ... ]
+
+# TODO: issue months, expiry dates, credential ids, HackerRank certificate URLs
+- id: aws-developer-associate
+  title: AWS Certified Developer – Associate
+  issuer: Amazon Web Services
+  issued: "2026"
+  url: https://www.credly.com/badges/4d0c8176-caa8-426d-a585-db032b996210
+  infoUrl: https://aws.amazon.com/certification/certified-developer-associate/
+
+- id: aws-solutions-architect-associate
+  title: AWS Certified Solutions Architect – Associate
+  issuer: Amazon Web Services
+  issued: "2025"
+  url: https://www.credly.com/badges/8cd1fa7d-ed80-492e-bbf5-cfe8d4011129
+  infoUrl: https://aws.amazon.com/certification/certified-solutions-architect-associate/
+
+- id: aws-ai-practitioner
+  title: AWS Certified AI Practitioner
+  issuer: Amazon Web Services
+  issued: "2025"
+  url: https://www.credly.com/badges/e329c8fb-2511-4c1f-b00c-6f336863b4f4
+  infoUrl: https://aws.amazon.com/certification/certified-ai-practitioner/
+
+- id: aws-cloud-practitioner
+  title: AWS Certified Cloud Practitioner
+  issuer: Amazon Web Services
+  issued: "2025"
+  url: https://www.credly.com/badges/d26478be-16ba-423e-8d9d-981039016e08
+  infoUrl: https://aws.amazon.com/certification/certified-cloud-practitioner/
+
+- id: hackerrank-sql-intermediate
+  title: SQL (Intermediate)
+  issuer: HackerRank
+  issued: "2020"
+  audience: engineering
+  infoUrl: https://www.hackerrank.com/skills-verification/sql_intermediate
+
+- id: hackerrank-problem-solving-intermediate
+  title: Problem Solving (Intermediate)
+  issuer: HackerRank
+  issued: "2020"
+  audience: engineering
+  infoUrl: https://www.hackerrank.com/skills-verification/problem_solving_intermediate

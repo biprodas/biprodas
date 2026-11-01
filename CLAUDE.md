@@ -8,59 +8,39 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
    - Never replace the root `README.md` with project docs.
    - Never add `.github/README.md`. It would take priority over the root README on the repo page.
    - The repo must stay public.
-   - Monorepo docs live in `docs/README.md`.
-   - The README is partly generated. Blocks between `<!-- content:<name>:start/end -->` markers are rendered from `packages/content` by `packages/readme/src/generate.ts`. Never hand-edit inside the markers: change the YAML and run `pnpm readme`. Everything outside the markers is hand-written. The header and footer images `packages/readme/assets/{header,footer}.svg` are also generated, by `src/header-svg.ts`; the header's text comes from `profile.yaml`. Don't edit them by hand. `pnpm validate` fails if any of these files is stale.
-   - The README tech stack shows only skills that have a logo in the `logos` map in `generate.ts`, which uses skillicons.dev ids or local `tile:<slug>` tiles. Tiles are built from Simple Icons by `pnpm --filter @biprodas/readme icons` (`src/build-icons.ts`) and committed in `assets/icons/`.
-2. It is a **pnpm + Turborepo monorepo** for Biprodas Roy's personal sites:
-   - `apps/academic-astro`: Astro, deployed to biprodas.com. Audience: MS/PhD committees and researchers. Engineering readers are secondary.
-   - `apps/dev`: Next.js App Router, deployed to biprodas.dev. Audience: recruiters and clients. Creative and interactive.
-   - `apps/academic-astro` is scaffolded (Astro 7, static, "research notebook" design). `apps/dev` is not yet. Both deploy as separate Vercel projects from this repo.
-   - `apps/academic-astro` styles with Tailwind v4 utilities in the markup. Theme tokens and the few CSS-only mechanics live in `src/styles/global.css`; repeated class lists live in `src/lib/ui.ts`. Don't add new named CSS classes for one-off styling.
-   - `apps/academic-astro/src/content/placeholders.ts` holds invented stand-in copy, shown only while the matching YAML field is empty. It is the one place invented text is allowed. Never move it into the YAML. `src/lib/data.ts` merges real data with these placeholders.
+   - Project docs live in each folder's own README: `academic-astro/README.md`, `data/README.md`.
+   - The README is hand-written. Its images (header/footer SVGs, tech-stack icon tiles) are static files in `readme/`.
+2. It holds Biprodas Roy's two personal sites, as **independent folders**. There is no workspace, no shared packages and no Turborepo.
+   - `academic-astro/`: Astro, deployed to biprodas.com. Audience: MS/PhD committees and researchers. Engineering readers are secondary.
+   - `dev/`: Next.js App Router, deployed to biprodas.dev. Audience: recruiters and clients. Creative and interactive. Not yet scaffolded.
+   - Each site uses npm and has its own `package.json`, `package-lock.json` and `node_modules`, and deploys as its own Vercel project (Root Directory = the folder).
+   - Don't add shared code between the sites. The designs are different on purpose.
 
-## Commands
+## Data
 
-The repo pins pnpm 12 (`packageManager` in `package.json`). Turbo needs a matching `pnpm` binary on PATH; an older pnpm earlier on PATH fails with a version error.
+- `data/` at the repo root is the **master copy**: YAML with everything about Biprodas, plus photos in `data/assets/`. Nothing imports it.
+- Each site keeps its own **curated copy** and rewords it for its audience: `academic-astro/src/data/*.yaml`. Wording may differ between the master and the sites; facts (dates, titles, institutions) should match.
+- When the user changes a fact, update `data/` and every site copy that shows it.
+- Items carry `audience: academic | engineering | both` as a curation hint. The academic loader still filters on it.
+
+## Academic site (`academic-astro/`)
 
 ```sh
-pnpm install
-pnpm validate            # content schema + id/reference checks + README freshness (turbo runs it before every build)
-pnpm readme              # regenerate the content blocks in the root README.md
-pnpm check-types         # tsc across all packages
-pnpm build | pnpm dev    # turbo run build/dev
-pnpm turbo run <task> --filter=@biprodas/content   # single package
-node packages/content/src/validate.ts               # validate content directly
+cd academic-astro
+npm install
+npm run dev
+npm run build        # also validates the data: Zod schema + duplicate-id/reference checks
+npm run check-types  # astro check
 ```
 
 There is no test runner or linter configured yet.
 
-## Architecture
-
-**`packages/content` is the single source of truth.**
-- All personal data lives there: profile, experience, education, projects, awards and skills. It is stored as YAML in `packages/content/data/`.
-- `src/schema/index.ts` validates the data with Zod v4. `src/index.ts` loads it with typed loaders.
-- Apps import it at **build time**. There is no CMS, database or runtime API.
-- Planned additions:
-  - `publications.bib`, for BibTeX publications
-  - MDX case studies
-  - a CV/résumé PDF generated from this data with Typst
-  - a profile README generated from this data
-
-**Audience slicing.**
-- Items carry `audience: academic | engineering | both`.
-- Apps fetch only their slice with selectors such as `projects("academic")` or `experience("engineering")`. Items tagged `both` appear on both sites.
-- Projects can carry per-site fields: `researchSummary` (used by .com) and `caseStudy` (used by .dev).
-- When adding a new content type, follow the same pattern: add a Zod schema, add it to the `Content` object, add a YAML file, and add a selector that uses `forSite`.
-
-**Share data and primitives, not visual components.**
-- `packages/tokens` holds brand-neutral primitives: spacing, type scale, radii and breakpoints. They exist as TS in `src/index.ts` and as a Tailwind v4 `@theme` file in `primitives.css`, and the two must be kept in sync.
-- Colors, fonts and motion belong to each app, so the two sites keep distinct design identities.
-- Shared React code, if any, should be headless, so it works both in Next.js and as Astro islands.
-
-**TypeScript without a build step.**
-- Packages export raw `.ts` (`"exports": "./src/index.ts"`) and use `.ts` extensions in relative imports. This relies on `allowImportingTsExtensions` and `erasableSyntaxOnly`.
-- Node 22.18+ runs these files directly through type stripping. Don't use enums, namespaces or parameter properties.
-- The shared tsconfig is `packages/config/tsconfig.base.json`.
+- Static Astro 7, "research notebook" design.
+- Data: `src/data/schema.ts` (Zod v4) and `src/data/index.ts` (loader, validation and selectors such as `projects("academic")`). Pages read it through `src/lib/data.ts`. When adding a content type: add a Zod schema, add it to `Content`, add a YAML file, add a selector.
+- Styling: Tailwind v4 utilities in the markup. Theme tokens (colours, fonts, type scale, radii, breakpoints) and the few CSS-only mechanics live in `src/styles/global.css`; repeated class lists live in `src/lib/ui.ts`. Don't add new named CSS classes for one-off styling.
+- `src/content/placeholders.ts` holds invented stand-in copy, shown only while the matching YAML field is empty. It is the one place invented text is allowed. Never move it into the YAML. `src/lib/data.ts` merges real data with these placeholders.
+- Images used by the site live in `src/assets/` and are looked up by the path in the YAML (`src/lib/images.ts`).
+- TypeScript uses `.ts` extensions in relative imports (`allowImportingTsExtensions`). Don't use enums, namespaces or parameter properties.
 
 ## Content rules
 

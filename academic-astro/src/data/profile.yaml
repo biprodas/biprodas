@@ -1,0 +1,37 @@
+name: Biprodas Roy
+# pronouns: ...
+avatar: { src: assets/profile/biprodasroy.png, alt: Watercolour portrait of Biprodas Roy } # path relative to src/
+headline: TODO — e.g. "Software Engineer · Prospective graduate student in <field>"
+tagline: Coding the future, one commit at a time!
+role: Software Engineer · AI Researcher
+titles: [Senior Software Engineer, Full Stack Developer, AI Researcher] # home hero line
+# bio: ...                  # one or two sentences shown under your name in the site sidebar
+# summary: >-              # TODO: research motivation, interests, goals
+#   ...
+email: biprodas.cse@gmail.com
+location: { city: Jashore, country: Bangladesh }
+timezone: Asia/Dhaka
+sites:
+  academic: https://biprodas.com
+  engineering: https://biprodas.dev
+social:
+  github: https://github.com/biprodas
+  linkedin: https://www.linkedin.com/in/biprodas-roy/
+  # TODO as available: scholar, orcid, researchgate, codeforces, leetcode, x
+researchInterests: [] # TODO — plain strings, or { topic, note } where note is one line on why
+# researchStatement: >-     # academic site, /research — blank line separates paragraphs
+#   ...
+# about: >-                 # academic site, /about
+#   ...
+# currently: { focus: ..., reading: [ "Title — Author" ] }
+# principles:               # "How I work" on the About (home) page
+#   - { title: ..., note: ... }
+openTo: [] # TODO, e.g. "MS/PhD positions (Fall 2027)", "Senior backend roles"
+languages: [] # TODO, e.g. { name: Bengali, proficiency: native }
+              # proficiency: native | full-professional | professional | limited-working | elementary
+# cv: /cv.pdf              # defaults to public/cv.pdf
+# contact:                   # biprodas.com/contact
+#   intro: ...
+#   responseTime: Usually replies within 48 hours
+#   topics:
+#     - { title: Graduate admissions, body: ... }   # filled once the CV PDFs exist
