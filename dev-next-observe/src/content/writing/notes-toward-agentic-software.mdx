@@ -1,0 +1,25 @@
+{/* Invented copy — replace with real content. */}
+
+_This is a working note, not a finished argument._
+
+I've spent a large part of my career reviewing other people's code: as a co-founder setting standards for a team of a dozen engineers, as a mentor to interns, as a contractor inheriting systems I didn't design. Lately I've been reviewing a new kind of contributor — AI agents that open pull requests — and I've noticed that my review habits don't transfer as cleanly as I expected.
+
+## What a review is actually checking
+
+When I review a human's change, the diff is the smallest part of what I'm evaluating. I'm asking whether the change respects invariants nobody wrote down: that tenant context flows through background jobs, that money only moves through the ledger, that a migration can run on a table with millions of rows without locking it. Good engineers internalise these rules over months. They show up in review comments long before they show up in documentation.
+
+Agents, so far, are excellent at the diff and uneven at the invariants. The code compiles, the tests pass, and the change is still wrong in a way only someone who knows the system would see.
+
+## Benchmarks measure the diff
+
+Benchmarks like SWE-bench were a real step forward: they evaluate agents on real issues from real repositories, judged by real tests. But tests are only the invariants someone thought to encode. A lot of what makes a production system safe lives outside them.
+
+That suggests a research question I keep returning to: _can we evaluate agents against the invariants of a system, not just its tests?_ For a multi-tenant application, that might mean checking that no change can make one tenant's data visible to another — a property, not an example.
+
+## Review history as training signal
+
+The second question is about learning. Every codebase I've worked on has a review history full of comments like "this needs to go through the posting service" or "don't load the whole table here". Those comments are the closest thing a team has to a written-down architecture. Retrieving them as context for an agent editing the same module seems like an obvious experiment, and I haven't yet seen it done carefully.
+
+## Where I'm going with this
+
+I don't think agents will replace engineering judgement soon. I do think the most useful thing an engineer with production experience can bring to AI research is a clear account of what that judgement consists of — and better ways to measure whether a system has it. That's the work I want to do next.

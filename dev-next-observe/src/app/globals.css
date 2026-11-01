@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+/* Digital Observatory: a dark sky, starlight text, two instrument accents. */
+@theme {
+  --color-void: #05070d;
+  --color-deep: #0a0e19;
+  --color-surface: #0f1424;
+  --color-line: #1d2438;
+  --color-line-strong: #2c3550;
+  --color-ink: #e8ebf4;
+  --color-muted: #a3abc0;
+  --color-dim: #7c859c;
+  --color-nebula: #a99bff;
+  --color-signal: #f5bd63;
+  --color-aurora: #74d6c4;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-instrument-serif), ui-serif, Georgia, serif;
+
+  --text-display: clamp(3.25rem, 9vw, 7.5rem);
+  --text-display--line-height: 0.92;
+  --text-title: clamp(2.25rem, 5vw, 3.75rem);
+  --text-title--line-height: 1;
+
+  --radius-panel: 1.25rem;
+
+  --animate-orbit: orbit 120s linear infinite;
+  --animate-orbit-reverse: orbit 160s linear infinite reverse;
+  --animate-pulse-star: pulse-star 4s ease-in-out infinite;
+
+  @keyframes orbit {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes pulse-star {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.55;
+      transform: scale(0.8);
+    }
+  }
+}
+
+/* `light:` styles apply when the light theme is active. */
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+
+/*
+ * Light theme: a printed star atlas. Warm paper, ink-dark stars, deeper accents so text stays above AA contrast.
+ * The inline script in layout.tsx sets data-theme before first paint (stored choice, else the system setting).
+ */
+:root {
+  --star-alpha: 1;
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+  --color-void: #f6f3ec;
+  --color-deep: #efebe1;
+  --color-surface: #e6e1d4;
+  --color-line: #dbd5c6;
+  --color-line-strong: #c2baa6;
+  --color-ink: #151821;
+  --color-muted: #464c5c;
+  --color-dim: #575c6a;
+  --color-nebula: #5a46d0;
+  --color-signal: #8f4f00;
+  --color-aurora: #0b6656;
+  --star-alpha: 0.5;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    background-color: var(--color-void);
+    transition: background-color 300ms ease;
+    scroll-padding-top: 6rem;
+  }
+
+  /* No body background: it would paint over the fixed star field (z-index -10). html carries the colour. */
+  body {
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--color-nebula) 40%, transparent);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+/* Scroll-driven reveal. Progressive: unsupported browsers just show the content. */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    translate: 0 24px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+  }
+}
+
+/* Constellation lines draw in when their star is hovered or focused. */
+.constellation-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 700ms ease;
+}
+.group:hover .constellation-line,
+.group:focus-visible .constellation-line {
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

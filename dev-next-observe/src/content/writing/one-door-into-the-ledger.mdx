@@ -1,0 +1,29 @@
+{/* Invented copy — replace with real content. */}
+
+Microfinance looks simple from far away. A group of members borrows a small amount, repays it weekly, and saves a little on the side. Up close, every one of those weekly repayments is a financial event that must land in the right account, in the right branch, for the right member, on the right day. Multiply that by twenty branches and three organizations and you have a system where small mistakes compound quietly until month-end.
+
+When we started building a core banking platform for NGO microfinance, the first version of the design looked like most CRUD applications. The lending module updated loan balances. The savings module updated savings balances. The accounting module read from both and produced a trial balance. It worked in demos. It would not have survived a real audit.
+
+## The problem with many doors
+
+The trouble was that every module had its own door into the money. A disbursement wrote a loan record and, somewhere else, a cash movement. A collection updated an outstanding balance and, separately, a cash account. Each module was correct on its own terms. But nothing guaranteed that the sum of all those writes balanced, and the only way to find out was to run a report and hope.
+
+In accounting, that guarantee has existed for five hundred years: double-entry bookkeeping. Every movement of value is recorded as equal debits and credits. If the books don't balance, something is wrong, and you know it immediately.
+
+## One door
+
+So we gave the ledger one door. Modules no longer write to accounts. They describe what happened in business terms — _a loan of this amount was disbursed to this member from this branch_ — and hand that event to a single posting service. The posting service looks up the rules for that event type, produces balanced journal entries, and writes them in one transaction. If the entries don't balance, the transaction fails, and the business event never happened.
+
+This changed the character of the whole system:
+
+- **Reconciliation became a property, not a process.** The trial balance balances because it cannot do otherwise.
+- **New products became configuration.** A new savings product mostly meant new posting rules, not new code paths through accounting.
+- **Audits got shorter.** Every number on a report traces back to journal entries, which trace back to a business event, which traces back to a person and a time.
+
+## Freeze what you promise
+
+A related lesson came from repayment schedules. Loan products change: interest methods are adjusted, grace periods are added. If schedules are computed on the fly from the current product definition, history quietly rewrites itself. We generate the schedule at disbursement and store it. Whatever the member agreed to is what the system remembers.
+
+## What I'd tell my earlier self
+
+Correctness is cheapest when it's structural. Tests and reviews catch bugs in code paths, but they can't catch a path you forgot existed. A single door into the ledger meant there were no forgotten paths — and that is the kind of guarantee I now look for in every system I design, financial or not.

@@ -8,6 +8,7 @@ Each site keeps its own curated copy and rewords it for its audience:
 | Site | Curated copy |
 |---|---|
 | biprodas.com | [`academic-astro/src/data/`](../academic-astro/src/data/) |
+| biprodas.dev | [`dev-next-observe/src/content/`](../dev-next-observe/src/content/) (typed TS modules) |
 
 To change a fact, edit it here first, then copy the change into each site that shows it. Wording can differ
 between sites; facts (dates, titles, institutions) should match.

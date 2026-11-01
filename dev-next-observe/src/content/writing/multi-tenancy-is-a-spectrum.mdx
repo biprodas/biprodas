@@ -1,0 +1,34 @@
+{/* Invented copy — replace with real content. */}
+
+Almost every product I've built in the last six years has been multi-tenant: ERPs for schools, core banking for NGOs, prediction pools, accounting for small teams. Early on I thought multi-tenancy was a decision you made once. It's closer to a dial you keep adjusting as the product, the customers and the risks change.
+
+## The four positions
+
+Roughly, there are four ways to keep tenants apart in a relational database:
+
+1. **Shared tables with a tenant column.** Every row carries a `tenant_id`, and every query filters on it.
+2. **Shared tables with row-level security.** Same layout, but the database enforces the filter, not the application.
+3. **Schema per tenant.** Each tenant gets its own copy of the tables inside one database.
+4. **Database per tenant.** Full physical separation.
+
+Moving down the list buys stronger isolation and easier per-tenant operations, at the cost of more moving parts: more migrations to run, more connections to manage, harder cross-tenant reporting.
+
+## Where I usually start
+
+For most new SaaS products I start at position two. A tenant column alone relies on every query, written by every engineer, forever, remembering a `WHERE` clause. That is a policy enforced by hope. Row-level security in PostgreSQL moves the policy into the database: the application sets the current tenant on the connection, and the database refuses to return anything else.
+
+In the School ERP, that meant tenanted tables carry a policy, and a forgotten filter in a report query returns _less_ data rather than _someone else's_ data. That failure mode is the one you want.
+
+## When to move along the dial
+
+The signals that push a product further down the list are usually not technical:
+
+- **A customer's contract requires it.** Some organizations need their data physically separate, and no amount of RLS will satisfy their auditor.
+- **One tenant is much larger than the rest.** A noisy neighbour can justify its own schema or database.
+- **Per-tenant lifecycle matters.** If tenants need their own backup, restore or data-residency guarantees, separation makes those operations simple.
+
+## What stays the same
+
+Whatever the position, a few things hold. Tenant context should be established once, at the edge of the request, and carried everywhere implicitly. Background jobs need tenant context as much as HTTP requests do — queues are where isolation bugs like to hide. And cross-tenant operations, such as platform-wide reporting, should be explicit, rare and obviously different in code.
+
+Multi-tenancy isn't an architecture so much as a promise to each customer that they're alone in the room. The right design is the cheapest one that keeps that promise for the customers you actually have.
