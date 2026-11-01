@@ -1,25 +1,19 @@
 <!--
-  GitHub profile README.
-  Blocks between `content:*:start/end` markers are generated from packages/content — edit the
-  YAML there and run `pnpm readme`. Everything else in this file is hand-written.
+  GitHub profile README. Hand-written; images live in readme/.
 -->
 
 <!-- ───────────── Header ───────────── -->
 
-<!-- content:header:start -->
 <p align="center">
-  <img alt="Biprodas Roy — Software Engineer · Full Stack Developer · AI Researcher" src="packages/readme/assets/header.svg" width="100%" />
+  <img alt="Biprodas Roy — Software Engineer · Full Stack Developer · AI Researcher" src="readme/header.svg" width="100%" />
 </p>
-<!-- content:header:end -->
 
 <p align="center">
   <a href="https://github.com/biprodas?tab=followers"><img alt="GitHub followers" src="https://img.shields.io/github/followers/biprodas?label=Followers&style=for-the-badge&logo=github&labelColor=1E3A8A&color=0EA5E9" /></a>
   <a href="https://github.com/biprodas?tab=repositories"><img alt="GitHub stars" src="https://img.shields.io/github/stars/biprodas?label=Stars&style=for-the-badge&logo=github&labelColor=1E3A8A&color=06B6D4" /></a>
 </p>
 
-<!-- content:motto:start -->
 <p align="center"><i>“Coding the future, one commit at a time!”</i></p>
-<!-- content:motto:end -->
 
 ---
 
@@ -62,7 +56,6 @@ Today I'm going deeper into **AI** — LLM-powered systems, RAG and agentic work
 
 ### 🛠️ Tech stack
 
-<!-- content:stack:start -->
 <table>
   <tr>
     <td><b>Languages</b></td>
@@ -70,7 +63,7 @@ Today I'm going deeper into **AI** — LLM-powered systems, RAG and agentic work
   </tr>
   <tr>
     <td><b>Frontend</b></td>
-    <td width="100%"><picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=react&theme=dark" /><img alt="React" title="React" src="https://skillicons.dev/icons?i=react&theme=light" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=nextjs&theme=dark" /><img alt="Next.js" title="Next.js" src="https://skillicons.dev/icons?i=nextjs&theme=light" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=tailwind&theme=dark" /><img alt="Tailwind CSS" title="Tailwind CSS" src="https://skillicons.dev/icons?i=tailwind&theme=light" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="packages/readme/assets/icons/reactquery-dark.svg" /><img alt="TanStack Query" title="TanStack Query" src="packages/readme/assets/icons/reactquery-light.svg" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=redux&theme=dark" /><img alt="Redux" title="Redux" src="https://skillicons.dev/icons?i=redux&theme=light" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="packages/readme/assets/icons/shadcnui-dark.svg" /><img alt="shadcn/ui" title="shadcn/ui" src="packages/readme/assets/icons/shadcnui-light.svg" height="32" /></picture></td>
+    <td width="100%"><picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=react&theme=dark" /><img alt="React" title="React" src="https://skillicons.dev/icons?i=react&theme=light" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=nextjs&theme=dark" /><img alt="Next.js" title="Next.js" src="https://skillicons.dev/icons?i=nextjs&theme=light" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=tailwind&theme=dark" /><img alt="Tailwind CSS" title="Tailwind CSS" src="https://skillicons.dev/icons?i=tailwind&theme=light" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="readme/icons/reactquery-dark.svg" /><img alt="TanStack Query" title="TanStack Query" src="readme/icons/reactquery-light.svg" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=redux&theme=dark" /><img alt="Redux" title="Redux" src="https://skillicons.dev/icons?i=redux&theme=light" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="readme/icons/shadcnui-dark.svg" /><img alt="shadcn/ui" title="shadcn/ui" src="readme/icons/shadcnui-light.svg" height="32" /></picture></td>
   </tr>
   <tr>
     <td><b>Backend&nbsp;&amp;&nbsp;Architecture</b></td>
@@ -78,7 +71,7 @@ Today I'm going deeper into **AI** — LLM-powered systems, RAG and agentic work
   </tr>
   <tr>
     <td><b>Data&nbsp;&amp;&nbsp;Messaging</b></td>
-    <td width="100%"><picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=postgres&theme=dark" /><img alt="PostgreSQL" title="PostgreSQL" src="https://skillicons.dev/icons?i=postgres&theme=light" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=redis&theme=dark" /><img alt="Redis" title="Redis" src="https://skillicons.dev/icons?i=redis&theme=light" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=mongodb&theme=dark" /><img alt="MongoDB" title="MongoDB" src="https://skillicons.dev/icons?i=mongodb&theme=light" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=mysql&theme=dark" /><img alt="MySQL" title="MySQL" src="https://skillicons.dev/icons?i=mysql&theme=light" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=dynamodb&theme=dark" /><img alt="DynamoDB" title="DynamoDB" src="https://skillicons.dev/icons?i=dynamodb&theme=light" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="packages/readme/assets/icons/typeorm-dark.svg" /><img alt="TypeORM" title="TypeORM" src="packages/readme/assets/icons/typeorm-light.svg" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=prisma&theme=dark" /><img alt="Prisma" title="Prisma" src="https://skillicons.dev/icons?i=prisma&theme=light" height="32" /></picture></td>
+    <td width="100%"><picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=postgres&theme=dark" /><img alt="PostgreSQL" title="PostgreSQL" src="https://skillicons.dev/icons?i=postgres&theme=light" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=redis&theme=dark" /><img alt="Redis" title="Redis" src="https://skillicons.dev/icons?i=redis&theme=light" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=mongodb&theme=dark" /><img alt="MongoDB" title="MongoDB" src="https://skillicons.dev/icons?i=mongodb&theme=light" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=mysql&theme=dark" /><img alt="MySQL" title="MySQL" src="https://skillicons.dev/icons?i=mysql&theme=light" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=dynamodb&theme=dark" /><img alt="DynamoDB" title="DynamoDB" src="https://skillicons.dev/icons?i=dynamodb&theme=light" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="readme/icons/typeorm-dark.svg" /><img alt="TypeORM" title="TypeORM" src="readme/icons/typeorm-light.svg" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=prisma&theme=dark" /><img alt="Prisma" title="Prisma" src="https://skillicons.dev/icons?i=prisma&theme=light" height="32" /></picture></td>
   </tr>
   <tr>
     <td><b>Cloud&nbsp;&amp;&nbsp;DevOps</b></td>
@@ -89,11 +82,9 @@ Today I'm going deeper into **AI** — LLM-powered systems, RAG and agentic work
     <td width="100%"><picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=linux&theme=dark" /><img alt="Linux" title="Linux" src="https://skillicons.dev/icons?i=linux&theme=light" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=vscode&theme=dark" /><img alt="VS Code" title="VS Code" src="https://skillicons.dev/icons?i=vscode&theme=light" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=git&theme=dark" /><img alt="Git" title="Git" src="https://skillicons.dev/icons?i=git&theme=light" height="32" /></picture>&nbsp;&nbsp;<picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=github&theme=dark" /><img alt="GitHub" title="GitHub" src="https://skillicons.dev/icons?i=github&theme=light" height="32" /></picture></td>
   </tr>
 </table>
-<!-- content:stack:end -->
 
 ### 🚀 Featured works
 
-<!-- content:projects:start -->
 <table>
 <tr>
 <td width="50%" valign="top">
@@ -178,20 +169,17 @@ Practice app for AWS certification exams — questions organized by certificatio
 </td>
 </tr>
 </table>
-<!-- content:projects:end -->
 
 <p align="right"><a href="https://github.com/biprodas?tab=repositories">See more on GitHub →</a></p>
 
 ### 📜 Certifications
 
-<!-- content:certifications:start -->
 - <picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=aws&theme=dark" /><img alt="AWS" title="AWS" src="https://skillicons.dev/icons?i=aws&theme=light" height="20" /></picture>&nbsp; **[AWS Certified Developer – Associate](https://www.credly.com/badges/4d0c8176-caa8-426d-a585-db032b996210)** · Amazon Web Services
 - <picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=aws&theme=dark" /><img alt="AWS" title="AWS" src="https://skillicons.dev/icons?i=aws&theme=light" height="20" /></picture>&nbsp; **[AWS Certified Solutions Architect – Associate](https://www.credly.com/badges/8cd1fa7d-ed80-492e-bbf5-cfe8d4011129)** · Amazon Web Services
 - <picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=aws&theme=dark" /><img alt="AWS" title="AWS" src="https://skillicons.dev/icons?i=aws&theme=light" height="20" /></picture>&nbsp; **[AWS Certified AI Practitioner](https://www.credly.com/badges/e329c8fb-2511-4c1f-b00c-6f336863b4f4)** · Amazon Web Services
 - <picture><source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=aws&theme=dark" /><img alt="AWS" title="AWS" src="https://skillicons.dev/icons?i=aws&theme=light" height="20" /></picture>&nbsp; **[AWS Certified Cloud Practitioner](https://www.credly.com/badges/d26478be-16ba-423e-8d9d-981039016e08)** · Amazon Web Services
-- <picture><source media="(prefers-color-scheme: dark)" srcset="packages/readme/assets/icons/hackerrank-dark.svg" /><img alt="HackerRank" title="HackerRank" src="packages/readme/assets/icons/hackerrank-light.svg" height="20" /></picture>&nbsp; **[SQL (Intermediate)](https://www.hackerrank.com/skills-verification/sql_intermediate)** · HackerRank
-- <picture><source media="(prefers-color-scheme: dark)" srcset="packages/readme/assets/icons/hackerrank-dark.svg" /><img alt="HackerRank" title="HackerRank" src="packages/readme/assets/icons/hackerrank-light.svg" height="20" /></picture>&nbsp; **[Problem Solving (Intermediate)](https://www.hackerrank.com/skills-verification/problem_solving_intermediate)** · HackerRank
-<!-- content:certifications:end -->
+- <picture><source media="(prefers-color-scheme: dark)" srcset="readme/icons/hackerrank-dark.svg" /><img alt="HackerRank" title="HackerRank" src="readme/icons/hackerrank-light.svg" height="20" /></picture>&nbsp; **[SQL (Intermediate)](https://www.hackerrank.com/skills-verification/sql_intermediate)** · HackerRank
+- <picture><source media="(prefers-color-scheme: dark)" srcset="readme/icons/hackerrank-dark.svg" /><img alt="HackerRank" title="HackerRank" src="readme/icons/hackerrank-light.svg" height="20" /></picture>&nbsp; **[Problem Solving (Intermediate)](https://www.hackerrank.com/skills-verification/problem_solving_intermediate)** · HackerRank
 
 ### 🌱 Right now
 
@@ -199,8 +187,6 @@ Practice app for AWS certification exams — questions organized by certificatio
 - 🌱 **Getting better at:** mentoring, leading teams, product thinking
 - 💬 **Let's talk about:** SaaS, system design, startups, science & technology, football
 
-<!-- content:footer:start -->
 <p align="center">
-  <img alt="" src="packages/readme/assets/footer.svg" width="100%" />
+  <img alt="" src="readme/footer.svg" width="100%" />
 </p>
-<!-- content:footer:end -->

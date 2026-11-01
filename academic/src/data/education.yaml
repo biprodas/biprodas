@@ -1,0 +1,29 @@
+# - id: kebab-case
+#   institution: { name, url, logo, location: { city, country } }
+#   degree: { level, name, field, minor }
+#     # level: secondary | higher-secondary | diploma | associate | bachelor | master |
+#     #        doctorate | postdoc | certificate | other
+#   start: "YYYY-MM"
+#   end: "YYYY-MM" | present
+#   status: completed                    # completed | ongoing | expected | withdrawn
+#   grade: { value: "3.75", scale: "4.00", kind: cgpa, rank: "Top 10%" }
+#                                        # kind: cgpa | gpa | percentage | class | other
+#   thesis: { title, kind: thesis, supervisors: [ ... ], abstract, links: [ ... ] }
+#                                        # kind: thesis | project | dissertation
+#   coursework: [ ... ]
+#   honors: [ ... ]
+#   activities: [ ... ]
+#   highlights: [ ... ]
+
+# TODO (important for the academic site): grade, thesis/final-year project, coursework, honors
+- id: bsc-cse-just
+  institution:
+    name: Jashore University of Science & Technology
+    location: { city: Jashore, country: Bangladesh }
+  degree:
+    level: bachelor
+    name: B.Sc. in Computer Science & Engineering
+    field: Computer Science & Engineering
+  start: "2013-05"
+  end: "2017-09"
+  status: completed

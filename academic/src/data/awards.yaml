@@ -1,0 +1,27 @@
+# - id: kebab-case
+#   title: ...
+#   kind: competition    # competition | scholarship | fellowship | grant | honor | recognition | achievement
+#   issuer: ...
+#   date: "YYYY"
+#   result: "Rank 45 of 120" | "Champion" | "Participant"
+#   amount: ...          # scholarships/grants
+#   description: ...
+#   links: [ { kind, url, label } ]
+
+# TODO: result (rank/placement) for the contests below
+- id: icpc-dhaka-2015
+  title: ACM-ICPC Asia Dhaka Regional
+  kind: competition
+  issuer: ICPC
+  date: "2015"
+
+- id: just-intra-contest-2014
+  title: Intra-university Programming Contest
+  kind: competition
+  issuer: Jashore University of Science & Technology
+  date: "2014"
+
+- id: problem-solving-2000
+  title: 2,000+ algorithmic problems solved
+  kind: achievement
+  description: Across Codeforces, LeetCode, UVa, CodeChef, and HackerRank.

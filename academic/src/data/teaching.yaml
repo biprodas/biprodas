@@ -1,0 +1,44 @@
+# Teaching, training and mentoring — shown on biprodas.com by default (audience: academic).
+#
+# - id: kebab-case
+#   title: ...
+#   role: trainer     # instructor | teaching-assistant | trainer | mentor | organizer | guest-lecturer
+#   org: { name, url, location: { city, country } }
+#   start: "YYYY-MM"
+#   end: "YYYY-MM" | present
+#   audienceDescription: e.g. "Entry-level developers and interns"
+#   summary: ...
+#   highlights: [ ... ]
+#   experience: experience-id   # if part of a job
+#   links: [ ... ]
+
+- id: utshab-dsa-training
+  title: Data Structures & Algorithms Training (C/C++)
+  role: trainer
+  org:
+    name: Utshab Technology Ltd
+    location: { city: Jashore, country: Bangladesh }
+  start: "2018-01"
+  end: "2019-03"
+  audienceDescription: Entry-level developers and interns
+  experience: utshab
+
+- id: just-contest-prep
+  title: Programming Contest Preparation Sessions
+  role: organizer
+  org:
+    name: Jashore University of Science & Technology
+    location: { city: Jashore, country: Bangladesh }
+  # TODO: start/end
+
+- id: semicolon-mentoring
+  title: Engineering Mentorship
+  role: mentor
+  org:
+    name: Semicolon IT Solutions
+    location: { city: Jashore, country: Bangladesh }
+  start: "2019-08"
+  end: "2023-12"
+  audienceDescription: 20+ junior engineers and interns
+  summary: Code reviews and pairing, growing mentees into independent contributors on client projects.
+  experience: semicolon
