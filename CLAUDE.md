@@ -11,7 +11,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
    - Project docs live in `docs/README.md`.
    - The README is hand-written. Its images (header/footer SVGs, tech-stack icon tiles) are static files in `readme/`.
 2. It holds Biprodas Roy's two personal sites, as **independent folders**. There is no workspace, no shared packages and no Turborepo.
-   - `academic/`: Astro, deployed to biprodas.com. Audience: MS/PhD committees and researchers. Engineering readers are secondary.
+   - `academic-astro/`: Astro, deployed to biprodas.com. Audience: MS/PhD committees and researchers. Engineering readers are secondary.
    - `dev/`: Next.js App Router, deployed to biprodas.dev. Audience: recruiters and clients. Creative and interactive. Not yet scaffolded.
    - Each site has its own `package.json`, lockfile and `node_modules`, and deploys as its own Vercel project (Root Directory = the folder).
    - Don't add shared code between the sites. The designs are different on purpose.
@@ -19,14 +19,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Data
 
 - `data/` at the repo root is the **master copy**: YAML with everything about Biprodas, plus photos in `data/assets/`. Nothing imports it.
-- Each site keeps its own **curated copy** and rewords it for its audience: `academic/src/data/*.yaml`. Wording may differ between the master and the sites; facts (dates, titles, institutions) should match.
+- Each site keeps its own **curated copy** and rewords it for its audience: `academic-astro/src/data/*.yaml`. Wording may differ between the master and the sites; facts (dates, titles, institutions) should match.
 - When the user changes a fact, update `data/` and every site copy that shows it.
 - Items carry `audience: academic | engineering | both` as a curation hint. The academic loader still filters on it.
 
-## Academic site (`academic/`)
+## Academic site (`academic-astro/`)
 
 ```sh
-cd academic
+cd academic-astro
 pnpm install      # pnpm 12 is pinned in package.json "packageManager"
 pnpm dev
 pnpm build        # also validates the data: Zod schema + duplicate-id/reference checks

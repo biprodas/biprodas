@@ -6,7 +6,7 @@ Biprodas Roy's GitHub profile and personal sites. The root `README.md` is the Gi
 |---|---|---|
 | `README.md` + `readme/` | GitHub profile README (hand-written) and its images | github.com/biprodas |
 | `data/` | Master data: everything about Biprodas, in YAML. Not imported by anything | — |
-| `academic/` | Academic site (Astro, "research notebook" design) | biprodas.com |
+| `academic-astro/` | Academic site (Astro, "research notebook" design) | biprodas.com |
 | `dev/` | Engineering portfolio (Next.js), not yet scaffolded | biprodas.dev |
 
 There's no workspace, no shared packages and no Turborepo. Each site is a standalone project with its own
@@ -15,7 +15,7 @@ There's no workspace, no shared packages and no Turborepo. Each site is a standa
 ## Data
 
 `data/` is the master copy: full profile, experience, education, projects, skills, publications and so on.
-Each site keeps its own curated copy in its own folder (`academic/src/data/`) and rewords it for its audience.
+Each site keeps its own curated copy in its own folder (`academic-astro/src/data/`) and rewords it for its audience.
 To change a fact, edit `data/` first, then copy the change into each site that shows it.
 
 Items can carry `audience: academic | engineering | both` in the master as a hint for curation. The site
@@ -23,12 +23,12 @@ copies keep the tag, and the academic site still filters on it.
 
 Photos live in `data/assets/`. `assets/profile/biprodas-roy.jpeg` is the portrait. `avatar-style-reference.png` is
 a style reference for an illustrated avatar, not a photo of Biprodas, so don't publish it as the portrait.
-Copy the images a site uses into that site (`academic/src/assets/`).
+Copy the images a site uses into that site (`academic-astro/src/assets/`).
 
-## Academic site (`academic/`)
+## Academic site (`academic-astro/`)
 
 ```sh
-cd academic
+cd academic-astro
 pnpm install           # needs pnpm 12 (pinned in package.json "packageManager")
 pnpm dev               # http://localhost:4321
 pnpm build
@@ -59,9 +59,9 @@ statement, about, project `researchSummary`/`questions`, thesis, publications…
 `src/content/placeholders.ts`. In `dev` they show a dotted amber underline (hover for the field name). Every build
 prints the list still in use. Fill the YAML and each placeholder disappears; nothing invented lives in the YAML.
 
-**Vercel.** Root directory `academic`, framework Astro, output `dist`. Static output needs no adapter. Node ≥ 22.18.
+**Vercel.** Root directory `academic-astro`, framework Astro, output `dist`. Static output needs no adapter. Node ≥ 22.18.
 Set the env var `ENABLE_EXPERIMENTAL_COREPACK=1` so Vercel installs with the pinned pnpm 12 instead of guessing from the lockfile.
-`academic/vercel.json` skips the build when a commit doesn't touch `academic/`.
+`academic-astro/vercel.json` skips the build when a commit doesn't touch `academic-astro/`.
 
 ## Profile README
 

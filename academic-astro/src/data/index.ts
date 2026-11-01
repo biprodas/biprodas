@@ -68,11 +68,11 @@ export function loadContent(): Content {
     skills: readYaml("skills.yaml"),
   });
   if (!result.success) {
-    throw new Error(`Invalid data in academic/src/data:\n${z.prettifyError(result.error)}`);
+    throw new Error(`Invalid data in academic-astro/src/data:\n${z.prettifyError(result.error)}`);
   }
   const problems = referenceProblems(result.data);
   if (problems.length) {
-    throw new Error(`Invalid data in academic/src/data:\n${problems.map((p) => `✖ ${p}`).join("\n")}`);
+    throw new Error(`Invalid data in academic-astro/src/data:\n${problems.map((p) => `✖ ${p}`).join("\n")}`);
   }
   cache = result.data;
   return cache;

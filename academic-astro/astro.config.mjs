@@ -16,7 +16,7 @@ function placeholderReport() {
         const { placeholderReport, profile } = await import("./src/lib/data.ts");
         if (!profile.cv && !existsSync(new URL("./public/cv.pdf", import.meta.url))) {
           logger.warn(
-            "No CV PDF yet: the Download CV button links to /cv.pdf. Add academic/public/cv.pdf or set cv.academic in profile.yaml.",
+            "No CV PDF yet: the Download CV button links to /cv.pdf. Add academic-astro/public/cv.pdf or set cv.academic in profile.yaml.",
           );
         }
         const keys = placeholderReport();
