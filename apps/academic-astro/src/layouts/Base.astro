@@ -1,0 +1,111 @@
+---
+import "../styles/global.css";
+import { profile, placeholderReport } from "../lib/data.ts";
+import { personBibtex } from "../lib/cite.ts";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title, description = profile.summary.value } = Astro.props;
+const fullTitle = title ? `${title} · ${profile.name}` : `${profile.name}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+
+const nav = [
+  { href: "/about/", label: "About" },
+  { href: "/research/", label: "Research" },
+  { href: "/work/", label: "Work" },
+  { href: "/journey/", label: "Journey" },
+  { href: "/cv/", label: "CV" },
+];
+const isCurrent = (href: string) => path === href.replace(/\/$/, "") || path.startsWith(href);
+
+const dev = import.meta.env.DEV;
+const phCount = dev ? placeholderReport().length : 0;
+const year = new Date().getFullYear();
+
+const sameAs = Object.values(profile.social);
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  url: profile.sites.academic,
+  email: `mailto:${profile.email}`,
+  jobTitle: "Software Engineer",
+  alumniOf: "Jashore University of Science & Technology",
+  sameAs: [profile.sites.engineering, ...sameAs],
+};
+---
+<!doctype html>
+<html lang="en" data-ph-visible={dev ? "" : undefined}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#f6f2e9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#16140f" media="(prefers-color-scheme: dark)" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script is:inline>
+      try {
+        const t = localStorage.getItem("theme");
+        if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-head nb">
+      <div class="bar wide">
+        <a class="wordmark" href="/" aria-label={`${profile.name}, home`}>{profile.name}<span>.</span></a>
+        <nav class="site-nav" aria-label="Main">
+          {nav.map((n) => <a href={n.href} aria-current={isCurrent(n.href) ? "page" : undefined}>{n.label}</a>)}
+          <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle>◐</button>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="nb">
+      <slot />
+    </main>
+
+    <footer class="site-foot nb">
+      <div class="cols wide">
+        <div>
+          <h4>Colophon</h4>
+          <p>
+            Set in <i>Newsreader</i> and <span class="mono">IBM Plex Mono</span>. Built with Astro from a single YAML
+            source that also feeds <a href={profile.sites.engineering}>biprodas.dev</a> and my{" "}
+            <a href={profile.social.github}>GitHub profile</a>. No trackers, near-zero JavaScript.
+          </p>
+          <p style="margin-top:.8rem">© {year} {profile.name} · <a href={`mailto:${profile.email}`}>{profile.email}</a></p>
+        </div>
+        <div>
+          <h4>Cite this page</h4>
+          <pre class="bibtex">{personBibtex(profile.name, profile.sites.academic, year)}</pre>
+        </div>
+      </div>
+    </footer>
+
+    {dev && phCount > 0 && <div class="ph-banner">{phCount} placeholder fields in use. Hover the amber underlines to see which.</div>}
+
+    <script is:inline>
+      document.querySelector("[data-theme-toggle]")?.addEventListener("click", () => {
+        const root = document.documentElement;
+        const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+        const next = dark ? "light" : "dark";
+        root.dataset.theme = next;
+        try { localStorage.setItem("theme", next); } catch {}
+      });
+    </script>
+  </body>
+</html>

@@ -56,6 +56,12 @@ export const LanguageProficiency = z.enum([
   "native", "full-professional", "professional", "limited-working", "elementary",
 ]);
 
+/** A research interest: a plain topic, or a topic with a one-line note on why it matters to you. */
+export const ResearchInterest = z
+  .union([z.string(), z.object({ topic: z.string(), note: z.string().optional() })])
+  .transform((r) => (typeof r === "string" ? { topic: r } : r));
+export type ResearchInterest = z.output<typeof ResearchInterest>;
+
 export const Profile = z.object({
   name: z.string(),
   pronouns: z.string().optional(),
@@ -69,7 +75,15 @@ export const Profile = z.object({
   sites: z.object({ academic: z.url(), engineering: z.url() }),
   /** Keyed by platform: github, linkedin, scholar, orcid, researchgate, codeforces, leetcode, x … */
   social: z.record(z.string(), z.url()),
-  researchInterests: z.array(z.string()).default([]),
+  researchInterests: z.array(ResearchInterest).default([]),
+  /** A few paragraphs on research motivation and direction (markdown-free plain text, blank line = paragraph). */
+  researchStatement: z.string().optional(),
+  /** Personal story for the About page (plain text, blank line = paragraph). */
+  about: z.string().optional(),
+  /** Short, frequently-updated status shown in the "Currently" card. */
+  currently: z
+    .object({ focus: z.string().optional(), reading: z.array(z.string()).default([]) })
+    .optional(),
   /** e.g. "PhD positions (Fall 2027)", "Senior backend roles", "Consulting". */
   openTo: z.array(z.string()).default([]),
   languages: z
@@ -219,6 +233,8 @@ export const Project = Item.extend({
   gallery: z.array(Image).default([]),
   /** Shown on biprodas.com: problem, method, findings. */
   researchSummary: z.string().optional(),
+  /** Open questions the project raised, framed as research questions (shown on biprodas.com). */
+  questions: z.array(z.string()).default([]),
   /** Shown on biprodas.dev: path to an MDX case study, relative to data/. */
   caseStudy: z.string().optional(),
 });

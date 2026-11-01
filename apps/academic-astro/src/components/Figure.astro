@@ -1,0 +1,35 @@
+---
+import type { AcademicProject } from "../lib/data.ts";
+import { fmtRange } from "../lib/dates.ts";
+import Ph from "./Ph.astro";
+import Plate from "./Plate.astro";
+interface Props {
+  project: AcademicProject;
+  n: number;
+  link?: boolean;
+  plate?: boolean;
+}
+const { project: p, n, link = true, plate = true } = Astro.props;
+const meta = [p.period ? fmtRange(p.period.start, p.period.end) : null, p.role, p.topics.slice(0, 3).join(" · ") || null].filter(Boolean);
+const href = `/work/${p.id}/`;
+---
+<figure class="figure">
+  {plate && <Plate seed={p.id} label={`fig. ${n}`} />}
+  <figcaption>
+    <span class="fig-no">Fig. {n} —</span>
+    <h3>{link ? <a href={href}>{p.title}</a> : p.title}</h3>
+    {
+      p.summaryForResearch.value ? (
+        <Ph f={p.summaryForResearch} tag="p" class="abstract">{p.summaryForResearch.value}</Ph>
+      ) : (
+        <p class="abstract">{p.summary}</p>
+      )
+    }
+    {meta.length > 0 && <div class="meta">{meta.map((m) => <span>{m}</span>)}</div>}
+    {
+      p.openQuestions.value[0] && (
+        <Ph f={p.openQuestions} tag="p" class="questions"><b>Q.</b>{p.openQuestions.value[0]}</Ph>
+      )
+    }
+  </figcaption>
+</figure>

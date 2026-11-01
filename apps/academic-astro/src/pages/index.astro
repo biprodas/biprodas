@@ -1,0 +1,85 @@
+---
+import Base from "../layouts/Base.astro";
+import Section from "../components/Section.astro";
+import Sidenote from "../components/Sidenote.astro";
+import Figure from "../components/Figure.astro";
+import Timeline from "../components/Timeline.astro";
+import Currently from "../components/Currently.astro";
+import Ph from "../components/Ph.astro";
+import { profile, selectedProjects, education, experience, projects, teaching } from "../lib/data.ts";
+import { buildTimeline } from "../lib/timeline.ts";
+
+const firstJob = experience.map((e) => e.start).sort()[0] ?? "2018";
+const years = new Date().getFullYear() - Number(firstJob.slice(0, 4));
+const timeline = buildTimeline(education, experience);
+const selected = selectedProjects(3);
+const loc = [profile.location?.city, profile.location?.country].filter(Boolean).join(", ");
+const social = Object.entries(profile.social);
+---
+<Base>
+  <header class="hero">
+    <p class="page-kicker reveal">Personal homepage · est. {firstJob.slice(0, 4)}</p>
+    <h1 class="hero-name reveal d1">{profile.name}<span class="dot">.</span></h1>
+    <Ph f={profile.headline} tag="p" class="hero-headline reveal d2">{profile.headline.value}</Ph>
+    <p class="lede reveal d3">
+      <Ph f={profile.summary}>{profile.summary.value}</Ph>
+      <Sidenote n="1">
+        In numbers: {years}+ years in industry, {experience.length} organisations, {projects.length} systems described on this site,
+        and {teaching.length} stints teaching or mentoring. The full record is in the <a href="/journey/">journey</a>.
+      </Sidenote>
+    </p>
+    <div class="hero-meta reveal d3">
+      {loc && <span>{loc}</span>}
+      <Ph f={profile.openTo} class="live">{profile.openTo.value[0]}</Ph>
+    </div>
+    <div class="btn-row reveal d3">
+      <a class="btn primary" href="/research/">Read my research statement</a>
+      <a class="btn" href="/cv/">CV</a>
+      <a class="btn" href={`mailto:${profile.email}`}>Email</a>
+    </div>
+  </header>
+
+  <Section n="1" title="Research interests" id="interests">
+    <div class="margin-block"><Currently /></div>
+    <Ph f={profile.interests} tag="ol" class="interests">
+      {
+        profile.interests.value.map((i) => (
+          <li>
+            <div>
+              <h3>{i.topic}</h3>
+              {i.note && <p>{i.note}</p>}
+            </div>
+          </li>
+        ))
+      }
+    </Ph>
+    <p class="mono muted" style="margin-top:1rem">→ <a href="/research/">How these grew out of my engineering work</a></p>
+  </Section>
+
+  <Section n="2" title="Selected work" id="work">
+    <p class="muted" style="margin-bottom:1.6rem">
+      Systems I built, written up the way I would describe an experiment: what the problem was, what was hard, and what
+      question it left me with.
+    </p>
+    <div class="figures">
+      {selected.map((p, i) => <Figure project={p} n={i + 1} />)}
+    </div>
+    <p class="mono muted" style="margin-top:1.6rem">→ <a href="/work/">All {projects.length} projects</a></p>
+  </Section>
+
+  <Section n="3" title="Journey" id="journey" class="wide">
+    <Timeline nodes={timeline} horizontal />
+    <p class="mono muted" style="margin-top:1.2rem">→ <a href="/journey/">Education, roles, teaching and awards in full</a></p>
+  </Section>
+
+  <Section n="4" title="Get in touch" id="contact">
+    <p>
+      I am glad to hear from professors, researchers and engineers, especially about the questions above. Email is the best way to reach me.
+    </p>
+    <ul class="contact-list" style="margin-top:1.2rem">
+      <li><span class="mono">email</span><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
+      {social.map(([k, url]) => <li><span class="mono">{k}</span><a href={url}>{url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")}</a></li>)}
+      <li><span class="mono">engineering</span><a href={profile.sites.engineering}>{profile.sites.engineering.replace("https://", "")}</a></li>
+    </ul>
+  </Section>
+</Base>

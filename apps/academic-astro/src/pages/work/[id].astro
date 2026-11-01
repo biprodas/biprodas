@@ -1,0 +1,87 @@
+---
+import Base from "../../layouts/Base.astro";
+import Section from "../../components/Section.astro";
+import Plate from "../../components/Plate.astro";
+import Ph from "../../components/Ph.astro";
+import { projects, experience, type AcademicProject } from "../../lib/data.ts";
+import { fmtRange } from "../../lib/dates.ts";
+
+export function getStaticPaths() {
+  return projects.map((project, i) => ({ params: { id: project.id }, props: { project, n: i + 1 } }));
+}
+interface Props {
+  project: AcademicProject;
+  n: number;
+}
+const { project: p, n } = Astro.props;
+const job = experience.find((e) => e.id === p.experience || e.projects.includes(p.id));
+const facts = [
+  ["period", p.period && fmtRange(p.period.start, p.period.end)],
+  ["role", p.role],
+  ["context", job ? job.org.name : p.client],
+  ["team", p.teamSize && `${p.teamSize} people`],
+  ["status", p.status],
+  ["domain", p.topics.join(", ")],
+].filter(([, v]) => v) as [string, string][];
+const links = p.confidential ? [] : p.links;
+const idx = projects.findIndex((x) => x.id === p.id);
+const prev = projects[idx - 1];
+const next = projects[idx + 1];
+let sec = 0;
+const s = () => ++sec;
+---
+<Base title={p.title} description={p.summary}>
+  <header>
+    <p class="page-kicker"><a href="/work/" style="background:none;text-decoration:none">Work</a> / Fig. {n}</p>
+    <h1 class="page-title">{p.title}</h1>
+    <p class="lede">{p.summary}</p>
+  </header>
+
+  <div class="wide" style="margin-top:2.4rem"><figure class="figure"><Plate seed={p.id} label={`fig. ${n}`} /></figure></div>
+
+  <div style="margin-top:2rem">
+    {(facts.length > 0 || links.length > 0 || p.confidential) && <aside class="margin-block">
+      <dl class="currently" style="transform:none;box-shadow:none">
+        {facts.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+        {links.length > 0 && <div><dt>links</dt><dd>{links.map((l) => <div><a href={l.url}>{l.label ?? l.kind} ↗</a></div>)}</dd></div>}
+        {p.confidential && <div><dt>note</dt><dd>Client work under NDA; no public links.</dd></div>}
+      </dl>
+    </aside>}
+    {
+      p.summaryForResearch.value && (
+        <Section n={s()} title="Why it was interesting">
+          <Ph f={p.summaryForResearch} tag="p">{p.summaryForResearch.value}</Ph>
+        </Section>
+      )
+    }
+    {p.description && <Section n={s()} title="Overview"><p>{p.description}</p></Section>}
+    {
+      p.highlights.length > 0 && (
+        <Section n={s()} title="What I built">
+          <div class="prose"><ul class="bullets">{p.highlights.map((h) => <li>{h}</li>)}</ul></div>
+        </Section>
+      )
+    }
+    {
+      p.openQuestions.value.length > 0 && (
+        <Section n={s()} title="Questions it raised">
+          <Ph f={p.openQuestions} tag="ol" class="interests">
+            {p.openQuestions.value.map((q) => <li><p style="font-size:1.05rem;color:var(--ink);margin:0"><i>{q}</i></p></li>)}
+          </Ph>
+        </Section>
+      )
+    }
+    {
+      p.tech.length > 0 && (
+        <Section n={s()} title="Stack">
+          <ul class="tags">{p.tech.map((t) => <li class="tag">{t}</li>)}</ul>
+        </Section>
+      )
+    }
+  </div>
+
+  <nav class="section mono" aria-label="More projects" style="display:flex;justify-content:space-between;gap:1rem;border-top:1px solid var(--rule);padding-top:1rem">
+    <span>{prev && <a href={`/work/${prev.id}/`}>← {prev.title}</a>}</span>
+    <span style="text-align:right">{next && <a href={`/work/${next.id}/`}>{next.title} →</a>}</span>
+  </nav>
+</Base>

@@ -1,0 +1,28 @@
+---
+import type { Publication } from "@biprodas/content";
+import { bibtex, statusLabel } from "../lib/cite.ts";
+import { profile } from "../lib/data.ts";
+interface Props {
+  pub: Publication;
+}
+const { pub } = Astro.props;
+const venue = [pub.venue, pub.volume && `vol. ${pub.volume}`, pub.issue && `no. ${pub.issue}`, pub.pages && `pp. ${pub.pages}`, pub.date?.slice(0, 4)].filter(Boolean).join(", ");
+const links = [
+  ...(pub.doi ? [{ label: "doi", url: `https://doi.org/${pub.doi}` }] : []),
+  ...(pub.arxiv ? [{ label: "arXiv", url: `https://arxiv.org/abs/${pub.arxiv}` }] : []),
+  ...pub.links.map((l) => ({ label: l.label ?? l.kind, url: l.url })),
+];
+---
+<li class="citation">
+  <div>
+    <div class="title">{pub.title}{pub.status !== "published" && <span class="status">{statusLabel(pub.status)}</span>}</div>
+    <div class="authors">
+      {pub.authors.map((a, i) => (<><span class:list={{ me: a === profile.name }}>{a}</span>{i < pub.authors.length - 1 && ", "}</>))}
+    </div>
+    {venue && <div class="venue">{venue}</div>}
+    <div class="cite-links">
+      {links.map((l) => <a href={l.url}>{l.label}</a>)}
+    </div>
+    <details class="bib mono"><summary>bibtex</summary><pre class="bibtex">{bibtex(pub)}</pre></details>
+  </div>
+</li>

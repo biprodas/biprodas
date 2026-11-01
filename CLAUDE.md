@@ -12,13 +12,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
    - The README is partly generated. Blocks between `<!-- content:<name>:start/end -->` markers are rendered from `packages/content` by `packages/readme/src/generate.ts`. Never hand-edit inside the markers: change the YAML and run `pnpm readme`. Everything outside the markers is hand-written. The header and footer images `packages/readme/assets/{header,footer}.svg` are also generated, by `src/header-svg.ts`; the header's text comes from `profile.yaml`. Don't edit them by hand. `pnpm validate` fails if any of these files is stale.
    - The README tech stack shows only skills that have a logo in the `logos` map in `generate.ts`, which uses skillicons.dev ids or local `tile:<slug>` tiles. Tiles are built from Simple Icons by `pnpm --filter @biprodas/readme icons` (`src/build-icons.ts`) and committed in `assets/icons/`.
 2. It is a **pnpm + Turborepo monorepo** for Biprodas Roy's personal sites:
-   - `apps/academic`: Astro, deployed to biprodas.com. Audience: MS/PhD committees and researchers. Engineering readers are secondary.
+   - `apps/academic-astro`: Astro, deployed to biprodas.com. Audience: MS/PhD committees and researchers. Engineering readers are secondary.
    - `apps/dev`: Next.js App Router, deployed to biprodas.dev. Audience: recruiters and clients. Creative and interactive.
-   - Neither app is scaffolded yet. Both deploy as separate Vercel projects from this repo. The architecture plan was approved before implementation.
+   - `apps/academic-astro` is scaffolded (Astro 7, static, "research notebook" design). `apps/dev` is not yet. Both deploy as separate Vercel projects from this repo.
+   - `apps/academic-astro/src/content/placeholders.ts` holds invented stand-in copy, shown only while the matching YAML field is empty. It is the one place invented text is allowed. Never move it into the YAML. `src/lib/data.ts` merges real data with these placeholders.
 
 ## Commands
 
-pnpm may not be on PATH. Use `corepack pnpm …`, or run `corepack enable` once. Turbo itself needs a `pnpm` binary on PATH.
+The repo pins pnpm 12 (`packageManager` in `package.json`). Turbo needs a matching `pnpm` binary on PATH; an older pnpm earlier on PATH fails with a version error.
 
 ```sh
 pnpm install

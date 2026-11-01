@@ -1,0 +1,25 @@
+---
+import { profile } from "../lib/data.ts";
+import Ph from "./Ph.astro";
+const offset = profile.timezone
+  ? new Intl.DateTimeFormat("en", { timeZone: profile.timezone, timeZoneName: "shortOffset" })
+      .formatToParts(new Date())
+      .find((x) => x.type === "timeZoneName")?.value.replace("GMT", "UTC")
+  : undefined;
+const loc = [profile.location?.city, profile.location?.country].filter(Boolean).join(", ");
+---
+<aside class="currently" aria-label="Currently">
+  <h3>Currently</h3>
+  <dl>
+    {loc && (<div><dt>based in</dt><dd>{loc}{profile.timezone && <span class="mono muted"> · {offset}</span>}</dd></div>)}
+    <div><dt>focus</dt><dd><Ph f={profile.currentlyFocus}>{profile.currentlyFocus.value}</Ph></dd></div>
+    <div>
+      <dt>reading</dt>
+      <dd><Ph f={profile.currentlyReading} tag="ul">{profile.currentlyReading.value.map((r) => <li><i>{r}</i></li>)}</Ph></dd>
+    </div>
+    <div>
+      <dt>open to</dt>
+      <dd><Ph f={profile.openTo} tag="ul">{profile.openTo.value.map((o) => <li>{o}</li>)}</Ph></dd>
+    </div>
+  </dl>
+</aside>

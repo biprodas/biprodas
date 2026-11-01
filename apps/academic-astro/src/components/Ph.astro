@@ -1,0 +1,14 @@
+---
+// Wraps content that may come from a placeholder. In dev it is flagged (see global.css).
+import type { Filled } from "../lib/data.ts";
+interface Props {
+  f: Filled<unknown>;
+  tag?: string;
+  class?: string;
+  [attr: string]: unknown;
+}
+const { f, tag = "span", class: cls, ...rest } = Astro.props;
+const Tag = tag as any;
+const dev = import.meta.env.DEV;
+---
+<Tag class={cls} data-ph={dev && f.ph ? f.ph : undefined} title={dev && f.ph ? `placeholder: ${f.ph}` : undefined} {...rest}><slot /></Tag>

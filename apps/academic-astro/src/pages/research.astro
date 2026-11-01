@@ -1,0 +1,114 @@
+---
+import Base from "../layouts/Base.astro";
+import Section from "../components/Section.astro";
+import Sidenote from "../components/Sidenote.astro";
+import Citation from "../components/Citation.astro";
+import Ph from "../components/Ph.astro";
+import { profile, publications, talks, teaching, projects, paragraphs } from "../lib/data.ts";
+import { fmtDate, yearRange } from "../lib/dates.ts";
+import { statusLabel } from "../lib/cite.ts";
+
+const statement = paragraphs(profile.statement.value);
+const order = ["published", "accepted", "under-review", "submitted", "in-preparation"] as const;
+const pubGroups = order
+  .map((s) => ({ status: s, items: publications.value.filter((p) => p.status === s) }))
+  .filter((g) => g.items.length);
+const linked = projects.filter((p) => p.openQuestions.value.length).slice(0, 4);
+let sec = 0;
+const n = () => ++sec;
+---
+<Base title="Research" description="Research statement, interests and publications.">
+  <header>
+    <p class="page-kicker">Research</p>
+    <h1 class="page-title">Questions I picked up <em>while shipping software</em></h1>
+  </header>
+
+  <Section n={n()} title="Statement" id="statement">
+    <Ph f={profile.statement} tag="div" class="prose">
+      {
+        statement.map((para, i) =>
+          i === 0 ? (
+            <p class="dropcap">
+              {para}
+              <Sidenote n="1">This page is a living statement. Tailored versions for specific programmes are available on request.</Sidenote>
+            </p>
+          ) : (
+            <p>{para}</p>
+          ),
+        )
+      }
+    </Ph>
+  </Section>
+
+  <Section n={n()} title="Interests, in more depth" id="interests">
+    <Ph f={profile.interests} tag="ol" class="interests">
+      {profile.interests.value.map((i) => (<li><div><h3>{i.topic}</h3>{i.note && <p>{i.note}</p>}</div></li>))}
+    </Ph>
+  </Section>
+
+  {
+    linked.length > 0 && (
+      <Section n={n()} title="Open questions from my projects" id="questions">
+        <p class="muted" style="margin-bottom:1.2rem">Each of these came out of a system I built. They are where I would start.</p>
+        <ul class="compact">
+          {linked.map((p) => (
+            <li>
+              <span class="mono">Q.</span>
+              <div>
+                <Ph f={p.openQuestions} tag="div"><i>{p.openQuestions.value[0]}</i></Ph>
+                <div class="sub">from <a href={`/work/${p.id}/`}>{p.title}</a></div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    )
+  }
+
+  <Section n={n()} title="Publications" id="publications">
+    {publications.ph && <p class="note-box" style="margin-bottom:1.4rem">No publications yet. The entry below shows how they will appear.</p>}
+    <Ph f={publications} tag="div">
+      {
+        pubGroups.map((g) => (
+          <div style="margin-bottom:1.8rem">
+            <h3 class="mono muted" style="margin-bottom:.8rem;font-weight:500">{statusLabel(g.status)}</h3>
+            <ol class="citations">{g.items.map((pub) => <Citation pub={pub} />)}</ol>
+          </div>
+        ))
+      }
+    </Ph>
+  </Section>
+
+  {
+    talks.length > 0 && (
+      <Section n={n()} title="Talks" id="talks">
+        <ul class="compact">
+          {talks.map((t) => (
+            <li>
+              <span class="mono">{fmtDate(t.date)}</span>
+              <div>{t.title}<div class="sub">{t.kind} · {t.event}</div></div>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    )
+  }
+
+  {
+    teaching.length > 0 && (
+      <Section n={n()} title="Teaching & mentoring" id="teaching">
+        <ul class="compact">
+          {teaching.map((t) => (
+            <li>
+              <span class="mono">{t.start ? yearRange(t.start, t.end) : "—"}</span>
+              <div>
+                {t.title}
+                <div class="sub">{t.role.replace("-", " ")} · {t.org.name}{t.audienceDescription && ` · ${t.audienceDescription}`}</div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    )
+  }
+</Base>

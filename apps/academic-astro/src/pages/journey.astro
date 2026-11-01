@@ -1,0 +1,168 @@
+---
+import Base from "../layouts/Base.astro";
+import Section from "../components/Section.astro";
+import Timeline from "../components/Timeline.astro";
+import Ph from "../components/Ph.astro";
+import { education, experience, teaching, awards, certifications, testScores, skills } from "../lib/data.ts";
+import { fmtRange, fmtDate, yearRange, duration } from "../lib/dates.ts";
+import { buildTimeline } from "../lib/timeline.ts";
+
+const timeline = buildTimeline(education, experience);
+const place = (l?: { city?: string; country: string }) => (l ? [l.city, l.country].filter(Boolean).join(", ") : "");
+const label = (s?: string) => s?.replace(/-/g, " ");
+let sec = 0;
+const n = () => ++sec;
+---
+<Base title="Journey" description="Education, research-adjacent work, teaching, awards and certifications.">
+  <header>
+    <p class="page-kicker">Journey</p>
+    <h1 class="page-title">From a CSE lab in Jashore <em>to here</em></h1>
+    <p class="lede">The long version of my CV, in chronological layers. A one-page version is on the <a href="/cv/">CV page</a>.</p>
+  </header>
+
+  <div class="wide" style="margin-top:3rem"><Timeline nodes={timeline} horizontal /></div>
+
+  <Section n={n()} title="Education" id="education">
+    <ul class="entries">
+      {
+        education.map((e) => (
+          <li class="entry has-hang">
+            <span class="hang">{yearRange(e.start, e.end)}</span>
+            <h3>{e.degree.name}</h3>
+            <div class="org">{e.institution.url ? <a href={e.institution.url}>{e.institution.name}</a> : e.institution.name}</div>
+            <div class="where">{place(e.institution.location)} · {fmtRange(e.start, e.end)}{e.status !== "completed" && ` · ${e.status}`}</div>
+            <div class="body prose">
+              {e.gradeF.value && (
+                <p><Ph f={e.gradeF}><span class="mono muted">{e.gradeF.value.kind.toUpperCase()}</span> {e.gradeF.value.value}{e.gradeF.value.scale && ` / ${e.gradeF.value.scale}`}{e.gradeF.value.rank && ` · ${e.gradeF.value.rank}`}</Ph></p>
+              )}
+              {e.thesisF.value && (
+                <Ph f={e.thesisF} tag="div" class="note-box" style="font-style:normal">
+                  <div class="mono" style="color:var(--accent);margin-bottom:.2rem">{e.thesisF.value.kind}</div>
+                  <div style="font-weight:500">{e.thesisF.value.title}</div>
+                  {e.thesisF.value.supervisors.length > 0 && <div class="muted" style="font-size:.9rem">Supervised by {e.thesisF.value.supervisors.join(", ")}</div>}
+                  {e.thesisF.value.abstract && <p style="font-size:.93rem;margin-top:.4rem">{e.thesisF.value.abstract}</p>}
+                </Ph>
+              )}
+              {e.courseworkF.value.length > 0 && (
+                <div>
+                  <div class="mono muted" style="margin-bottom:.35rem">selected coursework</div>
+                  <Ph f={e.courseworkF} tag="ul" class="tags">{e.courseworkF.value.map((c) => <li class="tag">{c}</li>)}</Ph>
+                </div>
+              )}
+              {e.honors.length > 0 && <ul class="bullets">{e.honors.map((h) => <li>{h}</li>)}</ul>}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <Section n={n()} title="Experience" id="experience">
+    <ul class="entries">
+      {
+        experience.map((e) => (
+          <li class="entry has-hang">
+            <span class="hang">{yearRange(e.start, e.end)}</span>
+            <h3>{e.org.url ? <a href={e.org.url}>{e.org.name}</a> : e.org.name}</h3>
+            <div class="where">
+              {[place(e.org.location), label(e.workMode), label(e.positions[0]?.employmentType), duration(e.start, e.end)].filter(Boolean).join(" · ")}
+            </div>
+            <ul class="roles">
+              {e.positions.map((p) => (<li><span>{p.title}</span><span class="mono">{fmtRange(p.start, p.end)}</span></li>))}
+            </ul>
+            {e.highlights.length > 0 && (
+              <div class="body prose"><ul class="bullets">{e.highlights.map((h) => <li>{h}</li>)}</ul></div>
+            )}
+            {e.tech.length > 0 && <ul class="tags" style="margin-top:.7rem">{e.tech.map((t) => <li class="tag">{t}</li>)}</ul>}
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  {
+    teaching.length > 0 && (
+      <Section n={n()} title="Teaching & mentoring" id="teaching">
+        <ul class="entries">
+          {teaching.map((t) => (
+            <li class="entry has-hang">
+              {t.start && <span class="hang">{yearRange(t.start, t.end)}</span>}
+              <h3>{t.title}</h3>
+              <div class="where">{[label(t.role), t.org.name, t.audienceDescription].filter(Boolean).join(" · ")}</div>
+              {t.summary && <p class="body">{t.summary}</p>}
+            </li>
+          ))}
+        </ul>
+      </Section>
+    )
+  }
+
+  {
+    awards.length > 0 && (
+      <Section n={n()} title="Awards & achievements" id="awards">
+        <ul class="compact">
+          {awards.map((a) => (
+            <li>
+              <span class="mono">{fmtDate(a.date) || "—"}</span>
+              <div>
+                {a.title}{a.result && <span class="muted"> · {a.result}</span>}
+                <div class="sub">{[a.issuer, a.description].filter(Boolean).join(" · ")}</div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    )
+  }
+
+  {
+    certifications.length > 0 && (
+      <Section n={n()} title="Certifications" id="certifications">
+        <ul class="compact">
+          {certifications.map((c) => (
+            <li>
+              <span class="mono">{fmtDate(c.issued)}</span>
+              <div>
+                {c.url || c.infoUrl ? <a href={c.url ?? c.infoUrl}>{c.title}</a> : c.title}
+                <div class="sub">{c.issuer}</div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    )
+  }
+
+  {
+    testScores.length > 0 && (
+      <Section n={n()} title="Test scores" id="tests">
+        <ul class="compact">
+          {testScores.map((t) => (
+            <li>
+              <span class="mono">{fmtDate(t.date)}</span>
+              <div>
+                {t.test === "other" ? t.name : t.test} <b>{t.score}</b>
+                <div class="sub">{Object.entries(t.sections).map(([k, v]) => `${k} ${v}`).join(" · ")}</div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    )
+  }
+
+  {
+    skills.length > 0 && (
+      <Section n={n()} title="Technical foundations" id="skills">
+        <ul class="compact">
+          {skills.map((g) => (
+            <li style="grid-template-columns:9rem 1fr">
+              <span class="mono">{g.group}</span>
+              <ul class="tags">{g.items.map((s) => <li class="tag">{s.name}</li>)}</ul>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    )
+  }
+</Base>

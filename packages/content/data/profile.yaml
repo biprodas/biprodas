@@ -23,7 +23,12 @@ social:
   github: https://github.com/biprodas
   linkedin: https://www.linkedin.com/in/biprodas-roy/
   # TODO as available: scholar, orcid, researchgate, codeforces, leetcode, x
-researchInterests: [] # TODO
+researchInterests: [] # TODO — plain strings, or { topic, note } where note is one line on why
+# researchStatement: >-     # academic site, /research — blank line separates paragraphs
+#   ...
+# about: >-                 # academic site, /about
+#   ...
+# currently: { focus: ..., reading: [ "Title — Author" ] }
 openTo: [] # TODO, e.g. "MS/PhD positions (Fall 2027)", "Senior backend roles"
 languages: [] # TODO, e.g. { name: Bengali, proficiency: native }
               # proficiency: native | full-professional | professional | limited-working | elementary

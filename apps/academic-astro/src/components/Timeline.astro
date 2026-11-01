@@ -1,0 +1,22 @@
+---
+import type { TimelineNode } from "../lib/timeline.ts";
+interface Props {
+  nodes: TimelineNode[];
+  horizontal?: boolean;
+}
+const { nodes, horizontal = false } = Astro.props;
+---
+<ol class:list={["timeline", { horizontal }]}>
+  {
+    nodes.map((n) => (
+      <li data-kind={n.kind} data-current={n.current ? "" : undefined}>
+        <div class="tl-when">{n.when}</div>
+        <div class="tl-title">{n.title}</div>
+        {n.sub && <div class="tl-sub">{n.sub}</div>}
+      </li>
+    ))
+  }
+</ol>
+<div class="legend" aria-hidden="true">
+  <span><i class="edu"></i>education</span><span><i></i>work</span><span><i class="ms"></i>milestone</span>
+</div>

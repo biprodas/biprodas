@@ -1,0 +1,28 @@
+{
+  "name": "@biprodas/academic",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check-types": "astro check"
+  },
+  "dependencies": {
+    "@biprodas/content": "workspace:*",
+    "@biprodas/tokens": "workspace:*",
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/newsreader": "^5.2.0",
+    "@fontsource/ibm-plex-mono": "^5.2.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.4.4",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@biprodas/config": "workspace:*",
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.3"
+  }
+}
