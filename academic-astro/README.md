@@ -7,13 +7,15 @@ npm install
 npm run dev            # http://localhost:4321
 npm run build          # also validates the data
 npm run check-types
+npm run format:check   # Prettier, including .astro files
+npm test               # Vitest: unit tests in src/**/*.test.ts
 ```
 
-Node ≥ 22.18.
+Node 24 (`engines` in `package.json`; Vercel reads it too).
 
 ## Pages
 
-`/` (About), `/research`, `/projects`, `/projects/[id]`, `/journey`, `/skills`, `/contact`. `/about` redirects to `/` and
+`/` (About), `/research`, `/projects`, `/projects/[id]`, `/journey`, `/skills`, `/contact`, and a `404` page. `/about` redirects to `/` and
 `/work/*` to `/projects/*`. The sidebar order lives in `src/lib/nav.ts`.
 
 The sidebar's **Download CV** button serves `public/cv.pdf` (or the path in `cv` in `src/data/profile.yaml`). The build
@@ -29,7 +31,7 @@ Images the site uses live in `src/assets/` and are looked up by the path in the 
 
 **Placeholders.** Fields that are still empty in the YAML (academic headline, summary, research interests and
 statement, about, project `researchSummary`/`questions`, thesis, publications…) render invented stand-in text from
-`src/content/placeholders.ts`. In `npm run dev` they show a dotted amber underline (hover for the field name). Every build
+`src/lib/placeholders.ts`. In `npm run dev` they show a dotted amber underline (hover for the field name). Every build
 prints the list still in use. Fill the YAML and each placeholder disappears; nothing invented lives in the YAML.
 
 ## Styling
@@ -51,4 +53,5 @@ elements must run on `astro:page-load`, not just once.
 ## Deploy
 
 Vercel project with Root Directory `academic-astro`, framework Astro, output `dist`. Static output needs no adapter.
-`vercel.json` skips the build when a commit doesn't touch this folder.
+`vercel.json` skips the build when a commit doesn't touch this folder, and redirects URLs without a trailing slash to the
+slash form (matching `trailingSlash: "always"`), so `/foo` shows the site's own 404 page.

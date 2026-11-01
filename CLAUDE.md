@@ -31,14 +31,16 @@ npm install
 npm run dev
 npm run build        # also validates the data: Zod schema + duplicate-id/reference checks
 npm run check-types  # astro check
+npm test             # Vitest; tests sit next to the code as src/**/*.test.ts
+npm run format       # Prettier (with prettier-plugin-astro); format:check in CI
 ```
 
-There is no test runner or linter configured yet.
+There is no linter configured yet.
 
 - Static Astro 7, "research notebook" design.
 - Data: `src/data/schema.ts` (Zod v4) and `src/data/index.ts` (loader, validation and selectors such as `projects("academic")`). Pages read it through `src/lib/data.ts`. When adding a content type: add a Zod schema, add it to `Content`, add a YAML file, add a selector.
 - Styling: Tailwind v4 utilities in the markup. Theme tokens (colours, fonts, type scale, radii, breakpoints) and the few CSS-only mechanics live in `src/styles/global.css`; repeated class lists live in `src/lib/ui.ts`. Don't add new named CSS classes for one-off styling.
-- `src/content/placeholders.ts` holds invented stand-in copy, shown only while the matching YAML field is empty. It is the one place invented text is allowed. Never move it into the YAML. `src/lib/data.ts` merges real data with these placeholders.
+- `src/lib/placeholders.ts` holds invented stand-in copy, shown only while the matching YAML field is empty. It is the one place invented text is allowed. Never move it into the YAML. `src/lib/data.ts` merges real data with these placeholders.
 - Images used by the site live in `src/assets/` and are looked up by the path in the YAML (`src/lib/images.ts`).
 - TypeScript uses `.ts` extensions in relative imports (`allowImportingTsExtensions`). Don't use enums, namespaces or parameter properties.
 

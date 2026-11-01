@@ -3,48 +3,37 @@ import "../styles/global.css";
 import { Image } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import Ph from "../components/Ph.astro";
-import { profile, placeholderReport } from "../lib/data.ts";
+import { education, profile, placeholderReport } from "../lib/data.ts";
 import { contentImage } from "../lib/images.ts";
 import { personBibtex } from "../lib/cite.ts";
 import { Icon } from "astro-icon/components";
-import { socialIcons, uiIcons } from "../lib/icons.ts";
-import { nav } from "../lib/nav.ts";
+import { socialIcons, socialLabels, uiIcons } from "../lib/icons.ts";
+import { nav, sectionFor } from "../lib/nav.ts";
+import { utcOffset } from "../lib/dates.ts";
 import { ui } from "../lib/ui.ts";
 
 interface Props {
   title?: string;
   description?: string;
+  /** Social preview image, a path in public/. */
+  image?: string;
 }
-const { title, description = profile.summary.value } = Astro.props;
+const { title, description = profile.summary.value, image = "/og.png" } = Astro.props;
+const ogImage = new URL(image, Astro.site);
 const fullTitle = title ? `${title} | ${profile.name}` : profile.name;
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const path = Astro.url.pathname.replace(/\/$/, "") || "/";
-
-// nav comes from lib/nav.ts
-const isCurrent = (href: string) => (href === "/" ? path === "/" : path.startsWith(href.replace(/\/$/, "")));
+// The sidebar link for the current section (same rule as the page eyebrow).
+const currentHref = sectionFor(Astro.url.pathname)?.href;
 
 const portrait = await contentImage(profile.avatar?.src);
-const platform: Record<string, string> = {
-  github: "GitHub",
-  linkedin: "LinkedIn",
-  scholar: "Google Scholar",
-  orcid: "ORCID",
-  researchgate: "ResearchGate",
-  x: "X",
-};
 const links = [
   ...Object.entries(profile.social)
     .filter(([k]) => socialIcons[k])
-    .map(([k, href]) => ({ label: platform[k] ?? k, short: platform[k] ?? k, href, icon: socialIcons[k]! })),
+    .map(([k, href]) => ({ label: socialLabels[k] ?? k, short: socialLabels[k] ?? k, href, icon: socialIcons[k]! })),
   { label: "Website, biprodas.dev", short: "Website", href: profile.sites.engineering, icon: uiIcons.website },
 ];
 const city = [profile.location?.city, profile.location?.country].filter(Boolean).join(", ");
-const utc = profile.timezone
-  ? new Intl.DateTimeFormat("en", { timeZone: profile.timezone, timeZoneName: "shortOffset" })
-      .formatToParts(new Date())
-      .find((x) => x.type === "timeZoneName")
-      ?.value.replace("GMT", "UTC")
-  : undefined;
+const utc = utcOffset(profile.timezone);
 const subtitle = profile.role;
 // Keep each role whole so the line only wraps at a "·" separator.
 const roleParts = subtitle?.split(/\s*·\s*/) ?? [];
@@ -71,8 +60,11 @@ const jsonLd = {
   name: profile.name,
   url: profile.sites.academic,
   email: `mailto:${profile.email}`,
-  jobTitle: "Software Engineer",
-  alumniOf: "Jashore University of Science & Technology",
+  jobTitle: profile.titles[0] ?? profile.role,
+  alumniOf: [...new Set(education.map((e) => e.institution.name))].map((name) => ({
+    "@type": "EducationalOrganization",
+    name,
+  })),
   sameAs: [profile.sites.engineering, ...Object.values(profile.social)],
 };
 ---
@@ -93,7 +85,11 @@ const jsonLd = {
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:site_name" content={profile.name} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={`${profile.name}, ${profile.role ?? ""}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <script is:inline>
       // Apply the saved theme before paint, and again after each client-side navigation
@@ -193,7 +189,7 @@ const jsonLd = {
                 <li>
                   <a
                     href={n.href}
-                    aria-current={isCurrent(n.href) ? "page" : undefined}
+                    aria-current={n.href === currentHref ? "page" : undefined}
                     class="group flex items-baseline gap-3 py-0.5 text-[0.9rem] text-ink-2 no-underline hover:text-pen aria-[current=page]:font-semibold aria-[current=page]:text-ink lg:relative lg:rounded-lyra lg:px-3 lg:py-[0.22rem] lg:text-[0.9rem] lg:transition-colors lg:hover:bg-pen-wash/60 lg:aria-[current=page]:bg-[color-mix(in_oklab,var(--pen)_11%,var(--side))] lg:aria-[current=page]:after:absolute lg:aria-[current=page]:after:top-1/2 lg:aria-[current=page]:after:right-[0.95rem] lg:aria-[current=page]:after:-mt-[0.14rem] lg:aria-[current=page]:after:size-[0.28rem] lg:aria-[current=page]:after:bg-pen lg:aria-[current=page]:after:content-['']"
                   >
                     <span

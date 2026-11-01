@@ -11,6 +11,16 @@ export const socialIcons: Record<string, string> = {
   x: "fa6-brands:x-twitter",
 };
 
+/** Display names for the platform keys in profile.yaml `social`. */
+export const socialLabels: Record<string, string> = {
+  github: "GitHub",
+  linkedin: "LinkedIn",
+  scholar: "Google Scholar",
+  orcid: "ORCID",
+  researchgate: "ResearchGate",
+  x: "X",
+};
+
 export const uiIcons = {
   email: "lucide:mail",
   website: "lucide:globe",

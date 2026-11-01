@@ -5,29 +5,17 @@ import Eyebrow from "../components/Eyebrow.astro";
 import Ph from "../components/Ph.astro";
 import { Icon } from "astro-icon/components";
 import { profile } from "../lib/data.ts";
-import { uiIcons } from "../lib/icons.ts";
+import { socialLabels, uiIcons } from "../lib/icons.ts";
+import { utcOffset } from "../lib/dates.ts";
 import { ui } from "../lib/ui.ts";
 
 const city = [profile.location?.city, profile.location?.country].filter(Boolean).join(", ");
-const utc = profile.timezone
-  ? new Intl.DateTimeFormat("en", { timeZone: profile.timezone, timeZoneName: "shortOffset" })
-      .formatToParts(new Date())
-      .find((x) => x.type === "timeZoneName")
-      ?.value.replace("GMT", "UTC")
-  : undefined;
+const utc = utcOffset(profile.timezone);
 
-const platform: Record<string, string> = {
-  github: "GitHub",
-  linkedin: "LinkedIn",
-  scholar: "Google Scholar",
-  orcid: "ORCID",
-  researchgate: "ResearchGate",
-  x: "X",
-};
 /** The last path segment of a profile URL, e.g. github.com/biprodas → "biprodas". */
 const handle = (url: string) => url.replace(/\/+$/, "").split("/").pop() ?? url;
 const elsewhere = [
-  ...Object.entries(profile.social).map(([k, url]) => ({ name: platform[k] ?? k, url, detail: handle(url) })),
+  ...Object.entries(profile.social).map(([k, url]) => ({ name: socialLabels[k] ?? k, url, detail: handle(url) })),
   {
     name: "Engineering portfolio",
     url: profile.sites.engineering,

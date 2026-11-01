@@ -22,7 +22,7 @@ function placeholderReport() {
         const keys = placeholderReport();
         if (keys.length === 0) return logger.info("no placeholder content in use");
         logger.warn(
-          `${keys.length} fields are showing PLACEHOLDER content (src/content/placeholders.ts).\n` +
+          `${keys.length} fields are showing PLACEHOLDER content (src/lib/placeholders.ts).\n` +
             `Fill them in src/data to replace it:\n` +
             keys.map((k) => `  · ${k}`).join("\n"),
         );

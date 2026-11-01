@@ -1,9 +1,9 @@
 // The site's view of src/data: the "academic" slice, with app-only
-// placeholders filling the fields that are still empty (see content/placeholders.ts).
+// placeholders filling the fields that are still empty (see placeholders.ts).
 
 import * as content from "../data/index.ts";
 import { Publication, type Education, type Project } from "../data/index.ts";
-import { placeholders as PH } from "../content/placeholders.ts";
+import { placeholders as PH } from "./placeholders.ts";
 
 const SITE = "academic" as const;
 

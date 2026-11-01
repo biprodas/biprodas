@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=22.18"
+    "node": "24.x"
   },
   "scripts": {
     "dev": "astro dev",
@@ -12,7 +12,8 @@
     "preview": "astro preview",
     "check-types": "astro check",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "test": "vitest run"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
@@ -32,6 +33,7 @@
     "@types/node": "^24.0.0",
     "prettier": "^3.9.10",
     "prettier-plugin-astro": "^0.14.1",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.5"
   }
 }

@@ -1,0 +1,17 @@
+---
+import Base from "../layouts/Base.astro";
+import { Icon } from "astro-icon/components";
+import { uiIcons } from "../lib/icons.ts";
+import { ui } from "../lib/ui.ts";
+---
+
+<Base title="Page not found" description="This page doesn't exist.">
+  <header>
+    <p class="mb-4 font-sans text-[0.68rem] font-bold tracking-[0.18em] text-muted uppercase">404</p>
+    <h1 class={ui.pageTitle}>Page not found</h1>
+    <p class={ui.lede}>The page you asked for isn't here. It may have moved.</p>
+  </header>
+  <p class="mt-8">
+    <a href="/" class={ui.btnPrimary}>Back to the home page <Icon name={uiIcons.arrow} /></a>
+  </p>
+</Base>
