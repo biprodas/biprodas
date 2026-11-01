@@ -173,13 +173,17 @@
     outline-offset: 2px;
     border-radius: 0;
   }
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-serif);
     font-weight: 600;
     line-height: 1.2;
     text-wrap: balance;
   }
-  p, li {
+  p,
+  li {
     text-wrap: pretty;
   }
 }

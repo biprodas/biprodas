@@ -3,8 +3,7 @@
 
 export const ui = {
   /** Page <h1> */
-  pageTitle:
-    "text-[clamp(2rem,1.5rem+2.2vw,2.9rem)] leading-[1.12] font-semibold tracking-[-0.01em]",
+  pageTitle: "text-[clamp(2rem,1.5rem+2.2vw,2.9rem)] leading-[1.12] font-semibold tracking-[-0.01em]",
   /** Intro paragraph under a page title */
   lede: "mt-[1.1rem] text-[1.16rem] leading-[1.55] text-ink-2",
   /** "See more" link line at the end of a section */
@@ -22,8 +21,7 @@ export const ui = {
   iconBtn:
     "inline-grid size-8 cursor-pointer place-items-center rounded-none border border-transparent text-ink-2 no-underline transition-colors hover:border-rule hover:bg-pen-wash hover:text-pen [&_svg]:size-[1.05rem]",
   /** Small labelled link chip (sidebar profiles) */
-  chip:
-    "inline-flex items-center gap-1 rounded-lyra border border-rule bg-paper px-2 py-[0.32rem] font-sans text-[0.76rem] leading-snug font-medium text-ink-2 no-underline transition-colors hover:border-[color-mix(in_oklab,var(--pen)_45%,var(--rule))] hover:text-pen [&_svg]:size-[0.9rem]",
+  chip: "inline-flex items-center gap-1 rounded-lyra border border-rule bg-paper px-2 py-[0.32rem] font-sans text-[0.76rem] leading-snug font-medium text-ink-2 no-underline transition-colors hover:border-[color-mix(in_oklab,var(--pen)_45%,var(--rule))] hover:text-pen [&_svg]:size-[0.9rem]",
   /** Two-column list: a short label/date, then the item; ruled rows */
   compact: "*:grid *:grid-cols-[5.5rem_1fr] *:gap-3 *:border-b *:border-rule *:py-[0.55rem]",
   /** Secondary line inside a compact row */
@@ -47,7 +45,8 @@ export const ui = {
   /** Quoted / highlighted block with a pen-blue rule */
   noteBox: "border-l-2 border-pen py-0.5 pl-[0.9rem] text-ink-2",
   /** Dotted divider */
-  dotted: "h-[2px] border-0 bg-[radial-gradient(circle,var(--rule)_1px,transparent_1.5px)] bg-size-[8px_2px] bg-repeat-x",
+  dotted:
+    "h-[2px] border-0 bg-[radial-gradient(circle,var(--rule)_1px,transparent_1.5px)] bg-size-[8px_2px] bg-repeat-x",
   /** Ruled list of short titled items (interests, principles, questions) */
   ruledList: "*:border-b *:border-rule *:py-[0.85rem] *:first:pt-0",
 } as const;

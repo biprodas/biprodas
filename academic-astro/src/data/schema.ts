@@ -7,9 +7,7 @@ export const Audience = z.enum(["academic", "engineering", "both"]);
 export type Audience = z.infer<typeof Audience>;
 
 /** YYYY, YYYY-MM or YYYY-MM-DD. Quote it in YAML ("2024-05") so it stays a string. */
-export const PartialDate = z
-  .string()
-  .regex(/^\d{4}(-\d{2}(-\d{2})?)?$/, "expected YYYY, YYYY-MM or YYYY-MM-DD");
+export const PartialDate = z.string().regex(/^\d{4}(-\d{2}(-\d{2})?)?$/, "expected YYYY, YYYY-MM or YYYY-MM-DD");
 export const EndDate = PartialDate.or(z.literal("present"));
 
 export const Location = z.object({
@@ -20,8 +18,20 @@ export const Location = z.object({
 export type Location = z.infer<typeof Location>;
 
 export const LinkKind = z.enum([
-  "website", "live", "repo", "demo", "docs", "case-study", "paper", "pdf",
-  "slides", "video", "credential", "store", "article", "other",
+  "website",
+  "live",
+  "repo",
+  "demo",
+  "docs",
+  "case-study",
+  "paper",
+  "pdf",
+  "slides",
+  "video",
+  "credential",
+  "store",
+  "article",
+  "other",
 ]);
 export const Link = z.object({
   kind: LinkKind.default("website"),
@@ -53,7 +63,11 @@ const Item = z.object({
 // ─── Profile ─────────────────────────────────────────────────────────────────
 
 export const LanguageProficiency = z.enum([
-  "native", "full-professional", "professional", "limited-working", "elementary",
+  "native",
+  "full-professional",
+  "professional",
+  "limited-working",
+  "elementary",
 ]);
 
 /** A research interest: a plain topic, or a topic with a one-line note on why it matters to you. */
@@ -90,14 +104,10 @@ export const Profile = z.object({
   /** "How I work": short principles, each with a one-line explanation. */
   principles: z.array(z.object({ title: z.string(), note: z.string().optional() })).default([]),
   /** Short, frequently-updated status shown in the "Currently" card. */
-  currently: z
-    .object({ focus: z.string().optional(), reading: z.array(z.string()).default([]) })
-    .optional(),
+  currently: z.object({ focus: z.string().optional(), reading: z.array(z.string()).default([]) }).optional(),
   /** e.g. "PhD positions (Fall 2027)", "Senior backend roles", "Consulting". */
   openTo: z.array(z.string()).default([]),
-  languages: z
-    .array(z.object({ name: z.string(), proficiency: LanguageProficiency }))
-    .default([]),
+  languages: z.array(z.object({ name: z.string(), proficiency: LanguageProficiency })).default([]),
   /** Path or URL of the CV PDF. Defaults to /cv.pdf. */
   cv: z.string().optional(),
   /** Contact page copy (academic site). */
@@ -116,8 +126,15 @@ export type Profile = z.infer<typeof Profile>;
 // ─── Experience ──────────────────────────────────────────────────────────────
 
 export const EmploymentType = z.enum([
-  "full-time", "part-time", "contract", "freelance", "internship",
-  "self-employed", "founder", "apprenticeship", "volunteer",
+  "full-time",
+  "part-time",
+  "contract",
+  "freelance",
+  "internship",
+  "self-employed",
+  "founder",
+  "apprenticeship",
+  "volunteer",
 ]);
 export type EmploymentType = z.infer<typeof EmploymentType>;
 
@@ -174,8 +191,16 @@ export type Experience = z.output<typeof Experience>;
 // ─── Education ───────────────────────────────────────────────────────────────
 
 export const DegreeLevel = z.enum([
-  "secondary", "higher-secondary", "diploma", "associate",
-  "bachelor", "master", "doctorate", "postdoc", "certificate", "other",
+  "secondary",
+  "higher-secondary",
+  "diploma",
+  "associate",
+  "bachelor",
+  "master",
+  "doctorate",
+  "postdoc",
+  "certificate",
+  "other",
 ]);
 
 export const Education = Item.extend({
@@ -218,11 +243,15 @@ export type Education = z.output<typeof Education>;
 // ─── Projects ────────────────────────────────────────────────────────────────
 
 export const ProjectType = z.enum([
-  "product", "client", "research", "open-source", "personal", "academic", "hackathon",
+  "product",
+  "client",
+  "research",
+  "open-source",
+  "personal",
+  "academic",
+  "hackathon",
 ]);
-export const ProjectStatus = z.enum([
-  "planning", "in-progress", "active", "maintained", "completed", "archived",
-]);
+export const ProjectStatus = z.enum(["planning", "in-progress", "active", "maintained", "completed", "archived"]);
 
 export const Project = Item.extend({
   title: z.string(),
@@ -263,12 +292,18 @@ export const Publication = Item.extend({
   /** In order, as published. Your own name is highlighted by the apps. */
   authors: z.array(z.string()).min(1),
   type: z.enum([
-    "journal", "conference", "workshop", "preprint", "thesis",
-    "book", "book-chapter", "technical-report", "patent", "poster",
+    "journal",
+    "conference",
+    "workshop",
+    "preprint",
+    "thesis",
+    "book",
+    "book-chapter",
+    "technical-report",
+    "patent",
+    "poster",
   ]),
-  status: z
-    .enum(["published", "accepted", "under-review", "submitted", "in-preparation"])
-    .default("published"),
+  status: z.enum(["published", "accepted", "under-review", "submitted", "in-preparation"]).default("published"),
   venue: z.string().optional(),
   venueShort: z.string().optional(),
   date: PartialDate.optional(),
@@ -322,9 +357,7 @@ export type Teaching = z.output<typeof Teaching>;
 
 export const Award = Item.extend({
   title: z.string(),
-  kind: z.enum([
-    "competition", "scholarship", "fellowship", "grant", "honor", "recognition", "achievement",
-  ]),
+  kind: z.enum(["competition", "scholarship", "fellowship", "grant", "honor", "recognition", "achievement"]),
   issuer: z.string().optional(),
   date: PartialDate.optional(),
   /** e.g. "Champion", "Rank 45 of 120", "Participant". */

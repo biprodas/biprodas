@@ -4,7 +4,17 @@ import Section from "../components/Section.astro";
 import WorkCard from "../components/WorkCard.astro";
 import Timeline from "../components/Timeline.astro";
 import Ph from "../components/Ph.astro";
-import { profile, selectedProjects, education, experience, projects, paragraphs, skills, awards, certifications } from "../lib/data.ts";
+import {
+  profile,
+  selectedProjects,
+  education,
+  experience,
+  projects,
+  paragraphs,
+  skills,
+  awards,
+  certifications,
+} from "../lib/data.ts";
 import MarginNote from "../components/MarginNote.astro";
 import { buildTimeline } from "../lib/timeline.ts";
 import Interests from "../components/Interests.astro";
@@ -43,8 +53,10 @@ const skillCount = skills.reduce((n, g) => n + g.items.length, 0);
 const latest = experience[0];
 const cardLabel = "font-sans text-[0.66rem] font-bold tracking-[0.16em] text-muted uppercase";
 // Dividers that fade out toward both ends.
-const vLine = "absolute inset-y-0 w-px bg-[linear-gradient(to_bottom,transparent,var(--rule)_22%,var(--rule)_78%,transparent)]";
-const hLine = "absolute inset-x-0 h-px bg-[linear-gradient(to_right,transparent,var(--rule)_18%,var(--rule)_82%,transparent)]";
+const vLine =
+  "absolute inset-y-0 w-px bg-[linear-gradient(to_bottom,transparent,var(--rule)_22%,var(--rule)_78%,transparent)]";
+const hLine =
+  "absolute inset-x-0 h-px bg-[linear-gradient(to_right,transparent,var(--rule)_18%,var(--rule)_82%,transparent)]";
 const prof: Record<string, string> = {
   native: "native",
   "full-professional": "full professional",
@@ -53,6 +65,7 @@ const prof: Record<string, string> = {
   elementary: "elementary",
 };
 ---
+
 <Base>
   <header>
     {
@@ -72,29 +85,45 @@ const prof: Record<string, string> = {
       At a glance, in the notes column beside the hero (wide screens only). Placed just before the
       role line and given the same top margin, so it starts level with it. Two lines per fact.
     -->
-    {showGlanceBesideHero && (
-    <aside class="margin-block hidden notes:mt-8 notes:block" aria-labelledby="glance-side-h">
-      <h2 id="glance-side-h" class="font-sans text-[0.7rem] leading-normal font-bold tracking-[0.18em] text-ink-2 uppercase">At a glance</h2>
-      <dl class="mt-2">
-        {
-          facts.map((f, i) => (
-            <div class="group relative py-2">
-              {i > 0 && <span class:list={[hLine, "top-0"]} aria-hidden="true" />}
-              <div class="flex items-baseline justify-between gap-3">
-                <dt class="font-sans text-[0.6rem] font-bold tracking-[0.16em] text-muted uppercase">{f.label}</dt>
-                <dd class="font-serif text-[1.08rem] leading-tight font-semibold whitespace-nowrap text-ink transition-colors duration-200 group-hover:text-pen">
-                  {f.value}
-                </dd>
+    {
+      showGlanceBesideHero && (
+        <aside class="margin-block hidden notes:mt-8 notes:block" aria-labelledby="glance-side-h">
+          <h2
+            id="glance-side-h"
+            class="font-sans text-[0.7rem] leading-normal font-bold tracking-[0.18em] text-ink-2 uppercase"
+          >
+            At a glance
+          </h2>
+          <dl class="mt-2">
+            {facts.map((f, i) => (
+              <div class="group relative py-2">
+                {i > 0 && <span class:list={[hLine, "top-0"]} aria-hidden="true" />}
+                <div class="flex items-baseline justify-between gap-3">
+                  <dt class="font-sans text-[0.6rem] font-bold tracking-[0.16em] text-muted uppercase">{f.label}</dt>
+                  <dd class="font-serif text-[1.08rem] leading-tight font-semibold whitespace-nowrap text-ink transition-colors duration-200 group-hover:text-pen">
+                    {f.value}
+                  </dd>
+                </div>
+                {f.detail && (
+                  <dd class="mt-0.5 truncate text-[0.74rem] leading-snug text-muted" title={f.detail}>
+                    {f.detail}
+                  </dd>
+                )}
               </div>
-              {f.detail && <dd class="mt-0.5 truncate text-[0.74rem] leading-snug text-muted" title={f.detail}>{f.detail}</dd>}
-            </div>
-          ))
-        }
-      </dl>
-    </aside>
-    )}
+            ))}
+          </dl>
+        </aside>
+      )
+    }
     <p class="mt-8 font-sans text-[0.7rem] leading-relaxed font-bold tracking-[0.18em] text-ink-2 uppercase">
-      {eyebrowParts.map((part, i) => (<>{i > 0 && " · "}<span class="whitespace-nowrap">{part}</span></>))}
+      {
+        eyebrowParts.map((part, i) => (
+          <>
+            {i > 0 && " · "}
+            <span class="whitespace-nowrap">{part}</span>
+          </>
+        ))
+      }
     </p>
     <h1 class="mt-3 text-[clamp(2.2rem,1.6rem+2.6vw,3.2rem)] leading-[1.15] font-semibold tracking-[-0.01em]">
       Hi, I'm {firstName}.
@@ -103,16 +132,19 @@ const prof: Record<string, string> = {
     <p class="mt-6 text-[1.05rem] leading-[1.75] text-ink-2">
       <Ph f={profile.summary}>{profile.summary.value}</Ph>
     </p>
-    <Ph f={profile.openTo} tag="p" class="mt-4 text-[0.92rem] text-muted italic lg:hidden">Open to {profile.openTo.value[0]}</Ph>
+    <Ph f={profile.openTo} tag="p" class="mt-4 text-[0.92rem] text-muted italic lg:hidden"
+      >Open to {profile.openTo.value[0]}</Ph
+    >
     <div class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
       <a class={ui.btnPrimary} href="/research/">
         My research direction
         <Icon name={uiIcons.arrow} class="size-4" aria-hidden="true" focusable="false" />
       </a>
-      <a class="font-semibold text-ink underline-offset-4" href={`mailto:${profile.email}`}>Say hello — {profile.email}</a>
+      <a class="font-semibold text-ink underline-offset-4" href={`mailto:${profile.email}`}
+        >Say hello — {profile.email}</a
+      >
     </div>
   </header>
-
 
   <Section title="At a glance" id="glance" class={showGlanceBesideHero ? "notes:hidden" : undefined}>
     <!--
@@ -121,12 +153,12 @@ const prof: Record<string, string> = {
     -->
     <div class="relative">
       <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-        <span class:list={[vLine, "left-1/2 sm:hidden"]} />
-        <span class:list={[vLine, "left-1/3 hidden sm:block"]} />
-        <span class:list={[vLine, "left-2/3 hidden sm:block"]} />
-        <span class:list={[hLine, "top-1/3 sm:hidden"]} />
-        <span class:list={[hLine, "top-2/3 sm:hidden"]} />
-        <span class:list={[hLine, "top-1/2 hidden sm:block"]} />
+        <span class:list={[vLine, "left-1/2 sm:hidden"]}></span>
+        <span class:list={[vLine, "left-1/3 hidden sm:block"]}></span>
+        <span class:list={[vLine, "left-2/3 hidden sm:block"]}></span>
+        <span class:list={[hLine, "top-1/3 sm:hidden"]}></span>
+        <span class:list={[hLine, "top-2/3 sm:hidden"]}></span>
+        <span class:list={[hLine, "top-1/2 hidden sm:block"]}></span>
       </div>
       <dl class="relative grid auto-rows-fr grid-cols-2 sm:grid-cols-3">
         {
@@ -136,7 +168,11 @@ const prof: Record<string, string> = {
               <dd class="mt-2 font-serif text-[1.5rem] leading-tight font-semibold text-ink transition-colors duration-200 group-hover:text-pen">
                 {f.value}
               </dd>
-              {f.detail && <dd class="mt-1 text-[0.8rem] leading-snug text-muted transition-colors duration-200 group-hover:text-ink-2">{f.detail}</dd>}
+              {f.detail && (
+                <dd class="mt-1 text-[0.8rem] leading-snug text-muted transition-colors duration-200 group-hover:text-ink-2">
+                  {f.detail}
+                </dd>
+              )}
             </div>
           ))
         }
@@ -148,28 +184,46 @@ const prof: Record<string, string> = {
     {
       (icpc || solved) && (
         <MarginNote label="Competitive programming">
-          {icpc && <p>{icpc.title}{icpc.date && `, ${icpc.date}`}.</p>}
-          {solved && <p class="mt-1">{solved.title}{solved.description && `. ${solved.description}`}</p>}
+          {icpc && (
+            <p>
+              {icpc.title}
+              {icpc.date && `, ${icpc.date}`}.
+            </p>
+          )}
+          {solved && (
+            <p class="mt-1">
+              {solved.title}
+              {solved.description && `. ${solved.description}`}
+            </p>
+          )}
         </MarginNote>
       )
     }
     <Ph f={profile.about} tag="div" class={ui.prose}>
-      {
-        story.map((para) => <p>{para}</p>)
-      }
+      {story.map((para) => <p>{para}</p>)}
     </Ph>
   </Section>
 
   <Section title="What I’m up to" id="now">
-    <dl class="border-t border-rule *:grid *:gap-x-6 *:gap-y-1 *:border-b *:border-rule *:py-4 sm:*:grid-cols-[7.5rem_1fr]">
+    <dl
+      class="border-t border-rule *:grid *:gap-x-6 *:gap-y-1 *:border-b *:border-rule *:py-4 sm:*:grid-cols-[7.5rem_1fr]"
+    >
       <div>
         <dt class:list={[cardLabel, "pt-1"]}>Focus</dt>
-        <dd><Ph f={profile.currentlyFocus} class="font-serif text-[1.02rem] leading-relaxed text-ink italic">{profile.currentlyFocus.value}</Ph></dd>
+        <dd>
+          <Ph f={profile.currentlyFocus} class="font-serif text-[1.02rem] leading-relaxed text-ink italic"
+            >{profile.currentlyFocus.value}</Ph
+          >
+        </dd>
       </div>
       <div>
         <dt class:list={[cardLabel, "pt-1"]}>Reading</dt>
         <dd>
-          <Ph f={profile.currentlyReading} tag="ul" class="space-y-1 font-serif text-[1rem] leading-snug text-ink-2 italic">
+          <Ph
+            f={profile.currentlyReading}
+            tag="ul"
+            class="space-y-1 font-serif text-[1rem] leading-snug text-ink-2 italic"
+          >
             {profile.currentlyReading.value.map((r) => <li>{r}</li>)}
           </Ph>
         </dd>
@@ -188,7 +242,9 @@ const prof: Record<string, string> = {
             <dt class:list={[cardLabel, "pt-1"]}>Recently</dt>
             <dd class="text-[0.95rem] leading-snug text-ink-2">
               <span class="font-serif font-semibold text-ink">{latest.title}</span> at {latest.org.name}
-              <span class="mt-0.5 block text-meta whitespace-nowrap sm:mt-0 sm:ml-1 sm:inline">{fmtRange(latest.start, latest.end)}</span>
+              <span class="mt-0.5 block text-meta whitespace-nowrap sm:mt-0 sm:ml-1 sm:inline">
+                {fmtRange(latest.start, latest.end)}
+              </span>
             </dd>
           </div>
         )
@@ -232,7 +288,11 @@ const prof: Record<string, string> = {
           <ul class="space-y-1">
             {certifications.map((c) => (
               <li>
-                {c.url || c.infoUrl ? <a href={c.url ?? c.infoUrl}>{c.title.replace(/^AWS Certified /, "AWS ")}</a> : c.title}
+                {c.url || c.infoUrl ? (
+                  <a href={c.url ?? c.infoUrl}>{c.title.replace(/^AWS Certified /, "AWS ")}</a>
+                ) : (
+                  c.title
+                )}
                 <span class="text-meta"> {c.issued.slice(0, 4)}</span>
               </li>
             ))}
@@ -245,7 +305,11 @@ const prof: Record<string, string> = {
         skillsPreview.map((g) => (
           <li class="grid gap-x-5 gap-y-2 border-b border-rule py-3.5 last:border-b-0 sm:grid-cols-[9.5rem_1fr]">
             <span class="pt-0.5 font-serif text-[0.95rem] leading-snug font-semibold text-ink">{g.group}</span>
-            <ul class="flex flex-wrap gap-1.5">{g.items.slice(0, 6).map((s) => <li class={ui.pill}>{s.name}</li>)}</ul>
+            <ul class="flex flex-wrap gap-1.5">
+              {g.items.slice(0, 6).map((s) => (
+                <li class={ui.pill}>{s.name}</li>
+              ))}
+            </ul>
           </li>
         ))
       }
@@ -274,7 +338,12 @@ const prof: Record<string, string> = {
     profile.languages.value.length > 0 && (
       <Section title="Languages" id="languages">
         <Ph f={profile.languages} tag="ul" class={ui.pairs}>
-          {profile.languages.value.map((l) => (<li><span class={ui.pairLabel}>{prof[l.proficiency]}</span><span>{l.name}</span></li>))}
+          {profile.languages.value.map((l) => (
+            <li>
+              <span class={ui.pairLabel}>{prof[l.proficiency]}</span>
+              <span>{l.name}</span>
+            </li>
+          ))}
         </Ph>
       </Section>
     )
@@ -284,12 +353,16 @@ const prof: Record<string, string> = {
     {
       (city || utc) && (
         <MarginNote label="Based in">
-          <p>{city}{utc && <span class="text-meta"> · {utc}</span>}</p>
+          <p>
+            {city}
+            {utc && <span class="text-meta"> · {utc}</span>}
+          </p>
         </MarginNote>
       )
     }
     <p>
-      I am glad to hear from professors, researchers and engineers, especially about the questions above. Email is the best way to reach me.
+      I am glad to hear from professors, researchers and engineers, especially about the questions above. Email is the
+      best way to reach me.
     </p>
     <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
       <a class={ui.btnPrimary} href="/contact/">

@@ -14,11 +14,14 @@ const cvHref = profile.cv ?? "/cv.pdf";
 const place = (l?: { city?: string; country: string }) => (l ? [l.city, l.country].filter(Boolean).join(", ") : "");
 const label = (s?: string) => s?.replace(/-/g, " ");
 ---
+
 <Base title="Journey" description="Education, research-adjacent work, teaching, awards and certifications.">
   <header>
     <Eyebrow />
     <h1 class={ui.pageTitle}>Education and work, in order</h1>
-    <p class={ui.lede}>The long version of my CV, in chronological layers. <a href={cvHref} download>Download the PDF</a>.</p>
+    <p class={ui.lede}>
+      The long version of my CV, in chronological layers. <a href={cvHref} download>Download the PDF</a>.
+    </p>
   </header>
 
   <div class="wide mt-12"><Timeline nodes={timeline} horizontal /></div>
@@ -30,8 +33,13 @@ const label = (s?: string) => s?.replace(/-/g, " ");
           <li class="print:break-inside-avoid">
             <span class="mb-0.5 block text-meta">{yearRange(e.start, e.end)}</span>
             <h3 class={ui.entryTitle}>{e.degree.name}</h3>
-            <div class={ui.entryOrg}>{e.institution.url ? <a href={e.institution.url}>{e.institution.name}</a> : e.institution.name}</div>
-            <div class="text-meta">{place(e.institution.location)}, {fmtRange(e.start, e.end)}{e.status !== "completed" && `, ${e.status}`}</div>
+            <div class={ui.entryOrg}>
+              {e.institution.url ? <a href={e.institution.url}>{e.institution.name}</a> : e.institution.name}
+            </div>
+            <div class="text-meta">
+              {place(e.institution.location)}, {fmtRange(e.start, e.end)}
+              {e.status !== "completed" && `, ${e.status}`}
+            </div>
             <div class:list={[ui.prose, "mt-3"]}>
               {e.gradeF.value && (
                 <p>
@@ -46,17 +54,29 @@ const label = (s?: string) => s?.replace(/-/g, " ");
                 <Ph f={e.thesisF} tag="div" class={ui.noteBox}>
                   <div class="mb-1 text-meta text-pen!">{e.thesisF.value.kind}</div>
                   <div class="font-medium text-ink">{e.thesisF.value.title}</div>
-                  {e.thesisF.value.supervisors.length > 0 && <div class="text-[0.9rem] text-muted">Supervised by {e.thesisF.value.supervisors.join(", ")}</div>}
+                  {e.thesisF.value.supervisors.length > 0 && (
+                    <div class="text-[0.9rem] text-muted">Supervised by {e.thesisF.value.supervisors.join(", ")}</div>
+                  )}
                   {e.thesisF.value.abstract && <p class="mt-1.5 text-[0.93rem]">{e.thesisF.value.abstract}</p>}
                 </Ph>
               )}
               {e.courseworkF.value.length > 0 && (
                 <div>
                   <div class="mb-1.5 text-meta">selected coursework</div>
-                  <Ph f={e.courseworkF} tag="ul" class={ui.tags}>{e.courseworkF.value.map((c) => <li>{c}</li>)}</Ph>
+                  <Ph f={e.courseworkF} tag="ul" class={ui.tags}>
+                    {e.courseworkF.value.map((c) => (
+                      <li>{c}</li>
+                    ))}
+                  </Ph>
                 </div>
               )}
-              {e.honors.length > 0 && <ul class="bullets">{e.honors.map((h) => <li>{h}</li>)}</ul>}
+              {e.honors.length > 0 && (
+                <ul class="bullets">
+                  {e.honors.map((h) => (
+                    <li>{h}</li>
+                  ))}
+                </ul>
+              )}
             </div>
           </li>
         ))
@@ -70,17 +90,47 @@ const label = (s?: string) => s?.replace(/-/g, " ");
         experience.map((e) => (
           <li class="print:break-inside-avoid">
             <span class="mb-0.5 block text-meta">{yearRange(e.start, e.end)}</span>
-            <h3 class={ui.entryTitle}>{e.org.url ? <a href={e.org.url} class="text-ink">{e.org.name}</a> : e.org.name}</h3>
+            <h3 class={ui.entryTitle}>
+              {e.org.url ? (
+                <a href={e.org.url} class="text-ink">
+                  {e.org.name}
+                </a>
+              ) : (
+                e.org.name
+              )}
+            </h3>
             <div class="text-meta">
-              {[place(e.org.location), label(e.workMode), label(e.positions[0]?.employmentType), duration(e.start, e.end)].filter(Boolean).join(", ")}
+              {[
+                place(e.org.location),
+                label(e.workMode),
+                label(e.positions[0]?.employmentType),
+                duration(e.start, e.end),
+              ]
+                .filter(Boolean)
+                .join(", ")}
             </div>
             <ul class="mt-1.5 text-[0.95rem] *:flex *:justify-between *:gap-4 *:border-b *:border-rule *:py-0.5">
-              {e.positions.map((p) => (<li><span>{p.title}</span><span class="text-meta whitespace-nowrap">{fmtRange(p.start, p.end)}</span></li>))}
+              {e.positions.map((p) => (
+                <li>
+                  <span>{p.title}</span>
+                  <span class="text-meta whitespace-nowrap">{fmtRange(p.start, p.end)}</span>
+                </li>
+              ))}
             </ul>
             {e.highlights.length > 0 && (
-              <ul class="bullets mt-3 text-ink-2">{e.highlights.map((h) => <li>{h}</li>)}</ul>
+              <ul class="bullets mt-3 text-ink-2">
+                {e.highlights.map((h) => (
+                  <li>{h}</li>
+                ))}
+              </ul>
             )}
-            {e.tech.length > 0 && <ul class:list={[ui.tags, "mt-3"]}>{e.tech.map((t) => <li>{t}</li>)}</ul>}
+            {e.tech.length > 0 && (
+              <ul class:list={[ui.tags, "mt-3"]}>
+                {e.tech.map((t) => (
+                  <li>{t}</li>
+                ))}
+              </ul>
+            )}
           </li>
         ))
       }
@@ -95,7 +145,9 @@ const label = (s?: string) => s?.replace(/-/g, " ");
             <li class="print:break-inside-avoid">
               {t.start && <span class="mb-0.5 block text-meta">{yearRange(t.start, t.end)}</span>}
               <h3 class={ui.entryTitle}>{t.title}</h3>
-              <div class="text-meta">{[label(t.role), t.org.name, t.audienceDescription].filter(Boolean).join(", ")}</div>
+              <div class="text-meta">
+                {[label(t.role), t.org.name, t.audienceDescription].filter(Boolean).join(", ")}
+              </div>
               {t.summary && <p class="mt-3">{t.summary}</p>}
             </li>
           ))}
@@ -112,7 +164,8 @@ const label = (s?: string) => s?.replace(/-/g, " ");
             <li>
               <span class="text-meta">{fmtDate(a.date) || "—"}</span>
               <div>
-                {a.title}{a.result && <span class="text-muted">, {a.result}</span>}
+                {a.title}
+                {a.result && <span class="text-muted">, {a.result}</span>}
                 <div class={ui.sub}>{[a.issuer, a.description].filter(Boolean).join(", ")}</div>
               </div>
             </li>
@@ -126,8 +179,8 @@ const label = (s?: string) => s?.replace(/-/g, " ");
     certifications.length > 0 && (
       <Section title="Certifications" id="certifications">
         <p>
-          {certifications.length} certifications from {[...new Set(certifications.map((c) => c.issuer))].join(", ")}, most recently{" "}
-          <i>{[...certifications].sort((x, y) => y.issued.localeCompare(x.issued))[0]!.title}</i>.{" "}
+          {certifications.length} certifications from {[...new Set(certifications.map((c) => c.issuer))].join(", ")},
+          most recently <i>{[...certifications].sort((x, y) => y.issued.localeCompare(x.issued))[0]!.title}</i>.{" "}
           <a href="/skills/#certifications">See all, with verification links</a>.
         </p>
       </Section>
@@ -143,7 +196,11 @@ const label = (s?: string) => s?.replace(/-/g, " ");
               <span class="text-meta">{fmtDate(t.date)}</span>
               <div>
                 {t.test === "other" ? t.name : t.test} <b>{t.score}</b>
-                <div class={ui.sub}>{Object.entries(t.sections).map(([k, v]) => `${k} ${v}`).join(", ")}</div>
+                <div class={ui.sub}>
+                  {Object.entries(t.sections)
+                    .map(([k, v]) => `${k} ${v}`)
+                    .join(", ")}
+                </div>
               </div>
             </li>
           ))}
@@ -151,5 +208,4 @@ const label = (s?: string) => s?.replace(/-/g, " ");
       </Section>
     )
   }
-
 </Base>

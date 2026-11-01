@@ -7,6 +7,7 @@ interface Props {
 const { nodes, horizontal = false } = Astro.props;
 const swatch = "mr-1.5 inline-block size-2 border-[1.5px]";
 ---
+
 <ol class:list={["timeline", { horizontal }]}>
   {
     nodes.map((n) => (

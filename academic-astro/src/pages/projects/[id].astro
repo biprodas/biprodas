@@ -30,6 +30,7 @@ const idx = projects.findIndex((x) => x.id === p.id);
 const prev = projects[idx - 1];
 const next = projects[idx + 1];
 ---
+
 <Base title={p.title} description={p.summary}>
   <header>
     <Eyebrow link extra={`Figure ${n}`} />
@@ -44,9 +45,30 @@ const next = projects[idx + 1];
       (facts.length > 0 || links.length > 0 || p.confidential) && (
         <aside class="margin-block">
           <dl class="grid gap-2 text-[0.9rem] leading-[1.45] max-notes:grid-cols-[repeat(auto-fit,minmax(11rem,1fr))] max-notes:border-y max-notes:border-rule max-notes:py-3.5 [&_dt]:text-[0.84rem] [&_dt]:text-muted [&_dt]:italic">
-            {facts.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
-            {links.length > 0 && <div><dt>links</dt><dd>{links.map((l) => <div><a href={l.url}>{l.label ?? l.kind} ↗</a></div>)}</dd></div>}
-            {p.confidential && <div><dt>note</dt><dd>Client work under NDA; no public links.</dd></div>}
+            {facts.map(([k, v]) => (
+              <div>
+                <dt>{k}</dt>
+                <dd>{v}</dd>
+              </div>
+            ))}
+            {links.length > 0 && (
+              <div>
+                <dt>links</dt>
+                <dd>
+                  {links.map((l) => (
+                    <div>
+                      <a href={l.url}>{l.label ?? l.kind} ↗</a>
+                    </div>
+                  ))}
+                </dd>
+              </div>
+            )}
+            {p.confidential && (
+              <div>
+                <dt>note</dt>
+                <dd>Client work under NDA; no public links.</dd>
+              </div>
+            )}
           </dl>
         </aside>
       )
@@ -54,15 +76,27 @@ const next = projects[idx + 1];
     {
       p.summaryForResearch.value && (
         <Section title="Why it was interesting">
-          <Ph f={p.summaryForResearch} tag="p">{p.summaryForResearch.value}</Ph>
+          <Ph f={p.summaryForResearch} tag="p">
+            {p.summaryForResearch.value}
+          </Ph>
         </Section>
       )
     }
-    {p.description && <Section title="Overview"><p>{p.description}</p></Section>}
+    {
+      p.description && (
+        <Section title="Overview">
+          <p>{p.description}</p>
+        </Section>
+      )
+    }
     {
       p.highlights.length > 0 && (
         <Section title="What I built">
-          <ul class="bullets">{p.highlights.map((h) => <li>{h}</li>)}</ul>
+          <ul class="bullets">
+            {p.highlights.map((h) => (
+              <li>{h}</li>
+            ))}
+          </ul>
         </Section>
       )
     }
@@ -70,7 +104,9 @@ const next = projects[idx + 1];
       p.openQuestions.value.length > 0 && (
         <Section title="Questions it raised">
           <Ph f={p.openQuestions} tag="ol" class={ui.ruledList}>
-            {p.openQuestions.value.map((q) => <li class="text-[1.05rem] italic">{q}</li>)}
+            {p.openQuestions.value.map((q) => (
+              <li class="text-[1.05rem] italic">{q}</li>
+            ))}
           </Ph>
         </Section>
       )
@@ -78,14 +114,42 @@ const next = projects[idx + 1];
     {
       p.tech.length > 0 && (
         <Section title="Stack">
-          <ul class={ui.tags}>{p.tech.map((t) => <li>{t}</li>)}</ul>
+          <ul class={ui.tags}>
+            {p.tech.map((t) => (
+              <li>{t}</li>
+            ))}
+          </ul>
         </Section>
       )
     }
   </div>
 
   <nav class="mt-16 flex justify-between gap-4 border-t border-rule pt-4" aria-label="More projects">
-    <span>{prev && <><span class="text-meta">Previous</span><br /><a href={`/projects/${prev.id}/`}>{prev.title}</a></>}</span>
-    <span class="text-right">{next && <><span class="text-meta">Next</span><br /><a href={`/projects/${next.id}/`}>{next.title}</a></>}</span>
+    <span
+      >{
+        prev && (
+          <>
+            <>
+              <span class="text-meta">Previous</span>
+              <br />
+              <a href={`/projects/${prev.id}/`}>{prev.title}</a>
+            </>
+          </>
+        )
+      }</span
+    >
+    <span class="text-right"
+      >{
+        next && (
+          <>
+            <>
+              <span class="text-meta">Next</span>
+              <br />
+              <a href={`/projects/${next.id}/`}>{next.title}</a>
+            </>
+          </>
+        )
+      }</span
+    >
   </nav>
 </Base>

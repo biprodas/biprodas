@@ -17,11 +17,11 @@ export function fmtRange(start?: string, end?: string): string {
 
 /** Year only: "2019" or "2019–23" style compact ranges for the gutter. */
 export function yearRange(start?: string, end?: string): string {
-  const y = (d?: string) => (d === "present" ? "now" : d?.slice(0, 4) ?? "");
+  const y = (d?: string) => (d === "present" ? "now" : (d?.slice(0, 4) ?? ""));
   const a = y(start);
   const b = y(end);
   if (!b || a === b) return a;
-  return `${a}–${b === "now" ? "now" : b}`;
+  return `${a}–${b}`;
 }
 
 /** Rough duration, e.g. "4 yrs 5 mos". */
@@ -43,5 +43,11 @@ export function duration(start?: string, end?: string): string {
     .join(" ");
 }
 
-/** Sortable key for partial dates, "present" last. */
-export const dateKey = (d?: string) => (d === "present" ? "9999" : (d ?? ""));
+/** An IANA time zone's current offset, e.g. "Asia/Dhaka" → "UTC+6". */
+export function utcOffset(timeZone: string | undefined): string | undefined {
+  if (!timeZone) return undefined;
+  return new Intl.DateTimeFormat("en", { timeZone, timeZoneName: "shortOffset" })
+    .formatToParts(new Date())
+    .find((x) => x.type === "timeZoneName")
+    ?.value.replace("GMT", "UTC");
+}

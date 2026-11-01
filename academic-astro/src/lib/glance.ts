@@ -38,10 +38,14 @@ export function glanceFacts(): Fact[] {
   const mentoring = teaching.map((t) => t.audienceDescription && leadingFigure(t.audienceDescription)).find(Boolean);
   if (mentoring) facts.push({ label: "Mentoring", value: mentoring.value, detail: mentoring.rest });
 
-  const solved = awards.filter((a) => a.kind === "achievement").map((a) => leadingFigure(a.title)).find(Boolean);
+  const solved = awards
+    .filter((a) => a.kind === "achievement")
+    .map((a) => leadingFigure(a.title))
+    .find(Boolean);
   if (solved) facts.push({ label: "Problem solving", value: solved.value, detail: solved.rest });
 
-  if (projects.length) facts.push({ label: "Systems built", value: String(projects.length), detail: "described on this site" });
+  if (projects.length)
+    facts.push({ label: "Systems built", value: String(projects.length), detail: "described on this site" });
 
   return facts;
 }

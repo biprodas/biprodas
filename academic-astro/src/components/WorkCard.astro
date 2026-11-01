@@ -27,8 +27,10 @@ const tech = p.tech.slice(0, TECH_SHOWN);
 const moreTech = p.tech.length - tech.length;
 
 const active = ui.iconBtn;
-const inactive = "inline-grid size-8 cursor-default place-items-center border border-transparent text-muted/40 [&_svg]:size-[1.05rem]";
+const inactive =
+  "inline-grid size-8 cursor-default place-items-center border border-transparent text-muted/40 [&_svg]:size-[1.05rem]";
 ---
+
 <!-- With spanLast, an odd last card spans both columns so a joined grid never shows an empty cell. -->
 <article
   class:list={[
@@ -66,11 +68,27 @@ const inactive = "inline-grid size-8 cursor-default place-items-center border bo
   </div>
 
   <p class="flex flex-wrap items-center gap-x-2 gap-y-1 pr-20 font-sans text-[0.74rem] tracking-[0.02em] text-muted">
-    {badge && p.featured && <span class="rounded-lyra border border-pen/40 px-1.5 py-px text-[0.62rem] font-bold tracking-[0.12em] text-pen uppercase">Featured</span>}
+    {
+      badge && p.featured && (
+        <span class="rounded-lyra border border-pen/40 px-1.5 py-px text-[0.62rem] font-bold tracking-[0.12em] text-pen uppercase">
+          Featured
+        </span>
+      )
+    }
     {p.topics.length > 0 && <span>{p.topics.slice(0, 3).join(" · ")}</span>}
   </p>
-  <h3 class="mt-1.5 pr-14 text-[1.15rem] leading-snug font-semibold text-ink transition-colors duration-200 group-hover:text-pen">
-    {link ? <a href={href} class="text-inherit no-underline hover:underline">{p.title}</a> : p.title}
+  <h3
+    class="mt-1.5 pr-14 text-[1.15rem] leading-snug font-semibold text-ink transition-colors duration-200 group-hover:text-pen"
+  >
+    {
+      link ? (
+        <a href={href} class="text-inherit no-underline hover:underline">
+          {p.title}
+        </a>
+      ) : (
+        p.title
+      )
+    }
   </h3>
   {
     p.summaryForResearch.value ? (
@@ -85,9 +103,14 @@ const inactive = "inline-grid size-8 cursor-default place-items-center border bo
   {
     tech.length > 0 && (
       <ul class="mt-auto flex flex-wrap gap-1.5 pt-4" aria-label="Technology used">
-        {tech.map((t) => <li class:list={[ui.pill, "bg-paper text-[0.74rem]"]}>{t}</li>)}
+        {tech.map((t) => (
+          <li class:list={[ui.pill, "bg-paper text-[0.74rem]"]}>{t}</li>
+        ))}
         {moreTech > 0 && (
-          <li class="inline-flex items-center px-1 font-sans text-[0.74rem] text-muted" title={p.tech.slice(TECH_SHOWN).join(", ")}>
+          <li
+            class="inline-flex items-center px-1 font-sans text-[0.74rem] text-muted"
+            title={p.tech.slice(TECH_SHOWN).join(", ")}
+          >
             +{moreTech} more
           </li>
         )}

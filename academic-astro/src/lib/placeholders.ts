@@ -75,8 +75,7 @@ export const placeholders = {
 
   // PLACEHOLDER → profile.contact.*
   contact: {
-    intro:
-      "I read every message myself. If you include a specific question, my reply will be specific too.",
+    intro: "I read every message myself. If you include a specific question, my reply will be specific too.",
     responseTime: "Usually replies within a few days",
     topics: [
       {

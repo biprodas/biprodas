@@ -28,7 +28,7 @@ researchInterests: [] # TODO — plain strings, or { topic, note } where note is
 #   - { title: ..., note: ... }
 openTo: [] # TODO, e.g. "MS/PhD positions (Fall 2027)", "Senior backend roles"
 languages: [] # TODO, e.g. { name: Bengali, proficiency: native }
-              # proficiency: native | full-professional | professional | limited-working | elementary
+  # proficiency: native | full-professional | professional | limited-working | elementary
 # cv: /cv.pdf              # defaults to public/cv.pdf
 # contact:                   # biprodas.com/contact
 #   intro: ...

@@ -8,7 +8,12 @@ import { fmtDate } from "../lib/dates.ts";
 import { uiIcons } from "../lib/icons.ts";
 import { ui } from "../lib/ui.ts";
 
-const levelLabel: Record<string, string> = { expert: "expert", advanced: "advanced", intermediate: "intermediate", familiar: "familiar" };
+const levelLabel: Record<string, string> = {
+  expert: "expert",
+  advanced: "advanced",
+  intermediate: "intermediate",
+  familiar: "familiar",
+};
 
 // Where each technology was used, from experience.yaml and projects.yaml (case-insensitive).
 const usedIn = new Map<string, Set<string>>();
@@ -25,16 +30,30 @@ const whereUsed = (name: string) => [...(usedIn.get(name.toLowerCase()) ?? [])];
 const certs = [...certifications].sort((a, b) => b.issued.localeCompare(a.issued) || a.title.localeCompare(b.title));
 const now = new Date().toISOString().slice(0, 7);
 const skillCount = skills.reduce((n, g) => n + g.items.length, 0);
-const summary = [`${skillCount} skills`, `${skills.length} areas`, certifications.length > 0 && `${certifications.length} certifications`].filter(Boolean) as string[];
+const summary = [
+  `${skillCount} skills`,
+  `${skills.length} areas`,
+  certifications.length > 0 && `${certifications.length} certifications`,
+].filter(Boolean) as string[];
 ---
+
 <Base title="Skills" description="Languages, frameworks, infrastructure and practices I work with.">
   <header>
     <Eyebrow />
     <h1 class={ui.pageTitle}>What I work with</h1>
     <p class={ui.lede}>
-      The languages, frameworks and practices I use, grouped by area. Hover a skill to see where I have used it; the{" "}
+      The languages, frameworks and practices I use, grouped by area. Hover a skill to see where I have used it; the{
+        " "
+      }
       <a href="/projects/">projects</a> and <a href="/journey/">journey</a> pages have the details.
-      {certifications.length > 0 && <> Verified credentials are under <a href="#certifications">certifications</a>.</>}
+      {
+        certifications.length > 0 && (
+          <>
+            {" "}
+            Verified credentials are under <a href="#certifications">certifications</a>.
+          </>
+        )
+      }
     </p>
     <p class="mt-4 font-sans text-[0.8rem] text-muted">{summary.join(" · ")}</p>
   </header>
@@ -44,7 +63,9 @@ const summary = [`${skillCount} skills`, `${skills.length} areas`, certification
       {
         skills.map((g) => (
           <section class:list={[ui.card, "px-5 pt-4 pb-5"]} aria-labelledby={`g-${g.group}`}>
-            <h3 id={`g-${g.group}`} class="text-[1.05rem] font-semibold">{g.group}</h3>
+            <h3 id={`g-${g.group}`} class="text-[1.05rem] font-semibold">
+              {g.group}
+            </h3>
             <ul class="mt-3 flex flex-wrap gap-1.5">
               {g.items.map((s) => {
                 const where = whereUsed(s.name);
@@ -62,7 +83,6 @@ const summary = [`${skillCount} skills`, `${skills.length} areas`, certification
       }
     </div>
   </Section>
-
 
   {
     certs.length > 0 && (
@@ -85,7 +105,11 @@ const summary = [`${skillCount} skills`, `${skills.length} areas`, certification
                   <p class="font-serif text-[1rem] leading-snug font-semibold text-ink">{c.title}</p>
                   <p class="mt-0.5 font-sans text-[0.78rem] text-muted">{details.join(" · ")}</p>
                   {c.skills.length > 0 && (
-                    <ul class="mt-2 flex flex-wrap gap-1.5">{c.skills.map((s) => <li class={ui.pill}>{s}</li>)}</ul>
+                    <ul class="mt-2 flex flex-wrap gap-1.5">
+                      {c.skills.map((s) => (
+                        <li class={ui.pill}>{s}</li>
+                      ))}
+                    </ul>
                   )}
                 </div>
                 {(c.url || c.infoUrl) && (

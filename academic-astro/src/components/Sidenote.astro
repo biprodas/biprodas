@@ -1,9 +1,16 @@
 ---
 // Tufte-style sidenote. Must be placed inside a <p> (renders only inline elements).
+// The note's text is trimmed, so line breaks around it in the markup don't add visible spaces.
 interface Props {
   n: string | number;
   id?: string;
 }
 const { n, id = `sn-${n}` } = Astro.props;
+const note = (await Astro.slots.render("default")).trim();
 ---
-<label for={id} class="sn-ref" aria-label={`Note ${n}`}>{n}</label><input type="checkbox" id={id} class="sn-toggle" /><span class="sidenote" role="note"><span class="sn-num">{n}</span><slot /></span>
+
+<label for={id} class="sn-ref" aria-label={`Note ${n}`}>{n}</label><input
+  type="checkbox"
+  id={id}
+  class="sn-toggle"
+/><span class="sidenote" role="note"><span class="sn-num">{n}</span><Fragment set:html={note} /></span>
