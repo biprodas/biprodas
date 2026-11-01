@@ -1,0 +1,49 @@
+# Services offered to clients, and how engagements work. Shown on biprodas.dev (/services).
+#
+# - id: kebab-case
+#   title: ...
+#   projects: [ project-id, ... ]   # ids from projects.yaml that show this work
+#   experience: [ experience-id ]   # ids from experience.yaml, optional
+#
+# Descriptions are written per site; only the facts below should match.
+
+services:
+  - id: saas-mvp
+    title: SaaS & MVP Builds
+    projects: [pitchpool, akaunty, cloud-prep]
+  - id: erp
+    title: ERP Systems Development & Integration
+    projects: [school-erp, microfinance-core-banking]
+    experience: [codepal, semicolon]
+  - id: fintech
+    title: FinTech & Accounting Systems
+    projects: [akaunty, microfinance-core-banking]
+    experience: [codepal]
+  - id: ai-llm
+    title: AI / LLM Feature Integration
+    projects: [startdescribe]
+    experience: [must-company]
+  - id: backend-api
+    title: Custom Backend & API Development
+    projects: [pitchpool, school-erp, larmts]
+  - id: architecture-performance
+    title: Architecture Review & Performance
+    projects: [school-erp, pitchpool]
+    experience: [semicolon]
+  - id: consultancy
+    title: Software Engineering Consultancy
+    experience: [semicolon]
+
+engagements: [fixed-scope, monthly-retainer, hourly-consulting, long-term-contract]
+
+pricing: quote # no published prices; clients ask for a quote
+
+hiring:
+  direct: email
+  platforms:
+    upwork: "https://www.upwork.com/freelancers/~017dd9d645b9e068e4?mp_source=share"
+
+terms:
+  timezones: any, with a few hours' overlap # based in UTC+6
+  ownership: client owns code, designs and IP once paid; NDA on request
+  afterLaunch: documentation and handover; optional maintenance on a monthly retainer

@@ -80,3 +80,25 @@ describe("certifications", () => {
     );
   });
 });
+
+describe("services", () => {
+  it("match data/services.yaml titles, links and engagements", async () => {
+    const { services, engagements, hiring } = await import("./services");
+    const yaml: {
+      services: { id: string; title: string; projects?: string[]; experience?: string[] }[];
+      engagements: string[];
+      hiring: { platforms: { upwork: string } };
+    } = master("services.yaml");
+    expect(services.map(({ id, title, projects, experience }) => ({ id, title, projects, experience }))).toEqual(
+      yaml.services.map(({ id, title, projects, experience }) => ({ id, title, projects, experience })),
+    );
+    expect(engagements.map((e) => e.id)).toEqual(yaml.engagements);
+    expect(hiring.upwork).toBe(yaml.hiring.platforms.upwork);
+    for (const s of services)
+      for (const slug of s.projects ?? [])
+        expect(
+          projects.some((p) => p.slug === slug),
+          slug,
+        ).toBe(true);
+  });
+});

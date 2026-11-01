@@ -245,6 +245,13 @@ export default function HomePage() {
             GitHub <ArrowUpRightIcon className="size-3.5" />
           </a>
         </div>
+        <p className="mt-4 text-[0.92rem] text-muted-foreground">
+          Have a project?{" "}
+          <Link href="/services" className="prose-link text-ink-2">
+            See how I work with clients
+          </Link>
+          .
+        </p>
       </Section>
     </>
   );
