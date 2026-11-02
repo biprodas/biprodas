@@ -151,6 +151,8 @@ export default function ContactPage() {
             <li key={e.url} className="border-b">
               <a
                 href={e.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group grid grid-cols-[1.75rem_minmax(0,1fr)] gap-x-2 py-3 focus-visible:outline-offset-4 sm:grid-cols-[1.75rem_minmax(0,1fr)_auto] sm:items-baseline sm:gap-x-4"
               >
                 <PlatformIcon

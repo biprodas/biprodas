@@ -102,7 +102,7 @@ export function Sidebar() {
         <ul className="flex flex-wrap gap-1.5" aria-label="Profiles">
           {links.map((l) => (
             <li key={l.url}>
-              <a className={chip} href={l.url}>
+              <a className={chip} href={l.url} target="_blank" rel="noopener noreferrer">
                 <PlatformIcon platform={l.platform} />
                 {l.label}
               </a>

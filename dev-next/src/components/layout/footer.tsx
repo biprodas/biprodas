@@ -28,7 +28,7 @@ export function Footer() {
                 <>
                   {" "}
                   My research lives at{" "}
-                  <a href={academic.url} className="prose-link">
+                  <a href={academic.url} target="_blank" rel="noopener noreferrer" className="prose-link">
                     {academic.handle ?? academic.label}
                   </a>
                   .
@@ -57,7 +57,12 @@ export function Footer() {
             <ul className="mt-2.5 grid gap-1.5">
               {elsewhere.map((e) => (
                 <li key={e.url}>
-                  <a href={e.url} className={`${link} group inline-flex items-center gap-1`}>
+                  <a
+                    href={e.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${link} group inline-flex items-center gap-1`}
+                  >
                     {e.label}
                     <ArrowUpRightIcon
                       aria-hidden

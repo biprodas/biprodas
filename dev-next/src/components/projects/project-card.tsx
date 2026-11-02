@@ -21,7 +21,14 @@ function CornerLink({
 }) {
   const base = "grid size-7 place-items-center transition-colors [&_svg]:size-4";
   return href ? (
-    <a href={href} aria-label={label} title={label} className={`${base} text-ink-2 hover:bg-wash hover:text-primary`}>
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
+      title={label}
+      className={`${base} text-ink-2 hover:bg-wash hover:text-primary`}
+    >
       {children}
     </a>
   ) : (

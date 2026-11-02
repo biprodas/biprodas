@@ -112,7 +112,12 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
         {hasLinks ? (
           <div className="mt-7 flex flex-wrap items-center gap-2.5">
             {project.liveUrl && (
-              <a href={project.liveUrl} className={cn(buttonVariants(), button)}>
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(buttonVariants(), button)}
+              >
                 Visit {urlLabel(project.liveUrl)}
                 <ArrowUpRightIcon data-icon="inline-end" />
               </a>
@@ -120,6 +125,8 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
             {project.demoUrl && (
               <a
                 href={project.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={cn(buttonVariants({ variant: project.liveUrl ? "outline" : "default" }), button)}
               >
                 Try the demo
@@ -127,13 +134,23 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
               </a>
             )}
             {project.sourceUrl && (
-              <a href={project.sourceUrl} className={cn(buttonVariants({ variant: "outline" }), button)}>
+              <a
+                href={project.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(buttonVariants({ variant: "outline" }), button)}
+              >
                 <GithubLogoIcon data-icon="inline-start" />
                 View source
               </a>
             )}
             {project.caseStudyUrl && (
-              <a href={project.caseStudyUrl} className={cn(buttonVariants({ variant: "outline" }), button)}>
+              <a
+                href={project.caseStudyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(buttonVariants({ variant: "outline" }), button)}
+              >
                 Read the write-up
                 <ArrowUpRightIcon data-icon="inline-end" />
               </a>

@@ -29,7 +29,12 @@ export default function ResumePage() {
           .
         </p>
         <div className="mt-7 flex flex-wrap items-center gap-2.5">
-          <a href={resume.downloadUrl} className={cn(buttonVariants(), button)}>
+          <a
+            href={resume.downloadUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(buttonVariants(), button)}
+          >
             <DownloadSimpleIcon data-icon="inline-start" />
             Download PDF
           </a>

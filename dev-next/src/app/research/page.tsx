@@ -84,7 +84,7 @@ function PublicationEntry({ p }: { p: Publication }) {
         </p>
         <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
           {p.links.map((l) => (
-            <a key={l.kind} href={l.url} className={linkClass}>
+            <a key={l.kind} href={l.url} target="_blank" rel="noopener noreferrer" className={linkClass}>
               {linkLabel[l.kind]} <ArrowUpRightIcon aria-hidden className="size-3.5" />
             </a>
           ))}
@@ -199,7 +199,13 @@ export default function ResearchPage() {
                 {t.links.length > 0 && (
                   <div className="col-start-2 flex gap-4 sm:col-start-3">
                     {t.links.map((l) => (
-                      <a key={l.url + l.kind} href={l.url} className={linkClass}>
+                      <a
+                        key={l.url + l.kind}
+                        href={l.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={linkClass}
+                      >
                         {l.kind[0].toUpperCase() + l.kind.slice(1)}{" "}
                         <ArrowUpRightIcon aria-hidden className="size-3.5" />
                       </a>
@@ -227,7 +233,12 @@ export default function ResearchPage() {
               Email about research
             </a>
             {academic && (
-              <a href={academic.url} className={cn(buttonVariants({ variant: "outline" }), "group h-9 px-3.5 text-sm")}>
+              <a
+                href={academic.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(buttonVariants({ variant: "outline" }), "group h-9 px-3.5 text-sm")}
+              >
                 Full academic profile
                 <ArrowRightIcon data-icon="inline-end" className="transition-transform group-hover:translate-x-0.5" />
               </a>

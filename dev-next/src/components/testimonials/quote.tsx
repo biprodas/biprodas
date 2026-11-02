@@ -26,7 +26,12 @@ export function Quote({ t, size = "default" }: { t: Testimonial; size?: "default
         <div className="text-[0.86rem] leading-snug">
           <p>
             {t.linkedinUrl ? (
-              <a href={t.linkedinUrl} className="font-semibold text-foreground hover:text-primary hover:underline">
+              <a
+                href={t.linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-foreground hover:text-primary hover:underline"
+              >
                 {t.name}
               </a>
             ) : (
@@ -49,7 +54,12 @@ export function Quote({ t, size = "default" }: { t: Testimonial; size?: "default
               )}
               {t.workedOn && t.source && " · "}
               {t.source && (
-                <a href={t.source.url} className="inline-flex items-center gap-0.5 hover:text-primary">
+                <a
+                  href={t.source.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-0.5 hover:text-primary"
+                >
                   {t.source.label}
                   <ArrowUpRightIcon aria-hidden className="size-3" />
                 </a>

@@ -63,7 +63,7 @@ export default function ExperiencePage() {
                 <span className="mb-0.5 block text-meta">{yearRange(e.startDate, end)}</span>
                 <h3 className={`${entryTitle} transition-colors group-hover:text-primary`}>
                   {e.company.website ? (
-                    <a href={e.company.website} className="hover:underline">
+                    <a href={e.company.website} target="_blank" rel="noopener noreferrer" className="hover:underline">
                       {e.company.name}
                     </a>
                   ) : (
@@ -151,7 +151,7 @@ export default function ExperiencePage() {
                   </h3>
                   <p className="text-ink-2">
                     {e.institution.website ? (
-                      <a href={e.institution.website} className="prose-link">
+                      <a href={e.institution.website} target="_blank" rel="noopener noreferrer" className="prose-link">
                         {e.institution.name}
                       </a>
                     ) : (

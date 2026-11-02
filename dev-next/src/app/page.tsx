@@ -110,7 +110,7 @@ export default function HomePage() {
           <ul className="space-y-1">
             {featuredCertifications.map((c) => (
               <li key={c.id}>
-                <a href={c.credentialUrl} className="prose-link">
+                <a href={c.credentialUrl} target="_blank" rel="noopener noreferrer" className="prose-link">
                   {c.name.replace("AWS Certified ", "AWS ")}
                 </a>
                 <span className="text-meta"> {c.issueDate?.slice(0, 4)}</span>
@@ -215,7 +215,12 @@ export default function HomePage() {
           <div>
             <dt className={cn(label, "pt-1")}>Certified</dt>
             <dd className="text-sm text-ink-2">
-              <a href={latestCertification.credentialUrl} className="prose-link">
+              <a
+                href={latestCertification.credentialUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="prose-link"
+              >
                 {latestCertification.name}
               </a>
               {latestCertification.issueDate && (
@@ -241,7 +246,12 @@ export default function HomePage() {
           <Link href="/contact" className={cn(buttonVariants({ size: "lg" }), "h-10 px-4 text-sm")}>
             Write to me <ArrowRightIcon data-icon="inline-end" />
           </Link>
-          <a href={getLink("github")?.url} className="inline-flex items-center gap-1 font-semibold prose-link">
+          <a
+            href={getLink("github")?.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 font-semibold prose-link"
+          >
             GitHub <ArrowUpRightIcon className="size-3.5" />
           </a>
         </div>
