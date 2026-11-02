@@ -21,7 +21,7 @@ const note = (tech: string, where: string) => {
   if (!usedIn.has(key)) usedIn.set(key, new Set());
   usedIn.get(key)!.add(where);
 };
-for (const e of experience) for (const t of e.tech) note(t, e.org);
+for (const e of experience) for (const t of e.positions.flatMap((p) => p.technologies ?? [])) note(t, e.company.name);
 for (const p of projects) for (const t of p.tech) note(t, p.shortTitle ?? p.title);
 const whereUsed = (name: string) => [...(usedIn.get(name.toLowerCase()) ?? [])];
 

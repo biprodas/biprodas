@@ -204,9 +204,10 @@ export default function HomePage() {
           <div>
             <dt className={cn(label, "pt-1")}>Recently</dt>
             <dd className="text-[0.95rem] text-ink-2">
-              <span className="font-semibold text-foreground">{latest.positions[0].title}</span> at {latest.org}
+              <span className="font-semibold text-foreground">{latest.positions[0].title}</span> at{" "}
+              {latest.company.name}
               <span className="block text-meta sm:ml-1.5 sm:inline">
-                {formatRange(latest.positions[0].start, latest.positions[0].end)}
+                {formatRange(latest.positions[0].startDate, latest.positions[0].endDate ?? "present")}
               </span>
             </dd>
           </div>

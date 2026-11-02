@@ -83,7 +83,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
               {roles.map((r) => (
                 <li key={r.id}>
                   <Link href="/experience" className="prose-link">
-                    {r.org}
+                    {r.company.name}
                   </Link>
                   <span className="text-muted-foreground"> · {r.positions[0].title}</span>
                 </li>

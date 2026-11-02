@@ -3,17 +3,41 @@ export type PartialDate = string;
 
 export type Link = { kind: "live" | "repo"; url: string; label: string };
 
-export type Position = { title: string; start: PartialDate; end: PartialDate | "present" };
+export type EmploymentType = "Full-time" | "Part-time" | "Contract" | "Freelance" | "Internship" | "Founder";
 
-export type Experience = {
+export type Position = {
   id: string;
-  org: string;
-  location: string;
-  employmentType?: "contract" | "founder";
-  workMode?: "remote";
+  title: string;
+  employmentType?: EmploymentType;
+  employmentLevel?: string;
+  startDate: PartialDate;
+  endDate?: PartialDate;
+  description?: string;
+  bullets: string[];
+  technologies?: string[];
+  relatedProjects?: string[];
+};
+
+export type Company = {
+  name: string;
+  website?: string;
+  logo?: string;
+  location?: string;
+  industry?: string;
+};
+
+export type ExperienceEntry = {
+  id: string;
+  company: Company;
+  workMode?: "Remote" | "Hybrid" | "On-site";
   positions: Position[];
-  highlights: string[];
-  tech: string[];
+  order: number;
+};
+
+export type Experience = ExperienceEntry & {
+  startDate: PartialDate;
+  endDate?: PartialDate;
+  current: boolean;
 };
 
 export type Education = {

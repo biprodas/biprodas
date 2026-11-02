@@ -5,8 +5,9 @@ import { Timeline } from "@/components/timeline";
 import { profile } from "@/content/profile";
 import { education, experience, teaching } from "@/content/experience";
 import { certifications, latestCertification } from "@/content/certifications";
+import { getProject } from "@/content/projects";
 import { awards } from "@/content/skills";
-import { duration, formatRange, positionsSpan, yearRange } from "@/lib/format";
+import { duration, formatRange, yearRange } from "@/lib/format";
 
 export const metadata: Metadata = {
   title: "Experience",
@@ -14,7 +15,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/experience" },
 };
 
-const employment = { contract: "contract", founder: "co-founder" } as const;
 const roleLabel = { trainer: "Trainer", mentor: "Mentor", organizer: "Organiser" } as const;
 
 const entryTitle = "text-[1.12rem] font-semibold";
@@ -44,41 +44,78 @@ export default function ExperiencePage() {
       <Section title="Experience" id="experience">
         <ol className="timeline">
           {experience.map((e) => {
-            const span = positionsSpan(e.positions);
+            const end = e.endDate ?? "present";
             const details = [
-              e.location,
-              e.workMode,
-              e.employmentType && employment[e.employmentType],
-              duration(span.start, span.end),
+              e.company.industry,
+              e.company.location,
+              e.workMode?.toLowerCase(),
+              duration(e.startDate, end),
             ].filter(Boolean);
+            const founder = e.positions.some((p) => p.employmentType === "Founder");
             return (
-              <li key={e.id} className="group" data-kind={e.employmentType === "founder" ? "milestone" : undefined}>
-                <span className="mb-0.5 block text-meta">{yearRange(span.start, span.end)}</span>
-                <h3 className={`${entryTitle} transition-colors group-hover:text-primary`}>{e.org}</h3>
+              <li key={e.id} className="group" data-kind={founder ? "milestone" : undefined}>
+                <span className="mb-0.5 block text-meta">{yearRange(e.startDate, end)}</span>
+                <h3 className={`${entryTitle} transition-colors group-hover:text-primary`}>
+                  {e.company.website ? (
+                    <a href={e.company.website} className="hover:underline">
+                      {e.company.name}
+                    </a>
+                  ) : (
+                    e.company.name
+                  )}
+                </h3>
                 <p className={meta}>{details.join(", ")}</p>
-                <ul className="mt-2 text-[0.95rem]">
-                  {e.positions.map((p) => (
-                    <li key={p.title} className="flex justify-between gap-4 border-b py-1">
-                      <span className="font-medium">{p.title}</span>
-                      <span className="text-meta whitespace-nowrap">{formatRange(p.start, p.end)}</span>
-                    </li>
-                  ))}
-                </ul>
-                <ul className="dashes mt-3 text-[0.95rem] leading-relaxed text-ink-2">
-                  {e.highlights.map((h) => (
-                    <li key={h}>{h}</li>
-                  ))}
-                </ul>
-                {e.tech.length > 0 && (
-                  <ul
-                    className="mt-3 flex flex-wrap gap-x-3.5 gap-y-0.5 text-[0.85rem] text-muted-foreground"
-                    aria-label="Stack"
-                  >
-                    {e.tech.map((t) => (
-                      <li key={t}>{t}</li>
-                    ))}
-                  </ul>
-                )}
+                <ol className="mt-2">
+                  {e.positions.map((p) => {
+                    const related = (p.relatedProjects ?? []).map((slug) => getProject(slug)!);
+                    return (
+                      <li key={p.id} id={p.id} className="scroll-mt-6 border-t py-3 first:border-t-0 first:pt-1">
+                        <div className="flex flex-wrap items-baseline justify-between gap-x-4">
+                          <h4 className="font-semibold">{p.title}</h4>
+                          <span className="text-meta whitespace-nowrap">
+                            {formatRange(p.startDate, p.endDate ?? "present")}
+                          </span>
+                        </div>
+                        {(p.employmentType || p.employmentLevel) && (
+                          <p className={meta}>{[p.employmentType, p.employmentLevel].filter(Boolean).join(", ")}</p>
+                        )}
+                        {p.description && (
+                          <p className="mt-1.5 text-[0.95rem] leading-relaxed text-ink-2">{p.description}</p>
+                        )}
+                        {p.bullets.length > 0 && (
+                          <ul className="dashes mt-2 text-[0.95rem] leading-relaxed text-ink-2">
+                            {p.bullets.map((b) => (
+                              <li key={b}>{b}</li>
+                            ))}
+                          </ul>
+                        )}
+                        {related.length > 0 && (
+                          <p className="mt-2 text-[0.88rem] text-muted-foreground">
+                            Projects:{" "}
+                            {related.map((r, i) => (
+                              <span key={r.slug}>
+                                {i > 0 && ", "}
+                                <Link href={`/projects/${r.slug}`} className="prose-link text-ink-2">
+                                  {r.shortTitle ?? r.title}
+                                </Link>
+                              </span>
+                            ))}
+                          </p>
+                        )}
+                        {p.technologies && p.technologies.length > 0 && (
+                          <ul
+                            className="mt-2 flex flex-wrap gap-x-3.5 gap-y-0.5 text-[0.85rem] text-muted-foreground"
+                            aria-label="Stack"
+                          >
+                            {p.technologies.map((t) => (
+                              <li key={t}>{t}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ol>
               </li>
             );
           })}

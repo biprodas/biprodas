@@ -49,9 +49,28 @@ describe("experience", () => {
     expect(experience.map((e) => e.id)).toEqual(yaml.map((y) => y.id));
     for (const e of experience) {
       const m = yaml.find((y) => y.id === e.id)!;
-      expect(e.org).toBe(m.org.name);
-      expect(e.positions).toEqual(m.positions.map(({ title, start, end }) => ({ title, start, end })));
+      expect(e.company.name).toBe(m.org.name);
+      expect(e.positions.map((p) => ({ title: p.title, start: p.startDate, end: p.endDate ?? "present" }))).toEqual(
+        m.positions.map(({ title, start, end }) => ({ title, start, end })),
+      );
     }
+  });
+
+  it("derive overall dates from positions and link to real projects", () => {
+    expect(new Set(experience.map((e) => e.order)).size).toBe(experience.length);
+    for (const e of experience) {
+      expect(e.startDate <= (e.endDate ?? "9999"), e.id).toBe(true);
+      expect(e.current, e.id).toBe(e.endDate === undefined);
+      for (const p of e.positions) {
+        for (const slug of p.relatedProjects ?? [])
+          expect(
+            projects.some((x) => x.slug === slug),
+            slug,
+          ).toBe(true);
+      }
+    }
+    const ids = experience.flatMap((e) => e.positions.map((p) => p.id));
+    expect(new Set(ids).size).toBe(ids.length);
   });
 
   it("matches data/education.yaml dates", () => {

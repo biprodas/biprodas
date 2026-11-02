@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/services" },
 };
 
-const orgName = (id: string) => experience.find((e) => e.id === id)?.org;
+const orgName = (id: string) => experience.find((e) => e.id === id)?.company.name;
 const MAX_OFFERINGS = 3;
 
 export default function ServicesPage() {

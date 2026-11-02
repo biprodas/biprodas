@@ -1,4 +1,4 @@
-import type { PartialDate, Position } from "@/content/types";
+import type { PartialDate } from "@/content/types";
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -14,13 +14,6 @@ export function formatRange(start: PartialDate, end: PartialDate | "present"): s
 }
 
 /** Overall span of an organisation's positions. */
-export function positionsSpan(positions: Position[]) {
-  const start = positions.map((p) => p.start).sort()[0];
-  const ends = positions.map((p) => p.end);
-  const end = ends.includes("present") ? "present" : ends.sort().at(-1)!;
-  return { start, end };
-}
-
 export const pad2 = (n: number) => String(n).padStart(2, "0");
 
 /** "2024-05", "2026-06" → "2024–2026"; a single year when start and end match. */
