@@ -71,6 +71,8 @@
     Multi-tenant SaaS that gives freelancers, agencies, NGOs and small businesses simple financial
     tracking, with proper double-entry accounting underneath.
   type: product
+  status: in-progress
+  role: Founder & sole engineer
   links:
     - { kind: live, url: "https://akaunty.vercel.app" }
     # akaunty.com is configured but not live yet · repo: github.com/biprodas/akaunty is private

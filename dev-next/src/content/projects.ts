@@ -5,6 +5,83 @@ import type { Domain, Project } from "./types";
 
 const allProjects: Project[] = [
   {
+    slug: "akaunty",
+    title: "Akaunty",
+    summary:
+      "Multi-tenant SaaS that gives freelancers, agencies, NGOs and small businesses simple financial tracking, with proper double-entry accounting underneath.",
+    description:
+      "Akaunty is bookkeeping for people who don't want to learn bookkeeping. Freelancers, agencies, NGOs and small businesses record money in and money out in plain terms, and Akaunty writes the balanced double-entry journal underneath. From that journal it produces profit and loss, cash flow, balance sheet, trial balance and general ledger reports.",
+    type: "Product",
+    role: "Founder & sole engineer",
+    status: "In Progress",
+    domains: ["FinTech", "SaaS"],
+    topics: ["Double-entry Accounting", "General Ledger", "Financial Reporting", "Multi-tenancy"],
+    technologies: ["Next.js", "NestJS", "PostgreSQL", "Drizzle", "Redis", "BullMQ", "TanStack Query", "Paddle"],
+    liveUrl: "https://akaunty.vercel.app",
+    featured: true,
+    order: 1,
+    features: [
+      'Plain-language entry: record "I got paid" or "I spent money", and the balanced journal entry is written for you',
+      "A chart of accounts for each business, ready to use from day one",
+      "Double-entry general ledger underneath every transaction",
+      "Profit & loss, cash flow and balance sheet reports",
+      "Trial balance and general ledger views",
+      "A separate, isolated workspace for each business",
+      "Subscription billing through Paddle",
+    ],
+    contributions: [
+      "Came up with the product idea and defined its scope",
+      "Designed the ledger engine that turns plain-language intent into balanced double-entry postings",
+      "Built the whole stack alone: Next.js frontend, NestJS API, PostgreSQL with Drizzle, and Redis/BullMQ workers",
+      "Integrated Paddle for subscription billing",
+    ],
+    // data/projects.yaml lists these as highlights; they describe what the product does, so they live in `features`.
+    highlights: [],
+    story: {
+      problem:
+        "Small businesses need real books (a balance sheet, a trial balance, a P&L) but they don't think in debits and credits. Most simple tools give up the accounting; most accounting tools give up the simplicity.",
+      approach:
+        "The interface asks plain questions: money in or money out, from whom, for what. A ledger engine turns each answer into a balanced double-entry posting against the tenant's chart of accounts. Every report is then a query over the same journal, built in the background for larger books.",
+      decisions: [
+        {
+          title: "Intent in, journal out",
+          body: "The UI records intent; the ledger engine owns the accounting rules, so they live in one tested place.",
+        },
+        {
+          title: "Reports from the journal",
+          body: "P&L, cash flow, balance sheet and trial balance all derive from posted lines, so they reconcile with each other by design.",
+        },
+        {
+          title: "Billing via webhooks",
+          body: "Paddle handles subscriptions; plan changes reach the API only through verified webhook events.",
+        },
+      ],
+    },
+    diagram: {
+      title: "Intent to journal",
+      cols: 4,
+      rows: 2,
+      nodes: [
+        { id: "web", label: "Web app", sub: "Next.js · TanStack", kind: "client", col: 0, row: 0 },
+        { id: "api", label: "API", sub: "NestJS", kind: "service", col: 1, row: 0 },
+        { id: "ledger", label: "Ledger engine", sub: "double-entry", kind: "service", col: 2, row: 0 },
+        { id: "pg", label: "PostgreSQL", sub: "Drizzle", kind: "data", col: 3, row: 0 },
+        { id: "paddle", label: "Paddle", sub: "subscriptions", kind: "external", col: 0, row: 1 },
+        { id: "queue", label: "Job queue", sub: "BullMQ · Redis", kind: "queue", col: 1, row: 1 },
+        { id: "reports", label: "Report builder", sub: "P&L · balance sheet", kind: "worker", col: 2, row: 1 },
+      ],
+      edges: [
+        { from: "web", to: "api", label: "intent" },
+        { from: "api", to: "ledger", label: "post" },
+        { from: "ledger", to: "pg", label: "journal" },
+        { from: "paddle", to: "api", label: "webhooks", async: true },
+        { from: "api", to: "queue", label: "enqueue", async: true },
+        { from: "queue", to: "reports" },
+        { from: "reports", to: "pg", label: "query" },
+      ],
+    },
+  },
+  {
     slug: "pitchpool",
     title: "PitchPool",
     summary:
@@ -31,7 +108,7 @@ const allProjects: Project[] = [
     liveUrl: "https://pitchpool.io",
     // TODO: set `thumbnail: "/images/projects/pitchpool/cover.png"` once the file is in public/.
     featured: true,
-    order: 1,
+    order: 2,
     features: [
       "Multi-tenant workspaces, each with its own pools, participants and roles",
       "Automated scoring of predictions as match results come in",
@@ -107,7 +184,7 @@ const allProjects: Project[] = [
     topics: ["FinTech", "Microfinance", "Accounting"],
     technologies: ["Next.js", "NestJS", "PostgreSQL", "Redis", "BullMQ", "TypeORM"],
     featured: true,
-    order: 2,
+    order: 3,
     features: [
       "Group lending and savings products",
       "Loan disbursement, repayment schedules and field-agent collection",
@@ -163,73 +240,6 @@ const allProjects: Project[] = [
         { from: "queue", to: "sched" },
         { from: "sched", to: "ledger", label: "accrue" },
         { from: "pg", to: "mis", label: "read" },
-      ],
-    },
-  },
-  {
-    slug: "akaunty",
-    title: "Akaunty",
-    summary:
-      "Multi-tenant SaaS that gives freelancers, agencies, NGOs and small businesses simple financial tracking, with proper double-entry accounting underneath.",
-    description:
-      "Akaunty is bookkeeping for people who don't want to learn bookkeeping. Freelancers, agencies, NGOs and small businesses record money in and money out in plain terms, and Akaunty writes the balanced double-entry journal underneath. From that journal it produces profit and loss, cash flow, balance sheet, trial balance and general ledger reports.",
-    domains: ["FinTech", "SaaS"],
-    topics: ["FinTech", "Accounting", "SaaS"],
-    technologies: ["Next.js", "NestJS", "PostgreSQL", "Drizzle", "Redis", "BullMQ", "TanStack Query", "Paddle"],
-    liveUrl: "https://akaunty.vercel.app",
-    featured: true,
-    order: 3,
-    type: "Product",
-    // data/projects.yaml lists these as highlights; they describe what the product does, so they live in `features`.
-    highlights: [],
-    features: [
-      'Record "I got paid" or "I spent money"; balanced journal entries are generated underneath',
-      "Profit & loss, cash flow and balance sheet reports",
-      "Trial balance and general ledger",
-      "A separate workspace for each business",
-      "Subscription billing through Paddle",
-    ],
-    story: {
-      problem:
-        "Small businesses need real books (a balance sheet, a trial balance, a P&L) but they don't think in debits and credits. Most simple tools give up the accounting; most accounting tools give up the simplicity.",
-      approach:
-        "The interface asks plain questions: money in or money out, from whom, for what. A ledger engine turns each answer into a balanced double-entry posting against the tenant's chart of accounts. Every report is then a query over the same journal, built in the background for larger books.",
-      decisions: [
-        {
-          title: "Intent in, journal out",
-          body: "The UI records intent; the ledger engine owns the accounting rules, so they live in one tested place.",
-        },
-        {
-          title: "Reports from the journal",
-          body: "P&L, cash flow, balance sheet and trial balance all derive from posted lines, so they reconcile with each other by design.",
-        },
-        {
-          title: "Billing via webhooks",
-          body: "Paddle handles subscriptions; plan changes reach the API only through verified webhook events.",
-        },
-      ],
-    },
-    diagram: {
-      title: "Intent to journal",
-      cols: 4,
-      rows: 2,
-      nodes: [
-        { id: "web", label: "Web app", sub: "Next.js · TanStack", kind: "client", col: 0, row: 0 },
-        { id: "api", label: "API", sub: "NestJS", kind: "service", col: 1, row: 0 },
-        { id: "ledger", label: "Ledger engine", sub: "double-entry", kind: "service", col: 2, row: 0 },
-        { id: "pg", label: "PostgreSQL", sub: "Drizzle", kind: "data", col: 3, row: 0 },
-        { id: "paddle", label: "Paddle", sub: "subscriptions", kind: "external", col: 0, row: 1 },
-        { id: "queue", label: "Job queue", sub: "BullMQ · Redis", kind: "queue", col: 1, row: 1 },
-        { id: "reports", label: "Report builder", sub: "P&L · balance sheet", kind: "worker", col: 2, row: 1 },
-      ],
-      edges: [
-        { from: "web", to: "api", label: "intent" },
-        { from: "api", to: "ledger", label: "post" },
-        { from: "ledger", to: "pg", label: "journal" },
-        { from: "paddle", to: "api", label: "webhooks", async: true },
-        { from: "api", to: "queue", label: "enqueue", async: true },
-        { from: "queue", to: "reports" },
-        { from: "reports", to: "pg", label: "query" },
       ],
     },
   },
