@@ -89,16 +89,40 @@ describe("services", () => {
       engagements: string[];
       hiring: { platforms: { upwork: string } };
     } = master("services.yaml");
-    expect(services.map(({ id, title, projects, experience }) => ({ id, title, projects, experience }))).toEqual(
-      yaml.services.map(({ id, title, projects, experience }) => ({ id, title, projects, experience })),
+    expect(
+      services.map((s) => ({
+        id: s.slug,
+        title: s.title,
+        projects: s.relatedProjects,
+        experience: s.relatedExperience,
+      })),
+    ).toEqual(
+      yaml.services.map((y) => ({
+        id: y.id,
+        title: y.title,
+        projects: y.projects ?? [],
+        experience: y.experience ?? [],
+      })),
     );
     expect(engagements.map((e) => e.id)).toEqual(yaml.engagements);
     expect(hiring.upwork).toBe(yaml.hiring.platforms.upwork);
-    for (const s of services)
-      for (const slug of s.projects ?? [])
+  });
+
+  it("link to real projects and roles, with unique slugs and order", async () => {
+    const { services } = await import("./services");
+    expect(new Set(services.map((s) => s.slug)).size).toBe(services.length);
+    expect(new Set(services.map((s) => s.order)).size).toBe(services.length);
+    for (const s of services) {
+      for (const slug of s.relatedProjects)
         expect(
           projects.some((p) => p.slug === slug),
-          slug,
+          `${s.slug}: ${slug}`,
         ).toBe(true);
+      for (const id of s.relatedExperience)
+        expect(
+          experience.some((e) => e.id === id),
+          `${s.slug}: ${id}`,
+        ).toBe(true);
+    }
   });
 });

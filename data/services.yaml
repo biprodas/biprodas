@@ -1,36 +1,38 @@
 # Services offered to clients, and how engagements work. Shown on biprodas.dev (/services).
 #
-# - id: kebab-case
+# - id: kebab-case           # also the URL: biprodas.dev/services/<id>
 #   title: ...
 #   projects: [ project-id, ... ]   # ids from projects.yaml that show this work
 #   experience: [ experience-id ]   # ids from experience.yaml, optional
 #
 # Descriptions are written per site; only the facts below should match.
 
-services:
-  - id: saas-mvp
-    title: SaaS & MVP Builds
-    projects: [pitchpool, akaunty, cloud-prep]
-  - id: erp
+services: # listed in display order
+  - id: saas-mvp-development
+    title: SaaS & MVP Development
+    projects: [pitchpool, cloud-prep, startdescribe]
+  - id: erp-development
     title: ERP Systems Development & Integration
-    projects: [school-erp, microfinance-core-banking]
+    projects: [akaunty, microfinance-core-banking]
     experience: [codepal, semicolon]
-  - id: fintech
+  - id: fintech-accounting
     title: FinTech & Accounting Systems
     projects: [akaunty, microfinance-core-banking]
     experience: [codepal]
-  - id: ai-llm
-    title: AI / LLM Feature Integration
+  - id: ai-llm-integration
+    title: AI & LLM Feature Integration
     projects: [startdescribe]
-    experience: [must-company]
-  - id: backend-api
-    title: Custom Backend & API Development
-    projects: [pitchpool, school-erp, larmts]
+    experience: [must-company] # MustBreak
   - id: architecture-performance
-    title: Architecture Review & Performance
-    projects: [school-erp, pitchpool]
+    title: Architecture Review & Performance Optimization
     experience: [semicolon]
-  - id: consultancy
+  - id: backend-api-development
+    title: Custom Backend & API Development
+    projects: [pitchpool]
+    experience: [codepal] # Drivus
+  - id: cloud-devops
+    title: Cloud Infrastructure & DevOps
+  - id: software-engineering-consultancy
     title: Software Engineering Consultancy
     experience: [semicolon]
 
