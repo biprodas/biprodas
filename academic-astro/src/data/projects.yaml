@@ -191,8 +191,13 @@
   summary: >-
     Government GIS platform for land acquisition, compensation tracking, and resettlement of
     affected individuals across infrastructure projects.
+  status: completed
+  role: Lead engineer
+  experience: semicolon
   tech: [Node.js, Express, PostgreSQL/PostGIS, React, Leaflet]
-  topics: [GIS, GovTech, Infrastructure]
+  topics: [GIS, GovTech, Infrastructure, Land Acquisition, Resettlement]
   highlights:
     - Implemented grievance management and reporting.
     - Deployed in the MRT-5 and CEIP-1 national projects in Bangladesh.
+    - Led a team of 4–5 engineers; designed the architecture and the PostGIS data model, and built
+      the GIS map and compensation and resettlement tracking.

@@ -345,6 +345,223 @@ const allProjects: Project[] = [
     },
   },
   {
+    slug: "school-erp",
+    title: "School ERP",
+    summary:
+      "School administration platform covering admissions, academics, students, parents and staff, finance, campus services, communication and reporting.",
+    description:
+      "School ERP runs a school's administration in one place: admissions, academics, students, parents and staff, finance, campus services, communication and reporting. Many schools share one deployment, and PostgreSQL row-level security keeps each school's data apart.",
+    domains: ["EdTech"],
+    topics: ["EdTech", "ERP", "Multi-tenancy"],
+    technologies: [
+      "Next.js",
+      "React",
+      "NestJS",
+      "PostgreSQL",
+      "TypeORM",
+      "Redis",
+      "BullMQ",
+      "TanStack Query",
+      "Tailwind CSS",
+    ],
+    sourceUrl: "https://github.com/biprodas/school-erp",
+    featured: false,
+    order: 5,
+    features: [
+      "Admissions and academics",
+      "Student, parent and staff records",
+      "School finance",
+      "Campus services",
+      "Communication and reporting",
+      "A dashboard sidebar each school can configure",
+    ],
+    type: "Product",
+    highlights: [
+      "Tenant isolation with PostgreSQL row-level security on tenanted tables.",
+      "Next.js dashboard with a configurable sidebar, backed by a NestJS API.",
+    ],
+    story: {
+      problem:
+        "A school ERP touches admissions, classes, exams, fees, staff and parents. Many schools share one deployment, and a single missing WHERE clause must never leak one school's students to another.",
+      approach:
+        "Isolation is enforced by the database, not by convention. Each request sets the tenant in the session and PostgreSQL row-level security policies filter every tenanted table, so application code can't forget. Notices and long reports run on a queue.",
+      decisions: [
+        {
+          title: "Row-level security",
+          body: "Tenant filtering lives in PostgreSQL policies, so even a buggy query can't read across tenants.",
+        },
+        {
+          title: "Configurable navigation",
+          body: "The dashboard sidebar is data-driven, so each school sees only the modules it uses.",
+        },
+        {
+          title: "Clear module boundaries",
+          body: "Admissions, academics, finance and communication are separate NestJS modules.",
+        },
+      ],
+    },
+    diagram: {
+      title: "Tenant isolation",
+      cols: 4,
+      rows: 2,
+      nodes: [
+        { id: "web", label: "Dashboard", sub: "Next.js", kind: "client", col: 0, row: 0 },
+        { id: "api", label: "API", sub: "NestJS · TypeORM", kind: "service", col: 1, row: 0 },
+        { id: "guard", label: "Tenant context", sub: "per request", kind: "service", col: 2, row: 0 },
+        { id: "pg", label: "PostgreSQL", sub: "row-level security", kind: "data", col: 3, row: 0 },
+        { id: "queue", label: "Job queue", sub: "BullMQ · Redis", kind: "queue", col: 1, row: 1 },
+        { id: "jobs", label: "Workers", sub: "notices · reports", kind: "worker", col: 2, row: 1 },
+      ],
+      edges: [
+        { from: "web", to: "api", label: "HTTPS" },
+        { from: "api", to: "guard", label: "scope" },
+        { from: "guard", to: "pg", label: "RLS" },
+        { from: "api", to: "queue", label: "enqueue", async: true },
+        { from: "queue", to: "jobs" },
+        { from: "jobs", to: "pg", label: "writes" },
+      ],
+    },
+  },
+  {
+    slug: "cloud-prep",
+    title: "Cloud Prep",
+    summary:
+      "Practice app for AWS certification exams, with questions organized by certification and AWS service, an explanation on every answer and per-topic accuracy tracking.",
+    description:
+      "Cloud Prep is a practice app for four AWS certification exams: Cloud Practitioner, AI Practitioner, Developer Associate and Solutions Architect Associate. Questions are organized by certification and AWS service, every answer comes with an explanation, and accuracy is tracked per topic so you can see where you're weak.",
+    type: "Product",
+    domains: ["EdTech", "SaaS"],
+    topics: ["AWS Certification", "Exam Preparation", "Progress Tracking"],
+    technologies: ["Next.js", "TypeScript", "Supabase", "TanStack Query", "Tailwind CSS", "Paddle"],
+    liveUrl: "https://cloudprep.biprodas.dev",
+    featured: false,
+    order: 6,
+    // data/projects.yaml lists these as highlights; they describe what the product does, so they live in `features`.
+    highlights: [],
+    features: [
+      "Practice questions for Cloud Practitioner, AI Practitioner, Developer Associate and Solutions Architect Associate",
+      "Questions organized by certification and AWS service",
+      "An explanation on every answer",
+      "Per-topic accuracy and weak-area tracking",
+      "In-app cheat sheets",
+      "Bookmarks and review loops",
+    ],
+    story: {
+      problem:
+        "Studying for AWS exams, I wanted to know where I was weak, not just my overall score. Most question banks don't explain wrong answers or track accuracy per service.",
+      approach:
+        "Every question is tagged by certification and AWS service, and every attempt is recorded. Accuracy rolls up per topic, so review is steered toward weak areas, with an explanation and a cheat sheet one tap away.",
+      decisions: [
+        {
+          title: "Tag everything",
+          body: "Certification and service tags make per-topic accuracy a simple aggregate.",
+        },
+        { title: "Review loops", body: "Missed and bookmarked questions come back until they stick." },
+        {
+          title: "Small, fast stack",
+          body: "Next.js with Supabase and TanStack Query keeps the app responsive with very little server code.",
+        },
+      ],
+    },
+    diagram: {
+      title: "Practice loop",
+      cols: 3,
+      rows: 2,
+      nodes: [
+        { id: "web", label: "Practice app", sub: "Next.js · TanStack", kind: "client", col: 0, row: 0 },
+        { id: "engine", label: "Quiz engine", sub: "scoring · review", kind: "service", col: 1, row: 0 },
+        { id: "supa", label: "Supabase", sub: "Postgres · Auth", kind: "data", col: 2, row: 0 },
+        { id: "paddle", label: "Paddle", sub: "subscriptions", kind: "external", col: 1, row: 1 },
+        { id: "stats", label: "Weak areas", sub: "per-topic accuracy", kind: "worker", col: 2, row: 1 },
+      ],
+      edges: [
+        { from: "web", to: "engine", label: "answers" },
+        { from: "engine", to: "supa", label: "attempts" },
+        { from: "web", to: "paddle", label: "checkout" },
+        { from: "paddle", to: "supa", label: "webhooks", async: true },
+        { from: "supa", to: "stats", label: "aggregate" },
+      ],
+    },
+  },
+  {
+    slug: "larmts",
+    title: "Land Acquisition and Resettlement Management Tracking System (LARMTS)",
+    shortTitle: "LARMTS",
+    summary:
+      "Government GIS platform for land acquisition, compensation tracking and resettlement of affected individuals across infrastructure projects.",
+    description:
+      "LARMTS is a government GIS platform for the land side of large infrastructure projects. It maps every parcel a project needs, tracks acquisition and compensation for each affected owner, follows the resettlement of the people displaced, and records their grievances through to resolution. It is deployed in two national projects in Bangladesh: MRT-5, a Dhaka metro rail line, and CEIP-1, a coastal embankment programme.",
+    type: "Enterprise",
+    role: "Lead engineer",
+    status: "Completed",
+    domains: ["GovTech"],
+    topics: ["GIS", "Land Acquisition", "Resettlement", "Infrastructure", "Grievance Management"],
+    technologies: ["Node.js", "Express", "PostgreSQL/PostGIS", "React", "Leaflet"],
+    featured: false,
+    order: 7,
+    features: [
+      "Interactive GIS map of every parcel a project needs to acquire",
+      "Land acquisition tracking, parcel by parcel",
+      "Compensation tracking for each affected owner",
+      "Resettlement tracking for displaced people",
+      "Grievance management, from complaint to resolution",
+      "Reporting for project officials",
+    ],
+    contributions: [
+      "Led a team of 4–5 engineers at Semicolon IT Solutions",
+      "Designed the system architecture and the API structure",
+      "Designed the PostGIS data model, linking each parcel's geometry to its owners, valuations and payments",
+      "Built the React and Leaflet GIS map of project parcels",
+      "Built compensation and resettlement tracking for each affected person",
+      "Implemented grievance management and reporting",
+    ],
+    highlights: [
+      "Implemented grievance management and reporting.",
+      "Deployed in the MRT-5 and CEIP-1 national projects in Bangladesh.",
+    ],
+    challenges: [
+      "Linking map geometry to the legal and financial record of each parcel, so the map and the case file never disagree",
+      "Tracking compensation and resettlement per person, where an error falls on a family rather than a spreadsheet",
+      "Keeping grievances visible until they are resolved, across field visits and handovers between officials",
+    ],
+    story: {
+      problem:
+        "Large infrastructure projects acquire land parcel by parcel and must compensate and resettle every affected person. On paper it's hard to see what has been paid, what is disputed, and where.",
+      approach:
+        "Parcels live as geometries in PostGIS and are drawn on a Leaflet map. Each parcel links to its owners, valuations, compensation payments and grievances, so officials move between the map and the case file.",
+      decisions: [
+        { title: "Map as the index", body: "Pick a parcel on the map and see everything attached to it." },
+        {
+          title: "Spatial queries in the database",
+          body: "PostGIS answers which parcels a corridor touches directly in SQL.",
+        },
+        {
+          title: "Grievances as records",
+          body: "Disputes have their own workflow and reporting, so nothing is lost between field visits.",
+        },
+      ],
+    },
+    diagram: {
+      title: "Parcel-centred GIS",
+      cols: 3,
+      rows: 2,
+      nodes: [
+        { id: "web", label: "Web GIS", sub: "React · Leaflet", kind: "client", col: 0, row: 0 },
+        { id: "api", label: "API", sub: "Node.js · Express", kind: "service", col: 1, row: 0 },
+        { id: "postgis", label: "PostGIS", sub: "parcels · geometry", kind: "data", col: 2, row: 0 },
+        { id: "grievance", label: "Grievances", sub: "workflow · reports", kind: "service", col: 1, row: 1 },
+        { id: "comp", label: "Compensation", sub: "valuation · payment", kind: "service", col: 2, row: 1 },
+      ],
+      edges: [
+        { from: "web", to: "api", label: "JSON" },
+        { from: "api", to: "postgis", label: "spatial" },
+        { from: "api", to: "grievance" },
+        { from: "grievance", to: "comp", label: "resolve" },
+        { from: "comp", to: "postgis", label: "parcel" },
+      ],
+    },
+  },
+  {
     slug: "startdescribe",
     title: "StartDescribe",
     summary:
@@ -358,7 +575,7 @@ const allProjects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Tailwind", "Supabase", "Shopify", "Stripe", "OpenAI", "Perplexity"],
     liveUrl: "https://startdescribe.com",
     featured: true,
-    order: 5,
+    order: 8,
     features: [
       "Install as a Shopify app, or connect WooCommerce or BigCommerce",
       "Bulk import from CSV or Google Sheets, with field mapping",
@@ -446,7 +663,7 @@ const allProjects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Tailwind", "Supabase", "Stripe", "OpenAI", "Perplexity"],
     liveUrl: "https://startintegrate.com",
     featured: false,
-    order: 6,
+    order: 9,
     features: [
       "Custom apps for Make.com, Zapier and Workato",
       "A library of integrations for data processing, invoicing, social media, messaging and database tools",
@@ -531,7 +748,7 @@ const allProjects: Project[] = [
     ],
     liveUrl: "https://startautomate.com",
     featured: false,
-    order: 7,
+    order: 10,
     features: [
       "Agency website with services, use cases and consultation booking",
       "AI appointment scheduling that captures customer details into a CRM",
@@ -581,206 +798,6 @@ const allProjects: Project[] = [
         { from: "flow", to: "ai", label: "prompt" },
         { from: "ai", to: "docs", label: "retrieve" },
         { from: "ai", to: "crm", label: "update" },
-      ],
-    },
-  },
-  {
-    slug: "school-erp",
-    title: "School ERP",
-    summary:
-      "School administration platform covering admissions, academics, students, parents and staff, finance, campus services, communication and reporting.",
-    description:
-      "School ERP runs a school's administration in one place: admissions, academics, students, parents and staff, finance, campus services, communication and reporting. Many schools share one deployment, and PostgreSQL row-level security keeps each school's data apart.",
-    domains: ["EdTech"],
-    topics: ["EdTech", "ERP", "Multi-tenancy"],
-    technologies: [
-      "Next.js",
-      "React",
-      "NestJS",
-      "PostgreSQL",
-      "TypeORM",
-      "Redis",
-      "BullMQ",
-      "TanStack Query",
-      "Tailwind CSS",
-    ],
-    sourceUrl: "https://github.com/biprodas/school-erp",
-    featured: false,
-    order: 8,
-    features: [
-      "Admissions and academics",
-      "Student, parent and staff records",
-      "School finance",
-      "Campus services",
-      "Communication and reporting",
-      "A dashboard sidebar each school can configure",
-    ],
-    type: "Product",
-    highlights: [
-      "Tenant isolation with PostgreSQL row-level security on tenanted tables.",
-      "Next.js dashboard with a configurable sidebar, backed by a NestJS API.",
-    ],
-    story: {
-      problem:
-        "A school ERP touches admissions, classes, exams, fees, staff and parents. Many schools share one deployment, and a single missing WHERE clause must never leak one school's students to another.",
-      approach:
-        "Isolation is enforced by the database, not by convention. Each request sets the tenant in the session and PostgreSQL row-level security policies filter every tenanted table, so application code can't forget. Notices and long reports run on a queue.",
-      decisions: [
-        {
-          title: "Row-level security",
-          body: "Tenant filtering lives in PostgreSQL policies, so even a buggy query can't read across tenants.",
-        },
-        {
-          title: "Configurable navigation",
-          body: "The dashboard sidebar is data-driven, so each school sees only the modules it uses.",
-        },
-        {
-          title: "Clear module boundaries",
-          body: "Admissions, academics, finance and communication are separate NestJS modules.",
-        },
-      ],
-    },
-    diagram: {
-      title: "Tenant isolation",
-      cols: 4,
-      rows: 2,
-      nodes: [
-        { id: "web", label: "Dashboard", sub: "Next.js", kind: "client", col: 0, row: 0 },
-        { id: "api", label: "API", sub: "NestJS · TypeORM", kind: "service", col: 1, row: 0 },
-        { id: "guard", label: "Tenant context", sub: "per request", kind: "service", col: 2, row: 0 },
-        { id: "pg", label: "PostgreSQL", sub: "row-level security", kind: "data", col: 3, row: 0 },
-        { id: "queue", label: "Job queue", sub: "BullMQ · Redis", kind: "queue", col: 1, row: 1 },
-        { id: "jobs", label: "Workers", sub: "notices · reports", kind: "worker", col: 2, row: 1 },
-      ],
-      edges: [
-        { from: "web", to: "api", label: "HTTPS" },
-        { from: "api", to: "guard", label: "scope" },
-        { from: "guard", to: "pg", label: "RLS" },
-        { from: "api", to: "queue", label: "enqueue", async: true },
-        { from: "queue", to: "jobs" },
-        { from: "jobs", to: "pg", label: "writes" },
-      ],
-    },
-  },
-  {
-    slug: "cloud-prep",
-    title: "Cloud Prep",
-    summary:
-      "Practice app for AWS certification exams, with questions organized by certification and AWS service, an explanation on every answer and per-topic accuracy tracking.",
-    description:
-      "Cloud Prep is a practice app for four AWS certification exams: Cloud Practitioner, AI Practitioner, Developer Associate and Solutions Architect Associate. Questions are organized by certification and AWS service, every answer comes with an explanation, and accuracy is tracked per topic so you can see where you're weak.",
-    type: "Product",
-    domains: ["EdTech", "SaaS"],
-    topics: ["AWS Certification", "Exam Preparation", "Progress Tracking"],
-    technologies: ["Next.js", "TypeScript", "Supabase", "TanStack Query", "Tailwind CSS", "Paddle"],
-    liveUrl: "https://cloudprep.biprodas.dev",
-    featured: false,
-    order: 9,
-    // data/projects.yaml lists these as highlights; they describe what the product does, so they live in `features`.
-    highlights: [],
-    features: [
-      "Practice questions for Cloud Practitioner, AI Practitioner, Developer Associate and Solutions Architect Associate",
-      "Questions organized by certification and AWS service",
-      "An explanation on every answer",
-      "Per-topic accuracy and weak-area tracking",
-      "In-app cheat sheets",
-      "Bookmarks and review loops",
-    ],
-    story: {
-      problem:
-        "Studying for AWS exams, I wanted to know where I was weak, not just my overall score. Most question banks don't explain wrong answers or track accuracy per service.",
-      approach:
-        "Every question is tagged by certification and AWS service, and every attempt is recorded. Accuracy rolls up per topic, so review is steered toward weak areas, with an explanation and a cheat sheet one tap away.",
-      decisions: [
-        {
-          title: "Tag everything",
-          body: "Certification and service tags make per-topic accuracy a simple aggregate.",
-        },
-        { title: "Review loops", body: "Missed and bookmarked questions come back until they stick." },
-        {
-          title: "Small, fast stack",
-          body: "Next.js with Supabase and TanStack Query keeps the app responsive with very little server code.",
-        },
-      ],
-    },
-    diagram: {
-      title: "Practice loop",
-      cols: 3,
-      rows: 2,
-      nodes: [
-        { id: "web", label: "Practice app", sub: "Next.js · TanStack", kind: "client", col: 0, row: 0 },
-        { id: "engine", label: "Quiz engine", sub: "scoring · review", kind: "service", col: 1, row: 0 },
-        { id: "supa", label: "Supabase", sub: "Postgres · Auth", kind: "data", col: 2, row: 0 },
-        { id: "paddle", label: "Paddle", sub: "subscriptions", kind: "external", col: 1, row: 1 },
-        { id: "stats", label: "Weak areas", sub: "per-topic accuracy", kind: "worker", col: 2, row: 1 },
-      ],
-      edges: [
-        { from: "web", to: "engine", label: "answers" },
-        { from: "engine", to: "supa", label: "attempts" },
-        { from: "web", to: "paddle", label: "checkout" },
-        { from: "paddle", to: "supa", label: "webhooks", async: true },
-        { from: "supa", to: "stats", label: "aggregate" },
-      ],
-    },
-  },
-  {
-    slug: "larmts",
-    title: "Land Acquisition and Resettlement Management Tracking System (LARMTS)",
-    shortTitle: "LARMTS",
-    summary:
-      "Government GIS platform for land acquisition, compensation tracking and resettlement of affected individuals across infrastructure projects.",
-    description:
-      "LARMTS is a government GIS platform for the land side of infrastructure projects: acquiring land, tracking compensation and resettling the people affected. It includes grievance management and reporting, and is deployed in the MRT-5 and CEIP-1 national projects in Bangladesh.",
-    domains: ["GovTech"],
-    topics: ["GIS", "GovTech", "Infrastructure"],
-    technologies: ["Node.js", "Express", "PostgreSQL/PostGIS", "React", "Leaflet"],
-    featured: false,
-    order: 10,
-    features: [
-      "Land acquisition tracking on a GIS map",
-      "Compensation tracking",
-      "Resettlement of affected people",
-      "Grievance management",
-      "Reporting",
-    ],
-    highlights: [
-      "Implemented grievance management and reporting.",
-      "Deployed in the MRT-5 and CEIP-1 national projects in Bangladesh.",
-    ],
-    story: {
-      problem:
-        "Large infrastructure projects acquire land parcel by parcel and must compensate and resettle every affected person. On paper it's hard to see what has been paid, what is disputed, and where.",
-      approach:
-        "Parcels live as geometries in PostGIS and are drawn on a Leaflet map. Each parcel links to its owners, valuations, compensation payments and grievances, so officials move between the map and the case file.",
-      decisions: [
-        { title: "Map as the index", body: "Pick a parcel on the map and see everything attached to it." },
-        {
-          title: "Spatial queries in the database",
-          body: "PostGIS answers which parcels a corridor touches directly in SQL.",
-        },
-        {
-          title: "Grievances as records",
-          body: "Disputes have their own workflow and reporting, so nothing is lost between field visits.",
-        },
-      ],
-    },
-    diagram: {
-      title: "Parcel-centred GIS",
-      cols: 3,
-      rows: 2,
-      nodes: [
-        { id: "web", label: "Web GIS", sub: "React · Leaflet", kind: "client", col: 0, row: 0 },
-        { id: "api", label: "API", sub: "Node.js · Express", kind: "service", col: 1, row: 0 },
-        { id: "postgis", label: "PostGIS", sub: "parcels · geometry", kind: "data", col: 2, row: 0 },
-        { id: "grievance", label: "Grievances", sub: "workflow · reports", kind: "service", col: 1, row: 1 },
-        { id: "comp", label: "Compensation", sub: "valuation · payment", kind: "service", col: 2, row: 1 },
-      ],
-      edges: [
-        { from: "web", to: "api", label: "JSON" },
-        { from: "api", to: "postgis", label: "spatial" },
-        { from: "api", to: "grievance" },
-        { from: "grievance", to: "comp", label: "resolve" },
-        { from: "comp", to: "postgis", label: "parcel" },
       ],
     },
   },
