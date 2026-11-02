@@ -1,0 +1,17 @@
+# Referees: people who agreed to speak about your work. Never invent these.
+# Stored privately by default: only `public: true` entries are shown, and an email or phone
+# is shown only with `showEmail` / `showPhone: true`. Get each person's consent for each.
+#
+# - id: kebab-case
+#   name: ...
+#   title: "Professor, Dept. of CSE"
+#   company: { name: ..., url: ... }   # company or university
+#   relationship: "Undergraduate thesis supervisor"
+#   description: ...    # optional: what you worked on together
+#   url: ...            # faculty or profile page
+#   email: ...          # optional
+#   phone: "+880 ..."   # optional, international format
+#   public: false       # agreed to be listed
+#   showEmail: false    # agreed to have the email shown
+#   showPhone: false    # agreed to have the phone number shown
+[]

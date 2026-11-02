@@ -105,6 +105,7 @@ export const talks = content.talks(SITE);
 export const awards = content.awards(SITE);
 export const certifications = content.certifications(SITE);
 export const testScores = content.testScores(SITE);
+export const references = content.references(SITE);
 export const skills = content.skills(SITE);
 
 const realPubs = content.publications(SITE);
