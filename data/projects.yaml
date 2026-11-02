@@ -64,6 +64,26 @@
     - Built the whole stack alone: Next.js frontend, NestJS API, PostgreSQL with Prisma, and Redis/BullMQ workers
     - Deployed it to production at pitchpool.io
 
+- id: mustbreak
+  title: MustBreak
+  summary: >-
+    AI real-time meeting platform for transcription, translation and multilingual collaboration,
+    with AI summaries, searchable history and a Slack translator bot.
+  status: completed
+  role: Full-stack engineer
+  period: { start: "2024-05", end: "2026-06" }
+  experience: must-company
+  links:
+    - { kind: live, url: "https://mustbreak.ai" }
+  tech: [Python, FastAPI, DynamoDB, Next.js, TypeScript]
+  topics: [AI, Real-time Translation, Speech Transcription, Multilingual Collaboration, Slack]
+  highlights:
+    - Developed MustBreak, an AI-powered real-time meeting platform for transcription, translation,
+      and multilingual collaboration across distributed teams — with AI-generated summaries and
+      searchable conversation history.
+    - Integrated Slack workflows and low-latency real-time communication infrastructure to support
+      enterprise-grade multilingual collaboration.
+
 - id: startdescribe
   title: StartDescribe
   summary: >-

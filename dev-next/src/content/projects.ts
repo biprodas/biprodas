@@ -261,6 +261,88 @@ const allProjects: Project[] = [
     },
   },
   {
+    slug: "mustbreak",
+    title: "MustBreak",
+    summary:
+      "AI real-time meeting platform for transcription, translation and multilingual collaboration, with AI summaries, searchable history and a Slack translator bot.",
+    description:
+      "MustBreak, built at MUST Company in Seoul, is a real-time AI translator for meetings and chat. People speak in their own language and everyone in the room reads the conversation in theirs, with automatic language detection, speaker identification and noise cancelling. Meetings become shareable minutes with speaker separation, AI summaries and chat, and searchable history, so late joiners can catch up. In Slack, the @MustBreak bot translates conversations in place.",
+    type: "Enterprise",
+    role: "Full-stack engineer",
+    status: "Completed",
+    domains: ["AI", "SaaS"],
+    topics: ["Real-time Translation", "Speech Transcription", "Multilingual Collaboration", "Slack Integration"],
+    technologies: ["Python", "FastAPI", "DynamoDB", "Next.js", "TypeScript"],
+    liveUrl: "https://mustbreak.ai",
+    startDate: "2024-05",
+    endDate: "2026-06",
+    featured: false,
+    order: 4,
+    features: [
+      "Real-time transcription and translation across 60+ languages",
+      "Group conversations with speaker identification",
+      "Automatic language and voice recognition",
+      "Noise cancelling that isolates the speaker's voice",
+      "Pronunciation support for non-native English speakers",
+      "Meeting notes with speaker separation, AI summaries and AI chat",
+      "Searchable conversation history, including catch-up for late joiners",
+      "Shareable, confidential meeting minutes",
+      "@MustBreak Slack bot for translation inside Slack",
+      "Mobile web and mobile app access",
+    ],
+    contributions: [
+      "Worked across the stack as a full-stack engineer at MUST Company",
+      "Built low-latency real-time transcription and translation infrastructure",
+      "Built the @MustBreak Slack bot and the Slack workflows around it",
+      "Built meeting features: speaker separation, AI summaries and chat, and searchable conversation history",
+      "Built responsive frontend features in Next.js and TypeScript",
+    ],
+    highlights: [
+      "Developed MustBreak, an AI-powered real-time meeting platform for transcription, translation and multilingual collaboration across distributed teams, with AI-generated summaries and searchable conversation history.",
+      "Integrated Slack workflows and low-latency real-time communication infrastructure to support enterprise-grade multilingual collaboration.",
+    ],
+    story: {
+      problem:
+        "Distributed teams lose meetings to language. Non-native speakers follow half the conversation, notes miss what was said, and the same friction carries over into chat.",
+      approach:
+        "Audio streams from each participant are transcribed and translated in real time, tagged by speaker and fanned out to everyone in their chosen language. The same transcript then drives meeting notes, AI summaries and searchable history, and a Slack bot brings translation into the team's chat.",
+      decisions: [
+        {
+          title: "Latency first",
+          body: "Translation is only useful while the conversation is still happening, so the real-time path is kept short and low-latency from microphone to every listener.",
+        },
+        {
+          title: "One transcript, many uses",
+          body: "Live captions, minutes, summaries and search all read from the same speaker-tagged transcript.",
+        },
+        {
+          title: "Meet teams where they talk",
+          body: "The Slack bot brings the same translation into chat, so it isn't limited to meetings.",
+        },
+      ],
+    },
+    diagram: {
+      title: "Real-time translation",
+      cols: 4,
+      rows: 2,
+      nodes: [
+        { id: "web", label: "Meeting app", sub: "Next.js · mobile web", kind: "client", col: 0, row: 0 },
+        { id: "api", label: "Realtime API", sub: "FastAPI", kind: "service", col: 1, row: 0 },
+        { id: "ai", label: "AI models", sub: "speech · translation", kind: "external", col: 2, row: 0 },
+        { id: "db", label: "DynamoDB", sub: "transcripts · history", kind: "data", col: 3, row: 0 },
+        { id: "slack", label: "Slack", sub: "@MustBreak bot", kind: "client", col: 0, row: 1 },
+        { id: "notes", label: "Meeting notes", sub: "summaries · chat", kind: "worker", col: 2, row: 1 },
+      ],
+      edges: [
+        { from: "web", to: "api", label: "audio stream" },
+        { from: "api", to: "ai", label: "transcribe · translate" },
+        { from: "api", to: "db", label: "transcript" },
+        { from: "slack", to: "api", label: "events" },
+        { from: "db", to: "notes", label: "summarize" },
+      ],
+    },
+  },
+  {
     slug: "drivus",
     title: "Drivus",
     summary:
@@ -275,7 +357,7 @@ const allProjects: Project[] = [
     startDate: "2023-06",
     endDate: "2024-11",
     featured: false,
-    order: 4,
+    order: 5,
     features: [
       "Lead capture and lead analytics",
       "Customer management",
@@ -366,7 +448,7 @@ const allProjects: Project[] = [
     ],
     sourceUrl: "https://github.com/biprodas/school-erp",
     featured: false,
-    order: 5,
+    order: 6,
     features: [
       "Admissions and academics",
       "Student, parent and staff records",
@@ -435,7 +517,7 @@ const allProjects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Supabase", "TanStack Query", "Tailwind CSS", "Paddle"],
     liveUrl: "https://cloudprep.biprodas.dev",
     featured: false,
-    order: 6,
+    order: 7,
     // data/projects.yaml lists these as highlights; they describe what the product does, so they live in `features`.
     highlights: [],
     features: [
@@ -498,7 +580,7 @@ const allProjects: Project[] = [
     topics: ["GIS", "Land Acquisition", "Resettlement", "Infrastructure", "Grievance Management"],
     technologies: ["Node.js", "Express", "PostgreSQL/PostGIS", "React", "Leaflet"],
     featured: false,
-    order: 7,
+    order: 8,
     features: [
       "Interactive GIS map of every parcel a project needs to acquire",
       "Land acquisition tracking, parcel by parcel",
@@ -575,7 +657,7 @@ const allProjects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Tailwind", "Supabase", "Shopify", "Stripe", "OpenAI", "Perplexity"],
     liveUrl: "https://startdescribe.com",
     featured: true,
-    order: 8,
+    order: 9,
     features: [
       "Install as a Shopify app, or connect WooCommerce or BigCommerce",
       "Bulk import from CSV or Google Sheets, with field mapping",
@@ -663,7 +745,7 @@ const allProjects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Tailwind", "Supabase", "Stripe", "OpenAI", "Perplexity"],
     liveUrl: "https://startintegrate.com",
     featured: false,
-    order: 9,
+    order: 10,
     features: [
       "Custom apps for Make.com, Zapier and Workato",
       "A library of integrations for data processing, invoicing, social media, messaging and database tools",
@@ -748,7 +830,7 @@ const allProjects: Project[] = [
     ],
     liveUrl: "https://startautomate.com",
     featured: false,
-    order: 10,
+    order: 11,
     features: [
       "Agency website with services, use cases and consultation booking",
       "AI appointment scheduling that captures customer details into a CRM",
