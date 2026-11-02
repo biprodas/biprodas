@@ -49,7 +49,12 @@ describe("projects", () => {
       expect(p.startDate, p.slug).toBe(m!.period?.start);
       expect(p.endDate, p.slug).toBe(m!.period?.end === "present" ? undefined : m!.period?.end);
       const url = (kind: string) => m!.links?.find((l) => l.kind === kind)?.url;
-      expect([p.liveUrl, p.sourceUrl, p.caseStudyUrl], p.slug).toEqual([url("live"), url("repo"), url("case-study")]);
+      expect([p.liveUrl, p.demoUrl, p.sourceUrl, p.caseStudyUrl], p.slug).toEqual([
+        url("live"),
+        url("demo"),
+        url("repo"),
+        url("case-study"),
+      ]);
     }
   });
 
@@ -58,7 +63,8 @@ describe("projects", () => {
     for (const p of projects) {
       for (const d of [p.startDate, p.endDate]) if (d) expect(d, p.slug).toMatch(/^\d{4}(-\d{2})?$/);
       if (p.startDate && p.endDate) expect(p.startDate <= p.endDate, p.slug).toBe(true);
-      for (const url of [p.liveUrl, p.sourceUrl, p.caseStudyUrl]) if (url) expect(url, p.slug).toMatch(/^https:\/\//);
+      for (const url of [p.liveUrl, p.demoUrl, p.sourceUrl, p.caseStudyUrl])
+        if (url) expect(url, p.slug).toMatch(/^https:\/\//);
       for (const src of [p.thumbnail, ...(p.images ?? []).map((i) => i.src)]) {
         if (!src) continue;
         expect(src, p.slug).toMatch(/^(\/|https:\/\/)/);

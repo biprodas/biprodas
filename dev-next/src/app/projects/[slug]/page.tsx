@@ -74,7 +74,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
   const next = projects[(i + 1) % projects.length];
   const name = project.shortTitle ?? project.title;
   const relatedServices = isEnabled("services") ? services.filter((s) => s.relatedProjects.includes(project.slug)) : [];
-  const hasLinks = project.liveUrl || project.sourceUrl || project.caseStudyUrl;
+  const hasLinks = project.liveUrl || project.demoUrl || project.sourceUrl || project.caseStudyUrl;
   const button = "h-9 px-3.5 text-sm";
   // Topics already shown as a domain aren't repeated under Focus.
   const focus = project.topics.filter((t) => !(project.domains as string[]).includes(t));
@@ -114,6 +114,15 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
             {project.liveUrl && (
               <a href={project.liveUrl} className={cn(buttonVariants(), button)}>
                 Visit {urlLabel(project.liveUrl)}
+                <ArrowUpRightIcon data-icon="inline-end" />
+              </a>
+            )}
+            {project.demoUrl && (
+              <a
+                href={project.demoUrl}
+                className={cn(buttonVariants({ variant: project.liveUrl ? "outline" : "default" }), button)}
+              >
+                Try the demo
                 <ArrowUpRightIcon data-icon="inline-end" />
               </a>
             )}

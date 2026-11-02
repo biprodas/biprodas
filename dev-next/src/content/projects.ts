@@ -513,7 +513,7 @@ export const urlLabel = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "")
 
 /** Public links in display order. */
 export function projectLinks(p: Project) {
-  return [p.liveUrl, p.sourceUrl, p.caseStudyUrl].filter((url): url is string => !!url);
+  return [p.liveUrl, p.demoUrl, p.sourceUrl, p.caseStudyUrl].filter((url): url is string => !!url);
 }
 
 export function getProject(slug: string) {

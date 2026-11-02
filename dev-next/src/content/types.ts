@@ -122,6 +122,8 @@ export type Project = {
   images?: { src: ImagePath; alt: string }[];
   liveUrl?: string;
   sourceUrl?: string;
+  /** A demo or sandbox to try, when it differs from the live product. */
+  demoUrl?: string;
   /** A write-up hosted elsewhere. The on-site case study is /projects/<slug>. */
   caseStudyUrl?: string;
   startDate?: PartialDate;
