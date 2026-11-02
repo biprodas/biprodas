@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import { parse } from "yaml";
 import { education, experience, teaching } from "./experience";
 import { projects } from "./projects";
-import { certifications } from "./skills";
+import { certifications, skillCategories, skills } from "./skills";
 
 // Facts must match the master copy in ../data/; wording may differ.
 const master = (file: string) =>
@@ -124,5 +124,27 @@ describe("services", () => {
           `${s.slug}: ${id}`,
         ).toBe(true);
     }
+  });
+});
+
+describe("skills", () => {
+  it("have unique names, real categories and unique order within each category", () => {
+    expect(new Set(skills.map((s) => s.name)).size).toBe(skills.length);
+    for (const s of skills)
+      expect(
+        skillCategories.some((c) => c.slug === s.category),
+        s.name,
+      ).toBe(true);
+    for (const c of skillCategories) {
+      const orders = skills.filter((s) => s.category === c.slug).map((s) => s.order);
+      expect(orders.length, c.slug).toBeGreaterThan(0);
+      expect(new Set(orders).size, c.slug).toBe(orders.length);
+    }
+  });
+
+  it("only list skills from data/skills.yaml", () => {
+    const yaml: { items?: (string | { name: string })[] }[] = master("skills.yaml");
+    const names = new Set(yaml.flatMap((g) => g.items ?? []).map((i) => (typeof i === "string" ? i : i.name)));
+    for (const s of skills) expect(names.has(s.name), s.name).toBe(true);
   });
 });

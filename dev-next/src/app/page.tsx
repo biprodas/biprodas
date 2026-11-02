@@ -8,18 +8,16 @@ import { Timeline } from "@/components/timeline";
 import { now, principles, profile } from "@/content/profile";
 import { experience } from "@/content/experience";
 import { featuredProjects, getProject, projects } from "@/content/projects";
-import { awards, certifications, skills } from "@/content/skills";
+import { awards, certifications, getSkill, skillCategories, skills } from "@/content/skills";
 import { glanceFacts } from "@/lib/glance";
 import { formatDate, formatRange, pad2 } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
 const label = "font-mono text-[0.62rem] font-semibold tracking-[0.16em] text-muted-foreground uppercase";
 
-// Home shows the most relevant groups; /skills has everything.
-const skillPreview = ["Languages", "Backend & Architecture", "Data & Messaging", "Cloud & DevOps", "AI & LLMs"]
-  .map((g) => skills.find((s) => s.group === g))
-  .filter((g) => g !== undefined);
-const skillCount = skills.reduce((n, g) => n + g.items.length, 0);
+const skillPreview = skillCategories
+  .map((c) => ({ ...c, skills: c.skills.filter((name) => getSkill(name)?.featured) }))
+  .filter((c) => c.skills.length > 0);
 
 export default function HomePage() {
   const facts = glanceFacts();
@@ -121,14 +119,14 @@ export default function HomePage() {
           </ul>
         </MarginNote>
         <ul className="border bg-card px-5">
-          {skillPreview.map((g) => (
+          {skillPreview.map((c) => (
             <li
-              key={g.group}
+              key={c.slug}
               className="grid grid-cols-1 gap-x-5 gap-y-2 border-b py-3.5 last:border-b-0 sm:grid-cols-[9.5rem_1fr]"
             >
-              <span className="pt-0.5 text-[0.95rem] leading-snug font-semibold">{g.group}</span>
+              <span className="pt-0.5 text-[0.95rem] leading-snug font-semibold">{c.title}</span>
               <ul className="flex flex-wrap gap-1">
-                {g.items.slice(0, 6).map((s) => (
+                {c.skills.map((s) => (
                   <li key={s}>
                     <Tag>{s}</Tag>
                   </li>
@@ -137,7 +135,7 @@ export default function HomePage() {
             </li>
           ))}
         </ul>
-        <MoreLink href="/skills">All {skillCount} skills, by area</MoreLink>
+        <MoreLink href="/skills">All {skills.length} skills, by area</MoreLink>
       </Section>
 
       <Section title="Featured projects" id="projects" className="wide">

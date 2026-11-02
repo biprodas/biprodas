@@ -69,7 +69,26 @@ export type Project = {
   diagram: Diagram;
 };
 
-export type SkillGroup = { group: string; items: string[] };
+export type SkillLevel = "Beginner" | "Intermediate" | "Advanced" | "Expert";
+
+export type Skill = {
+  name: string;
+  category: string;
+  level?: SkillLevel;
+  yearsOfExperience?: number;
+  icon?: string;
+  website?: string;
+  featured: boolean;
+  order: number;
+};
+
+export type SkillCategory = {
+  slug: string;
+  title: string;
+  description?: string;
+  skills: string[];
+  order: number;
+};
 
 export type Certification = {
   id: string;
