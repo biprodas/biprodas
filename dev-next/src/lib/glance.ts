@@ -2,7 +2,8 @@
 import { profile } from "@/content/profile";
 import { education, experience } from "@/content/experience";
 import { projects } from "@/content/projects";
-import { awards, certifications } from "@/content/skills";
+import { certifications } from "@/content/certifications";
+import { awards } from "@/content/skills";
 
 export type Fact = { label: string; value: string; detail: string };
 

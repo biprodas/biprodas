@@ -92,18 +92,20 @@ export type SkillCategory = {
 
 export type Certification = {
   id: string;
-  title: string;
+  name: string;
   issuer: string;
-  issued: PartialDate;
-  expires?: PartialDate;
+  issueDate?: PartialDate;
+  expiryDate?: PartialDate;
   credentialId?: string;
-  /** Personal verification link (e.g. Credly). */
-  url?: string;
-  /** Official page about the certification. */
+  credentialUrl?: string;
   infoUrl?: string;
-  /** One or two sentences on what it covers. */
+  image?: string;
+  file?: string;
   description?: string;
   skills?: string[];
+  visible: boolean;
+  featured: boolean;
+  order: number;
 };
 
 export type Award = { id: string; title: string; issuer?: string; date?: PartialDate; description?: string };

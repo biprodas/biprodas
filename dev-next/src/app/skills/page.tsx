@@ -5,7 +5,8 @@ import { Eyebrow, MoreLink, Section } from "@/components/page";
 import { SkillAreas, type SkillArea } from "@/components/skills/skill-areas";
 import { experience } from "@/content/experience";
 import { projects } from "@/content/projects";
-import { awards, certifications, skillCategories, skills } from "@/content/skills";
+import { certifications } from "@/content/certifications";
+import { awards, skillCategories, skills } from "@/content/skills";
 
 export const metadata: Metadata = {
   title: "Skills",
@@ -29,7 +30,6 @@ const areas: SkillArea[] = skillCategories.map((c) => ({
   title: c.title,
   skills: c.skills.map((name) => ({ name, where: whereUsed(name) })),
 }));
-const certs = [...certifications].sort((a, b) => b.issued.localeCompare(a.issued) || a.title.localeCompare(b.title));
 
 export default function SkillsPage() {
   return (
@@ -70,24 +70,24 @@ export default function SkillsPage() {
           The most recent, with verification links. The full list, grouped by issuer, has its own page.
         </p>
         <ul className="border-t border-foreground/70">
-          {certs.slice(0, 4).map((c) => (
+          {certifications.slice(0, 4).map((c) => (
             <li
               key={c.id}
               className="group grid grid-cols-[4rem_1fr] items-baseline gap-x-4 gap-y-1 border-b py-3 sm:grid-cols-[4.5rem_1fr_auto]"
             >
               <span className="text-[0.82rem] text-muted-foreground tabular-nums transition-colors group-hover:text-primary">
-                {c.issued.slice(0, 4)}
+                {c.issueDate?.slice(0, 4)}
               </span>
               <div>
-                <p className="leading-snug font-semibold transition-colors group-hover:text-primary">{c.title}</p>
+                <p className="leading-snug font-semibold transition-colors group-hover:text-primary">{c.name}</p>
                 <p className="mt-0.5 text-[0.8rem] text-muted-foreground">{c.issuer}</p>
               </div>
-              {c.url && (
+              {c.credentialUrl && (
                 <a
-                  href={c.url}
+                  href={c.credentialUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`Verify ${c.title} (opens in a new tab)`}
+                  aria-label={`Verify ${c.name} (opens in a new tab)`}
                   className="col-start-2 inline-flex items-center gap-1 justify-self-start text-[0.82rem] font-semibold text-ink-2 hover:text-primary sm:col-start-3 sm:justify-self-end"
                 >
                   Verify <ArrowUpRightIcon className="size-3.5" />

@@ -4,7 +4,8 @@ import { Eyebrow, Section } from "@/components/page";
 import { Timeline } from "@/components/timeline";
 import { profile } from "@/content/profile";
 import { education, experience, teaching } from "@/content/experience";
-import { awards, certifications } from "@/content/skills";
+import { certifications, latestCertification } from "@/content/certifications";
+import { awards } from "@/content/skills";
 import { duration, formatRange, positionsSpan, yearRange } from "@/lib/format";
 
 export const metadata: Metadata = {
@@ -20,7 +21,6 @@ const entryTitle = "text-[1.12rem] font-semibold";
 const meta = "text-[0.82rem] text-muted-foreground";
 
 export default function ExperiencePage() {
-  const latestCert = [...certifications].sort((a, b) => b.issued.localeCompare(a.issued))[0];
   const issuers = [...new Set(certifications.map((c) => c.issuer))];
 
   return (
@@ -131,7 +131,8 @@ export default function ExperiencePage() {
 
       <Section title="Certifications" id="certifications">
         <p className="leading-relaxed">
-          {certifications.length} certifications from {issuers.join(" and ")}, most recently <i>{latestCert.title}</i>.{" "}
+          {certifications.length} certifications from {new Intl.ListFormat("en-GB").format(issuers)}, most recently{" "}
+          <i>{latestCertification.name}</i>.{" "}
           <Link href="/certifications" className="prose-link">
             See all, with verification links
           </Link>

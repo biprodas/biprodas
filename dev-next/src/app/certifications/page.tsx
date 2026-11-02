@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRightIcon } from "@phosphor-icons/react/ssr";
 import { Eyebrow, Section } from "@/components/page";
-import { certifications } from "@/content/skills";
+import { certifications } from "@/content/certifications";
 import type { Certification } from "@/content/types";
 import { formatDate } from "@/lib/format";
+import { publicFileExists } from "@/lib/public-file";
 
 export const metadata: Metadata = {
   title: "Certifications",
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 const newestFirst = (a: Certification, b: Certification) =>
-  b.issued.localeCompare(a.issued) || a.title.localeCompare(b.title);
+  (b.issueDate ?? "").localeCompare(a.issueDate ?? "") || a.order - b.order;
 
 /** Issuers ordered by their most recent certification; certifications newest first within each. */
 function byIssuer() {
@@ -23,6 +24,9 @@ function byIssuer() {
   }
   return [...groups];
 }
+
+const hasFile = (c: Certification): c is Certification & { file: string } =>
+  c.file !== undefined && publicFileExists(c.file);
 
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 const linkClass = "inline-flex items-center gap-1 text-[0.82rem] font-semibold text-ink-2 hover:text-primary";
@@ -37,7 +41,8 @@ export default function CertificationsPage() {
         <h1 className="mt-4 text-[2.1rem] font-semibold sm:text-[2.5rem]">Certifications</h1>
         <p className="mt-4 text-[1.05rem] leading-relaxed text-ink-2">
           Credentials I&apos;ve earned, grouped by issuer and newest first. Verify opens the issuer&apos;s record of the
-          credential; About opens the certification&apos;s official page. The skills they back up are on the{" "}
+          credential, PDF opens the certificate itself, and About opens the certification&apos;s official page. The
+          skills they back up are on the{" "}
           <Link href="/skills" className="prose-link">
             skills page
           </Link>
@@ -60,8 +65,8 @@ export default function CertificationsPage() {
           <ul className="border-t border-foreground/70">
             {list.map((c) => {
               const details = [
-                `Issued ${formatDate(c.issued)}`,
-                c.expires && `valid until ${formatDate(c.expires)}`,
+                c.issueDate && `Issued ${formatDate(c.issueDate)}`,
+                c.expiryDate && `valid until ${formatDate(c.expiryDate)}`,
                 c.credentialId && `ID ${c.credentialId}`,
               ].filter(Boolean);
               return (
@@ -71,10 +76,10 @@ export default function CertificationsPage() {
                   className="group grid scroll-mt-6 grid-cols-[4rem_1fr] items-baseline gap-x-4 gap-y-1 border-b py-4 sm:grid-cols-[4.5rem_1fr_auto]"
                 >
                   <span className="text-[0.82rem] text-muted-foreground tabular-nums transition-colors group-hover:text-primary">
-                    {c.issued.slice(0, 4)}
+                    {c.issueDate?.slice(0, 4)}
                   </span>
                   <div>
-                    <h3 className="leading-snug font-semibold transition-colors group-hover:text-primary">{c.title}</h3>
+                    <h3 className="leading-snug font-semibold transition-colors group-hover:text-primary">{c.name}</h3>
                     <p className="mt-0.5 text-[0.8rem] text-muted-foreground">{details.join(" · ")}</p>
                     {c.description && <p className="mt-2 text-[0.92rem] leading-relaxed text-ink-2">{c.description}</p>}
                     {c.skills && c.skills.length > 0 && (
@@ -90,17 +95,28 @@ export default function CertificationsPage() {
                       </ul>
                     )}
                   </div>
-                  {(c.url || c.infoUrl) && (
+                  {(c.credentialUrl || c.infoUrl || hasFile(c)) && (
                     <div className="col-start-2 flex gap-4 sm:col-start-3 sm:justify-end">
-                      {c.url && (
+                      {c.credentialUrl && (
                         <a
-                          href={c.url}
+                          href={c.credentialUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          aria-label={`Verify ${c.title} (opens in a new tab)`}
+                          aria-label={`Verify ${c.name} (opens in a new tab)`}
                           className={linkClass}
                         >
                           Verify <ArrowUpRightIcon className="size-3.5" />
+                        </a>
+                      )}
+                      {hasFile(c) && (
+                        <a
+                          href={c.file}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${c.name} certificate, PDF (opens in a new tab)`}
+                          className={linkClass}
+                        >
+                          PDF <ArrowUpRightIcon className="size-3.5" />
                         </a>
                       )}
                       {c.infoUrl && (
@@ -108,7 +124,7 @@ export default function CertificationsPage() {
                           href={c.infoUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          aria-label={`About ${c.title} (opens in a new tab)`}
+                          aria-label={`About ${c.name} (opens in a new tab)`}
                           className={linkClass}
                         >
                           About <ArrowUpRightIcon className="size-3.5" />

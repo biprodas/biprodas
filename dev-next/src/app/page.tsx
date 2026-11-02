@@ -8,7 +8,8 @@ import { Timeline } from "@/components/timeline";
 import { now, principles, profile } from "@/content/profile";
 import { experience } from "@/content/experience";
 import { featuredProjects, getProject, projects } from "@/content/projects";
-import { awards, certifications, getSkill, skillCategories, skills } from "@/content/skills";
+import { featuredCertifications, latestCertification } from "@/content/certifications";
+import { awards, getSkill, skillCategories, skills } from "@/content/skills";
 import { glanceFacts } from "@/lib/glance";
 import { formatDate, formatRange, pad2 } from "@/lib/format";
 import { cn } from "@/lib/utils";
@@ -106,16 +107,14 @@ export default function HomePage() {
       <Section title="Skills" id="skills">
         <MarginNote label="Certified">
           <ul className="space-y-1">
-            {certifications
-              .filter((c) => c.url)
-              .map((c) => (
-                <li key={c.id}>
-                  <a href={c.url} className="prose-link">
-                    {c.title.replace("AWS Certified ", "AWS ")}
-                  </a>
-                  <span className="text-meta"> {c.issued}</span>
-                </li>
-              ))}
+            {featuredCertifications.map((c) => (
+              <li key={c.id}>
+                <a href={c.credentialUrl} className="prose-link">
+                  {c.name.replace("AWS Certified ", "AWS ")}
+                </a>
+                <span className="text-meta"> {c.issueDate?.slice(0, 4)}</span>
+              </li>
+            ))}
           </ul>
         </MarginNote>
         <ul className="border bg-card px-5">
@@ -214,10 +213,12 @@ export default function HomePage() {
           <div>
             <dt className={cn(label, "pt-1")}>Certified</dt>
             <dd className="text-[0.95rem] text-ink-2">
-              <a href={certifications[0].url} className="prose-link">
-                {certifications[0].title}
+              <a href={latestCertification.credentialUrl} className="prose-link">
+                {latestCertification.name}
               </a>
-              <span className="ml-1.5 text-meta">{formatDate(certifications[0].issued)}</span>
+              {latestCertification.issueDate && (
+                <span className="ml-1.5 text-meta">{formatDate(latestCertification.issueDate)}</span>
+              )}
             </dd>
           </div>
         </dl>

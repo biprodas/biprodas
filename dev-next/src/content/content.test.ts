@@ -4,7 +4,8 @@ import { describe, expect, it } from "vitest";
 import { parse } from "yaml";
 import { education, experience, teaching } from "./experience";
 import { projects } from "./projects";
-import { certifications, skillCategories, skills } from "./skills";
+import { allCertifications, certifications } from "./certifications";
+import { skillCategories, skills } from "./skills";
 
 // Facts must match the master copy in ../data/; wording may differ.
 const master = (file: string) =>
@@ -75,9 +76,12 @@ describe("teaching", () => {
 describe("certifications", () => {
   it("match data/certifications.yaml", () => {
     const yaml: { id: string; title: string; issued: string }[] = master("certifications.yaml");
-    expect(certifications.map(({ id, title, issued }) => ({ id, title, issued }))).toEqual(
-      yaml.map(({ id, title, issued }) => ({ id, title, issued })),
-    );
+    const byId = (a: { id: string }, b: { id: string }) => a.id.localeCompare(b.id);
+    expect(
+      allCertifications.map(({ id, name, issueDate }) => ({ id, title: name, issued: issueDate })).sort(byId),
+    ).toEqual(yaml.map(({ id, title, issued }) => ({ id, title, issued })).sort(byId));
+    expect(new Set(allCertifications.map((c) => c.order)).size).toBe(allCertifications.length);
+    expect(certifications.every((c) => c.visible)).toBe(true);
   });
 });
 
