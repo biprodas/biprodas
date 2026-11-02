@@ -15,24 +15,16 @@ export type ServiceCategory =
   | "Consulting";
 
 export type Service = {
-  /** URL path: /services/<slug>. */
   slug: string;
   title: string;
-  /** One line for the /services card, the page header and the meta description. */
   shortDescription: string;
-  /** Detail-page overview; separate paragraphs with a blank line ("\n\n"). Grow it into real copy
-   *  (roughly 200–400 words) before listing the page in indexedServices. */
   description: string;
   category: ServiceCategory;
-  /** "What's included" bullets. */
   offerings: string[];
   technologies: string[];
-  /** Project slugs from projects.ts. */
   relatedProjects: string[];
-  /** Experience ids from experience.ts, for work that has no project page (e.g. MustBreak, Drivus). */
   relatedExperience: string[];
   featured: boolean;
-  /** Display order, lowest first. */
   order: number;
 };
 
