@@ -6,6 +6,7 @@ import { certifications } from "@/content/certifications";
 import type { Certification } from "@/content/types";
 import { formatDate } from "@/lib/format";
 import { publicFileExists } from "@/lib/public-file";
+import { CopyId } from "@/components/certifications/copy-id";
 
 export const metadata: Metadata = {
   title: "Certifications",
@@ -61,14 +62,9 @@ export default function CertificationsPage() {
       </header>
 
       {groups.map(([issuer, list]) => (
-        <Section key={issuer} title={issuer} id={slug(issuer)}>
+        <Section key={issuer} title={issuer} id={slug(issuer)} className="wide">
           <ul className="border-t border-foreground/70">
             {list.map((c) => {
-              const details = [
-                c.issueDate && `Issued ${formatDate(c.issueDate)}`,
-                c.expiryDate && `valid until ${formatDate(c.expiryDate)}`,
-                c.credentialId && `ID ${c.credentialId}`,
-              ].filter(Boolean);
               return (
                 <li
                   key={c.id}
@@ -80,7 +76,18 @@ export default function CertificationsPage() {
                   </span>
                   <div>
                     <h3 className="leading-snug font-semibold transition-colors group-hover:text-primary">{c.name}</h3>
-                    <p className="mt-0.5 text-[0.8rem] text-muted-foreground">{details.join(" · ")}</p>
+                    {(c.issueDate || c.credentialId) && (
+                      <p className="mt-0.5 text-[0.8rem] text-muted-foreground">
+                        {c.issueDate && `Issued ${formatDate(c.issueDate)}`}
+                        {c.issueDate && c.credentialId && " · "}
+                        {c.credentialId && (
+                          <>
+                            ID <span className="break-all">{c.credentialId}</span>
+                            <CopyId id={c.credentialId} label={`${c.name} credential ID`} />
+                          </>
+                        )}
+                      </p>
+                    )}
                     {c.description && <p className="mt-2 text-[0.92rem] leading-relaxed text-ink-2">{c.description}</p>}
                     {c.skills && c.skills.length > 0 && (
                       <ul className="mt-2.5 flex flex-wrap gap-1.5" aria-label="Skills covered">
