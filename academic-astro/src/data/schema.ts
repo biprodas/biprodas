@@ -399,6 +399,39 @@ export const TestScore = Item.extend({
 }).extend({ audience: Audience.default("academic") });
 export type TestScore = z.output<typeof TestScore>;
 
+// ─── References ──────────────────────────────────────────────────────────────
+
+/** A referee: someone who has agreed to speak about your work. Never invent these. */
+export const Reference = Item.extend({
+  name: z.string(),
+  /** Their position, e.g. "Professor, Dept. of CSE". */
+  title: z.string(),
+  /** Where they work: a company or a university. */
+  company: Organization,
+  /** How they know you, e.g. "Undergraduate thesis supervisor". */
+  relationship: z.string(),
+  /** A sentence or two on what you did together, e.g. the thesis or project they supervised. */
+  description: z.string().optional(),
+  /** Faculty or profile page. Their official contact details live there. */
+  url: z.url().optional(),
+  email: z.email().optional(),
+  /** International format, e.g. "+880 1712-345678". */
+  phone: z
+    .string()
+    .regex(/^\+?[\d\s().-]{6,}$/, "expected a phone number, e.g. +880 1712-345678")
+    .optional(),
+  /** They agreed to be listed. Keep false to store without publishing. */
+  public: z.boolean().default(false),
+  /** They agreed to have their email shown. */
+  showEmail: z.boolean().default(false),
+  /** They agreed to have their phone number shown. */
+  showPhone: z.boolean().default(false),
+})
+  .extend({ audience: Audience.default("academic") })
+  .refine((r) => !r.showEmail || r.email, { message: "showEmail needs an email", path: ["showEmail"] })
+  .refine((r) => !r.showPhone || r.phone, { message: "showPhone needs a phone", path: ["showPhone"] });
+export type Reference = z.output<typeof Reference>;
+
 // ─── Skills ──────────────────────────────────────────────────────────────────
 
 export const SkillLevel = z.enum(["expert", "advanced", "intermediate", "familiar"]);
@@ -437,6 +470,7 @@ export const Content = z.object({
   awards: z.array(Award),
   certifications: z.array(Certification),
   testScores: z.array(TestScore),
+  references: z.array(Reference),
   skills: z.array(SkillGroup),
 });
 export type Content = z.output<typeof Content>;

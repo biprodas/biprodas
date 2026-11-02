@@ -1,27 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowRightIcon,
-  DownloadSimpleIcon,
-  EnvelopeSimpleIcon,
-  GithubLogoIcon,
-  GlobeIcon,
-  LinkedinLogoIcon,
-  MapPinIcon,
-} from "@phosphor-icons/react/ssr";
+import { ArrowRightIcon, DownloadSimpleIcon, EnvelopeSimpleIcon, MapPinIcon } from "@phosphor-icons/react/ssr";
+import { links } from "@/content/links";
 import { availability, profile } from "@/content/profile";
+import { PlatformIcon } from "@/components/platform-icon";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
-import portrait from "@/assets/biprodas-roy.png";
 import { LocalTime } from "./local-time";
 import { NavLinks } from "./nav-links";
 import { ThemeToggle } from "./theme-toggle";
-
-const links = [
-  { label: "GitHub", href: profile.social.github, icon: GithubLogoIcon },
-  { label: "LinkedIn", href: profile.social.linkedin, icon: LinkedinLogoIcon },
-  { label: "biprodas.com", href: profile.academicSite, icon: GlobeIcon },
-];
 
 const chip =
   "inline-flex items-center gap-1.5 border border-border bg-background px-2 py-0.5 font-mono text-[0.68rem] text-ink-2 transition-colors hover:border-primary/50 hover:text-primary [&_svg]:size-3.5";
@@ -43,7 +30,7 @@ export function Sidebar() {
           className="block size-11 overflow-hidden rounded-full bg-muted lg:size-14"
         >
           <Image
-            src={portrait}
+            src={profile.avatar.src}
             alt=""
             sizes="3.5rem"
             priority
@@ -61,7 +48,7 @@ export function Sidebar() {
         <ThemeToggle className="size-9 lg:hidden" />
       </div>
 
-      <p className="mt-4 hidden text-[0.9rem] leading-relaxed text-ink-2 lg:block">{profile.intro}</p>
+      <p className="mt-4 hidden text-[0.9rem] leading-relaxed text-ink-2 lg:block">{profile.bio}</p>
       <hr className={cn(dash, "mt-4 mb-3 hidden lg:block")} />
 
       <NavLinks />
@@ -113,11 +100,11 @@ export function Sidebar() {
 
         <hr className={cn(dash, "mt-3.5 mb-3")} />
         <ul className="flex flex-wrap gap-1.5" aria-label="Profiles">
-          {links.map(({ label, href, icon: Icon }) => (
-            <li key={href}>
-              <a className={chip} href={href}>
-                <Icon aria-hidden />
-                {label}
+          {links.map((l) => (
+            <li key={l.url}>
+              <a className={chip} href={l.url}>
+                <PlatformIcon platform={l.platform} />
+                {l.label}
               </a>
             </li>
           ))}

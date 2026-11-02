@@ -11,7 +11,7 @@ export function ProjectEntry({ project, number }: { project: Project; number: st
       <div>
         <p className="text-meta">
           {project.domains.join(" · ")}
-          {project.kind === "product" && " · own product"}
+          {project.type === "Product" && " · own product"}
         </p>
         <h3 className="mt-1 text-[1.15rem] font-semibold">
           <Link
@@ -23,7 +23,7 @@ export function ProjectEntry({ project, number }: { project: Project; number: st
         </h3>
         <p className="mt-1.5 text-[0.95rem] leading-relaxed text-ink-2">{project.summary}</p>
         <ul className="mt-3 flex flex-wrap gap-1" aria-label="Stack">
-          {project.tech.slice(0, 6).map((t) => (
+          {project.technologies.slice(0, 6).map((t) => (
             <li key={t}>
               <Tag>{t}</Tag>
             </li>

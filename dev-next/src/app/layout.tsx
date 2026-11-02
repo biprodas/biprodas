@@ -3,21 +3,27 @@ import { Geist, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { themeScript } from "@/lib/theme";
-import { profile } from "@/content/profile";
+import { siteConfig } from "@/config/site";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Footer } from "@/components/layout/footer";
 
 const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
-const description = `${profile.name}, software engineer: multi-tenant SaaS, FinTech ledgers and real-time AI systems. Projects, experience and skills.`;
+const { seo } = siteConfig;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(profile.site),
-  title: { default: `${profile.name} · Software Engineer`, template: `%s · ${profile.name}` },
-  description,
-  authors: [{ name: profile.name, url: profile.site }],
-  openGraph: { type: "profile", siteName: profile.name, title: `${profile.name} · Software Engineer`, description },
+  metadataBase: new URL(siteConfig.url),
+  title: { default: seo.defaultTitle, template: seo.titleTemplate },
+  description: seo.defaultDescription,
+  authors: [{ name: siteConfig.name, url: siteConfig.url }],
+  openGraph: {
+    type: "profile",
+    siteName: siteConfig.name,
+    title: seo.defaultTitle,
+    description: seo.defaultDescription,
+    ...(seo.defaultImage ? { images: [seo.defaultImage] } : {}),
+  },
   twitter: { card: "summary_large_image" },
 };
 
@@ -30,7 +36,12 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" suppressHydrationWarning className={cn("antialiased", geistSans.variable, jetbrainsMono.variable)}>
+    <html
+      lang={siteConfig.language}
+      data-animations={siteConfig.appearance.enableAnimations ? undefined : "off"}
+      suppressHydrationWarning
+      className={cn("antialiased", geistSans.variable, jetbrainsMono.variable)}
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>

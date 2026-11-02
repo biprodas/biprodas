@@ -7,42 +7,48 @@
 #   url: https://...      # your personal verification link (e.g. Credly) — preferred when linking
 #   infoUrl: https://...  # official page about the certification — fallback link
 #   skills: [ ... ]
+#   file: /certifications/<name>.pdf   # certificate PDF in dev-next/public
 
-# TODO: issue months, expiry dates, credential ids, HackerRank certificate URLs
+# TODO: issue dates for the HackerRank, Coursera and BCC certificates
 - id: aws-developer-associate
   title: AWS Certified Developer – Associate
   issuer: Amazon Web Services
-  issued: "2026"
+  issued: "2026-03"
+  expires: "2029-03"
+  credentialId: "8fcf622b4cba473cb801adc76b4a4433"
   url: https://www.credly.com/badges/4d0c8176-caa8-426d-a585-db032b996210
   infoUrl: https://aws.amazon.com/certification/certified-developer-associate/
-
-- id: aws-solutions-architect-associate
-  title: AWS Certified Solutions Architect – Associate
-  issuer: Amazon Web Services
-  issued: "2025"
-  url: https://www.credly.com/badges/8cd1fa7d-ed80-492e-bbf5-cfe8d4011129
-  infoUrl: https://aws.amazon.com/certification/certified-solutions-architect-associate/
+  file: /certifications/aws-developer-associate-8fcf622b4cba473cb801adc76b4a4433.pdf # dev-next/public
 
 - id: aws-ai-practitioner
   title: AWS Certified AI Practitioner
   issuer: Amazon Web Services
-  issued: "2025"
+  issued: "2025-11"
+  expires: "2028-11"
+  credentialId: "73d4907c667a447d9fcda4740f8a0257"
   url: https://www.credly.com/badges/e329c8fb-2511-4c1f-b00c-6f336863b4f4
   infoUrl: https://aws.amazon.com/certification/certified-ai-practitioner/
+  file: /certifications/aws-ai-practitioner-73d4907c667a447d9fcda4740f8a0257.pdf # dev-next/public
+
+- id: aws-solutions-architect-associate
+  title: AWS Certified Solutions Architect – Associate
+  issuer: Amazon Web Services
+  issued: "2025-06"
+  expires: "2028-06"
+  credentialId: "269f08f13fb743e1a5cd0d87612373d1"
+  url: https://www.credly.com/badges/8cd1fa7d-ed80-492e-bbf5-cfe8d4011129
+  infoUrl: https://aws.amazon.com/certification/certified-solutions-architect-associate/
+  file: /certifications/aws-solutions-architect-associate-269f08f13fb743e1a5cd0d87612373d1.pdf # dev-next/public
 
 - id: aws-cloud-practitioner
   title: AWS Certified Cloud Practitioner
   issuer: Amazon Web Services
-  issued: "2025"
+  issued: "2025-02"
+  expires: "2029-03"
+  credentialId: "74e3c1f08e344b588f8598c79033badc"
   url: https://www.credly.com/badges/d26478be-16ba-423e-8d9d-981039016e08
   infoUrl: https://aws.amazon.com/certification/certified-cloud-practitioner/
-
-- id: hackerrank-sql-intermediate
-  title: SQL (Intermediate)
-  issuer: HackerRank
-  issued: "2020"
-  audience: engineering
-  infoUrl: https://www.hackerrank.com/skills-verification/sql_intermediate
+  file: /certifications/aws-cloud-practitioner-74e3c1f08e344b588f8598c79033badc.pdf # dev-next/public
 
 - id: hackerrank-problem-solving-intermediate
   title: Problem Solving (Intermediate)
@@ -50,3 +56,190 @@
   issued: "2020"
   audience: engineering
   infoUrl: https://www.hackerrank.com/skills-verification/problem_solving_intermediate
+
+- id: hackerrank-sql-intermediate
+  title: SQL (Intermediate)
+  issuer: HackerRank
+  issued: "2020"
+  audience: engineering
+  credentialId: "59df22a2bb22"
+  url: https://www.hackerrank.com/certificates/59df22a2bb22
+  infoUrl: https://www.hackerrank.com/skills-verification/sql_intermediate
+  file: /certifications/hackerrank-sql-intermediate-59df22a2bb22.pdf # dev-next/public
+
+- id: hackerrank-problem-solving-basic
+  title: Problem Solving (Basic)
+  issuer: HackerRank
+  audience: engineering
+  credentialId: "d5eddb13c63b"
+  url: https://www.hackerrank.com/certificates/d5eddb13c63b
+  infoUrl: https://www.hackerrank.com/skills-verification/problem_solving_basic
+  file: /certifications/hackerrank-problem-solving-basic-d5eddb13c63b.pdf # dev-next/public
+
+- id: hackerrank-sql-basic
+  title: SQL (Basic)
+  issuer: HackerRank
+  audience: engineering
+  credentialId: "6866657050b5"
+  url: https://www.hackerrank.com/certificates/6866657050b5
+  infoUrl: https://www.hackerrank.com/skills-verification/sql_basic
+  file: /certifications/hackerrank-sql-basic-6866657050b5.pdf # dev-next/public
+
+- id: hackerrank-javascript-intermediate
+  title: JavaScript (Intermediate)
+  issuer: HackerRank
+  audience: engineering
+  credentialId: "a59fcbaed944"
+  url: https://www.hackerrank.com/certificates/a59fcbaed944
+  infoUrl: https://www.hackerrank.com/skills-verification/javascript_intermediate
+  file: /certifications/hackerrank-javascript-intermediate-a59fcbaed944.pdf # dev-next/public
+
+- id: hackerrank-javascript-basic
+  title: JavaScript (Basic)
+  issuer: HackerRank
+  audience: engineering
+  credentialId: "f14c9f09d2bd"
+  url: https://www.hackerrank.com/certificates/f14c9f09d2bd
+  infoUrl: https://www.hackerrank.com/skills-verification/javascript_basic
+  file: /certifications/hackerrank-javascript-basic-f14c9f09d2bd.pdf # dev-next/public
+
+- id: hackerrank-cpp-intermediate
+  title: C++ (Intermediate)
+  issuer: HackerRank
+  audience: engineering
+  credentialId: "1917f55e319b"
+  url: https://www.hackerrank.com/certificates/1917f55e319b
+  infoUrl: https://www.hackerrank.com/skills-verification/cpp_intermediate
+  file: /certifications/hackerrank-cpp-intermediate-1917f55e319b.pdf # dev-next/public
+
+- id: hackerrank-cpp-basic
+  title: C++ (Basic)
+  issuer: HackerRank
+  audience: engineering
+  credentialId: "28aeeba26da6"
+  url: https://www.hackerrank.com/certificates/28aeeba26da6
+  infoUrl: https://www.hackerrank.com/skills-verification/cpp_basic
+  file: /certifications/hackerrank-cpp-basic-28aeeba26da6.pdf # dev-next/public
+
+- id: hackerrank-c-intermediate
+  title: C (Intermediate)
+  issuer: HackerRank
+  audience: engineering
+  credentialId: "f9ddaf75b79d"
+  url: https://www.hackerrank.com/certificates/f9ddaf75b79d
+  infoUrl: https://www.hackerrank.com/skills-verification/c_intermediate
+  file: /certifications/hackerrank-c-intermediate-f9ddaf75b79d.pdf # dev-next/public
+
+- id: hackerrank-c-basic
+  title: C (Basic)
+  issuer: HackerRank
+  audience: engineering
+  credentialId: "5162b7062457"
+  url: https://www.hackerrank.com/certificates/5162b7062457
+  infoUrl: https://www.hackerrank.com/skills-verification/c_basic
+  file: /certifications/hackerrank-c-basic-5162b7062457.pdf # dev-next/public
+
+- id: hackerrank-java-basic
+  title: Java (Basic)
+  issuer: HackerRank
+  audience: engineering
+  credentialId: "29f4621a0cd6"
+  url: https://www.hackerrank.com/certificates/29f4621a0cd6
+  infoUrl: https://www.hackerrank.com/skills-verification/java_basic
+  file: /certifications/hackerrank-java-basic-29f4621a0cd6.pdf # dev-next/public
+
+- id: hackerrank-python-basic
+  title: Python (Basic)
+  issuer: HackerRank
+  audience: engineering
+  credentialId: "dc7c323e1686"
+  url: https://www.hackerrank.com/certificates/dc7c323e1686
+  infoUrl: https://www.hackerrank.com/skills-verification/python_basic
+  file: /certifications/hackerrank-python-basic-dc7c323e1686.pdf # dev-next/public
+
+- id: hackerrank-frontend-developer-react
+  title: Frontend Developer (React)
+  issuer: HackerRank
+  audience: engineering
+  credentialId: "99ac41af73c4"
+  url: https://www.hackerrank.com/certificates/99ac41af73c4
+  infoUrl: https://www.hackerrank.com/skills-verification/frontend_developer_react
+  file: /certifications/hackerrank-frontend-developer-react-99ac41af73c4.pdf # dev-next/public
+
+- id: hackerrank-software-engineer-intern
+  title: Software Engineer Intern
+  issuer: HackerRank
+  audience: engineering
+  credentialId: "539a81a986b4"
+  url: https://www.hackerrank.com/certificates/539a81a986b4
+  infoUrl: https://www.hackerrank.com/skills-verification/software_engineer_intern
+  file: /certifications/hackerrank-software-engineer-intern-539a81a986b4.pdf # dev-next/public
+
+- id: coursera-architecting-solutions-on-aws
+  title: Architecting Solutions on AWS
+  issuer: Coursera
+  credentialId: "QJG5F3TP65CG"
+  url: https://www.coursera.org/verify/QJG5F3TP65CG
+  file: /certifications/coursera-architecting-solutions-on-aws-qjg5f3tp65cg.pdf # dev-next/public
+
+- id: coursera-aws-cloud-technical-essentials
+  title: AWS Cloud Technical Essentials
+  issuer: Coursera
+  credentialId: "Q58GV3XG5LEK"
+  url: https://www.coursera.org/verify/Q58GV3XG5LEK
+  file: /certifications/coursera-aws-cloud-technical-essentials-q58gv3xg5lek.pdf # dev-next/public
+
+- id: coursera-google-cloud-fundamentals
+  title: Google Cloud Fundamentals
+  issuer: Coursera
+  credentialId: "JKDXFD8RKMU4"
+  url: https://www.coursera.org/verify/JKDXFD8RKMU4
+  file: /certifications/coursera-google-cloud-fundamentals-jkdxfd8rkmu4.pdf # dev-next/public
+
+- id: coursera-neural-networks-and-deep-learning
+  title: Neural Networks and Deep Learning
+  issuer: Coursera
+  credentialId: "TC6R2CSZ5HAJ"
+  url: https://www.coursera.org/verify/TC6R2CSZ5HAJ
+  file: /certifications/coursera-neural-networks-and-deep-learning-tc6r2csz5haj.pdf # dev-next/public
+
+- id: coursera-basic-image-classification-with-tensorflow
+  title: Basic Image Classification with TensorFlow
+  issuer: Coursera
+  credentialId: "PF9QCDWNXTWD"
+  url: https://www.coursera.org/verify/PF9QCDWNXTWD
+  file: /certifications/coursera-basic-image-classification-with-tensorflow-pf9qcdwnxtwd.pdf # dev-next/public
+
+- id: coursera-machine-learning-pipelines-with-azure-ml-studio
+  title: Machine Learning Pipelines with Azure ML Studio
+  issuer: Coursera
+  credentialId: "4YG8AA8EUP6L"
+  url: https://www.coursera.org/verify/4YG8AA8EUP6L
+  file: /certifications/coursera-machine-learning-pipelines-with-azure-ml-studio-4yg8aa8eup6l.pdf # dev-next/public
+
+- id: coursera-software-processes-and-agile-practices
+  title: Software Processes and Agile Practices
+  issuer: Coursera
+  credentialId: "3CL9T3MNJFK2"
+  url: https://www.coursera.org/verify/3CL9T3MNJFK2
+  file: /certifications/coursera-software-processes-and-agile-practices-3cl9t3mnjfk2.pdf # dev-next/public
+
+- id: coursera-introduction-to-software-product-management
+  title: Introduction to Software Product Management
+  issuer: Coursera
+  credentialId: "7DKHZW6AAW4E"
+  url: https://www.coursera.org/verify/7DKHZW6AAW4E
+  file: /certifications/coursera-introduction-to-software-product-management-7dkhzw6aaw4e.pdf # dev-next/public
+
+- id: coursera-speak-english-professionally
+  title: Speak English Professionally
+  issuer: Coursera
+  credentialId: "Z7CK85HS2B67"
+  url: https://www.coursera.org/verify/Z7CK85HS2B67
+  file: /certifications/coursera-speak-english-professionally-z7ck85hs2b67.pdf # dev-next/public
+
+- id: bcc-top-up-it-java
+  title: Top-up IT Java
+  issuer: Bangladesh Computer Council
+  credentialId: "G014805"
+  file: /certifications/bcc-top-up-it-java-g014805.pdf # dev-next/public

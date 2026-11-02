@@ -1,6 +1,11 @@
 // Facts mirror data/profile.yaml.
-// INVENTED COPY: `intro`, `headlineLine`, `about`, `now.focus` and `principles` are narrative written
+// INVENTED COPY: `headlineLine`, `about`, `now.focus` and `principles` are narrative written
 // for biprodas.dev. Edit freely.
+
+import portrait from "@/assets/biprodas-roy.png";
+
+/** Whole years in industry; shown as "8+". */
+const yearsOfExperience = 8;
 
 export const profile = {
   name: "Biprodas Roy",
@@ -10,9 +15,10 @@ export const profile = {
   titles: ["Software Engineer", "Full Stack Developer", "AI Researcher"],
   headlineLine: "I build software that holds up in production.",
   tagline: "Coding the future, one commit at a time!",
-  intro: "I design and build the systems behind SaaS, FinTech and real-time AI products, from the schema up.",
-  summary:
-    "Full-stack engineer with 8+ years of experience designing and building scalable SaaS and real-time systems for ERP, FinTech and AI platforms. Expertise in TypeScript, Node.js/NestJS, Python/FastAPI, React/Next.js, PostgreSQL and AWS, specialising in system architecture, multi-tenant applications and low-latency infrastructure. Led small engineering teams and delivered platforms serving 100+ businesses.",
+  bio: `Full-stack engineer with ${yearsOfExperience}+ years building SaaS, FinTech and real-time AI systems.`,
+  summary: `Full-stack engineer with ${yearsOfExperience}+ years of experience designing and building scalable SaaS and real-time systems for ERP, FinTech and AI platforms. Expertise in TypeScript, Node.js/NestJS, Python/FastAPI, React/Next.js, PostgreSQL and AWS, specialising in system architecture, multi-tenant applications and low-latency infrastructure. Led small engineering teams and delivered platforms serving 100+ businesses.`,
+  yearsOfExperience,
+  avatar: { src: portrait, alt: "Watercolour portrait of Biprodas Roy" },
   email: "biprodas.cse@gmail.com",
   location: { city: "Jashore", country: "Bangladesh" },
   timezone: "Asia/Dhaka",
@@ -20,13 +26,8 @@ export const profile = {
   site: "https://biprodas.dev",
   /** Resume PDF, served from public/resume.pdf (not added yet). */
   resume: "/resume.pdf",
-  academicSite: "https://biprodas.com",
-  social: {
-    github: "https://github.com/biprodas",
-    linkedin: "https://www.linkedin.com/in/biprodas-roy/",
-  },
   stats: [
-    { value: "8+", label: "years in production" },
+    { value: `${yearsOfExperience}+`, label: "years in production" },
     { value: "100+", label: "businesses served" },
     { value: "4", label: "AWS certifications" },
     { value: "2,000+", label: "problems solved" },

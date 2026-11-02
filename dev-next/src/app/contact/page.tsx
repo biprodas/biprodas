@@ -1,55 +1,82 @@
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import Link from "next/link";
 import {
+  ArrowRightIcon,
+  ArrowUpRightIcon,
   ClockIcon,
   DownloadSimpleIcon,
   EnvelopeSimpleIcon,
-  GithubLogoIcon,
-  GlobeIcon,
-  LinkedinLogoIcon,
   MapPinIcon,
 } from "@phosphor-icons/react/ssr";
 import { buttonVariants } from "@/components/ui/button";
 import { Eyebrow, Section } from "@/components/page";
 import { CopyEmail } from "@/components/contact/copy-email";
+import { JsonLd } from "@/components/json-ld";
+import { PlatformIcon } from "@/components/platform-icon";
 import { LocalTime } from "@/components/layout/local-time";
 import { availability, profile } from "@/content/profile";
+import { links } from "@/content/links";
+import { hasResume } from "@/lib/resume";
 import { cn } from "@/lib/utils";
+import { isEnabled } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: `How to reach ${profile.name}: email, and what to write about.`,
+  description: `Email ${profile.name} about a remote role, a contract project or an architecture review. Based in ${profile.location.city}, ${profile.location.country} (${profile.utcOffset}).`,
   alternates: { canonical: "/contact" },
 };
 
+const mailto = (subject: string) => `mailto:${profile.email}?subject=${encodeURIComponent(subject)}`;
+
 // INVENTED COPY: topics people might write about. Edit freely.
-const topics = [
+const topics: { title: string; body: string; action: { label: string; href: string } }[] = [
   {
     title: "A role on your team",
     body: "Senior full-stack or backend positions, remote. Tell me about the product, the team and the hardest problem on the roadmap.",
+    action: { label: "Email about a role", href: mailto("Role enquiry") },
   },
   {
     title: "A system to build",
     body: "Contract work on SaaS platforms, ledgers and billing, or AI features: from schema design through to production.",
+    action: { label: "See services", href: "/services" },
   },
   {
     title: "A design review",
     body: "Multi-tenancy, data modelling, queues or performance. Happy to give a second opinion on an architecture you're unsure about.",
+    action: { label: "About architecture reviews", href: "/services/architecture-performance" },
   },
   {
     title: "Talking shop",
     body: "Competitive programming, AWS certifications, or anything you've read on this site. Engineers and students are welcome.",
+    action: { label: "Say hello", href: mailto("Hello") },
   },
 ];
 
-const elsewhere = [
-  { name: "GitHub", url: profile.social.github, detail: "github.com/biprodas", icon: GithubLogoIcon },
-  { name: "LinkedIn", url: profile.social.linkedin, detail: "in/biprodas-roy", icon: LinkedinLogoIcon },
-  { name: "Academic site", url: profile.academicSite, detail: "biprodas.com", icon: GlobeIcon },
-];
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  url: new URL("/contact", profile.site).toString(),
+  mainEntity: {
+    "@type": "Person",
+    name: profile.name,
+    jobTitle: "Software Engineer",
+    email: `mailto:${profile.email}`,
+    url: profile.site,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: profile.location.city,
+      addressCountry: profile.location.country,
+    },
+    sameAs: links.map((l) => l.url),
+  },
+};
 
 export default function ContactPage() {
+  if (!isEnabled("contact")) notFound();
   return (
     <>
+      <JsonLd data={schema} />
       <header>
         <Eyebrow>Contact</Eyebrow>
         <h1 className="mt-4 text-[2.1rem] font-semibold sm:text-[2.5rem]">Let&apos;s talk</h1>
@@ -59,7 +86,7 @@ export default function ContactPage() {
         </p>
       </header>
 
-      <section aria-labelledby="email-h" className="mt-10 border bg-sidebar px-6 pt-5 pb-4">
+      <section aria-labelledby="email-h" className="wide mt-10 border bg-sidebar px-6 pt-5 pb-4">
         <h2 id="email-h" className="text-[0.82rem] font-semibold text-ink-2">
           Email is the best way to reach me
         </h2>
@@ -75,14 +102,16 @@ export default function ContactPage() {
             Compose an email
           </a>
           <CopyEmail />
-          <a
-            href={profile.resume}
-            download="Biprodas-Roy-Resume.pdf"
-            className={cn(buttonVariants({ variant: "ghost" }), "h-9 px-3 text-[0.8rem]")}
-          >
-            <DownloadSimpleIcon data-icon="inline-start" />
-            Resume
-          </a>
+          {hasResume && (
+            <a
+              href={profile.resume}
+              download="Biprodas-Roy-Resume.pdf"
+              className={cn(buttonVariants({ variant: "ghost" }), "h-9 px-3 text-[0.8rem]")}
+            >
+              <DownloadSimpleIcon data-icon="inline-start" />
+              Resume
+            </a>
+          )}
         </div>
         <div className="mt-4 flex flex-wrap gap-x-6 gap-y-1 border-t pt-3 text-[0.8rem] text-muted-foreground [&_svg]:size-3.5">
           <span className="inline-flex items-center gap-1.5">
@@ -102,34 +131,49 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <Section title="What you might be writing about" id="topics">
+      <Section title="What you might be writing about" id="topics" className="wide">
         <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {topics.map((t) => (
             <li
               key={t.title}
-              className="group border bg-card px-5 pt-4 pb-5 transition-colors hover:border-primary/40 hover:bg-[color-mix(in_oklab,var(--primary)_4%,var(--card))]"
+              className="group relative flex flex-col border bg-card px-5 pt-4 pb-5 transition-colors hover:border-primary/40 hover:bg-[color-mix(in_oklab,var(--primary)_4%,var(--card))]"
             >
               <h3 className="text-[1.02rem] font-semibold transition-colors group-hover:text-primary">{t.title}</h3>
               <p className="mt-1.5 text-[0.88rem] leading-[1.65] text-ink-2">{t.body}</p>
+              <Link
+                href={t.action.href}
+                className="mt-auto inline-flex items-center gap-1 pt-3 font-mono text-[0.7rem] text-primary after:absolute after:inset-0"
+              >
+                {t.action.label}
+                <ArrowRightIcon aria-hidden className="size-3 transition-transform group-hover:translate-x-0.5" />
+              </Link>
             </li>
           ))}
         </ul>
       </Section>
 
       <Section title="Elsewhere" id="elsewhere">
-        <ul className="border bg-card px-5">
-          {elsewhere.map((e) => (
-            <li key={e.url} className="border-b last:border-b-0">
-              <a href={e.url} className="group flex items-center justify-between gap-4 py-3">
-                <span className="inline-flex items-center gap-2.5 font-semibold transition-colors group-hover:text-primary">
-                  <e.icon
-                    aria-hidden
-                    className="size-4 text-muted-foreground transition-colors group-hover:text-primary"
-                  />
-                  {e.name}
+        <ul className="border-t border-foreground/70">
+          {links.map((e) => (
+            <li key={e.url} className="border-b">
+              <a
+                href={e.url}
+                className="group grid grid-cols-[1.75rem_minmax(0,1fr)] gap-x-2 py-3 focus-visible:outline-offset-4 sm:grid-cols-[1.75rem_minmax(0,1fr)_auto] sm:items-baseline sm:gap-x-4"
+              >
+                <PlatformIcon
+                  platform={e.platform}
+                  className="size-[1.15rem] translate-y-[0.2em] text-muted-foreground transition-colors group-hover:text-primary"
+                />
+                <span>
+                  <span className="block font-semibold transition-colors group-hover:text-primary">{e.label}</span>
+                  <span className="block text-[0.9rem] leading-snug text-ink-2">{e.description}</span>
                 </span>
-                <span className="truncate text-[0.82rem] text-muted-foreground transition-colors group-hover:text-primary">
-                  {e.detail}
+                <span className="col-start-2 mt-1 inline-flex items-center gap-1 text-[0.82rem] text-muted-foreground sm:col-start-3 sm:mt-0">
+                  {e.handle}
+                  <ArrowUpRightIcon
+                    aria-hidden
+                    className="size-3.5 transition-transform group-hover:translate-x-px group-hover:-translate-y-px motion-reduce:transition-none"
+                  />
                 </span>
               </a>
             </li>

@@ -32,6 +32,7 @@ function referenceProblems(c: Content): string[] {
     awards: c.awards,
     certifications: c.certifications,
     testScores: c.testScores,
+    references: c.references,
   };
   for (const [name, items] of Object.entries(collections)) {
     const ids = items.map((i) => i.id);
@@ -65,6 +66,7 @@ export function loadContent(): Content {
     awards: readYaml("awards.yaml"),
     certifications: readYaml("certifications.yaml"),
     testScores: readYaml("test-scores.yaml"),
+    references: readYaml("references.yaml"),
     skills: readYaml("skills.yaml"),
   });
   if (!result.success) {
@@ -108,4 +110,6 @@ export const testScores = (site: Site) =>
   forSite(loadContent().testScores, site)
     .filter((t) => t.public)
     .sort(byDateDesc);
+/** Only referees marked `public: true`, in YAML order (list the strongest first). */
+export const references = (site: Site) => forSite(loadContent().references, site).filter((r) => r.public);
 export const skills = (site: Site) => forSite(loadContent().skills, site);

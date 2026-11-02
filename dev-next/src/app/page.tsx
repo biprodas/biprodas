@@ -8,19 +8,18 @@ import { Timeline } from "@/components/timeline";
 import { now, principles, profile } from "@/content/profile";
 import { experience } from "@/content/experience";
 import { featuredProjects, getProject, projects } from "@/content/projects";
-import { awards, certifications, skills } from "@/content/skills";
+import { featuredCertifications, latestCertification } from "@/content/certifications";
+import { awards, getSkill, skillCategories, skills } from "@/content/skills";
 import { glanceFacts } from "@/lib/glance";
 import { formatDate, formatRange, pad2 } from "@/lib/format";
 import { cn } from "@/lib/utils";
-import portrait from "@/assets/biprodas-roy.png";
+import { getLink } from "@/content/links";
 
 const label = "font-mono text-[0.62rem] font-semibold tracking-[0.16em] text-muted-foreground uppercase";
 
-// Home shows the most relevant groups; /skills has everything.
-const skillPreview = ["Languages", "Backend & Architecture", "Data & Messaging", "Cloud & DevOps", "AI & LLMs"]
-  .map((g) => skills.find((s) => s.group === g))
-  .filter((g) => g !== undefined);
-const skillCount = skills.reduce((n, g) => n + g.items.length, 0);
+const skillPreview = skillCategories
+  .map((c) => ({ ...c, skills: c.skills.filter((name) => getSkill(name)?.featured) }))
+  .filter((c) => c.skills.length > 0);
 
 export default function HomePage() {
   const facts = glanceFacts();
@@ -32,8 +31,8 @@ export default function HomePage() {
     <>
       <header>
         <Image
-          src={portrait}
-          alt={`Portrait of ${profile.name}`}
+          src={profile.avatar.src}
+          alt={profile.avatar.alt}
           sizes="8rem"
           priority
           className="size-28 rounded-full bg-muted object-cover object-[50%_30%] sm:size-32 dark:brightness-[.88]"
@@ -109,27 +108,25 @@ export default function HomePage() {
       <Section title="Skills" id="skills">
         <MarginNote label="Certified">
           <ul className="space-y-1">
-            {certifications
-              .filter((c) => c.url)
-              .map((c) => (
-                <li key={c.id}>
-                  <a href={c.url} className="prose-link">
-                    {c.title.replace("AWS Certified ", "AWS ")}
-                  </a>
-                  <span className="text-meta"> {c.issued}</span>
-                </li>
-              ))}
+            {featuredCertifications.map((c) => (
+              <li key={c.id}>
+                <a href={c.credentialUrl} className="prose-link">
+                  {c.name.replace("AWS Certified ", "AWS ")}
+                </a>
+                <span className="text-meta"> {c.issueDate?.slice(0, 4)}</span>
+              </li>
+            ))}
           </ul>
         </MarginNote>
         <ul className="border bg-card px-5">
-          {skillPreview.map((g) => (
+          {skillPreview.map((c) => (
             <li
-              key={g.group}
+              key={c.slug}
               className="grid grid-cols-1 gap-x-5 gap-y-2 border-b py-3.5 last:border-b-0 sm:grid-cols-[9.5rem_1fr]"
             >
-              <span className="pt-0.5 text-[0.95rem] leading-snug font-semibold">{g.group}</span>
+              <span className="pt-0.5 text-[0.95rem] leading-snug font-semibold">{c.title}</span>
               <ul className="flex flex-wrap gap-1">
-                {g.items.slice(0, 6).map((s) => (
+                {c.skills.map((s) => (
                   <li key={s}>
                     <Tag>{s}</Tag>
                   </li>
@@ -138,7 +135,7 @@ export default function HomePage() {
             </li>
           ))}
         </ul>
-        <MoreLink href="/skills">All {skillCount} skills, by area</MoreLink>
+        <MoreLink href="/skills">All {skills.length} skills, by area</MoreLink>
       </Section>
 
       <Section title="Featured projects" id="projects" className="wide">
@@ -208,19 +205,22 @@ export default function HomePage() {
           <div>
             <dt className={cn(label, "pt-1")}>Recently</dt>
             <dd className="text-[0.95rem] text-ink-2">
-              <span className="font-semibold text-foreground">{latest.positions[0].title}</span> at {latest.org}
+              <span className="font-semibold text-foreground">{latest.positions[0].title}</span> at{" "}
+              {latest.company.name}
               <span className="block text-meta sm:ml-1.5 sm:inline">
-                {formatRange(latest.positions[0].start, latest.positions[0].end)}
+                {formatRange(latest.positions[0].startDate, latest.positions[0].endDate ?? "present")}
               </span>
             </dd>
           </div>
           <div>
             <dt className={cn(label, "pt-1")}>Certified</dt>
             <dd className="text-[0.95rem] text-ink-2">
-              <a href={certifications[0].url} className="prose-link">
-                {certifications[0].title}
+              <a href={latestCertification.credentialUrl} className="prose-link">
+                {latestCertification.name}
               </a>
-              <span className="ml-1.5 text-meta">{formatDate(certifications[0].issued)}</span>
+              {latestCertification.issueDate && (
+                <span className="ml-1.5 text-meta">{formatDate(latestCertification.issueDate)}</span>
+              )}
             </dd>
           </div>
         </dl>
@@ -241,7 +241,7 @@ export default function HomePage() {
           <Link href="/contact" className={cn(buttonVariants({ size: "lg" }), "h-10 px-4 text-[0.8rem]")}>
             Write to me <ArrowRightIcon data-icon="inline-end" />
           </Link>
-          <a href={profile.social.github} className="inline-flex items-center gap-1 font-semibold prose-link">
+          <a href={getLink("github")?.url} className="inline-flex items-center gap-1 font-semibold prose-link">
             GitHub <ArrowUpRightIcon className="size-3.5" />
           </a>
         </div>

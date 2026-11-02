@@ -367,3 +367,11 @@
     stroke-dashoffset: 0;
   }
 }
+
+/* siteConfig.appearance.enableAnimations = false */
+[data-animations="off"] *,
+[data-animations="off"] *::before,
+[data-animations="off"] *::after {
+  animation: none !important;
+  transition: none !important;
+}

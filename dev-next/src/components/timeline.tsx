@@ -1,5 +1,5 @@
 import { education, experience } from "@/content/experience";
-import { positionsSpan, yearRange } from "@/lib/format";
+import { initials, yearRange } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
 type Node = {
@@ -17,21 +17,20 @@ function nodes(): Node[] {
     ...education.map((e) => ({
       key: e.id,
       kind: "education" as const,
-      when: yearRange(e.start, e.end),
-      title: e.degree.replace(" in Computer Science & Engineering", " CSE"),
-      sub: e.institution,
-      start: e.start,
+      when: e.startDate ? yearRange(e.startDate, e.endDate ?? "present") : (e.endDate?.slice(0, 4) ?? ""),
+      title: `${e.degreeShort ?? e.degree} ${initials(e.fieldOfStudy)}`,
+      sub: e.institution.name,
+      start: e.startDate ?? e.endDate ?? "",
     })),
     ...experience.map((e) => {
-      const span = positionsSpan(e.positions);
-      const founder = e.employmentType === "founder";
+      const founder = e.positions.some((p) => p.employmentType === "Founder");
       return {
         key: e.id,
         kind: founder ? ("milestone" as const) : ("work" as const),
-        when: yearRange(span.start, span.end),
-        title: founder ? `Co-founded ${e.org}` : e.org,
+        when: yearRange(e.startDate, e.endDate ?? "present"),
+        title: founder ? `Co-founded ${e.company.name}` : e.company.name,
         sub: e.positions[0].title,
-        start: span.start,
+        start: e.startDate,
       };
     }),
   ];

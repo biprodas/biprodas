@@ -1,17 +1,22 @@
-// Facts (titles, summaries, links, stack, highlights) mirror data/projects.yaml.
+// Facts (titles, summaries, type, URLs, stack, highlights) mirror data/projects.yaml.
 // INVENTED COPY: each `story` and `diagram` is narrative written for biprodas.dev to explain the
 // architecture. It adds no metrics beyond data/. Edit freely.
 import type { Domain, Project } from "./types";
 
-export const projects: Project[] = [
+const allProjects: Project[] = [
   {
     slug: "pitchpool",
     title: "PitchPool",
     summary:
       "Multi-tenant SaaS platform for competition prediction pools with automated scoring, live leaderboards and subscription billing.",
-    domains: ["SaaS"],
-    topics: ["SaaS", "Multi-tenancy", "Billing"],
-    tech: [
+    description:
+      "PitchPool runs prediction competitions. Participants join pools, predict match results and follow live leaderboards that update as each result is scored automatically. Every tenant gets its own isolated pools, participants and roles, and subscription plans decide which features a tenant can use.",
+    type: "Product",
+    role: "Founder & sole engineer",
+    status: "In Progress",
+    domains: ["SaaS", "Sports & Competition"],
+    topics: ["Multi-tenancy", "Billing", "Leaderboards"],
+    technologies: [
       "Next.js",
       "React",
       "TypeScript",
@@ -23,8 +28,22 @@ export const projects: Project[] = [
       "JWT/OAuth",
       "Docker",
     ],
-    links: [{ kind: "live", url: "https://pitchpool.io", label: "pitchpool.io" }],
+    liveUrl: "https://pitchpool.io",
+    // TODO: set `thumbnail: "/images/projects/pitchpool/cover.png"` once the file is in public/.
     featured: true,
+    order: 1,
+    features: [
+      "Multi-tenant workspaces, each with its own pools, participants and roles",
+      "Automated scoring of predictions as match results come in",
+      "Live leaderboards, re-ranked after every scored result",
+      "Subscription plans with feature gating and webhook-driven billing",
+    ],
+    contributions: [
+      "Came up with the product idea and defined its scope",
+      "Designed the architecture: the multi-tenant data model, queue-based ingestion and scoring, and billing",
+      "Built the whole stack alone: Next.js frontend, NestJS API, PostgreSQL with Prisma, and Redis/BullMQ workers",
+      "Deployed it to production at pitchpool.io",
+    ],
     highlights: [
       "Shipped subscription billing (plans, entitlement gating and webhooks) behind a provider-agnostic gateway; designed three-tier RBAC with privilege-escalation safeguards.",
       "Cut idle database traffic by ~90% through in-memory job scheduling and consolidated tasks, enabling serverless PostgreSQL to scale to zero.",
@@ -82,11 +101,21 @@ export const projects: Project[] = [
     shortTitle: "Microfinance Core Banking",
     summary:
       "Multi-tenant core banking platform for NGO microfinance operations, deployed across 3 organizations and 20 branches.",
+    description:
+      "A core banking system for NGOs that run microfinance programmes. It covers group lending and savings products from loan disbursement through repayment schedules and field-agent collection, and posts every transaction to a double-entry ledger that reconciles. It runs in 3 organizations across 20 branches, with microcredit portfolio management, HR/payroll and MIS/AIS reporting alongside.",
     domains: ["FinTech"],
     topics: ["FinTech", "Microfinance", "Accounting"],
-    tech: ["Next.js", "NestJS", "PostgreSQL", "Redis", "BullMQ", "TypeORM"],
-    links: [],
+    technologies: ["Next.js", "NestJS", "PostgreSQL", "Redis", "BullMQ", "TypeORM"],
     featured: true,
+    order: 2,
+    features: [
+      "Group lending and savings products",
+      "Loan disbursement, repayment schedules and field-agent collection",
+      "Double-entry ledger with transaction posting and reconciliation",
+      "Microcredit portfolio management",
+      "HR and payroll",
+      "MIS and AIS reporting",
+    ],
     highlights: [
       "Covers group lending, savings products, loan disbursement, repayment scheduling and field-agent collection, with training and technical support for deployments.",
       "Engineered the double-entry accounting ledger with transaction posting and reconciliation, alongside microcredit portfolio management, HR/payroll and MIS/AIS reporting.",
@@ -142,15 +171,23 @@ export const projects: Project[] = [
     title: "Akaunty",
     summary:
       "Multi-tenant SaaS that gives freelancers, agencies, NGOs and small businesses simple financial tracking, with proper double-entry accounting underneath.",
+    description:
+      "Akaunty is bookkeeping for people who don't want to learn bookkeeping. Freelancers, agencies, NGOs and small businesses record money in and money out in plain terms, and Akaunty writes the balanced double-entry journal underneath. From that journal it produces profit and loss, cash flow, balance sheet, trial balance and general ledger reports.",
     domains: ["FinTech", "SaaS"],
     topics: ["FinTech", "Accounting", "SaaS"],
-    tech: ["Next.js", "NestJS", "PostgreSQL", "Drizzle", "Redis", "BullMQ", "TanStack Query", "Paddle"],
-    links: [{ kind: "live", url: "https://akaunty.vercel.app", label: "akaunty.vercel.app" }],
+    technologies: ["Next.js", "NestJS", "PostgreSQL", "Drizzle", "Redis", "BullMQ", "TanStack Query", "Paddle"],
+    liveUrl: "https://akaunty.vercel.app",
     featured: true,
-    kind: "product",
-    highlights: [
-      'Users record "I got paid" or "I spent money"; the system generates balanced journal entries underneath.',
-      "Profit & loss, cash flow, balance sheet, trial balance and general ledger reporting.",
+    order: 3,
+    type: "Product",
+    // data/projects.yaml lists these as highlights; they describe what the product does, so they live in `features`.
+    highlights: [],
+    features: [
+      'Record "I got paid" or "I spent money"; balanced journal entries are generated underneath',
+      "Profit & loss, cash flow and balance sheet reports",
+      "Trial balance and general ledger",
+      "A separate workspace for each business",
+      "Subscription billing through Paddle",
     ],
     story: {
       problem:
@@ -201,11 +238,21 @@ export const projects: Project[] = [
     title: "StartDescribe",
     summary:
       "AI SaaS platform for e-commerce product descriptions and image generation, with multi-tenant architecture and Stripe-based subscriptions.",
+    description:
+      "StartDescribe writes product descriptions and generates product images for e-commerce stores. Each merchant works in their own account, generates copy and images through an AI pipeline, and pays through a Stripe subscription. Reworked onboarding and automation raised onboarding conversion by 40% and cut content generation time by 30%.",
     domains: ["AI", "SaaS"],
     topics: ["AI", "SaaS", "E-commerce"],
-    tech: ["Next.js", "TypeScript", "Tailwind", "Supabase", "Stripe", "OpenAI", "Perplexity"],
-    links: [{ kind: "live", url: "https://startdescribe.com", label: "startdescribe.com" }],
+    technologies: ["Next.js", "TypeScript", "Tailwind", "Supabase", "Stripe", "OpenAI", "Perplexity"],
+    liveUrl: "https://startdescribe.com",
     featured: true,
+    order: 4,
+    features: [
+      "AI-written product descriptions for e-commerce",
+      "AI image generation for products",
+      "Separate merchant accounts with secure sign-in",
+      "Stripe subscription billing",
+      "Transactional emails",
+    ],
     highlights: [
       "Implemented secure authentication, an AI content generation pipeline, transactional emails and SEO-optimized pages.",
       "Increased onboarding conversion by 40% and reduced content generation time by 30% through optimized workflows and automation.",
@@ -258,12 +305,33 @@ export const projects: Project[] = [
     title: "School ERP",
     summary:
       "School administration platform covering admissions, academics, students, parents and staff, finance, campus services, communication and reporting.",
+    description:
+      "School ERP runs a school's administration in one place: admissions, academics, students, parents and staff, finance, campus services, communication and reporting. Many schools share one deployment, and PostgreSQL row-level security keeps each school's data apart.",
     domains: ["EdTech"],
     topics: ["EdTech", "ERP", "Multi-tenancy"],
-    tech: ["Next.js", "React", "NestJS", "PostgreSQL", "TypeORM", "Redis", "BullMQ", "TanStack Query", "Tailwind CSS"],
-    links: [{ kind: "repo", url: "https://github.com/biprodas/school-erp", label: "github.com/biprodas/school-erp" }],
+    technologies: [
+      "Next.js",
+      "React",
+      "NestJS",
+      "PostgreSQL",
+      "TypeORM",
+      "Redis",
+      "BullMQ",
+      "TanStack Query",
+      "Tailwind CSS",
+    ],
+    sourceUrl: "https://github.com/biprodas/school-erp",
     featured: false,
-    kind: "product",
+    order: 5,
+    features: [
+      "Admissions and academics",
+      "Student, parent and staff records",
+      "School finance",
+      "Campus services",
+      "Communication and reporting",
+      "A dashboard sidebar each school can configure",
+    ],
+    type: "Product",
     highlights: [
       "Tenant isolation with PostgreSQL row-level security on tenanted tables.",
       "Next.js dashboard with a configurable sidebar, backed by a NestJS API.",
@@ -315,15 +383,24 @@ export const projects: Project[] = [
     title: "Cloud Prep",
     summary:
       "Practice app for AWS certification exams, with questions organized by certification and AWS service, an explanation on every answer and per-topic accuracy tracking.",
+    description:
+      "Cloud Prep is a practice app for four AWS certification exams: Cloud Practitioner, AI Practitioner, Developer Associate and Solutions Architect Associate. Questions are organized by certification and AWS service, every answer comes with an explanation, and accuracy is tracked per topic so you can see where you're weak.",
     domains: ["EdTech"],
     topics: ["EdTech", "AWS", "Certification Prep"],
-    tech: ["Next.js", "TypeScript", "Supabase", "TanStack Query", "Tailwind CSS", "Paddle"],
-    links: [{ kind: "live", url: "https://cloudprep.biprodas.dev", label: "cloudprep.biprodas.dev" }],
+    technologies: ["Next.js", "TypeScript", "Supabase", "TanStack Query", "Tailwind CSS", "Paddle"],
+    liveUrl: "https://cloudprep.biprodas.dev",
     featured: false,
-    kind: "product",
-    highlights: [
-      "Covers Cloud Practitioner, AI Practitioner, Developer Associate and Solutions Architect Associate.",
-      "Weak-area tracking per topic, in-app cheat sheets, bookmarks and review loops.",
+    order: 6,
+    type: "Product",
+    // data/projects.yaml lists these as highlights; they describe what the product does, so they live in `features`.
+    highlights: [],
+    features: [
+      "Practice questions for Cloud Practitioner, AI Practitioner, Developer Associate and Solutions Architect Associate",
+      "Questions organized by certification and AWS service",
+      "An explanation on every answer",
+      "Per-topic accuracy and weak-area tracking",
+      "In-app cheat sheets",
+      "Bookmarks and review loops",
     ],
     story: {
       problem:
@@ -368,11 +445,20 @@ export const projects: Project[] = [
     shortTitle: "LARMTS",
     summary:
       "Government GIS platform for land acquisition, compensation tracking and resettlement of affected individuals across infrastructure projects.",
+    description:
+      "LARMTS is a government GIS platform for the land side of infrastructure projects: acquiring land, tracking compensation and resettling the people affected. It includes grievance management and reporting, and is deployed in the MRT-5 and CEIP-1 national projects in Bangladesh.",
     domains: ["GovTech"],
     topics: ["GIS", "GovTech", "Infrastructure"],
-    tech: ["Node.js", "Express", "PostgreSQL/PostGIS", "React", "Leaflet"],
-    links: [],
+    technologies: ["Node.js", "Express", "PostgreSQL/PostGIS", "React", "Leaflet"],
     featured: false,
+    order: 7,
+    features: [
+      "Land acquisition tracking on a GIS map",
+      "Compensation tracking",
+      "Resettlement of affected people",
+      "Grievance management",
+      "Reporting",
+    ],
     highlights: [
       "Implemented grievance management and reporting.",
       "Deployed in the MRT-5 and CEIP-1 national projects in Bangladesh.",
@@ -416,9 +502,19 @@ export const projects: Project[] = [
   },
 ];
 
-export const domains: Domain[] = ["FinTech", "SaaS", "AI", "EdTech", "GovTech"];
+export const projects = allProjects.toSorted((a, b) => a.order - b.order);
+
+export const domains: Domain[] = ["FinTech", "SaaS", "AI", "EdTech", "GovTech", "Sports & Competition"];
 
 export const featuredProjects = projects.filter((p) => p.featured);
+
+/** "https://github.com/biprodas/x/" → "github.com/biprodas/x" */
+export const urlLabel = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
+
+/** Public links in display order. */
+export function projectLinks(p: Project) {
+  return [p.liveUrl, p.sourceUrl, p.caseStudyUrl].filter((url): url is string => !!url);
+}
 
 export function getProject(slug: string) {
   return projects.find((p) => p.slug === slug);

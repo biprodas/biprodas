@@ -4,7 +4,7 @@ import Section from "../components/Section.astro";
 import Eyebrow from "../components/Eyebrow.astro";
 import Ph from "../components/Ph.astro";
 import { Icon } from "astro-icon/components";
-import { profile } from "../lib/data.ts";
+import { profile, references } from "../lib/data.ts";
 import { socialLabels, uiIcons } from "../lib/icons.ts";
 import { utcOffset } from "../lib/dates.ts";
 import { ui } from "../lib/ui.ts";
@@ -75,6 +75,44 @@ const card = ui.card;
       }
     </Ph>
   </Section>
+
+  {
+    references.length > 0 && (
+      <Section title="References" id="references">
+        <ul class:list={[card, "px-5"]}>
+          {references.map((r) => (
+            <li class="border-b border-rule py-4 last:border-b-0">
+              <h3 class="font-serif text-[1.05rem] font-semibold">{r.url ? <a href={r.url}>{r.name}</a> : r.name}</h3>
+              <p class="mt-0.5 text-[0.92rem] text-ink-2">
+                {r.title}, {r.company.url ? <a href={r.company.url}>{r.company.name}</a> : r.company.name}
+              </p>
+              <p class="mt-1 text-[0.86rem] text-muted italic">{r.relationship}</p>
+              {r.description && <p class="mt-2 text-[0.88rem] leading-[1.6] text-ink-2">{r.description}</p>}
+              {((r.showEmail && r.email) || (r.showPhone && r.phone)) && (
+                <p class="mt-2 flex flex-wrap gap-x-5 gap-y-1 font-sans text-[0.82rem] [&_svg]:size-[0.9rem]">
+                  {r.showEmail && r.email && (
+                    <a href={`mailto:${r.email}`} class="inline-flex items-center gap-1.5 break-all">
+                      <Icon name={uiIcons.email} aria-hidden="true" focusable="false" />
+                      {r.email}
+                    </a>
+                  )}
+                  {r.showPhone && r.phone && (
+                    <a href={`tel:${r.phone.replace(/[^\d+]/g, "")}`} class="inline-flex items-center gap-1.5">
+                      <Icon name={uiIcons.phone} aria-hidden="true" focusable="false" />
+                      {r.phone}
+                    </a>
+                  )}
+                </p>
+              )}
+            </li>
+          ))}
+        </ul>
+        {references.some((r) => !r.showEmail && !r.showPhone) && (
+          <p class="mt-3 text-[0.86rem] text-muted">Contact details for referees are available on request.</p>
+        )}
+      </Section>
+    )
+  }
 
   <Section title="Elsewhere" id="elsewhere">
     <ul class:list={[card, "px-5"]}>

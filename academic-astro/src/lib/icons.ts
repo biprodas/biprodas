@@ -23,6 +23,7 @@ export const socialLabels: Record<string, string> = {
 
 export const uiIcons = {
   email: "lucide:mail",
+  phone: "lucide:phone",
   website: "lucide:globe",
   moon: "lucide:moon",
   sun: "lucide:sun",
