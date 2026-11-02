@@ -9,8 +9,26 @@ role:
   academic: Software Engineer · AI Researcher
 titles:                      # biprodas.com hero line
   academic: [Senior Software Engineer, Full Stack Developer, AI Researcher]
-# bio:                       # one or two sentences shown under your name in the site sidebar
-#   academic: ...
+bio:                         # one or two sentences shown under your name in the site sidebar
+  # academic: ...
+  engineering: Full-stack engineer with 8+ years building SaaS, FinTech and real-time AI systems.
+  # Alternatives, kept for later. Every claim comes from facts already in this repo.
+  #   First person:
+  #     - I design and build the systems behind SaaS, FinTech and real-time AI products, from the schema up.
+  #     - I build software close to money and operations: ledgers, ERPs, and AI pipelines that keep up with a conversation.
+  #     - I build multi-tenant SaaS and real-time AI systems with TypeScript, Python, PostgreSQL and AWS.
+  #     - I turn messy business operations into reliable software: ledgers, billing, payroll and multi-tenant ERPs.
+  #   Third person:
+  #     - Biprodas is a full-stack engineer who builds multi-tenant SaaS, FinTech ledgers and real-time AI systems.
+  #     - Biprodas Roy is a software engineer and co-founder who has delivered platforms serving 100+ businesses.
+  #   Credential-led:
+  #     - Full-stack engineer and team lead with 8+ years in production, 100+ businesses served and 4 AWS certifications.
+  #     - Former competitive programmer, now building SaaS, FinTech and real-time AI systems for production.
+  #   Leadership:
+  #     - Software engineer and co-founder who has led teams of 10–15 engineers and mentored 20+ developers.
+  #   Freelance / clients:
+  #     - Full-stack engineer helping businesses ship SaaS, ERP and AI products that hold up in production.
+  #     - Remote full-stack engineer (UTC+6) building SaaS, FinTech and AI systems for remote teams.
 summary:
   # TODO: academic summary (research motivation, interests, goals)
   engineering: >-
@@ -19,6 +37,7 @@ summary:
     Python/FastAPI, React/Next.js, PostgreSQL, and AWS, specializing in system architecture,
     multi-tenant applications, and low-latency infrastructure. Led small engineering teams and
     delivered platforms serving 100+ businesses.
+yearsOfExperience: 8          # whole years in industry, shown as "8+"
 email: biprodas.cse@gmail.com
 location: { city: Jashore, country: Bangladesh }
 timezone: Asia/Dhaka

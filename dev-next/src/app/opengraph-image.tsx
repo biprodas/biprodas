@@ -20,7 +20,7 @@ export default function OpengraphImage() {
         </div>
         <div style={{ marginTop: 28, fontSize: 92, fontWeight: 700, letterSpacing: -3 }}>{profile.name}</div>
         <div style={{ marginTop: 16, fontSize: 32, color: "#3f454d" }}>{profile.role}</div>
-        <div style={{ marginTop: 40, fontSize: 26, color: "#6b7079", maxWidth: 720 }}>{profile.intro}</div>
+        <div style={{ marginTop: 40, fontSize: 26, color: "#6b7079", maxWidth: 720 }}>{profile.bio}</div>
       </div>
     </div>,
     size,

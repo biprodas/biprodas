@@ -12,7 +12,6 @@ import { awards, certifications, skills } from "@/content/skills";
 import { glanceFacts } from "@/lib/glance";
 import { formatDate, formatRange, pad2 } from "@/lib/format";
 import { cn } from "@/lib/utils";
-import portrait from "@/assets/biprodas-roy.png";
 
 const label = "font-mono text-[0.62rem] font-semibold tracking-[0.16em] text-muted-foreground uppercase";
 
@@ -32,8 +31,8 @@ export default function HomePage() {
     <>
       <header>
         <Image
-          src={portrait}
-          alt={`Portrait of ${profile.name}`}
+          src={profile.avatar.src}
+          alt={profile.avatar.alt}
           sizes="8rem"
           priority
           className="size-28 rounded-full bg-muted object-cover object-[50%_30%] sm:size-32 dark:brightness-[.88]"
