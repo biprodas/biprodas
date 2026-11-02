@@ -82,6 +82,101 @@ const allProjects: Project[] = [
     },
   },
   {
+    slug: "inventory-commerce",
+    title: "Inventory Commerce",
+    summary:
+      "Multi-tenant ERP SaaS for retail, distribution and e-commerce: inventory, warehouses, POS, procurement, omnichannel commerce with COD and couriers, and double-entry accounting with a configurable tax engine.",
+    description:
+      "Retailers, distributors and online sellers in Bangladesh often run on spreadsheets, a separate POS, order lists from Facebook pages and manual accounting, so stock is wrong across branches and channels and the books lag behind. Inventory Commerce brings stock, warehouses, point of sale, purchasing, B2B sales, an online storefront with cash-on-delivery and courier fulfilment, and double-entry accounting into one system, where every sale, receipt and transfer posts its stock movement and its journal together. It starts with Bangladesh VAT and is built so a new country is a new country pack, not a rewrite.",
+    type: "Product",
+    role: "Founder & sole engineer",
+    status: "In Progress",
+    domains: ["FinTech", "SaaS"],
+    topics: [
+      "Inventory Management",
+      "Point of Sale",
+      "E-commerce",
+      "Double-entry Accounting",
+      "Tax Engine",
+      "Multi-tenancy",
+    ],
+    technologies: [
+      "TypeScript",
+      "Next.js",
+      "NestJS",
+      "PostgreSQL",
+      "Drizzle",
+      "Redis",
+      "BullMQ",
+      "Turborepo",
+      "Docker",
+    ],
+    featured: false,
+    order: 2,
+    features: [
+      "Inventory across branches, warehouses, zones and bins, with moving-average costing",
+      "Warehouse management: receiving, transfers and stock counts",
+      "Point of sale for retail branches, with cash and mobile-money payments",
+      "Procurement: purchase orders, goods receipts, supplier bills and imports with landed cost",
+      "B2B credit sales and accounts receivable for distributors",
+      "Online storefront with cash-on-delivery and courier fulfilment",
+      "Returns and refunds across every channel",
+      "Double-entry general ledger, posted automatically from every business document",
+      "Configurable tax engine, starting with Bangladesh VAT and statutory forms",
+      "Multi-currency documents, with books kept in each legal entity's base currency",
+    ],
+    contributions: [
+      "Came up with the product and wrote its product requirements, technical design and database specification",
+      "Designed the architecture: a NestJS modular monolith with PostgreSQL row-level security and a single write path for stock and for journals",
+      "Defined the accounting model: a posting matrix from business events to journals, with COD revenue recognised on delivery",
+      "Set up the monorepo with Turborepo and pnpm, with lint rules that enforce module boundaries, tenant safety and no hard-coded country rules",
+    ],
+    highlights: [],
+    story: {
+      problem:
+        "A shop with two branches, a stockroom and a Facebook page already has three versions of its stock. Add cash-on-delivery orders that come back undelivered, VAT forms and a distributor buying on credit, and spreadsheets stop adding up.",
+      approach:
+        "Every business command runs in one database transaction: the document, its stock movements, the updated costs, the journal and any statutory number commit together or not at all. Stock changes only through the inventory service and journals only through the posting service, so the warehouse and the ledger can't disagree.",
+      decisions: [
+        {
+          title: "One write path each",
+          body: "Stock moves only through InventoryService and journals only through PostingService, so every quantity and every balance has one source.",
+        },
+        {
+          title: "Revenue on delivery",
+          body: "COD orders move cost into goods in transit at dispatch and recognise revenue on delivery; a return to origin reverses only the stock movement.",
+        },
+        {
+          title: "Country packs",
+          body: "Tax rules, statutory documents, the chart of accounts and providers live in country packs, and lint rules stop country details leaking into the core.",
+        },
+      ],
+    },
+    diagram: {
+      title: "One transaction per command",
+      cols: 4,
+      rows: 2,
+      nodes: [
+        { id: "web", label: "Staff app & POS", sub: "Next.js", kind: "client", col: 0, row: 0 },
+        { id: "api", label: "API", sub: "NestJS modules", kind: "service", col: 1, row: 0 },
+        { id: "inv", label: "Inventory", sub: "stock · costing", kind: "service", col: 2, row: 0 },
+        { id: "pg", label: "PostgreSQL", sub: "Drizzle · RLS", kind: "data", col: 3, row: 0 },
+        { id: "store", label: "Storefront", sub: "COD · couriers", kind: "client", col: 0, row: 1 },
+        { id: "worker", label: "Worker", sub: "BullMQ · outbox", kind: "worker", col: 1, row: 1 },
+        { id: "gl", label: "Posting", sub: "double-entry GL", kind: "service", col: 2, row: 1 },
+      ],
+      edges: [
+        { from: "web", to: "api", label: "commands" },
+        { from: "store", to: "api", label: "orders" },
+        { from: "api", to: "inv", label: "post" },
+        { from: "api", to: "gl", label: "post" },
+        { from: "inv", to: "pg", label: "movements" },
+        { from: "gl", to: "pg", label: "journals" },
+        { from: "pg", to: "worker", label: "outbox", async: true },
+      ],
+    },
+  },
+  {
     slug: "microfinance-core-banking",
     title: "Microfinance Core Banking System",
     shortTitle: "Microfinance Core Banking",
@@ -96,7 +191,7 @@ const allProjects: Project[] = [
     topics: ["Core Banking", "Microfinance", "Double-entry Accounting", "Multi-tenancy"],
     technologies: ["Next.js", "NestJS", "PostgreSQL", "Redis", "BullMQ", "TypeORM"],
     featured: true,
-    order: 2,
+    order: 3,
     features: [
       "Group lending and savings products",
       "Loan disbursement, repayment schedules and field-agent collection",
@@ -189,7 +284,7 @@ const allProjects: Project[] = [
     liveUrl: "https://pitchpool.io",
     // TODO: set `thumbnail: "/images/projects/pitchpool/cover.png"` once the file is in public/.
     featured: true,
-    order: 3,
+    order: 4,
     features: [
       "Multi-tenant workspaces, each with its own pools, participants and roles",
       "Automated scoring of predictions as match results come in",
@@ -277,7 +372,7 @@ const allProjects: Project[] = [
     startDate: "2024-05",
     endDate: "2026-06",
     featured: false,
-    order: 4,
+    order: 5,
     features: [
       "Real-time transcription and translation across 60+ languages",
       "Group conversations with speaker identification",
@@ -343,6 +438,234 @@ const allProjects: Project[] = [
     },
   },
   {
+    slug: "msquare-market",
+    title: "MSquare Market",
+    summary:
+      "Blockchain-based digital asset marketplace from the MSQUARE ecosystem, with crypto wallet connection, transaction flows and an admin panel for listings, users and transactions.",
+    description:
+      "MSquare Market is a blockchain-based digital asset marketplace built at MUST Company in Seoul as part of the MSQUARE ecosystem. Users connect a crypto wallet, browse and trade digital assets, follow their transactions and manage their accounts. Behind it, an admin panel lets staff manage listings and assets, manage users, monitor transactions and follow sales and activity on dashboards. I worked on the frontend, mostly on the admin panel.",
+    type: "Enterprise",
+    role: "Frontend engineer",
+    status: "Completed",
+    domains: ["FinTech"],
+    topics: ["Blockchain", "Digital Asset Marketplace", "Crypto Wallets", "Admin Dashboards"],
+    technologies: ["Next.js", "TypeScript"],
+    startDate: "2024-05",
+    endDate: "2026-06",
+    featured: false,
+    order: 6,
+    features: [
+      "Crypto wallet connection",
+      "Transaction flows for buying and transferring digital assets, with status tracking",
+      "Marketplace pages for browsing assets",
+      "User account pages with owned assets and history",
+      "Admin panel to manage listings and assets",
+      "Admin user management",
+      "Transaction monitoring for staff",
+      "Sales and activity dashboards and reports",
+    ],
+    contributions: [
+      "Worked as a frontend engineer at MUST Company, mostly on the admin panel",
+      "Built admin screens for managing listings, assets and users, monitoring transactions, and dashboards and reports",
+      "Implemented crypto wallet connection flows and transaction UIs",
+      "Built responsive marketplace and user account pages in Next.js and TypeScript",
+    ],
+    highlights: [
+      "Developed responsive frontend features for MSquare Market, a blockchain-based digital asset marketplace, implementing crypto wallet connection flows and transaction UIs.",
+    ],
+    story: {
+      problem:
+        "A digital asset marketplace has two audiences. Buyers need wallet connection and transactions that make on-chain steps understandable, and staff need to see and control everything that happens on the marketplace.",
+      approach:
+        "The user-facing app wraps wallet connection and each transaction in clear, step-by-step UI with visible status. The admin panel brings listings, users and transactions into one place, with dashboards for sales and activity, so staff can act without touching the chain directly.",
+      decisions: [
+        {
+          title: "Status at every step",
+          body: "Transactions show where they are, from signing to confirmation, so users aren't left guessing while the chain catches up.",
+        },
+        {
+          title: "Admin as an operations tool",
+          body: "Listings, users and transactions are managed from one panel, with reports alongside, instead of separate scripts or spreadsheets.",
+        },
+        {
+          title: "Responsive throughout",
+          body: "Marketplace and account pages work on phones as well as desktops, where most wallet users are.",
+        },
+      ],
+    },
+    diagram: {
+      title: "Marketplace and admin",
+      cols: 4,
+      rows: 2,
+      nodes: [
+        { id: "web", label: "Marketplace", sub: "Next.js", kind: "client", col: 0, row: 0 },
+        { id: "wallet", label: "Crypto wallet", sub: "connect · sign", kind: "external", col: 1, row: 0 },
+        { id: "chain", label: "Blockchain", sub: "transactions", kind: "external", col: 2, row: 0 },
+        { id: "admin", label: "Admin panel", sub: "Next.js", kind: "client", col: 0, row: 1 },
+        { id: "api", label: "Marketplace API", sub: "listings · users", kind: "service", col: 1, row: 1 },
+        { id: "reports", label: "Dashboards", sub: "sales · activity", kind: "worker", col: 2, row: 1 },
+      ],
+      edges: [
+        { from: "web", to: "wallet", label: "connect" },
+        { from: "wallet", to: "chain", label: "sign" },
+        { from: "web", to: "api", label: "browse" },
+        { from: "admin", to: "api", label: "manage" },
+        { from: "api", to: "reports", label: "aggregate" },
+      ],
+    },
+  },
+  {
+    slug: "must-hiring",
+    title: "MUST Hiring",
+    summary:
+      "AI hiring platform with resume matching, AI interview practice and job description generation, plus an ATS for recruiters with scheduling and analytics.",
+    description:
+      "MUST Hiring, built at MUST Company in Seoul, serves both sides of hiring. Candidates build a profile, see an AI match score on every job before they apply, apply in one click with a saved resume and cover letter, and practise with AI-generated interview questions, recording their answers for instant feedback. Recruiters describe a role in plain language to get a full job description in 8+ languages, then work from an ATS dashboard with a searchable candidate database, AI match scores, interview scheduling and hiring analytics.",
+    type: "Enterprise",
+    role: "Full-stack engineer",
+    status: "Completed",
+    domains: ["AI", "SaaS"],
+    topics: ["Recruitment", "Applicant Tracking", "AI Matching", "Interview Practice", "Multilingual"],
+    technologies: ["Python", "FastAPI", "DynamoDB", "Next.js", "TypeScript"],
+    liveUrl: "https://hiring.must.company",
+    startDate: "2024-05",
+    endDate: "2026-06",
+    featured: false,
+    order: 7,
+    features: [
+      "AI resume matching, with a match score and recommendations for each job",
+      "AI interview practice with role-specific questions, recorded audio answers and instant feedback",
+      "One-click apply with a saved resume and cover letter",
+      "Guided candidate onboarding, resume management and a career dashboard",
+      "AI job description generator in 8+ languages",
+      "ATS dashboard with KPI cards, funnel charts and top-job insights",
+      "Searchable candidate database with profiles, resumes and match scores",
+      "Interview scheduling linked to applications",
+      "Analytics on hiring performance, recruiter activity and time-to-hire",
+    ],
+    contributions: [
+      "Built the whole product as a full-stack engineer at MUST Company: Python and FastAPI backend, DynamoDB, and a Next.js and TypeScript frontend",
+      "Built the candidate side: profiles, AI match scores, one-click apply and AI interview practice with audio answers",
+      "Built the recruiter side: the AI job description generator, ATS dashboard, candidate database, interview scheduling and analytics",
+    ],
+    highlights: [],
+    story: {
+      problem:
+        "Candidates apply blind and walk into interviews unprepared, while recruiters spend hours writing job descriptions and sorting applications by hand.",
+      approach:
+        "AI sits at the three points where both sides lose the most time: matching a resume to a job, writing the job description, and preparing for the interview. Everything else is a standard ATS (candidates, applications, interviews and reports) built around those match scores.",
+      decisions: [
+        {
+          title: "Score before you apply",
+          body: "Candidates see their match on every listing, so applications go where they have a chance and recruiters get better-fitting applicants.",
+        },
+        {
+          title: "Practice with your voice",
+          body: "Interview answers are recorded as audio, closer to a real interview than typing.",
+        },
+        {
+          title: "Plain language in, JD out",
+          body: "Recruiters describe the role in their own words and get a complete job description in the language they need.",
+        },
+      ],
+    },
+    diagram: {
+      title: "Two-sided hiring",
+      cols: 4,
+      rows: 2,
+      nodes: [
+        { id: "cand", label: "Candidate app", sub: "Next.js", kind: "client", col: 0, row: 0 },
+        { id: "api", label: "API", sub: "FastAPI", kind: "service", col: 1, row: 0 },
+        { id: "ai", label: "AI services", sub: "match · JD · interview", kind: "external", col: 2, row: 0 },
+        { id: "db", label: "DynamoDB", sub: "jobs · applications", kind: "data", col: 3, row: 0 },
+        { id: "rec", label: "Recruiter ATS", sub: "Next.js", kind: "client", col: 0, row: 1 },
+        { id: "reports", label: "Analytics", sub: "funnel · time-to-hire", kind: "worker", col: 2, row: 1 },
+      ],
+      edges: [
+        { from: "cand", to: "api", label: "apply · practise" },
+        { from: "rec", to: "api", label: "post · schedule" },
+        { from: "api", to: "ai", label: "score · generate" },
+        { from: "api", to: "db", label: "store" },
+        { from: "db", to: "reports", label: "aggregate" },
+      ],
+    },
+  },
+  {
+    slug: "match-hire",
+    title: "Match Hire",
+    summary:
+      "AI hiring workspace where teams describe who they want to hire and get candidates ranked by fit, with an AI assistant, pipeline automations and a joint inbox.",
+    description:
+      "Match Hire, built at MUST Company, is an AI hiring platform for founders and lean HR teams. A team describes the person it needs in plain language, and deep search ranks candidates from the Match Hire network by fit, each on one profile card with CV, persona, skills, a trust score and LinkedIn and GitHub enrichments. Kyu, an AI hiring assistant, helps search, shortlist, draft outreach and track roles, while a talent workspace, pipeline automations, a joint inbox with AI-suggested replies, live reporting and branded career pages run the rest of the hiring process.",
+    type: "Enterprise",
+    role: "Frontend engineer",
+    status: "Completed",
+    domains: ["AI", "SaaS"],
+    topics: ["Recruitment", "AI Search", "AI Assistant", "Workflow Automation"],
+    technologies: ["Next.js", "TypeScript"],
+    liveUrl: "https://matchhire.must.company",
+    startDate: "2024-05",
+    endDate: "2026-06",
+    featured: false,
+    order: 8,
+    features: [
+      "Deep search: describe the role in plain language and get candidates ranked by fit",
+      "Smart profile cards with CV, persona, skills, trust score and LinkedIn and GitHub enrichments",
+      "Kyu, an AI hiring assistant for search, shortlists, outreach drafts and role tracking",
+      "Talent workspace for candidates, contacts, jobs and interviews in table, board and custom-field views",
+      "Automations triggered by pipeline changes, such as tasks and follow-ups",
+      "Live reporting on pipeline health, source quality and time-to-hire",
+      "Joint inbox with AI-suggested replies",
+      "Branded career pages",
+      "Job seeker tools in early access: an AI persona, smart matching and tailored applications",
+    ],
+    contributions: [
+      "Worked as a frontend engineer at MUST Company on the Next.js and TypeScript app",
+      "Built frontend features across search, profile cards, the talent workspace, the inbox and reporting",
+    ],
+    highlights: [],
+    story: {
+      problem:
+        "Small hiring teams don't have time to write boolean searches, scroll job boards and keep candidates moving in a spreadsheet.",
+      approach:
+        "The search box takes a plain description of the person you need, and results come back ranked, each candidate on one rich card. The rest of the process lives in one workspace, with an AI assistant and automations doing the routine follow-up.",
+      decisions: [
+        {
+          title: "Describe, don't filter",
+          body: "Search starts from a sentence about the hire, not a stack of filters.",
+        },
+        {
+          title: "One card per candidate",
+          body: "CV, persona, skills, trust score and enrichments sit together, so a shortlist decision needs one view.",
+        },
+        {
+          title: "Familiar workspace views",
+          body: "Table, board and custom fields let each team run its pipeline the way it already works.",
+        },
+      ],
+    },
+    diagram: {
+      title: "Search to hire",
+      cols: 4,
+      rows: 2,
+      nodes: [
+        { id: "web", label: "Workspace", sub: "Next.js", kind: "client", col: 0, row: 0 },
+        { id: "search", label: "Deep search", sub: "ranked by fit", kind: "service", col: 1, row: 0 },
+        { id: "profiles", label: "Profiles", sub: "CV · persona · skills", kind: "data", col: 2, row: 0 },
+        { id: "enrich", label: "LinkedIn · GitHub", sub: "enrichments", kind: "external", col: 3, row: 0 },
+        { id: "kyu", label: "Kyu", sub: "AI assistant", kind: "worker", col: 1, row: 1 },
+        { id: "auto", label: "Automations", sub: "tasks · follow-ups", kind: "worker", col: 2, row: 1 },
+      ],
+      edges: [
+        { from: "web", to: "search", label: "describe" },
+        { from: "search", to: "profiles", label: "rank" },
+        { from: "enrich", to: "profiles", label: "enrich" },
+        { from: "web", to: "kyu", label: "ask" },
+        { from: "web", to: "auto", label: "pipeline change" },
+      ],
+    },
+  },
+  {
     slug: "drivus",
     title: "Drivus",
     summary:
@@ -357,7 +680,7 @@ const allProjects: Project[] = [
     startDate: "2023-06",
     endDate: "2024-11",
     featured: false,
-    order: 5,
+    order: 9,
     features: [
       "Lead capture and lead analytics",
       "Customer management",
@@ -449,7 +772,7 @@ const allProjects: Project[] = [
     ],
     sourceUrl: "https://github.com/biprodas/school-erp",
     featured: false,
-    order: 6,
+    order: 10,
     type: "Product",
     role: "Founder & sole engineer",
     status: "In Progress",
@@ -519,6 +842,93 @@ const allProjects: Project[] = [
     },
   },
   {
+    slug: "ielzy",
+    title: "Ielzy",
+    summary:
+      "AI-powered IELTS preparation app with adaptive Reading, Listening, Writing and Speaking practice, full mock tests and a personal study planner.",
+    description:
+      "Ielzy prepares candidates for IELTS across all four skills. Each skill has guides, lessons, practice sets, a mistake log, vocabulary and progress tracking, and timed mock tests run per skill or as a full exam, including a speaking test with a device check. A diagnostic on sign-up feeds a personal study planner with goals, a calendar, scheduled mocks and reviews, while vocabulary and grammar paths, flashcards, daily practice and an AI assistant fill the gaps. Behind it, an admin area manages the content library, media, users and plans.",
+    type: "Product",
+    role: "Founder & sole engineer",
+    status: "In Progress",
+    domains: ["EdTech", "AI"],
+    topics: ["IELTS", "Exam Preparation", "Adaptive Learning", "Mock Tests", "Study Planning"],
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Better Auth",
+      "Drizzle",
+      "Neon Postgres",
+      "Cloudflare R2",
+      "Resend",
+      "Tiptap",
+    ],
+    featured: false,
+    order: 11,
+    features: [
+      "Reading, Listening, Writing and Speaking modules, each with guides, lessons, practice, a mistake log and progress",
+      "Timed mock tests per skill and as a full exam, with results and answer review",
+      "Speaking tests with a microphone and device check",
+      "Onboarding diagnostic and a personal study planner with goals, a calendar, scheduled mocks and reviews",
+      "Vocabulary learning paths, collections, flashcards, quizzes and daily practice",
+      "Grammar lessons, quizzes, daily practice and a mistake log",
+      "Writing task bank, model articles, drills and writing reports",
+      "An AI study assistant",
+      "Achievements and progress tracking across skills",
+      "Admin content library for test series, papers and parts, with previews and a media library",
+      "Email and Google sign-in, with email verification and password reset",
+    ],
+    contributions: [
+      "Came up with the product and defined its scope across the four IELTS skills",
+      "Built the whole app alone: the Next.js App Router frontend, Drizzle schema and migrations on Neon Postgres, and Better Auth sign-in",
+      "Built the mock-test engine for timed per-skill and full exams, with results and review",
+      "Built the admin content system, with a Tiptap editor and a media library on Cloudflare R2",
+    ],
+    highlights: [],
+    story: {
+      problem:
+        "IELTS candidates juggle PDFs, YouTube videos and scattered practice tests, with no clear sense of which skill is holding their band score back or what to study next.",
+      approach:
+        "Every skill follows the same loop: learn, practise, review your mistakes, track progress. A diagnostic at sign-up seeds a study plan, and mock tests that mirror the real exam feed results back into it. All content is authored in an admin area, so new tests and lessons ship without code changes.",
+      decisions: [
+        {
+          title: "One loop per skill",
+          body: "Reading, Listening, Writing and Speaking share the same guide, practice, mistakes and progress structure, so moving between skills feels familiar.",
+        },
+        {
+          title: "Direct-to-storage media",
+          body: "Listening audio and charts upload straight to Cloudflare R2 with short-lived presigned URLs, so large files never pass through the app server.",
+        },
+        {
+          title: "Content as data",
+          body: "Test series, papers and passages live in the database and are managed in the admin, not hard-coded into pages.",
+        },
+      ],
+    },
+    diagram: {
+      title: "Practice and content",
+      cols: 4,
+      rows: 2,
+      nodes: [
+        { id: "web", label: "Student app", sub: "Next.js · React", kind: "client", col: 0, row: 0 },
+        { id: "server", label: "Server", sub: "App Router · Better Auth", kind: "service", col: 1, row: 0 },
+        { id: "db", label: "Postgres", sub: "Neon · Drizzle", kind: "data", col: 2, row: 0 },
+        { id: "email", label: "Resend", sub: "auth emails", kind: "external", col: 3, row: 0 },
+        { id: "admin", label: "Admin", sub: "content · media", kind: "client", col: 0, row: 1 },
+        { id: "r2", label: "Cloudflare R2", sub: "audio · figures", kind: "data", col: 2, row: 1 },
+      ],
+      edges: [
+        { from: "web", to: "server", label: "practice · mocks" },
+        { from: "server", to: "db", label: "SQL" },
+        { from: "server", to: "email", label: "verify" },
+        { from: "admin", to: "server", label: "author" },
+        { from: "admin", to: "r2", label: "presigned PUT" },
+        { from: "web", to: "r2", label: "media" },
+      ],
+    },
+  },
+  {
     slug: "cloud-prep",
     title: "Cloud Prep",
     summary:
@@ -531,7 +941,7 @@ const allProjects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Supabase", "TanStack Query", "Tailwind CSS", "Paddle"],
     liveUrl: "https://cloudprep.biprodas.dev",
     featured: false,
-    order: 7,
+    order: 12,
     // data/projects.yaml lists these as highlights; they describe what the product does, so they live in `features`.
     highlights: [],
     features: [
@@ -594,7 +1004,7 @@ const allProjects: Project[] = [
     topics: ["GIS", "Land Acquisition", "Resettlement", "Infrastructure", "Grievance Management"],
     technologies: ["Node.js", "Express", "PostgreSQL/PostGIS", "React", "Leaflet"],
     featured: false,
-    order: 8,
+    order: 13,
     features: [
       "Interactive GIS map of every parcel a project needs to acquire",
       "Land acquisition tracking, parcel by parcel",
@@ -671,7 +1081,7 @@ const allProjects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Tailwind", "Supabase", "Shopify", "Stripe", "OpenAI", "Perplexity"],
     liveUrl: "https://startdescribe.com",
     featured: true,
-    order: 9,
+    order: 14,
     features: [
       "Install as a Shopify app, or connect WooCommerce or BigCommerce",
       "Bulk import from CSV or Google Sheets, with field mapping",
@@ -759,7 +1169,7 @@ const allProjects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Tailwind", "Supabase", "Stripe", "OpenAI", "Perplexity"],
     liveUrl: "https://startintegrate.com",
     featured: false,
-    order: 10,
+    order: 15,
     features: [
       "Custom apps for Make.com, Zapier and Workato",
       "A library of integrations for data processing, invoicing, social media, messaging and database tools",
@@ -844,7 +1254,7 @@ const allProjects: Project[] = [
     ],
     liveUrl: "https://startautomate.com",
     featured: false,
-    order: 11,
+    order: 16,
     features: [
       "Agency website with services, use cases and consultation booking",
       "AI appointment scheduling that captures customer details into a CRM",

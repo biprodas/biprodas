@@ -70,6 +70,55 @@
     - Integrated Slack workflows and low-latency real-time communication infrastructure to support
       enterprise-grade multilingual collaboration.
 
+- id: msquare-market
+  title: MSquare Market
+  summary: >-
+    Blockchain-based digital asset marketplace from the MSQUARE ecosystem, with crypto wallet
+    connection, transaction flows and an admin panel for listings, users and transactions.
+  status: completed
+  role: Frontend engineer
+  period: { start: "2024-05", end: "2026-06" }
+  experience: must-company
+  tech: [Next.js, TypeScript]
+  topics: [Blockchain, Digital Asset Marketplace, Crypto Wallets]
+  highlights:
+    - Developed responsive frontend features for MSquare Market, a blockchain-based digital asset
+      marketplace, implementing crypto wallet connection flows and transaction UIs.
+    - Worked mostly on the admin panel, for managing listings, assets and users, monitoring
+      transactions, and dashboards and reports.
+
+- id: must-hiring
+  title: MUST Hiring
+  summary: >-
+    AI hiring platform with resume matching, AI interview practice and job description
+    generation, plus an ATS for recruiters with scheduling and analytics.
+  status: completed
+  role: Full-stack engineer
+  period: { start: "2024-05", end: "2026-06" }
+  experience: must-company
+  links:
+    - { kind: live, url: "https://hiring.must.company" }
+  tech: [Python, FastAPI, DynamoDB, Next.js, TypeScript]
+  topics: [AI, Recruitment, Applicant Tracking, AI Matching]
+  highlights:
+    - Built the whole platform full-stack, covering AI resume matching, AI interview practice with
+      recorded answers, an AI job description generator, and a recruiter ATS with scheduling and
+      analytics.
+
+- id: match-hire
+  title: Match Hire
+  summary: >-
+    AI hiring workspace where teams describe who they want to hire and get candidates ranked by
+    fit, with an AI assistant, pipeline automations and a joint inbox.
+  status: completed
+  role: Frontend engineer
+  period: { start: "2024-05", end: "2026-06" }
+  experience: must-company
+  links:
+    - { kind: live, url: "https://matchhire.must.company" }
+  tech: [Next.js, TypeScript]
+  topics: [AI, Recruitment, AI Search]
+
 - id: startdescribe
   title: StartDescribe
   summary: >-
@@ -134,6 +183,19 @@
       underneath.
     - Profit & loss, cash flow, balance sheet, trial balance and general ledger reporting.
 
+- id: inventory-commerce
+  title: Inventory Commerce
+  summary: >-
+    Multi-tenant ERP SaaS for retail, distribution and e-commerce: inventory, warehouses, POS,
+    procurement, omnichannel commerce with COD and couriers, and double-entry accounting with a
+    configurable tax engine.
+  type: product
+  status: in-progress
+  role: Founder & sole engineer
+  # repo: github.com/biprodas/inventory-commerce is private
+  tech: [TypeScript, Next.js, NestJS, PostgreSQL, Drizzle, Redis, BullMQ, Turborepo, Docker]
+  topics: [ERP, Inventory Management, Point of Sale, E-commerce, Double-entry Accounting, Tax Engine]
+
 - id: school-erp
   title: School ERP
   summary: >-
@@ -149,6 +211,18 @@
   highlights:
     - Tenant isolation with PostgreSQL row-level security on tenanted tables.
     - Next.js dashboard with a configurable sidebar, backed by a NestJS API.
+
+- id: ielzy
+  title: Ielzy
+  summary: >-
+    AI-powered IELTS preparation app with adaptive Reading, Listening, Writing and Speaking
+    practice, full mock tests and a personal study planner.
+  type: product
+  status: in-progress
+  role: Founder & sole engineer
+  # repo: github.com/biprodas/ielzy is private
+  tech: [Next.js, React, TypeScript, Better Auth, Drizzle, Neon Postgres, Cloudflare R2, Resend, Tiptap]
+  topics: [EdTech, IELTS, Exam Preparation, Mock Tests]
 
 - id: cloud-prep
   title: Cloud Prep
