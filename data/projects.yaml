@@ -151,13 +151,15 @@
 - id: school-erp
   title: School ERP
   summary: >-
-    School administration platform covering admissions, academics, students, parents and staff,
-    finance, campus services, communication and reporting.
+    Multi-tenant school management SaaS for Bangladesh: mobile-first, in Bangla and English, covering
+    academics, attendance, exams and results, fees, communication and reporting.
   type: product
+  status: in-progress
+  role: Founder & sole engineer
   links:
     - { kind: repo, url: "https://github.com/biprodas/school-erp" }
   tech: [Next.js, React, NestJS, PostgreSQL, TypeORM, Redis, BullMQ, TanStack Query, Tailwind CSS]
-  topics: [EdTech, ERP, Multi-tenancy]
+  topics: [EdTech, ERP, Multi-tenancy, Row-level Security, Localization]
   highlights:
     - Tenant isolation with PostgreSQL row-level security on tenanted tables.
     - Next.js dashboard with a configurable sidebar, backed by a NestJS API.
