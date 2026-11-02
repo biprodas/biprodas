@@ -82,97 +82,6 @@ const allProjects: Project[] = [
     },
   },
   {
-    slug: "pitchpool",
-    title: "PitchPool",
-    summary:
-      "Multi-tenant SaaS platform for competition prediction pools with automated scoring, live leaderboards and subscription billing.",
-    description:
-      "PitchPool runs prediction competitions. Participants join pools, predict match results and follow live leaderboards that update as each result is scored automatically. Every tenant gets its own isolated pools, participants and roles, and subscription plans decide which features a tenant can use.",
-    type: "Product",
-    role: "Founder & sole engineer",
-    status: "In Progress",
-    domains: ["SaaS", "Sports & Competition"],
-    topics: ["Multi-tenancy", "Billing", "Leaderboards"],
-    technologies: [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "NestJS",
-      "PostgreSQL",
-      "Prisma",
-      "Redis",
-      "BullMQ",
-      "JWT/OAuth",
-      "Docker",
-    ],
-    liveUrl: "https://pitchpool.io",
-    // TODO: set `thumbnail: "/images/projects/pitchpool/cover.png"` once the file is in public/.
-    featured: true,
-    order: 2,
-    features: [
-      "Multi-tenant workspaces, each with its own pools, participants and roles",
-      "Automated scoring of predictions as match results come in",
-      "Live leaderboards, re-ranked after every scored result",
-      "Subscription plans with feature gating and webhook-driven billing",
-    ],
-    contributions: [
-      "Came up with the product idea and defined its scope",
-      "Designed the architecture: the multi-tenant data model, queue-based ingestion and scoring, and billing",
-      "Built the whole stack alone: Next.js frontend, NestJS API, PostgreSQL with Prisma, and Redis/BullMQ workers",
-      "Deployed it to production at pitchpool.io",
-    ],
-    highlights: [
-      "Shipped subscription billing (plans, entitlement gating and webhooks) behind a provider-agnostic gateway; designed three-tier RBAC with privilege-escalation safeguards.",
-      "Cut idle database traffic by ~90% through in-memory job scheduling and consolidated tasks, enabling serverless PostgreSQL to scale to zero.",
-      "Built BullMQ ingestion with rate limiting, circuit breaking and retry/backoff, keeping leaderboards accurate through match-day spikes.",
-    ],
-    story: {
-      problem:
-        "Prediction pools are quiet for days and then everyone arrives at once. When a match ends, thousands of predictions have to be scored and every leaderboard re-ranked while people refresh the page. In between, the platform should cost almost nothing to run.",
-      approach:
-        "The API stays thin and stateless. Match data arrives through a queue-backed ingestion worker that protects the upstream feed with rate limits and a circuit breaker. Scoring runs as idempotent jobs, so a retried job can never double-count. Scheduling lives in memory rather than in database polling, which lets serverless PostgreSQL sleep when nothing is happening.",
-      decisions: [
-        {
-          title: "Provider-agnostic billing",
-          body: "Plans and entitlements live in our own schema; the payment provider sits behind a gateway interface and reaches us only through verified webhooks.",
-        },
-        {
-          title: "Three-tier RBAC",
-          body: "Platform, organisation and pool roles are checked separately, with explicit guards against granting a role higher than your own.",
-        },
-        {
-          title: "Idle should be free",
-          body: "Background tasks were consolidated and moved off database polling so the database can scale to zero between match days.",
-        },
-      ],
-    },
-    diagram: {
-      title: "Scoring and ingestion",
-      cols: 4,
-      rows: 2,
-      nodes: [
-        { id: "web", label: "Web app", sub: "Next.js · React", kind: "client", col: 0, row: 0 },
-        { id: "api", label: "API", sub: "NestJS · RBAC", kind: "service", col: 1, row: 0 },
-        { id: "pg", label: "PostgreSQL", sub: "Prisma · serverless", kind: "data", col: 2, row: 0 },
-        { id: "cache", label: "Leaderboards", sub: "Redis", kind: "data", col: 3, row: 0 },
-        { id: "billing", label: "Billing gateway", sub: "provider-agnostic", kind: "external", col: 0, row: 1 },
-        { id: "queue", label: "Job queue", sub: "BullMQ", kind: "queue", col: 1, row: 1 },
-        { id: "worker", label: "Scoring worker", sub: "idempotent jobs", kind: "worker", col: 2, row: 1 },
-        { id: "feed", label: "Match feed", sub: "rate-limited", kind: "external", col: 3, row: 1 },
-      ],
-      edges: [
-        { from: "web", to: "api", label: "HTTPS" },
-        { from: "api", to: "pg", label: "SQL" },
-        { from: "billing", to: "api", label: "webhooks", async: true },
-        { from: "api", to: "queue", label: "enqueue", async: true },
-        { from: "queue", to: "worker" },
-        { from: "feed", to: "worker", label: "ingest" },
-        { from: "worker", to: "pg", label: "scores" },
-        { from: "worker", to: "cache", label: "rank" },
-      ],
-    },
-  },
-  {
     slug: "microfinance-core-banking",
     title: "Microfinance Core Banking System",
     shortTitle: "Microfinance Core Banking",
@@ -187,7 +96,7 @@ const allProjects: Project[] = [
     topics: ["Core Banking", "Microfinance", "Double-entry Accounting", "Multi-tenancy"],
     technologies: ["Next.js", "NestJS", "PostgreSQL", "Redis", "BullMQ", "TypeORM"],
     featured: true,
-    order: 3,
+    order: 2,
     features: [
       "Group lending and savings products",
       "Loan disbursement, repayment schedules and field-agent collection",
@@ -254,6 +163,188 @@ const allProjects: Project[] = [
     },
   },
   {
+    slug: "pitchpool",
+    title: "PitchPool",
+    summary:
+      "Multi-tenant SaaS platform for competition prediction pools with automated scoring, live leaderboards and subscription billing.",
+    description:
+      "PitchPool runs prediction competitions. Participants join pools, predict match results and follow live leaderboards that update as each result is scored automatically. Every tenant gets its own isolated pools, participants and roles, and subscription plans decide which features a tenant can use.",
+    type: "Product",
+    role: "Founder & sole engineer",
+    status: "In Progress",
+    domains: ["SaaS", "Sports & Competition"],
+    topics: ["Multi-tenancy", "Subscription Billing", "Real-time Leaderboards", "RBAC", "Background Jobs"],
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "NestJS",
+      "PostgreSQL",
+      "Prisma",
+      "Redis",
+      "BullMQ",
+      "JWT/OAuth",
+      "Docker",
+    ],
+    liveUrl: "https://pitchpool.io",
+    // TODO: set `thumbnail: "/images/projects/pitchpool/cover.png"` once the file is in public/.
+    featured: true,
+    order: 3,
+    features: [
+      "Multi-tenant workspaces, each with its own pools, participants and roles",
+      "Automated scoring of predictions as match results come in",
+      "Live leaderboards, re-ranked after every scored result",
+      "Platform, organisation and pool roles, with safeguards against privilege escalation",
+      "Match results ingested automatically from an external feed",
+      "Subscription plans with feature gating and webhook-driven billing",
+    ],
+    contributions: [
+      "Came up with the product idea and defined its scope",
+      "Designed the architecture: the multi-tenant data model, queue-based ingestion and scoring, and billing",
+      "Built the whole stack alone: Next.js frontend, NestJS API, PostgreSQL with Prisma, and Redis/BullMQ workers",
+      "Deployed it to production at pitchpool.io",
+    ],
+    challenges: [
+      "Traffic is near zero for days, then spikes when a match ends and every prediction has to be scored at once",
+      "Keeping leaderboards accurate when the upstream match feed is slow, rate-limited or failing",
+      "Letting serverless PostgreSQL scale to zero between match days, which meant moving scheduled work off database polling",
+    ],
+    highlights: [
+      "Shipped subscription billing (plans, entitlement gating and webhooks) behind a provider-agnostic gateway; designed three-tier RBAC with privilege-escalation safeguards.",
+      "Cut idle database traffic by ~90% through in-memory job scheduling and consolidated tasks, enabling serverless PostgreSQL to scale to zero.",
+      "Built BullMQ ingestion with rate limiting, circuit breaking and retry/backoff, keeping leaderboards accurate through match-day spikes.",
+    ],
+    story: {
+      problem:
+        "Prediction pools are quiet for days and then everyone arrives at once. When a match ends, thousands of predictions have to be scored and every leaderboard re-ranked while people refresh the page. In between, the platform should cost almost nothing to run.",
+      approach:
+        "The API stays thin and stateless. Match data arrives through a queue-backed ingestion worker that protects the upstream feed with rate limits and a circuit breaker. Scoring runs as idempotent jobs, so a retried job can never double-count. Scheduling lives in memory rather than in database polling, which lets serverless PostgreSQL sleep when nothing is happening.",
+      decisions: [
+        {
+          title: "Provider-agnostic billing",
+          body: "Plans and entitlements live in our own schema; the payment provider sits behind a gateway interface and reaches us only through verified webhooks.",
+        },
+        {
+          title: "Three-tier RBAC",
+          body: "Platform, organisation and pool roles are checked separately, with explicit guards against granting a role higher than your own.",
+        },
+        {
+          title: "Idle should be free",
+          body: "Background tasks were consolidated and moved off database polling so the database can scale to zero between match days.",
+        },
+      ],
+    },
+    diagram: {
+      title: "Scoring and ingestion",
+      cols: 4,
+      rows: 2,
+      nodes: [
+        { id: "web", label: "Web app", sub: "Next.js · React", kind: "client", col: 0, row: 0 },
+        { id: "api", label: "API", sub: "NestJS · RBAC", kind: "service", col: 1, row: 0 },
+        { id: "pg", label: "PostgreSQL", sub: "Prisma · serverless", kind: "data", col: 2, row: 0 },
+        { id: "cache", label: "Leaderboards", sub: "Redis", kind: "data", col: 3, row: 0 },
+        { id: "billing", label: "Billing gateway", sub: "provider-agnostic", kind: "external", col: 0, row: 1 },
+        { id: "queue", label: "Job queue", sub: "BullMQ", kind: "queue", col: 1, row: 1 },
+        { id: "worker", label: "Scoring worker", sub: "idempotent jobs", kind: "worker", col: 2, row: 1 },
+        { id: "feed", label: "Match feed", sub: "rate-limited", kind: "external", col: 3, row: 1 },
+      ],
+      edges: [
+        { from: "web", to: "api", label: "HTTPS" },
+        { from: "api", to: "pg", label: "SQL" },
+        { from: "billing", to: "api", label: "webhooks", async: true },
+        { from: "api", to: "queue", label: "enqueue", async: true },
+        { from: "queue", to: "worker" },
+        { from: "feed", to: "worker", label: "ingest" },
+        { from: "worker", to: "pg", label: "scores" },
+        { from: "worker", to: "cache", label: "rank" },
+      ],
+    },
+  },
+  {
+    slug: "drivus",
+    title: "Drivus",
+    summary:
+      "Web-based CRM for car-rental and rent-to-own operators, covering leads, customers, contracts, payments, vehicles, tolls and fines, and financial reporting.",
+    description:
+      "Drivus runs the business side of a car-rental and rent-to-own operator. It collects and analyses lead data, manages customers and their contracts, automates recurring payments through Pay Advantage, keeps vehicle records and tracking, and handles tolls, fines and incidents. Accounting and loan-amortization engines generate the financial reports, and task automation, CRM notifications, SMS and email keep staff and customers informed. Automated workflows cut manual reconciliation time by 35%.",
+    type: "Enterprise",
+    role: "Founding Software Engineer & Tech Lead",
+    domains: ["FinTech"],
+    topics: ["CRM", "Car Rental", "Rent-to-Own", "Payments Automation", "Loan Amortization"],
+    technologies: ["Next.js", "NestJS", "PostgreSQL", "Pay Advantage"],
+    startDate: "2023-06",
+    endDate: "2024-11",
+    featured: false,
+    order: 4,
+    features: [
+      "Lead capture and lead analytics",
+      "Customer management",
+      "Contract management with automated recurring payments",
+      "Vehicle records and tracking",
+      "Tolls, fines and incident management",
+      "Loan amortization for rent-to-own contracts",
+      "Financial and accounting report generation",
+      "Task automation and CRM notifications",
+      "SMS and email integration",
+    ],
+    contributions: [
+      "Joined as the founding software engineer and laid the foundation: requirements, architecture, database design and tech stack",
+      "Engineered the accounting and loan-amortization engines and the automated workflows around them",
+      "Integrated Pay Advantage for recurring billing",
+      "Built an event-driven notification system for payments, contracts and compliance",
+      "Led the engineering team as tech lead",
+    ],
+    highlights: [
+      "Architected and delivered Drivus, a CRM/ERP platform for car-rental and rent-to-own operators, covering fleet, vehicle tracking, contract management, payments, tolls/fines and financial reporting.",
+      "Engineered accounting and loan-amortization engines with automated workflows, cutting manual reconciliation time by 35%.",
+      "Integrated Pay Advantage for recurring billing and built an event-driven notification system for payments, contracts and compliance.",
+    ],
+    story: {
+      problem:
+        "A rent-to-own car business is part rental desk, part lender and part fleet manager. Every contract carries recurring payments, an amortization schedule, a vehicle, and a stream of tolls, fines and incidents to pass on to the right driver. Run in spreadsheets, reconciliation alone eats days.",
+      approach:
+        "One platform follows a customer from lead to contract to final payment. Contracts drive recurring billing through Pay Advantage and an amortization schedule; payments, tolls and fines post to the accounting engine, so reports come from the same records the staff work in. Events from billing and contracts fan out as notifications, SMS and email.",
+      decisions: [
+        {
+          title: "Contracts at the centre",
+          body: "Payments, amortization, vehicles, tolls and fines all hang off the contract, so a driver's full position is one lookup.",
+        },
+        {
+          title: "Accounting by automation",
+          body: "Financial events post through the accounting engine instead of being re-keyed, which is where the reconciliation time went.",
+        },
+        {
+          title: "Event-driven notifications",
+          body: "Billing and contract events trigger reminders and alerts, rather than staff chasing payments by hand.",
+        },
+      ],
+    },
+    diagram: {
+      title: "Contract-centred CRM",
+      cols: 4,
+      rows: 2,
+      nodes: [
+        { id: "web", label: "CRM app", sub: "Next.js", kind: "client", col: 0, row: 0 },
+        { id: "api", label: "API", sub: "NestJS", kind: "service", col: 1, row: 0 },
+        { id: "acct", label: "Accounting engine", sub: "amortization · reports", kind: "service", col: 2, row: 0 },
+        { id: "pg", label: "PostgreSQL", sub: "contracts · ledger", kind: "data", col: 3, row: 0 },
+        { id: "pay", label: "Pay Advantage", sub: "recurring billing", kind: "external", col: 0, row: 1 },
+        { id: "events", label: "Events", sub: "payments · contracts", kind: "queue", col: 1, row: 1 },
+        { id: "notify", label: "Notifications", sub: "CRM alerts", kind: "worker", col: 2, row: 1 },
+        { id: "comms", label: "SMS & email", sub: "providers", kind: "external", col: 3, row: 1 },
+      ],
+      edges: [
+        { from: "web", to: "api", label: "HTTPS" },
+        { from: "api", to: "acct", label: "post" },
+        { from: "acct", to: "pg", label: "journal" },
+        { from: "pay", to: "api", label: "payments", async: true },
+        { from: "api", to: "events", label: "emit", async: true },
+        { from: "events", to: "notify" },
+        { from: "notify", to: "comms", label: "send" },
+      ],
+    },
+  },
+  {
     slug: "startdescribe",
     title: "StartDescribe",
     summary:
@@ -265,7 +356,7 @@ const allProjects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Tailwind", "Supabase", "Stripe", "OpenAI", "Perplexity"],
     liveUrl: "https://startdescribe.com",
     featured: true,
-    order: 4,
+    order: 5,
     features: [
       "AI-written product descriptions for e-commerce",
       "AI image generation for products",
@@ -342,7 +433,7 @@ const allProjects: Project[] = [
     ],
     sourceUrl: "https://github.com/biprodas/school-erp",
     featured: false,
-    order: 5,
+    order: 6,
     features: [
       "Admissions and academics",
       "Student, parent and staff records",
@@ -411,7 +502,7 @@ const allProjects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Supabase", "TanStack Query", "Tailwind CSS", "Paddle"],
     liveUrl: "https://cloudprep.biprodas.dev",
     featured: false,
-    order: 6,
+    order: 7,
     // data/projects.yaml lists these as highlights; they describe what the product does, so they live in `features`.
     highlights: [],
     features: [
@@ -471,7 +562,7 @@ const allProjects: Project[] = [
     topics: ["GIS", "GovTech", "Infrastructure"],
     technologies: ["Node.js", "Express", "PostgreSQL/PostGIS", "React", "Leaflet"],
     featured: false,
-    order: 7,
+    order: 8,
     features: [
       "Land acquisition tracking on a GIS map",
       "Compensation tracking",

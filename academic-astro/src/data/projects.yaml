@@ -131,6 +131,30 @@
     - Led the foundation end to end (requirements analysis, system architecture, database design
       and tech stack), then led teams of 5–7 mid-level and junior engineers while staying hands-on.
 
+- id: drivus
+  title: Drivus
+  summary: >-
+    Web-based CRM for car-rental and rent-to-own operators, covering leads, customers, contracts,
+    payments, vehicles, tolls and fines, and financial reporting.
+  description: >-
+    Drivus runs the business side of a car-rental and rent-to-own operator: lead capture and
+    analysis, customer and contract management, automated recurring payments, vehicle records and
+    tracking, tolls, fines and incidents, loan amortization, financial and accounting reports, task
+    automation, CRM notifications, and SMS and email integration.
+  role: Founding Software Engineer & Tech Lead
+  period: { start: "2023-06", end: "2024-11" }
+  experience: codepal
+  tech: [Next.js, NestJS, PostgreSQL, Pay Advantage]
+  topics: [CRM, Car Rental, Rent-to-Own, Payments Automation, Loan Amortization]
+  highlights:
+    - Architected and delivered Drivus, a CRM/ERP platform for car-rental and rent-to-own operators,
+      covering fleet, vehicle tracking, contract management, payments, tolls/fines, and financial
+      reporting.
+    - Engineered accounting and loan-amortization engines with automated workflows, cutting manual
+      reconciliation time by 35%.
+    - Integrated Pay Advantage for recurring billing and built an event-driven notification system
+      for payments, contracts, and compliance.
+
 - id: larmts
   title: Land Acquisition and Resettlement Management Tracking System (LARMTS)
   summary: >-
