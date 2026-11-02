@@ -236,3 +236,45 @@ export type Testimonial = {
   visible: boolean;
   order: number;
 };
+
+export type ArticlePlatform = "medium" | "dev.to" | "hashnode" | "linkedin" | "substack" | "company-blog" | "other";
+
+type ArticleBase = {
+  slug: string;
+  title: string;
+  /** One or two sentences for the list and link previews. */
+  summary: string;
+  /** The one main grouping, e.g. "Backend", "FinTech", "Career". `tags` hold the finer topics. */
+  category: string;
+  publishedAt: PartialDate;
+  updatedAt?: PartialDate;
+  tags: string[];
+  /** Minutes. */
+  readingTime?: number;
+  /** Path under public/ ("/articles/…") or an https URL. */
+  coverImage?: string;
+  relatedProjects?: string[];
+  relatedServices?: string[];
+  featured: boolean;
+  visible: boolean;
+};
+
+/** Published elsewhere; the site lists it and links out. */
+export type ExternalArticle = ArticleBase & {
+  source: "external";
+  externalUrl: string;
+  platform: ArticlePlatform;
+  /** Blog or publication name when it isn't obvious from the platform, e.g. a company engineering blog. */
+  publication?: string;
+};
+
+/** Written on the site, with its own page. */
+export type LocalArticle = ArticleBase & {
+  source: "local";
+  /** The body, relative to src/content, e.g. "articles/<slug>.mdx". */
+  contentPath: string;
+  /** Where else it is published, if it was cross-posted. The page uses it as the canonical URL. */
+  externalUrl?: string;
+};
+
+export type Article = ExternalArticle | LocalArticle;

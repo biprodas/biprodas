@@ -1,0 +1,19 @@
+# Articles and blog posts. Only ones that are actually published.
+#
+# - id: kebab-case          # also the URL slug for posts written on the site
+#   title: ...
+#   summary: ...            # one or two sentences
+#   category: Backend       # the one main grouping; tags hold finer topics
+#   date: "YYYY-MM-DD"      # first published
+#   updated: "YYYY-MM-DD"
+#   source: external        # external (published elsewhere) | local (written on the site)
+#   externalUrl: ...        # external: where it is published. local, optional: where it is cross-posted
+#   platform: medium        # external: medium | dev.to | hashnode | linkedin | substack | company-blog | other
+#   publication: ...        # external, optional: blog name, e.g. a company engineering blog
+#   contentPath: articles/<id>.mdx   # local: the body, relative to dev-next/src/content
+#   tags: [ ... ]
+#   readingTime: 8          # minutes
+#   coverImage: ...         # optional: path under public/ or an https URL
+#   projects: [ ... ]       # ids from projects.yaml
+#   audience: engineering
+[]

@@ -1,7 +1,7 @@
 # Master data
 
 Everything about Biprodas Roy in one place: profile, experience, education, projects, skills, publications,
-talks, teaching, awards, certifications, test scores, references and services. Nothing imports these files.
+talks, teaching, awards, certifications, test scores, references, articles and services. Nothing imports these files.
 
 Each site keeps its own curated copy and rewords it for its audience:
 

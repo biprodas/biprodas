@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { parse } from "yaml";
@@ -216,5 +216,71 @@ describe("testimonials", () => {
   it("keeps sample content out of the real testimonials", async () => {
     const { realTestimonials } = await import("./testimonials");
     expect(JSON.stringify(realTestimonials)).not.toMatch(/\bsample\b/i);
+  });
+});
+
+describe("articles", () => {
+  it("match data/articles.yaml titles, dates and links", async () => {
+    const { realArticles } = await import("./articles");
+    const yaml: {
+      id: string;
+      title: string;
+      date: string;
+      category: string;
+      source: string;
+      externalUrl?: string;
+    }[] = master("articles.yaml");
+    const byId = (a: { id: string }, b: { id: string }) => a.id.localeCompare(b.id);
+    expect(
+      realArticles
+        .map((a) => ({
+          id: a.slug,
+          title: a.title,
+          date: a.publishedAt,
+          category: a.category,
+          source: a.source,
+          externalUrl: a.externalUrl,
+        }))
+        .sort(byId),
+    ).toEqual(
+      yaml
+        .map(({ id, title, date, category, source, externalUrl }) => ({
+          id,
+          title,
+          date,
+          category,
+          source,
+          externalUrl,
+        }))
+        .sort(byId),
+    );
+  });
+
+  it("have unique slugs, valid dates, URLs and content files, and real related projects", async () => {
+    const { realArticles } = await import("./articles");
+    const slugs = realArticles.map((a) => a.slug);
+    expect(new Set(slugs).size).toBe(slugs.length);
+    for (const a of realArticles) {
+      expect(a.slug, a.slug).toMatch(/^[a-z0-9]+(-[a-z0-9]+)*$/);
+      expect(a.publishedAt, a.slug).toMatch(/^\d{4}(-\d{2}(-\d{2})?)?$/);
+      if (a.updatedAt) expect(a.updatedAt >= a.publishedAt, a.slug).toBe(true);
+      expect(a.category.trim(), a.slug).not.toBe("");
+      if (a.externalUrl) expect(a.externalUrl, a.slug).toMatch(/^https:\/\//);
+      if (a.coverImage) expect(a.coverImage, a.slug).toMatch(/^(\/|https:\/\/)/);
+      if (a.source === "local") {
+        expect(a.contentPath, a.slug).toMatch(/^articles\/[^/]+\.mdx?$/);
+        expect(existsSync(fileURLToPath(new URL(a.contentPath, import.meta.url))), a.contentPath).toBe(true);
+      }
+      for (const slug of a.relatedProjects ?? [])
+        expect(
+          projects.some((p) => p.slug === slug),
+          `${a.slug}: ${slug}`,
+        ).toBe(true);
+    }
+  });
+
+  it("keeps sample content out of the real articles", async () => {
+    const { realArticles } = await import("./articles");
+    expect(JSON.stringify(realArticles)).not.toMatch(/\bsample\b/i);
   });
 });
