@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
@@ -18,6 +19,7 @@ import { availability, profile } from "@/content/profile";
 import { links } from "@/content/links";
 import { hasResume } from "@/lib/resume";
 import { cn } from "@/lib/utils";
+import { isEnabled } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -71,6 +73,7 @@ const schema = {
 };
 
 export default function ContactPage() {
+  if (!isEnabled("contact")) notFound();
   return (
     <>
       <JsonLd data={schema} />

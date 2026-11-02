@@ -170,3 +170,50 @@ export type SocialLink = {
   visible: boolean;
   order: number;
 };
+
+export type ResearchInterest = {
+  topic: string;
+  note: string;
+  origin?: { label: string; href: string };
+};
+
+export type PublicationType =
+  "journal" | "conference" | "workshop" | "preprint" | "thesis" | "book-chapter" | "technical-report" | "poster";
+
+export type PublicationStatus = "published" | "accepted" | "under-review" | "submitted" | "in-preparation";
+
+export type PublicationLink = { kind: "pdf" | "doi" | "arxiv" | "code" | "slides" | "video"; url: string };
+
+export type Publication = {
+  id: string;
+  title: string;
+  authors: string[];
+  type: PublicationType;
+  status: PublicationStatus;
+  venue: string;
+  venueShort?: string;
+  date: PartialDate;
+  abstract?: string;
+  keywords?: string[];
+  links: PublicationLink[];
+  featured: boolean;
+  order: number;
+};
+
+export type Talk = {
+  id: string;
+  title: string;
+  kind: "talk" | "keynote" | "workshop" | "seminar" | "panel" | "poster" | "webinar" | "podcast";
+  event: string;
+  date: PartialDate;
+  location?: string;
+  online?: boolean;
+  links: { kind: "slides" | "video" | "article"; url: string }[];
+};
+
+export type Research = {
+  statement: string[];
+  interests: ResearchInterest[];
+  publications: Publication[];
+  talks: Talk[];
+};

@@ -7,6 +7,7 @@ import { Eyebrow, Section, Tag } from "@/components/page";
 import { ArchitectureDiagram } from "@/components/projects/architecture-diagram";
 import { getProject, projects } from "@/content/projects";
 import { pad2 } from "@/lib/format";
+import { isEnabled } from "@/config/site";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -32,6 +33,7 @@ function Row({ label, children }: { label: string; children: ReactNode }) {
 }
 
 export default async function CaseStudyPage({ params }: PageProps<"/projects/[slug]">) {
+  if (!isEnabled("projects")) notFound();
   const project = getProject((await params).slug);
   if (!project) notFound();
 

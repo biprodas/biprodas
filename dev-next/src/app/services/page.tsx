@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRightIcon } from "@phosphor-icons/react/ssr";
@@ -11,6 +12,7 @@ import { getProject } from "@/content/projects";
 import { engagements, faq, process, services } from "@/content/services";
 import { pad2 } from "@/lib/format";
 import { serviceSchema } from "@/lib/service-schema";
+import { isEnabled } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Services: SaaS, ERP, FinTech and AI development",
@@ -22,6 +24,7 @@ const orgName = (id: string) => experience.find((e) => e.id === id)?.company.nam
 const MAX_OFFERINGS = 3;
 
 export default function ServicesPage() {
+  if (!isEnabled("services")) notFound();
   return (
     <>
       <JsonLd

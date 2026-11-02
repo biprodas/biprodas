@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,6 +11,7 @@ import { getProject } from "@/content/projects";
 import { awards } from "@/content/skills";
 import { duration, formatRange, yearRange } from "@/lib/format";
 import { publicFileExists } from "@/lib/public-file";
+import { isEnabled } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Experience",
@@ -23,6 +25,7 @@ const entryTitle = "text-[1.12rem] font-semibold";
 const meta = "text-[0.82rem] text-muted-foreground";
 
 export default function ExperiencePage() {
+  if (!isEnabled("experience")) notFound();
   const issuers = [...new Set(certifications.map((c) => c.issuer))];
 
   return (

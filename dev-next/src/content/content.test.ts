@@ -203,3 +203,11 @@ describe("links", () => {
     expect(new Set(links.map((l) => l.order)).size).toBe(links.length);
   });
 });
+
+describe("research", () => {
+  it("keeps sample content out of the real research data", async () => {
+    const { realResearch } = await import("./research");
+    const text = JSON.stringify(realResearch);
+    expect(text).not.toMatch(/\bsample\b/i);
+  });
+});

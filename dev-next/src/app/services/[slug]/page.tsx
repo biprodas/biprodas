@@ -12,6 +12,7 @@ import { getProject } from "@/content/projects";
 import { getService, indexedServices, services } from "@/content/services";
 import { pad2 } from "@/lib/format";
 import { serviceSchema } from "@/lib/service-schema";
+import { isEnabled } from "@/config/site";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -39,6 +40,7 @@ function Row({ label, children }: { label: string; children: ReactNode }) {
 }
 
 export default async function ServicePage({ params }: PageProps<"/services/[slug]">) {
+  if (!isEnabled("services")) notFound();
   const service = getService((await params).slug);
   if (!service) notFound();
 

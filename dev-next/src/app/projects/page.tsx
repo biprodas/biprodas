@@ -1,6 +1,8 @@
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/page";
 import { ProjectList } from "@/components/projects/project-list";
+import { isEnabled } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -9,6 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default function ProjectsPage() {
+  if (!isEnabled("projects")) notFound();
   return (
     <>
       <PageHeader

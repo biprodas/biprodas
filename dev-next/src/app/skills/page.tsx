@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRightIcon } from "@phosphor-icons/react/ssr";
@@ -7,6 +8,7 @@ import { experience } from "@/content/experience";
 import { projects } from "@/content/projects";
 import { certifications } from "@/content/certifications";
 import { awards, skillCategories, skills } from "@/content/skills";
+import { isEnabled } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Skills",
@@ -32,6 +34,7 @@ const areas: SkillArea[] = skillCategories.map((c) => ({
 }));
 
 export default function SkillsPage() {
+  if (!isEnabled("skills")) notFound();
   return (
     <>
       <header>

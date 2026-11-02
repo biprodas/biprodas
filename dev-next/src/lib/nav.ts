@@ -1,11 +1,19 @@
-export const nav = [
+import { isEnabled, type Feature } from "@/config/site";
+import { showResearch } from "@/content/research";
+
+const pages: { href: string; label: string; feature?: Feature }[] = [
   { href: "/", label: "About" },
-  { href: "/skills", label: "Skills" },
-  { href: "/projects", label: "Projects" },
-  { href: "/services", label: "Services" },
-  { href: "/experience", label: "Experience" },
-  { href: "/contact", label: "Contact" },
-] as const;
+  { href: "/skills", label: "Skills", feature: "skills" },
+  { href: "/projects", label: "Projects", feature: "projects" },
+  { href: "/services", label: "Services", feature: "services" },
+  { href: "/experience", label: "Experience", feature: "experience" },
+  ...(showResearch ? [{ href: "/research", label: "Research", feature: "research" as const }] : []),
+  { href: "/contact", label: "Contact", feature: "contact" },
+];
+
+export const nav: { href: string; label: string }[] = pages
+  .filter((p) => !p.feature || isEnabled(p.feature))
+  .map(({ href, label }) => ({ href, label }));
 
 /** Pages outside the menu, and the menu entry they belong under. */
 const parents: Record<string, string> = { "/certifications": "/skills" };
@@ -17,4 +25,4 @@ export function sectionFor(pathname: string) {
 }
 
 /** Pages that aren't in the menu but should be in the sitemap. */
-export const extraPages = Object.keys(parents);
+export const extraPages = Object.keys(parents).filter((p) => p !== "/certifications" || isEnabled("certifications"));

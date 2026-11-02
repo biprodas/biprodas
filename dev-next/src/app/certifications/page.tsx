@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRightIcon } from "@phosphor-icons/react/ssr";
@@ -7,6 +8,7 @@ import type { Certification } from "@/content/types";
 import { formatDate } from "@/lib/format";
 import { publicFileExists } from "@/lib/public-file";
 import { CopyId } from "@/components/certifications/copy-id";
+import { isEnabled } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Certifications",
@@ -33,6 +35,7 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 const linkClass = "inline-flex items-center gap-1 text-[0.82rem] font-semibold text-ink-2 hover:text-primary";
 
 export default function CertificationsPage() {
+  if (!isEnabled("certifications")) notFound();
   const groups = byIssuer();
 
   return (
