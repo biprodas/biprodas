@@ -19,6 +19,7 @@ export const nav: { href: string; label: string }[] = pages
 /** Pages outside the menu, and the menu entry they belong under. */
 const parents: Record<string, string> = {
   "/certifications": "/skills",
+  "/resume": "/experience",
   ...(showTestimonials ? { "/testimonials": "/services" } : {}),
 };
 

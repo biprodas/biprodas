@@ -19,7 +19,7 @@ function CornerLink({
   missing: string;
   children: ReactNode;
 }) {
-  const base = "grid size-7 place-items-center transition-colors [&_svg]:size-[1.05rem]";
+  const base = "grid size-7 place-items-center transition-colors [&_svg]:size-4";
   return href ? (
     <a href={href} aria-label={label} title={label} className={`${base} text-ink-2 hover:bg-wash hover:text-primary`}>
       {children}
@@ -45,7 +45,7 @@ export function ProjectCard({ project }: { project: Project }) {
         className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-primary transition-transform duration-300 ease-out group-focus-within:scale-x-100 group-hover:scale-x-100 motion-reduce:transition-none"
       />
       <div className="flex items-start justify-between gap-3">
-        <p className="pt-1 text-[0.78rem] text-muted-foreground">{project.topics.join(" · ")}</p>
+        <p className="pt-1 text-xs text-muted-foreground">{project.topics.join(" · ")}</p>
         <div className="-mt-0.5 -mr-1.5 flex shrink-0">
           <CornerLink href={project.sourceUrl} label={`${name} on GitHub`} missing="Private repository">
             <GithubLogoIcon />
@@ -59,7 +59,7 @@ export function ProjectCard({ project }: { project: Project }) {
           </CornerLink>
         </div>
       </div>
-      <h3 className="mt-1.5 text-[1.2rem] font-semibold">
+      <h3 className="mt-1.5 text-lg font-semibold">
         <Link
           href={`/projects/${project.slug}`}
           className="group/title inline-flex items-center gap-1.5 transition-colors hover:text-primary focus-visible:text-primary"
@@ -71,7 +71,7 @@ export function ProjectCard({ project }: { project: Project }) {
           />
         </Link>
       </h3>
-      <p className="mt-2 line-clamp-3 text-[0.92rem] leading-relaxed text-ink-2 transition-colors group-hover:text-foreground">
+      <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-ink-2 transition-colors group-hover:text-foreground">
         {project.summary}
       </p>
       <ul className="mt-auto flex flex-wrap items-center gap-1.5 pt-5" aria-label="Stack">

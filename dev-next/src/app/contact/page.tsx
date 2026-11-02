@@ -5,8 +5,8 @@ import {
   ArrowRightIcon,
   ArrowUpRightIcon,
   ClockIcon,
-  DownloadSimpleIcon,
   EnvelopeSimpleIcon,
+  FileTextIcon,
   MapPinIcon,
 } from "@phosphor-icons/react/ssr";
 import { buttonVariants } from "@/components/ui/button";
@@ -17,7 +17,6 @@ import { PlatformIcon } from "@/components/platform-icon";
 import { LocalTime } from "@/components/layout/local-time";
 import { availability, profile } from "@/content/profile";
 import { links } from "@/content/links";
-import { hasResume } from "@/lib/resume";
 import { cn } from "@/lib/utils";
 import { isEnabled } from "@/config/site";
 
@@ -79,41 +78,35 @@ export default function ContactPage() {
       <JsonLd data={schema} />
       <header>
         <Eyebrow>Contact</Eyebrow>
-        <h1 className="mt-4 text-[2.1rem] font-semibold sm:text-[2.5rem]">Let&apos;s talk</h1>
-        <p className="mt-4 text-[1.05rem] leading-relaxed text-ink-2">
+        <h1 className="mt-4 text-3xl leading-tight font-semibold text-balance sm:text-4xl">Let&apos;s talk</h1>
+        <p className="mt-2 text-muted-foreground">
           Whether it&apos;s a role, a project or a question about something I&apos;ve built, email reaches me fastest. A
           few lines on what you&apos;re working on is plenty.
         </p>
       </header>
 
       <section aria-labelledby="email-h" className="wide mt-10 border bg-sidebar px-6 pt-5 pb-4">
-        <h2 id="email-h" className="text-[0.82rem] font-semibold text-ink-2">
+        <h2 id="email-h" className="text-sm font-semibold text-ink-2">
           Email is the best way to reach me
         </h2>
         <a
           href={`mailto:${profile.email}`}
-          className="mt-1 block text-[1.35rem] font-semibold break-all transition-colors hover:text-primary sm:text-[1.55rem]"
+          className="mt-1 block text-xl font-semibold break-all transition-colors hover:text-primary sm:text-2xl"
         >
           {profile.email}
         </a>
         <div className="mt-4 flex flex-wrap items-center gap-2.5">
-          <a href={`mailto:${profile.email}`} className={cn(buttonVariants(), "h-9 px-3.5 text-[0.8rem]")}>
+          <a href={`mailto:${profile.email}`} className={cn(buttonVariants(), "h-9 px-3.5 text-sm")}>
             <EnvelopeSimpleIcon data-icon="inline-start" />
             Compose an email
           </a>
           <CopyEmail />
-          {hasResume && (
-            <a
-              href={profile.resume}
-              download="Biprodas-Roy-Resume.pdf"
-              className={cn(buttonVariants({ variant: "ghost" }), "h-9 px-3 text-[0.8rem]")}
-            >
-              <DownloadSimpleIcon data-icon="inline-start" />
-              Resume
-            </a>
-          )}
+          <Link href="/resume" className={cn(buttonVariants({ variant: "ghost" }), "h-9 px-3 text-sm")}>
+            <FileTextIcon data-icon="inline-start" />
+            Resume
+          </Link>
         </div>
-        <div className="mt-4 flex flex-wrap gap-x-6 gap-y-1 border-t pt-3 text-[0.8rem] text-muted-foreground [&_svg]:size-3.5">
+        <div className="mt-4 flex flex-wrap gap-x-6 gap-y-1 border-t pt-3 text-sm text-muted-foreground [&_svg]:size-3.5">
           <span className="inline-flex items-center gap-1.5">
             <MapPinIcon aria-hidden />
             {profile.location.city}, {profile.location.country}
@@ -138,11 +131,11 @@ export default function ContactPage() {
               key={t.title}
               className="group relative flex flex-col border bg-card px-5 pt-4 pb-5 transition-colors hover:border-primary/40 hover:bg-[color-mix(in_oklab,var(--primary)_4%,var(--card))]"
             >
-              <h3 className="text-[1.02rem] font-semibold transition-colors group-hover:text-primary">{t.title}</h3>
-              <p className="mt-1.5 text-[0.88rem] leading-[1.65] text-ink-2">{t.body}</p>
+              <h3 className="text-base font-semibold transition-colors group-hover:text-primary">{t.title}</h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-ink-2">{t.body}</p>
               <Link
                 href={t.action.href}
-                className="mt-auto inline-flex items-center gap-1 pt-3 font-mono text-[0.7rem] text-primary after:absolute after:inset-0"
+                className="mt-auto inline-flex items-center gap-1 pt-3 font-mono text-xs text-primary after:absolute after:inset-0"
               >
                 {t.action.label}
                 <ArrowRightIcon aria-hidden className="size-3 transition-transform group-hover:translate-x-0.5" />
@@ -162,13 +155,13 @@ export default function ContactPage() {
               >
                 <PlatformIcon
                   platform={e.platform}
-                  className="size-[1.15rem] translate-y-[0.2em] text-muted-foreground transition-colors group-hover:text-primary"
+                  className="size-4.5 translate-y-[0.2em] text-muted-foreground transition-colors group-hover:text-primary"
                 />
                 <span>
                   <span className="block font-semibold transition-colors group-hover:text-primary">{e.label}</span>
-                  <span className="block text-[0.9rem] leading-snug text-ink-2">{e.description}</span>
+                  <span className="block text-sm leading-snug text-ink-2">{e.description}</span>
                 </span>
-                <span className="col-start-2 mt-1 inline-flex items-center gap-1 text-[0.82rem] text-muted-foreground sm:col-start-3 sm:mt-0">
+                <span className="col-start-2 mt-1 inline-flex items-center gap-1 text-sm text-muted-foreground sm:col-start-3 sm:mt-0">
                   {e.handle}
                   <ArrowUpRightIcon
                     aria-hidden

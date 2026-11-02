@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Eyebrow, Section } from "@/components/page";
 import { Timeline } from "@/components/timeline";
-import { profile } from "@/content/profile";
 import { education, experience, teaching } from "@/content/experience";
 import { certifications, latestCertification } from "@/content/certifications";
 import { getProject } from "@/content/projects";
@@ -21,8 +20,8 @@ export const metadata: Metadata = {
 
 const roleLabel = { trainer: "Trainer", mentor: "Mentor", organizer: "Organiser" } as const;
 
-const entryTitle = "text-[1.12rem] font-semibold";
-const meta = "text-[0.82rem] text-muted-foreground";
+const entryTitle = "text-lg font-semibold";
+const meta = "text-sm text-muted-foreground";
 
 export default function ExperiencePage() {
   if (!isEnabled("experience")) notFound();
@@ -32,12 +31,14 @@ export default function ExperiencePage() {
     <>
       <header>
         <Eyebrow>Experience</Eyebrow>
-        <h1 className="mt-4 text-[2.1rem] font-semibold sm:text-[2.5rem]">Work and education, in order</h1>
-        <p className="mt-4 text-[1.05rem] leading-relaxed text-ink-2">
+        <h1 className="mt-4 text-3xl leading-tight font-semibold text-balance sm:text-4xl">
+          Work and education, in order
+        </h1>
+        <p className="mt-2 text-muted-foreground">
           The long version of my resume, newest role first.{" "}
-          <a href={profile.resume} download="Biprodas-Roy-Resume.pdf" className="prose-link">
-            Download the PDF
-          </a>
+          <Link href="/resume" className="prose-link">
+            View it as a PDF
+          </Link>
           .
         </p>
       </header>
@@ -84,18 +85,16 @@ export default function ExperiencePage() {
                         {(p.employmentType || p.employmentLevel) && (
                           <p className={meta}>{[p.employmentType, p.employmentLevel].filter(Boolean).join(", ")}</p>
                         )}
-                        {p.description && (
-                          <p className="mt-1.5 text-[0.95rem] leading-relaxed text-ink-2">{p.description}</p>
-                        )}
+                        {p.description && <p className="mt-1.5 text-sm leading-relaxed text-ink-2">{p.description}</p>}
                         {p.bullets.length > 0 && (
-                          <ul className="dashes mt-2 text-[0.95rem] leading-relaxed text-ink-2">
+                          <ul className="dashes mt-2 text-sm leading-relaxed text-ink-2">
                             {p.bullets.map((b) => (
                               <li key={b}>{b}</li>
                             ))}
                           </ul>
                         )}
                         {related.length > 0 && (
-                          <p className="mt-2 text-[0.88rem] text-muted-foreground">
+                          <p className="mt-2 text-sm text-muted-foreground">
                             Projects:{" "}
                             {related.map((r, i) => (
                               <span key={r.slug}>
@@ -109,7 +108,7 @@ export default function ExperiencePage() {
                         )}
                         {p.technologies && p.technologies.length > 0 && (
                           <ul
-                            className="mt-2 flex flex-wrap gap-x-3.5 gap-y-0.5 text-[0.85rem] text-muted-foreground"
+                            className="mt-2 flex flex-wrap gap-x-3.5 gap-y-0.5 text-sm text-muted-foreground"
                             aria-label="Stack"
                           >
                             {p.technologies.map((t) => (
@@ -170,18 +169,16 @@ export default function ExperiencePage() {
                   .filter(Boolean)
                   .join(", ")}
               </p>
-              {e.description && <p className="mt-2 text-[0.95rem] leading-relaxed text-ink-2">{e.description}</p>}
+              {e.description && <p className="mt-2 text-sm leading-relaxed text-ink-2">{e.description}</p>}
               {e.activities && e.activities.length > 0 && (
-                <ul className="dashes mt-2 text-[0.95rem] leading-relaxed text-ink-2">
+                <ul className="dashes mt-2 text-sm leading-relaxed text-ink-2">
                   {e.activities.map((a) => (
                     <li key={a}>{a}</li>
                   ))}
                 </ul>
               )}
               {e.relevantCourses && e.relevantCourses.length > 0 && (
-                <p className="mt-2 text-[0.88rem] text-muted-foreground">
-                  Relevant courses: {e.relevantCourses.join(", ")}
-                </p>
+                <p className="mt-2 text-sm text-muted-foreground">Relevant courses: {e.relevantCourses.join(", ")}</p>
               )}
             </li>
           ))}
@@ -195,7 +192,7 @@ export default function ExperiencePage() {
               {t.start && t.end && <span className="mb-0.5 block text-meta">{yearRange(t.start, t.end)}</span>}
               <h3 className={entryTitle}>{t.title}</h3>
               <p className={meta}>{[roleLabel[t.role], t.org, t.audience].filter(Boolean).join(", ")}</p>
-              {t.summary && <p className="mt-2 text-[0.95rem] leading-relaxed text-ink-2">{t.summary}</p>}
+              {t.summary && <p className="mt-2 text-sm leading-relaxed text-ink-2">{t.summary}</p>}
             </li>
           ))}
         </ol>
@@ -208,9 +205,7 @@ export default function ExperiencePage() {
               <span className="text-meta">{a.date ?? ""}</span>
               <div>
                 {a.title}
-                <p className="text-[0.88rem] text-muted-foreground">
-                  {[a.issuer, a.description].filter(Boolean).join(", ")}
-                </p>
+                <p className="text-sm text-muted-foreground">{[a.issuer, a.description].filter(Boolean).join(", ")}</p>
               </div>
             </li>
           ))}

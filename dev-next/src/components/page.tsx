@@ -8,7 +8,7 @@ export function Eyebrow({ children, className }: { children: ReactNode; classNam
   return (
     <p
       className={cn(
-        "flex items-center gap-2 font-mono text-[0.66rem] font-semibold tracking-[0.16em] text-muted-foreground uppercase",
+        "flex items-center gap-2 font-mono text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase",
         className,
       )}
     >
@@ -23,8 +23,8 @@ export function PageHeader({ eyebrow, title, lede }: { eyebrow: string; title: R
   return (
     <header className="mb-14">
       <Eyebrow>{eyebrow}</Eyebrow>
-      <h1 className="mt-4 text-[2.1rem] font-semibold sm:text-[2.5rem]">{title}</h1>
-      {lede && <p className="mt-4 text-[1.05rem] leading-relaxed text-ink-2">{lede}</p>}
+      <h1 className="mt-4 text-3xl leading-tight font-semibold text-balance sm:text-4xl">{title}</h1>
+      {lede && <p className="mt-2 text-muted-foreground">{lede}</p>}
     </header>
   );
 }
@@ -43,7 +43,7 @@ export function Section({
 }) {
   return (
     <section aria-labelledby={id && `${id}-h`} id={id} className={cn("mt-16 scroll-mt-6", className)}>
-      <h2 id={id && `${id}-h`} className="mb-6 flex items-center gap-4 text-[1.4rem] font-semibold">
+      <h2 id={id && `${id}-h`} className="mb-6 flex items-center gap-4 text-2xl font-semibold">
         <span>{title}</span>
         <span
           aria-hidden
@@ -59,7 +59,7 @@ export function Section({
 export function MarginNote({ label, children }: { label: string; children: ReactNode }) {
   return (
     <aside className="margin-note">
-      <p className="mb-1 font-mono text-[0.62rem] font-semibold tracking-[0.14em] text-ink-2 uppercase">{label}</p>
+      <p className="mb-1 font-mono text-xs font-semibold tracking-[0.14em] text-ink-2 uppercase">{label}</p>
       {children}
     </aside>
   );
@@ -69,7 +69,7 @@ export function MarginNote({ label, children }: { label: string; children: React
 export function MoreLink({ href, children }: { href: string; children: ReactNode }) {
   return (
     <p className="mt-5">
-      <Link href={href} className="group inline-flex items-center gap-1.5 text-[0.9rem] font-medium hover:text-primary">
+      <Link href={href} className="group inline-flex items-center gap-1.5 text-sm font-medium hover:text-primary">
         {children}
         <ArrowRightIcon className="size-3.5 transition-transform group-hover:translate-x-0.5" />
       </Link>
@@ -80,7 +80,7 @@ export function MoreLink({ href, children }: { href: string; children: ReactNode
 /** Small bordered tag for a technology or topic. */
 export function Tag({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <span className={cn("inline-block border bg-card px-1.5 py-px font-mono text-[0.66rem] text-ink-2", className)}>
+    <span className={cn("inline-block border bg-card px-1.5 py-px font-mono text-xs text-ink-2", className)}>
       {children}
     </span>
   );

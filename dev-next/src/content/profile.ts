@@ -24,8 +24,8 @@ export const profile = {
   timezone: "Asia/Dhaka",
   utcOffset: "UTC+6",
   site: "https://biprodas.dev",
-  /** Resume PDF, served from public/resume.pdf (not added yet). */
-  resume: "/resume.pdf",
+  /** Google Drive file id of the resume PDF, shown on /resume. The file must be shared as "Anyone with the link". */
+  resumeDriveId: "1KuDixg8CVPAw_uM114s43_BMLC8kdWNK",
   stats: [
     { value: `${yearsOfExperience}+`, label: "years in production" },
     { value: "100+", label: "businesses served" },

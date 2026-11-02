@@ -34,7 +34,7 @@ function Row({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="grid grid-cols-[6rem_minmax(0,1fr)] gap-3 border-b py-2.5 last:border-0">
       <dt className="text-meta">{label}</dt>
-      <dd className="text-[0.9rem]">{children}</dd>
+      <dd className="text-sm">{children}</dd>
     </div>
   );
 }
@@ -59,8 +59,8 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
 
       <header className="mt-8 mb-10">
         <Eyebrow>Service {pad2(i + 1)}</Eyebrow>
-        <h1 className="mt-4 text-[2.1rem] font-semibold sm:text-[2.5rem]">{service.title}</h1>
-        <p className="mt-4 text-[1.05rem] leading-relaxed text-ink-2">{service.shortDescription}</p>
+        <h1 className="mt-4 text-3xl leading-tight font-semibold text-balance sm:text-4xl">{service.title}</h1>
+        <p className="mt-2 text-muted-foreground">{service.shortDescription}</p>
         <div className="mt-6">
           <HireActions subject={`Project enquiry: ${service.title}`} linkedin />
         </div>
@@ -96,7 +96,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
       </dl>
 
       <Section title="Overview" id="overview">
-        <div className="space-y-4 leading-[1.75] text-ink-2">
+        <div className="space-y-4 leading-7 text-ink-2">
           {service.description.split("\n\n").map((para) => (
             <p key={para}>{para}</p>
           ))}
@@ -130,7 +130,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
           <div className="mt-4">
             <HireActions subject={`Project enquiry: ${service.title}`} linkedin />
           </div>
-          <p className="mt-4 border-t pt-3 text-[0.8rem] text-muted-foreground">
+          <p className="mt-4 border-t pt-3 text-sm text-muted-foreground">
             How engagements, pricing and handover work:{" "}
             <Link href="/services#engagements" className="prose-link">
               ways to work together

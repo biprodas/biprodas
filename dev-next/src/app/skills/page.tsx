@@ -39,8 +39,8 @@ export default function SkillsPage() {
     <>
       <header>
         <Eyebrow>Skills</Eyebrow>
-        <h1 className="mt-4 text-[2.1rem] font-semibold sm:text-[2.5rem]">What I work with</h1>
-        <p className="mt-4 text-[1.05rem] leading-relaxed text-ink-2">
+        <h1 className="mt-4 text-3xl leading-tight font-semibold text-balance sm:text-4xl">What I work with</h1>
+        <p className="mt-2 text-muted-foreground">
           The languages, frameworks and practices I use, grouped by area. Hover a skill to see where I&apos;ve used it;
           the{" "}
           <Link href="/projects" className="prose-link">
@@ -56,14 +56,14 @@ export default function SkillsPage() {
           </a>
           .
         </p>
-        <p className="mt-4 text-[0.82rem] text-muted-foreground">
+        <p className="mt-4 text-sm text-muted-foreground">
           {skills.length} skills · {skillCategories.length} areas · {certifications.length} certifications
         </p>
       </header>
 
       <Section title="By area" id="areas" className="wide">
         <SkillAreas areas={areas} />
-        <p className="mt-3 text-[0.8rem] text-muted-foreground">
+        <p className="mt-3 text-sm text-muted-foreground">
           The small number is how many projects and roles list that skill in their stack.
         </p>
       </Section>
@@ -78,12 +78,12 @@ export default function SkillsPage() {
               key={c.id}
               className="group grid grid-cols-[4rem_1fr] items-baseline gap-x-4 gap-y-1 border-b py-3 sm:grid-cols-[4.5rem_1fr_auto]"
             >
-              <span className="text-[0.82rem] text-muted-foreground tabular-nums transition-colors group-hover:text-primary">
+              <span className="text-sm text-muted-foreground tabular-nums transition-colors group-hover:text-primary">
                 {c.issueDate?.slice(0, 4)}
               </span>
               <div>
                 <p className="leading-snug font-semibold transition-colors group-hover:text-primary">{c.name}</p>
-                <p className="mt-0.5 text-[0.8rem] text-muted-foreground">{c.issuer}</p>
+                <p className="mt-0.5 text-sm text-muted-foreground">{c.issuer}</p>
               </div>
               {c.credentialUrl && (
                 <a
@@ -91,7 +91,7 @@ export default function SkillsPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Verify ${c.name} (opens in a new tab)`}
-                  className="col-start-2 inline-flex items-center gap-1 justify-self-start text-[0.82rem] font-semibold text-ink-2 hover:text-primary sm:col-start-3 sm:justify-self-end"
+                  className="col-start-2 inline-flex items-center gap-1 justify-self-start text-sm font-semibold text-ink-2 hover:text-primary sm:col-start-3 sm:justify-self-end"
                 >
                   Verify <ArrowUpRightIcon className="size-3.5" />
                 </a>
@@ -106,10 +106,10 @@ export default function SkillsPage() {
         <ul className="border-t border-foreground/70">
           {awards.map((a) => (
             <li key={a.id} className="grid grid-cols-[4rem_1fr] items-baseline gap-x-4 border-b py-3">
-              <span className="text-[0.82rem] text-muted-foreground tabular-nums">{a.date ?? ""}</span>
+              <span className="text-sm text-muted-foreground tabular-nums">{a.date ?? ""}</span>
               <div>
                 <p className="leading-snug font-semibold">{a.title}</p>
-                <p className="mt-0.5 text-[0.8rem] text-muted-foreground">{a.description ?? a.issuer}</p>
+                <p className="mt-0.5 text-sm text-muted-foreground">{a.description ?? a.issuer}</p>
               </div>
             </li>
           ))}

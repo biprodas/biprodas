@@ -24,7 +24,7 @@ export function ProjectList() {
             aria-pressed={domain === d}
             onClick={() => setDomain(d as Domain | typeof ALL)}
             className={cn(
-              "cursor-pointer border px-2.5 py-1 font-mono text-[0.7rem] transition-colors",
+              "cursor-pointer border px-2.5 py-1 font-mono text-xs transition-colors",
               domain === d
                 ? "border-primary bg-primary text-primary-foreground"
                 : "bg-card text-ink-2 hover:border-primary/50 hover:text-primary",

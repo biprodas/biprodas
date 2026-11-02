@@ -32,7 +32,7 @@ const hasFile = (c: Certification): c is Certification & { file: string } =>
   c.file !== undefined && publicFileExists(c.file);
 
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-const linkClass = "inline-flex items-center gap-1 text-[0.82rem] font-semibold text-ink-2 hover:text-primary";
+const linkClass = "inline-flex items-center gap-1 text-sm font-semibold text-ink-2 hover:text-primary";
 
 export default function CertificationsPage() {
   if (!isEnabled("certifications")) notFound();
@@ -42,8 +42,8 @@ export default function CertificationsPage() {
     <>
       <header>
         <Eyebrow>Certifications</Eyebrow>
-        <h1 className="mt-4 text-[2.1rem] font-semibold sm:text-[2.5rem]">Certifications</h1>
-        <p className="mt-4 text-[1.05rem] leading-relaxed text-ink-2">
+        <h1 className="mt-4 text-3xl leading-tight font-semibold text-balance sm:text-4xl">Certifications</h1>
+        <p className="mt-2 text-muted-foreground">
           Credentials I&apos;ve earned, grouped by issuer and newest first. Verify opens the issuer&apos;s record of the
           credential, PDF opens the certificate itself, and About opens the certification&apos;s official page. The
           skills they back up are on the{" "}
@@ -52,10 +52,10 @@ export default function CertificationsPage() {
           </Link>
           .
         </p>
-        <p className="mt-4 text-[0.82rem] text-muted-foreground">
+        <p className="mt-4 text-sm text-muted-foreground">
           {certifications.length} certifications · {groups.length} issuers
         </p>
-        <nav aria-label="Issuers" className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[0.86rem]">
+        <nav aria-label="Issuers" className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm">
           {groups.map(([issuer, list]) => (
             <a key={issuer} href={`#${slug(issuer)}`} className="prose-link">
               {issuer} <span className="text-muted-foreground">{list.length}</span>
@@ -74,13 +74,13 @@ export default function CertificationsPage() {
                   id={c.id}
                   className="group grid scroll-mt-6 grid-cols-[4rem_1fr] items-baseline gap-x-4 gap-y-1 border-b py-4 sm:grid-cols-[4.5rem_1fr_auto]"
                 >
-                  <span className="text-[0.82rem] text-muted-foreground tabular-nums transition-colors group-hover:text-primary">
+                  <span className="text-sm text-muted-foreground tabular-nums transition-colors group-hover:text-primary">
                     {c.issueDate?.slice(0, 4)}
                   </span>
                   <div>
                     <h3 className="leading-snug font-semibold transition-colors group-hover:text-primary">{c.name}</h3>
                     {(c.issueDate || c.credentialId) && (
-                      <p className="mt-0.5 text-[0.8rem] text-muted-foreground">
+                      <p className="mt-0.5 text-sm text-muted-foreground">
                         {c.issueDate && `Issued ${formatDate(c.issueDate)}`}
                         {c.issueDate && c.credentialId && " · "}
                         {c.credentialId && (
@@ -91,13 +91,13 @@ export default function CertificationsPage() {
                         )}
                       </p>
                     )}
-                    {c.description && <p className="mt-2 text-[0.92rem] leading-relaxed text-ink-2">{c.description}</p>}
+                    {c.description && <p className="mt-2 text-sm leading-relaxed text-ink-2">{c.description}</p>}
                     {c.skills && c.skills.length > 0 && (
                       <ul className="mt-2.5 flex flex-wrap gap-1.5" aria-label="Skills covered">
                         {c.skills.map((s) => (
                           <li
                             key={s}
-                            className="rounded-sm border bg-background px-2 py-0.5 text-[0.78rem] leading-snug text-ink-2"
+                            className="rounded-sm border bg-background px-2 py-0.5 text-xs leading-snug text-ink-2"
                           >
                             {s}
                           </li>

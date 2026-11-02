@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRightIcon, DownloadSimpleIcon, EnvelopeSimpleIcon, MapPinIcon } from "@phosphor-icons/react/ssr";
+import { ArrowRightIcon, EnvelopeSimpleIcon, FileTextIcon, MapPinIcon } from "@phosphor-icons/react/ssr";
 import { links } from "@/content/links";
 import { availability, profile } from "@/content/profile";
 import { PlatformIcon } from "@/components/platform-icon";
@@ -113,14 +113,10 @@ export function Sidebar() {
           <EnvelopeSimpleIcon aria-hidden />
           {profile.email}
         </a>
-        <a
-          href={profile.resume}
-          download="Biprodas-Roy-Resume.pdf"
-          className={cn(buttonVariants(), "mt-3 h-9 w-full text-[0.8rem]")}
-        >
-          <DownloadSimpleIcon data-icon="inline-start" />
-          Download Resume
-        </a>
+        <Link href="/resume" className={cn(buttonVariants(), "mt-3 h-9 w-full text-[0.8rem]")}>
+          <FileTextIcon data-icon="inline-start" />
+          View Resume
+        </Link>
         <div className="mt-2 -mr-2 flex items-center justify-between gap-2">
           <p className="flex items-center gap-1.5 text-meta [&_svg]:size-3.5">
             <MapPinIcon aria-hidden />

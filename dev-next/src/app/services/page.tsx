@@ -38,8 +38,8 @@ export default function ServicesPage() {
       />
       <header>
         <Eyebrow>Services</Eyebrow>
-        <h1 className="mt-4 text-[2.1rem] font-semibold sm:text-[2.5rem]">Work with me</h1>
-        <p className="mt-4 text-[1.05rem] leading-relaxed text-ink-2">
+        <h1 className="mt-4 text-3xl leading-tight font-semibold text-balance sm:text-4xl">Work with me</h1>
+        <p className="mt-2 text-muted-foreground">
           I build and fix the systems behind SaaS products, ERPs and FinTech platforms, for founders and teams who need
           a senior engineer. Open a service for the details and the work behind it.
         </p>
@@ -70,10 +70,10 @@ export default function ServicesPage() {
                   aria-hidden
                   className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-primary transition-transform duration-300 ease-out group-focus-within:scale-x-100 group-hover:scale-x-100 motion-reduce:transition-none"
                 />
-                <p className="text-[0.78rem] text-muted-foreground">
+                <p className="text-xs text-muted-foreground">
                   <span className="font-mono text-primary">{pad2(i + 1)}</span> · {s.category}
                 </p>
-                <h3 className="mt-1.5 text-[1.12rem] leading-snug font-semibold">
+                <h3 className="mt-1.5 text-lg leading-snug font-semibold">
                   <Link
                     href={`/services/${s.slug}`}
                     className="group/title inline-flex items-baseline gap-1.5 transition-colors after:absolute after:inset-0 hover:text-primary focus-visible:text-primary"
@@ -85,8 +85,8 @@ export default function ServicesPage() {
                     />
                   </Link>
                 </h3>
-                <p className="mt-2 text-[0.92rem] leading-relaxed text-ink-2">{s.shortDescription}</p>
-                <ul className="dashes mt-3 text-[0.86rem] text-ink-2">
+                <p className="mt-2 text-sm leading-relaxed text-ink-2">{s.shortDescription}</p>
+                <ul className="dashes mt-3 text-sm text-ink-2">
                   {s.offerings.slice(0, MAX_OFFERINGS).map((o) => (
                     <li key={o}>{o}</li>
                   ))}
@@ -94,7 +94,7 @@ export default function ServicesPage() {
                 </ul>
                 <div className="mt-auto pt-5">
                   {proof.length > 0 ? (
-                    <p className="relative text-[0.8rem] text-muted-foreground">
+                    <p className="relative text-sm text-muted-foreground">
                       Seen in{" "}
                       {proof.map((x, n) => (
                         <span key={x.key}>
@@ -143,15 +143,13 @@ export default function ServicesPage() {
             >
               <h3 className="font-semibold transition-colors group-hover:text-primary">{e.title}</h3>
               <div>
-                <p className="text-[0.92rem] leading-relaxed text-ink-2">{e.body}</p>
-                <p className="mt-1 text-[0.8rem] text-muted-foreground">Best for: {e.bestFor}</p>
+                <p className="text-sm leading-relaxed text-ink-2">{e.body}</p>
+                <p className="mt-1 text-sm text-muted-foreground">Best for: {e.bestFor}</p>
               </div>
             </li>
           ))}
         </ul>
-        <p className="mt-4 text-[0.88rem] text-muted-foreground">
-          No fixed price list: every project is quoted on its scope.
-        </p>
+        <p className="mt-4 text-sm text-muted-foreground">No fixed price list: every project is quoted on its scope.</p>
       </Section>
 
       <Section title="How a project runs" id="process" className="wide">
@@ -160,15 +158,15 @@ export default function ServicesPage() {
             <li key={p.title} className="group grid grid-cols-[3.25rem_1fr] items-start gap-x-3">
               <span
                 aria-hidden
-                className="pt-0.5 text-[2.1rem] leading-none font-semibold text-[color-mix(in_oklab,var(--primary)_55%,var(--background))] tabular-nums transition-colors duration-300 group-hover:text-primary"
+                className="pt-0.5 text-3xl leading-none font-semibold text-[color-mix(in_oklab,var(--primary)_55%,var(--background))] tabular-nums transition-colors duration-300 group-hover:text-primary"
               >
                 {pad2(i + 1)}
               </span>
               <div>
-                <h3 className="text-[1rem] leading-snug font-semibold transition-colors duration-300 group-hover:text-primary">
+                <h3 className="text-base leading-snug font-semibold transition-colors duration-300 group-hover:text-primary">
                   {p.title}
                 </h3>
-                <p className="mt-1 text-[0.92rem] leading-[1.7] text-ink-2">{p.body}</p>
+                <p className="mt-1 text-sm leading-relaxed text-ink-2">{p.body}</p>
               </div>
             </li>
           ))}
@@ -188,7 +186,7 @@ export default function ServicesPage() {
           <div className="mt-4">
             <HireActions linkedin />
           </div>
-          <p className="mt-4 border-t pt-3 text-[0.8rem] text-muted-foreground">
+          <p className="mt-4 border-t pt-3 text-sm text-muted-foreground">
             Prefer to see the work first? Browse the{" "}
             <Link href="/projects" className="prose-link">
               case studies

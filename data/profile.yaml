@@ -59,7 +59,7 @@ researchInterests: [] # TODO — plain strings, or { topic, note } where note is
 openTo: [] # TODO, e.g. "MS/PhD positions (Fall 2027)", "Senior backend roles"
 languages: [] # TODO, e.g. { name: Bengali, proficiency: native }
               # proficiency: native | full-professional | professional | limited-working | elementary
-# cv: { academic: /cv.pdf, engineering: /resume.pdf }
+cv: { engineering: https://drive.google.com/file/d/1KuDixg8CVPAw_uM114s43_BMLC8kdWNK/view?usp=sharing } # Google Drive for now; academic: TODO (separate CV)
 # contact:                   # biprodas.com/contact
 #   intro: ...
 #   responseTime: Usually replies within 48 hours

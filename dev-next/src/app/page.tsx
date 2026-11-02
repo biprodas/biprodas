@@ -15,7 +15,7 @@ import { formatDate, formatRange, pad2 } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { getLink } from "@/content/links";
 
-const label = "font-mono text-[0.62rem] font-semibold tracking-[0.16em] text-muted-foreground uppercase";
+const label = "font-mono text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase";
 
 const skillPreview = skillCategories
   .map((c) => ({ ...c, skills: c.skills.filter((name) => getSkill(name)?.featured) }))
@@ -35,9 +35,9 @@ export default function HomePage() {
           alt={profile.avatar.alt}
           sizes="8rem"
           priority
-          className="size-28 rounded-full bg-muted object-cover object-[50%_30%] sm:size-32 dark:brightness-[.88]"
+          className="size-28 rounded-full bg-muted object-cover object-[50%_30%] sm:size-32 dark:brightness-90"
         />
-        <p className="mt-8 font-mono text-[0.68rem] leading-relaxed font-semibold tracking-[0.16em] text-ink-2 uppercase">
+        <p className="mt-8 font-mono text-xs leading-relaxed font-semibold tracking-[0.16em] text-ink-2 uppercase">
           {profile.titles.map((t, i) => (
             <span key={t}>
               {i > 0 && " · "}
@@ -45,16 +45,16 @@ export default function HomePage() {
             </span>
           ))}
         </p>
-        <h1 className="mt-3 text-[clamp(2.2rem,1.6rem+2.6vw,3.1rem)] leading-[1.12] font-semibold">
+        <h1 className="mt-3 text-4xl leading-tight font-semibold sm:text-5xl">
           Hi, I&apos;m {profile.firstName}.
           <span className="block font-medium text-primary">{profile.headlineLine}</span>
         </h1>
-        <p className="mt-6 text-[1.05rem] leading-[1.75] text-ink-2">{profile.summary}</p>
+        <p className="mt-6 text-base leading-7 text-ink-2">{profile.summary}</p>
         <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
-          <Link href="/projects" className={cn(buttonVariants({ size: "lg" }), "h-10 px-4 text-[0.8rem]")}>
+          <Link href="/projects" className={cn(buttonVariants({ size: "lg" }), "h-10 px-4 text-sm")}>
             See my projects <ArrowRightIcon data-icon="inline-end" />
           </Link>
-          <a href={`mailto:${profile.email}`} className="text-[0.95rem] font-semibold prose-link">
+          <a href={`mailto:${profile.email}`} className="text-sm font-semibold prose-link">
             Say hello: {profile.email}
           </a>
         </div>
@@ -74,10 +74,10 @@ export default function HomePage() {
               )}
             >
               <dt className={label}>{f.label}</dt>
-              <dd className="mt-2 text-[1.45rem] leading-tight font-semibold transition-colors group-hover:text-primary">
+              <dd className="mt-2 text-2xl leading-tight font-semibold transition-colors group-hover:text-primary">
                 {f.value}
               </dd>
-              <dd className="mt-1 text-[0.8rem] leading-snug text-muted-foreground">{f.detail}</dd>
+              <dd className="mt-1 text-sm leading-snug text-muted-foreground">{f.detail}</dd>
             </div>
           ))}
         </dl>
@@ -96,7 +96,7 @@ export default function HomePage() {
             </p>
           )}
         </MarginNote>
-        <div className="space-y-5 leading-[1.75]">
+        <div className="space-y-5 leading-7">
           {profile.about.map((p, i) => (
             <p key={i} className={i === 0 ? undefined : "text-ink-2"}>
               {p}
@@ -124,7 +124,7 @@ export default function HomePage() {
               key={c.slug}
               className="grid grid-cols-1 gap-x-5 gap-y-2 border-b py-3.5 last:border-b-0 sm:grid-cols-[9.5rem_1fr]"
             >
-              <span className="pt-0.5 text-[0.95rem] leading-snug font-semibold">{c.title}</span>
+              <span className="pt-0.5 text-sm leading-snug font-semibold">{c.title}</span>
               <ul className="flex flex-wrap gap-1">
                 {c.skills.map((s) => (
                   <li key={s}>
@@ -163,15 +163,15 @@ export default function HomePage() {
               {/* Top-aligned with the title rather than baseline-aligned, so it doesn't rise above it. */}
               <span
                 aria-hidden
-                className="pt-0.5 text-[2.1rem] leading-none font-semibold text-[color-mix(in_oklab,var(--primary)_55%,var(--background))] tabular-nums transition-colors duration-300 group-hover:text-primary"
+                className="pt-0.5 text-3xl leading-none font-semibold text-[color-mix(in_oklab,var(--primary)_55%,var(--background))] tabular-nums transition-colors duration-300 group-hover:text-primary"
               >
                 {pad2(i + 1)}
               </span>
               <div>
-                <h3 className="text-[1rem] leading-snug font-semibold transition-colors duration-300 group-hover:text-primary">
+                <h3 className="text-base leading-snug font-semibold transition-colors duration-300 group-hover:text-primary">
                   {p.title}
                 </h3>
-                <p className="mt-1 text-[0.92rem] leading-[1.7] text-ink-2">{p.body}</p>
+                <p className="mt-1 text-sm leading-relaxed text-ink-2">{p.body}</p>
               </div>
             </li>
           ))}
@@ -187,7 +187,7 @@ export default function HomePage() {
           <div>
             <dt className={cn(label, "pt-1")}>Building</dt>
             <dd>
-              <ul className="space-y-1 text-[0.95rem] text-ink-2">
+              <ul className="space-y-1 text-sm text-ink-2">
                 {now.building.map((b) => {
                   const p = getProject(b.slug)!;
                   return (
@@ -204,7 +204,7 @@ export default function HomePage() {
           </div>
           <div>
             <dt className={cn(label, "pt-1")}>Recently</dt>
-            <dd className="text-[0.95rem] text-ink-2">
+            <dd className="text-sm text-ink-2">
               <span className="font-semibold text-foreground">{latest.positions[0].title}</span> at{" "}
               {latest.company.name}
               <span className="block text-meta sm:ml-1.5 sm:inline">
@@ -214,7 +214,7 @@ export default function HomePage() {
           </div>
           <div>
             <dt className={cn(label, "pt-1")}>Certified</dt>
-            <dd className="text-[0.95rem] text-ink-2">
+            <dd className="text-sm text-ink-2">
               <a href={latestCertification.credentialUrl} className="prose-link">
                 {latestCertification.name}
               </a>
@@ -233,19 +233,19 @@ export default function HomePage() {
             <span className="text-meta"> · {profile.utcOffset}</span>
           </p>
         </MarginNote>
-        <p className="leading-[1.75]">
+        <p className="leading-7">
           I&apos;m glad to hear from hiring teams, founders and fellow engineers, whether it&apos;s about a role, a
           project or a system design question. Email is the best way to reach me.
         </p>
         <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
-          <Link href="/contact" className={cn(buttonVariants({ size: "lg" }), "h-10 px-4 text-[0.8rem]")}>
+          <Link href="/contact" className={cn(buttonVariants({ size: "lg" }), "h-10 px-4 text-sm")}>
             Write to me <ArrowRightIcon data-icon="inline-end" />
           </Link>
           <a href={getLink("github")?.url} className="inline-flex items-center gap-1 font-semibold prose-link">
             GitHub <ArrowUpRightIcon className="size-3.5" />
           </a>
         </div>
-        <p className="mt-4 text-[0.92rem] text-muted-foreground">
+        <p className="mt-4 text-sm text-muted-foreground">
           Have a project?{" "}
           <Link href="/services" className="prose-link text-ink-2">
             See how I work with clients

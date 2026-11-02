@@ -35,18 +35,20 @@ export default function TestimonialsPage() {
       {testimonialsAreSample && (
         <p
           role="note"
-          className="wide mb-8 border border-dashed border-primary/60 bg-wash px-4 py-3 text-[0.86rem] leading-relaxed text-ink-2"
+          className="wide mb-8 border border-dashed border-primary/60 bg-wash px-4 py-3 text-sm leading-relaxed text-ink-2"
         >
           <strong className="font-semibold text-foreground">Sample content.</strong> These people and quotes are
           invented to design this page. It only appears in development; production hides the page until real
-          testimonials are added to <code className="font-mono text-[0.8rem]">src/content/testimonials.ts</code>.
+          testimonials are added to <code className="font-mono text-sm">src/content/testimonials.ts</code>.
         </p>
       )}
 
       <header>
         <Eyebrow>Testimonials</Eyebrow>
-        <h1 className="mt-4 text-[2.1rem] font-semibold sm:text-[2.5rem]">What people say about working with me</h1>
-        <p className="mt-4 text-[1.05rem] leading-relaxed text-ink-2">
+        <h1 className="mt-4 text-3xl leading-tight font-semibold text-balance sm:text-4xl">
+          What people say about working with me
+        </h1>
+        <p className="mt-2 text-muted-foreground">
           From clients, managers and engineers I&apos;ve worked with. Where a quote was first posted elsewhere, it links
           to the original.
         </p>
@@ -84,7 +86,7 @@ export default function TestimonialsPage() {
                 href={linkedin.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={cn(buttonVariants(), "h-9 px-3.5 text-[0.8rem]")}
+                className={cn(buttonVariants(), "h-9 px-3.5 text-sm")}
               >
                 <LinkedinLogoIcon data-icon="inline-start" />
                 Write a LinkedIn recommendation
@@ -92,7 +94,7 @@ export default function TestimonialsPage() {
             )}
             <a
               href={`mailto:${profile.email}?subject=${encodeURIComponent("Testimonial")}`}
-              className={cn(buttonVariants({ variant: "outline" }), "h-9 px-3.5 text-[0.8rem]")}
+              className={cn(buttonVariants({ variant: "outline" }), "h-9 px-3.5 text-sm")}
             >
               <EnvelopeSimpleIcon data-icon="inline-start" />
               Send one by email
