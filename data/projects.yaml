@@ -133,6 +133,23 @@
   tech: [Next.js, TypeScript]
   topics: [AI, Recruitment, AI Search]
 
+- id: must-mate
+  title: MUST Mate
+  summary: >-
+    AI-powered project management and time-tracking tool with project time visualization,
+    detailed reports, client billing, attendance and payroll.
+  status: completed
+  role: Full-stack engineer (maintenance)
+  period: { start: "2024-05", end: "2026-06" }
+  experience: must-company
+  links:
+    - { kind: live, url: "https://mustmate.ai" }
+  tech: [Express, Next.js, TypeScript, DynamoDB]
+  topics: [Project Management, Time Tracking, Payroll]
+  highlights:
+    - Joined after the app was built; found and fixed bugs, improved performance, and supported the
+      team maintaining it.
+
 - id: startdescribe
   title: StartDescribe
   summary: >-
@@ -308,6 +325,7 @@
   topics: [GIS, GovTech, Infrastructure, Land Acquisition, Resettlement]
   highlights:
     - Implemented grievance management and reporting.
-    - Deployed in the MRT-5 and CEIP-1 national projects in Bangladesh.
+    - Deployed for two national projects in Bangladesh, MRT Line 5 (Northern Route) and the Coastal
+      Embankment Improvement Project, Phase-1 (CEIP-1).
     - Led a team of 4–5 engineers; designed the architecture and the PostGIS data model, and built
       the GIS map and compensation and resettlement tracking.

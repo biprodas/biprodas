@@ -666,6 +666,87 @@ const allProjects: Project[] = [
     },
   },
   {
+    slug: "must-mate",
+    title: "MUST Mate",
+    summary:
+      "AI-powered project management and time-tracking tool with project time visualization, detailed reports, client billing, attendance and payroll.",
+    description:
+      "MUST Mate, from MUST Company, is an AI-powered project management tool built around time. Teams track time on tasks, see project progress and time efficiency at a glance, and turn logged hours into detailed reports, transparent client billing and payroll, with attendance management in the same app. Team performance views help managers spot productivity pitfalls, and integrations connect it to the tools a team already uses. I joined after the app was built, as a full-stack engineer on the team that maintained it.",
+    type: "Enterprise",
+    role: "Full-stack engineer (maintenance)",
+    status: "Completed",
+    domains: ["SaaS", "AI"],
+    topics: ["Project Management", "Time Tracking", "Payroll", "Performance Optimization", "Maintenance"],
+    technologies: ["Express", "Next.js", "TypeScript", "DynamoDB"],
+    liveUrl: "https://mustmate.ai",
+    startDate: "2024-05",
+    endDate: "2026-06",
+    featured: false,
+    order: 9,
+    features: [
+      "Time tracking on tasks and projects",
+      "Project time visualization and real-time progress",
+      "Detailed reports on time and productivity",
+      "Precise, transparent client billing from tracked time",
+      "Attendance management and payroll from logged hours",
+      "Team performance analysis",
+      "Integrations with other workplace apps",
+      "Starter, Advanced and Enterprise plans",
+    ],
+    contributions: [
+      "Joined the team after the app was built, as a full-stack engineer at MUST Company",
+      "Found and fixed bugs across the Express API and the Next.js frontend",
+      "Improved performance across the app",
+      "Worked with the support team to keep the app running for its users",
+    ],
+    challenges: [
+      "Getting productive quickly in a codebase that was already built, by someone else",
+      "Tracking down bugs from user reports through the support team",
+      "Improving performance in a live app without disrupting the teams using it",
+    ],
+    highlights: [],
+    story: {
+      problem:
+        "A time-tracking tool is only useful if people trust it: hours have to be recorded correctly, reports have to load quickly, and billing and payroll have to match what was logged.",
+      approach:
+        "As part of the team maintaining MUST Mate, I worked from issues raised by users and the support team, reproducing and fixing bugs across the API and the frontend and improving performance where the app was slow.",
+      decisions: [
+        {
+          title: "Reproduce first",
+          body: "Each bug report was reproduced before fixing, so the fix addressed the real cause rather than the symptom.",
+        },
+        {
+          title: "Measure before optimizing",
+          body: "Performance work started from where the app was actually slow, not from guesses.",
+        },
+        {
+          title: "Close the loop with support",
+          body: "Fixes went back through the support team, so users heard when their issue was resolved.",
+        },
+      ],
+    },
+    diagram: {
+      title: "Time to billing",
+      cols: 4,
+      rows: 2,
+      nodes: [
+        { id: "web", label: "Web app", sub: "Next.js", kind: "client", col: 0, row: 0 },
+        { id: "api", label: "API", sub: "Express", kind: "service", col: 1, row: 0 },
+        { id: "db", label: "DynamoDB", sub: "time logs · projects", kind: "data", col: 2, row: 0 },
+        { id: "apps", label: "Integrations", sub: "workplace apps", kind: "external", col: 3, row: 0 },
+        { id: "reports", label: "Reports", sub: "time · performance", kind: "worker", col: 1, row: 1 },
+        { id: "billing", label: "Billing & payroll", sub: "from logged hours", kind: "worker", col: 2, row: 1 },
+      ],
+      edges: [
+        { from: "web", to: "api", label: "log time" },
+        { from: "api", to: "db", label: "store" },
+        { from: "apps", to: "api", label: "sync" },
+        { from: "db", to: "reports", label: "aggregate" },
+        { from: "db", to: "billing", label: "hours" },
+      ],
+    },
+  },
+  {
     slug: "drivus",
     title: "Drivus",
     summary:
@@ -680,7 +761,7 @@ const allProjects: Project[] = [
     startDate: "2023-06",
     endDate: "2024-11",
     featured: false,
-    order: 9,
+    order: 10,
     features: [
       "Lead capture and lead analytics",
       "Customer management",
@@ -772,7 +853,7 @@ const allProjects: Project[] = [
     ],
     sourceUrl: "https://github.com/biprodas/school-erp",
     featured: false,
-    order: 10,
+    order: 11,
     type: "Product",
     role: "Founder & sole engineer",
     status: "In Progress",
@@ -865,7 +946,7 @@ const allProjects: Project[] = [
       "Tiptap",
     ],
     featured: false,
-    order: 11,
+    order: 12,
     features: [
       "Reading, Listening, Writing and Speaking modules, each with guides, lessons, practice, a mistake log and progress",
       "Timed mock tests per skill and as a full exam, with results and answer review",
@@ -941,7 +1022,7 @@ const allProjects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Supabase", "TanStack Query", "Tailwind CSS", "Paddle"],
     liveUrl: "https://cloudprep.biprodas.dev",
     featured: false,
-    order: 12,
+    order: 13,
     // data/projects.yaml lists these as highlights; they describe what the product does, so they live in `features`.
     highlights: [],
     features: [
@@ -996,7 +1077,7 @@ const allProjects: Project[] = [
     summary:
       "Government GIS platform for land acquisition, compensation tracking and resettlement of affected individuals across infrastructure projects.",
     description:
-      "LARMTS is a government GIS platform for the land side of large infrastructure projects. It maps every parcel a project needs, tracks acquisition and compensation for each affected owner, follows the resettlement of the people displaced, and records their grievances through to resolution. It is deployed in two national projects in Bangladesh: MRT-5, a Dhaka metro rail line, and CEIP-1, a coastal embankment programme.",
+      "LARMTS is a government GIS platform for the land side of large infrastructure projects. It maps every parcel a project needs, tracks acquisition and compensation for each affected owner, follows the resettlement of the people displaced, and records their grievances through to resolution. It was deployed separately for two national infrastructure projects in Bangladesh, MRT Line 5 (Northern Route) and the Coastal Embankment Improvement Project, Phase-1 (CEIP-1). Both follow the same land acquisition and resettlement process, but each project has its own land, affected people and records.",
     type: "Enterprise",
     role: "Lead engineer",
     status: "Completed",
@@ -1004,7 +1085,7 @@ const allProjects: Project[] = [
     topics: ["GIS", "Land Acquisition", "Resettlement", "Infrastructure", "Grievance Management"],
     technologies: ["Node.js", "Express", "PostgreSQL/PostGIS", "React", "Leaflet"],
     featured: false,
-    order: 13,
+    order: 14,
     features: [
       "Interactive GIS map of every parcel a project needs to acquire",
       "Land acquisition tracking, parcel by parcel",
@@ -1012,6 +1093,7 @@ const allProjects: Project[] = [
       "Resettlement tracking for displaced people",
       "Grievance management, from complaint to resolution",
       "Reporting for project officials",
+      "Separate deployments for MRT Line 5 (Northern Route) and CEIP-1, each with its own parcels, affected people and records",
     ],
     contributions: [
       "Led a team of 4–5 engineers at Semicolon IT Solutions",
@@ -1023,7 +1105,7 @@ const allProjects: Project[] = [
     ],
     highlights: [
       "Implemented grievance management and reporting.",
-      "Deployed in the MRT-5 and CEIP-1 national projects in Bangladesh.",
+      "Deployed for two national projects in Bangladesh: MRT Line 5 (Northern Route) and the Coastal Embankment Improvement Project, Phase-1 (CEIP-1).",
     ],
     challenges: [
       "Linking map geometry to the legal and financial record of each parcel, so the map and the case file never disagree",
@@ -1081,7 +1163,7 @@ const allProjects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Tailwind", "Supabase", "Shopify", "Stripe", "OpenAI", "Perplexity"],
     liveUrl: "https://startdescribe.com",
     featured: true,
-    order: 14,
+    order: 15,
     features: [
       "Install as a Shopify app, or connect WooCommerce or BigCommerce",
       "Bulk import from CSV or Google Sheets, with field mapping",
@@ -1169,7 +1251,7 @@ const allProjects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Tailwind", "Supabase", "Stripe", "OpenAI", "Perplexity"],
     liveUrl: "https://startintegrate.com",
     featured: false,
-    order: 15,
+    order: 16,
     features: [
       "Custom apps for Make.com, Zapier and Workato",
       "A library of integrations for data processing, invoicing, social media, messaging and database tools",
@@ -1254,7 +1336,7 @@ const allProjects: Project[] = [
     ],
     liveUrl: "https://startautomate.com",
     featured: false,
-    order: 16,
+    order: 17,
     features: [
       "Agency website with services, use cases and consultation booking",
       "AI appointment scheduling that captures customer details into a CRM",
