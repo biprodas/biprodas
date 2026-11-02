@@ -26,11 +26,6 @@ export const profile = {
   site: "https://biprodas.dev",
   /** Resume PDF, served from public/resume.pdf (not added yet). */
   resume: "/resume.pdf",
-  academicSite: "https://biprodas.com",
-  social: {
-    github: "https://github.com/biprodas",
-    linkedin: "https://www.linkedin.com/in/biprodas-roy/",
-  },
   stats: [
     { value: `${yearsOfExperience}+`, label: "years in production" },
     { value: "100+", label: "businesses served" },

@@ -1,5 +1,5 @@
-// Facts (service slugs, titles and order, related projects and roles, engagement types, terms, Upwork
-// link) mirror data/services.yaml, where the slug is the `id`. The descriptions cite facts from
+// Facts (service slugs, titles and order, related projects and roles, engagement types, terms) mirror
+// data/services.yaml, where the slug is the `id`. The descriptions cite facts from
 // data/projects.yaml, experience.yaml, skills.yaml and certifications.yaml; keep those in step.
 // INVENTED COPY: the approach and process sentences in the descriptions, "best for" lines, process steps
 // and FAQ wording are written for biprodas.dev. Edit freely.
@@ -283,11 +283,6 @@ export const process = [
   { title: "Build", body: "Work in small iterations with regular demos, so you can steer as it takes shape." },
   { title: "Launch & handover", body: "Deployment, documentation and a handover, with optional support after." },
 ] as const;
-
-export const hiring = {
-  /** Upwork profile URL from data/services.yaml. Empty hides the Upwork button. */
-  upwork: "https://www.upwork.com/freelancers/~017dd9d645b9e068e4?mp_source=share",
-};
 
 export const faq = [
   {

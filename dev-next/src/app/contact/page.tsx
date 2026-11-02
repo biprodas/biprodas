@@ -3,22 +3,19 @@ import Link from "next/link";
 import {
   ArrowRightIcon,
   ArrowUpRightIcon,
-  BriefcaseIcon,
   ClockIcon,
   DownloadSimpleIcon,
   EnvelopeSimpleIcon,
-  GithubLogoIcon,
-  GlobeIcon,
-  LinkedinLogoIcon,
   MapPinIcon,
 } from "@phosphor-icons/react/ssr";
 import { buttonVariants } from "@/components/ui/button";
 import { Eyebrow, Section } from "@/components/page";
 import { CopyEmail } from "@/components/contact/copy-email";
 import { JsonLd } from "@/components/json-ld";
+import { PlatformIcon } from "@/components/platform-icon";
 import { LocalTime } from "@/components/layout/local-time";
 import { availability, profile } from "@/content/profile";
-import { hiring } from "@/content/services";
+import { links } from "@/content/links";
 import { hasResume } from "@/lib/resume";
 import { cn } from "@/lib/utils";
 
@@ -54,42 +51,6 @@ const topics: { title: string; body: string; action: { label: string; href: stri
   },
 ];
 
-// INVENTED COPY: the `for` lines. Edit freely.
-const elsewhere = [
-  {
-    name: "GitHub",
-    url: profile.social.github,
-    handle: "github.com/biprodas",
-    for: "Code and public repositories.",
-    icon: GithubLogoIcon,
-  },
-  {
-    name: "LinkedIn",
-    url: profile.social.linkedin,
-    handle: "in/biprodas-roy",
-    for: "Work history. You can message me there too.",
-    icon: LinkedinLogoIcon,
-  },
-  ...(hiring.upwork
-    ? [
-        {
-          name: "Upwork",
-          url: hiring.upwork,
-          handle: "upwork.com",
-          for: "Hire me through Upwork's contracts and payments.",
-          icon: BriefcaseIcon,
-        },
-      ]
-    : []),
-  {
-    name: "Academic site",
-    url: profile.academicSite,
-    handle: "biprodas.com",
-    for: "The research side of my work.",
-    icon: GlobeIcon,
-  },
-];
-
 const schema = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
@@ -105,7 +66,7 @@ const schema = {
       addressLocality: profile.location.city,
       addressCountry: profile.location.country,
     },
-    sameAs: [profile.social.github, profile.social.linkedin, hiring.upwork, profile.academicSite].filter(Boolean),
+    sameAs: links.map((l) => l.url),
   },
 };
 
@@ -190,19 +151,19 @@ export default function ContactPage() {
 
       <Section title="Elsewhere" id="elsewhere">
         <ul className="border-t border-foreground/70">
-          {elsewhere.map((e) => (
+          {links.map((e) => (
             <li key={e.url} className="border-b">
               <a
                 href={e.url}
                 className="group grid grid-cols-[1.75rem_minmax(0,1fr)] gap-x-2 py-3 focus-visible:outline-offset-4 sm:grid-cols-[1.75rem_minmax(0,1fr)_auto] sm:items-baseline sm:gap-x-4"
               >
-                <e.icon
-                  aria-hidden
+                <PlatformIcon
+                  platform={e.platform}
                   className="size-[1.15rem] translate-y-[0.2em] text-muted-foreground transition-colors group-hover:text-primary"
                 />
                 <span>
-                  <span className="block font-semibold transition-colors group-hover:text-primary">{e.name}</span>
-                  <span className="block text-[0.9rem] leading-snug text-ink-2">{e.for}</span>
+                  <span className="block font-semibold transition-colors group-hover:text-primary">{e.label}</span>
+                  <span className="block text-[0.9rem] leading-snug text-ink-2">{e.description}</span>
                 </span>
                 <span className="col-start-2 mt-1 inline-flex items-center gap-1 text-[0.82rem] text-muted-foreground sm:col-start-3 sm:mt-0">
                   {e.handle}

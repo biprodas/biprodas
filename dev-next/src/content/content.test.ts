@@ -126,7 +126,8 @@ describe("certifications", () => {
 
 describe("services", () => {
   it("match data/services.yaml titles, links and engagements", async () => {
-    const { services, engagements, hiring } = await import("./services");
+    const { services, engagements } = await import("./services");
+    const { getLink } = await import("./links");
     const yaml: {
       services: { id: string; title: string; projects?: string[]; experience?: string[] }[];
       engagements: string[];
@@ -148,7 +149,7 @@ describe("services", () => {
       })),
     );
     expect(engagements.map((e) => e.id)).toEqual(yaml.engagements);
-    expect(hiring.upwork).toBe(yaml.hiring.platforms.upwork);
+    expect(getLink("upwork")?.url).toBe(yaml.hiring.platforms.upwork);
   });
 
   it("link to real projects and roles, with unique slugs and order", async () => {
@@ -189,5 +190,16 @@ describe("skills", () => {
     const yaml: { items?: (string | { name: string })[] }[] = master("skills.yaml");
     const names = new Set(yaml.flatMap((g) => g.items ?? []).map((i) => (typeof i === "string" ? i : i.name)));
     for (const s of skills) expect(names.has(s.name), s.name).toBe(true);
+  });
+});
+
+describe("links", () => {
+  it("match the profile URLs in data/profile.yaml", async () => {
+    const { links, getLink } = await import("./links");
+    const yaml: { social: { github: string; linkedin: string }; sites: { academic: string } } = master("profile.yaml");
+    expect(getLink("github")?.url).toBe(yaml.social.github);
+    expect(getLink("linkedin")?.url).toBe(yaml.social.linkedin);
+    expect(getLink("website")?.url).toBe(yaml.sites.academic);
+    expect(new Set(links.map((l) => l.order)).size).toBe(links.length);
   });
 });

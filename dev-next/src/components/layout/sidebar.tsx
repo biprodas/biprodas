@@ -1,26 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowRightIcon,
-  DownloadSimpleIcon,
-  EnvelopeSimpleIcon,
-  GithubLogoIcon,
-  GlobeIcon,
-  LinkedinLogoIcon,
-  MapPinIcon,
-} from "@phosphor-icons/react/ssr";
+import { ArrowRightIcon, DownloadSimpleIcon, EnvelopeSimpleIcon, MapPinIcon } from "@phosphor-icons/react/ssr";
+import { links } from "@/content/links";
 import { availability, profile } from "@/content/profile";
+import { PlatformIcon } from "@/components/platform-icon";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { LocalTime } from "./local-time";
 import { NavLinks } from "./nav-links";
 import { ThemeToggle } from "./theme-toggle";
-
-const links = [
-  { label: "GitHub", href: profile.social.github, icon: GithubLogoIcon },
-  { label: "LinkedIn", href: profile.social.linkedin, icon: LinkedinLogoIcon },
-  { label: "biprodas.com", href: profile.academicSite, icon: GlobeIcon },
-];
 
 const chip =
   "inline-flex items-center gap-1.5 border border-border bg-background px-2 py-0.5 font-mono text-[0.68rem] text-ink-2 transition-colors hover:border-primary/50 hover:text-primary [&_svg]:size-3.5";
@@ -112,11 +100,11 @@ export function Sidebar() {
 
         <hr className={cn(dash, "mt-3.5 mb-3")} />
         <ul className="flex flex-wrap gap-1.5" aria-label="Profiles">
-          {links.map(({ label, href, icon: Icon }) => (
-            <li key={href}>
-              <a className={chip} href={href}>
-                <Icon aria-hidden />
-                {label}
+          {links.map((l) => (
+            <li key={l.url}>
+              <a className={chip} href={l.url}>
+                <PlatformIcon platform={l.platform} />
+                {l.label}
               </a>
             </li>
           ))}

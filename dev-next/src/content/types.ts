@@ -157,3 +157,16 @@ export type Teaching = {
   audience?: string;
   summary?: string;
 };
+
+export type Platform =
+  "github" | "linkedin" | "upwork" | "x" | "website" | "email" | "codeforces" | "leetcode" | "scholar" | "orcid";
+
+export type SocialLink = {
+  platform: Platform;
+  label: string;
+  url: string;
+  handle?: string;
+  description?: string;
+  visible: boolean;
+  order: number;
+};

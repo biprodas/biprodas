@@ -13,6 +13,7 @@ import { awards, getSkill, skillCategories, skills } from "@/content/skills";
 import { glanceFacts } from "@/lib/glance";
 import { formatDate, formatRange, pad2 } from "@/lib/format";
 import { cn } from "@/lib/utils";
+import { getLink } from "@/content/links";
 
 const label = "font-mono text-[0.62rem] font-semibold tracking-[0.16em] text-muted-foreground uppercase";
 
@@ -240,7 +241,7 @@ export default function HomePage() {
           <Link href="/contact" className={cn(buttonVariants({ size: "lg" }), "h-10 px-4 text-[0.8rem]")}>
             Write to me <ArrowRightIcon data-icon="inline-end" />
           </Link>
-          <a href={profile.social.github} className="inline-flex items-center gap-1 font-semibold prose-link">
+          <a href={getLink("github")?.url} className="inline-flex items-center gap-1 font-semibold prose-link">
             GitHub <ArrowUpRightIcon className="size-3.5" />
           </a>
         </div>
