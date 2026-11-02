@@ -7,35 +7,19 @@ import { Tag } from "@/components/page";
 
 const MAX_TAGS = 5;
 
-/** Icon link in the card corner; dimmed and inert when there's no public URL. */
-function CornerLink({
-  href,
-  label,
-  missing,
-  children,
-}: {
-  href?: string;
-  label: string;
-  missing: string;
-  children: ReactNode;
-}) {
-  const base = "grid size-7 place-items-center transition-colors [&_svg]:size-4";
-  return href ? (
+/** Icon link in the card corner. Only rendered when the project has that link. */
+function CornerLink({ href, label, children }: { href: string; label: string; children: ReactNode }) {
+  return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
       title={label}
-      className={`${base} text-ink-2 hover:bg-wash hover:text-primary`}
+      className="grid size-7 place-items-center text-ink-2 transition-colors hover:bg-wash hover:text-primary [&_svg]:size-4"
     >
       {children}
     </a>
-  ) : (
-    <span title={missing} className={`${base} cursor-not-allowed text-muted-foreground/40`}>
-      {children}
-      <span className="sr-only">{missing}</span>
-    </span>
   );
 }
 
@@ -43,6 +27,7 @@ function CornerLink({
 export function ProjectCard({ project }: { project: Project }) {
   const name = project.shortTitle ?? project.title;
   const extra = project.technologies.length - MAX_TAGS;
+  const site = project.liveUrl ?? project.demoUrl;
 
   return (
     <article className="group relative flex flex-col bg-card p-6 transition-colors duration-300 focus-within:bg-[color-mix(in_oklab,var(--primary)_5%,var(--card))] hover:bg-[color-mix(in_oklab,var(--primary)_5%,var(--card))]">
@@ -54,16 +39,16 @@ export function ProjectCard({ project }: { project: Project }) {
       <div className="flex items-start justify-between gap-3">
         <p className="pt-1 text-xs text-muted-foreground">{project.topics.join(" · ")}</p>
         <div className="-mt-0.5 -mr-1.5 flex shrink-0">
-          <CornerLink href={project.sourceUrl} label={`${name} on GitHub`} missing="Private repository">
-            <GithubLogoIcon />
-          </CornerLink>
-          <CornerLink
-            href={project.liveUrl}
-            label={`Visit ${project.liveUrl ? urlLabel(project.liveUrl) : name}`}
-            missing="No public site"
-          >
-            <ArrowUpRightIcon />
-          </CornerLink>
+          {project.sourceUrl && (
+            <CornerLink href={project.sourceUrl} label={`${name} on GitHub`}>
+              <GithubLogoIcon />
+            </CornerLink>
+          )}
+          {site && (
+            <CornerLink href={site} label={`Visit ${urlLabel(site)}`}>
+              <ArrowUpRightIcon />
+            </CornerLink>
+          )}
         </div>
       </div>
       <h3 className="mt-1.5 text-lg font-semibold">
