@@ -17,13 +17,56 @@ describe("projects", () => {
     expect(new Set(slugs).size).toBe(slugs.length);
   });
 
-  it("match data/projects.yaml titles and links", () => {
-    const yaml: { id: string; title: string; links?: { url: string }[] }[] = master("projects.yaml");
+  it("match data/projects.yaml titles, type, status, dates and URLs", () => {
+    const yaml: {
+      id: string;
+      title: string;
+      type?: string;
+      status?: string;
+      period?: { start: string; end: string };
+      links?: { kind: string; url: string }[];
+    }[] = master("projects.yaml");
+    // Master vocabulary → site vocabulary. Master values without a site equivalent leave the site field unset.
+    const types: Record<string, string> = {
+      product: "Product",
+      enterprise: "Enterprise",
+      client: "Client Project",
+      "open-source": "Open Source",
+      research: "Research",
+    };
+    const statuses: Record<string, string> = {
+      "in-progress": "In Progress",
+      maintained: "Maintained",
+      completed: "Completed",
+      experimental: "Experimental",
+    };
     for (const p of projects) {
       const m = yaml.find((y) => y.id === p.slug);
       expect(m, p.slug).toBeDefined();
       expect(p.title).toBe(m!.title);
-      expect(p.links.map((l) => l.url).sort()).toEqual((m!.links ?? []).map((l) => l.url).sort());
+      expect(p.type, p.slug).toBe(m!.type && types[m!.type]);
+      expect(p.status, p.slug).toBe(m!.status && statuses[m!.status]);
+      expect(p.startDate, p.slug).toBe(m!.period?.start);
+      expect(p.endDate, p.slug).toBe(m!.period?.end === "present" ? undefined : m!.period?.end);
+      const url = (kind: string) => m!.links?.find((l) => l.kind === kind)?.url;
+      expect([p.liveUrl, p.sourceUrl, p.caseStudyUrl], p.slug).toEqual([url("live"), url("repo"), url("case-study")]);
+    }
+  });
+
+  it("have unique order, valid dates, https URLs and image paths", () => {
+    expect(new Set(projects.map((p) => p.order)).size).toBe(projects.length);
+    for (const p of projects) {
+      for (const d of [p.startDate, p.endDate]) if (d) expect(d, p.slug).toMatch(/^\d{4}(-\d{2})?$/);
+      if (p.startDate && p.endDate) expect(p.startDate <= p.endDate, p.slug).toBe(true);
+      for (const url of [p.liveUrl, p.sourceUrl, p.caseStudyUrl]) if (url) expect(url, p.slug).toMatch(/^https:\/\//);
+      for (const src of [p.thumbnail, ...(p.images ?? []).map((i) => i.src)]) {
+        if (!src) continue;
+        expect(src, p.slug).toMatch(/^(\/|https:\/\/)/);
+        if (src.startsWith("/"))
+          expect(existsSync(fileURLToPath(new URL(`../../public${src}`, import.meta.url))), src).toBe(true);
+      }
+      for (const img of p.images ?? []) expect(img.alt.trim(), img.src).not.toBe("");
+      if (p.role !== undefined) expect(p.role.trim(), p.slug).not.toBe("");
     }
   });
 

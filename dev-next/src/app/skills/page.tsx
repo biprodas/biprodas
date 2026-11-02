@@ -24,7 +24,7 @@ const note = (tech: string, where: string) => {
   usedIn.get(key)!.add(where);
 };
 for (const e of experience) for (const t of e.positions.flatMap((p) => p.technologies ?? [])) note(t, e.company.name);
-for (const p of projects) for (const t of p.tech) note(t, p.shortTitle ?? p.title);
+for (const p of projects) for (const t of p.technologies) note(t, p.shortTitle ?? p.title);
 const whereUsed = (name: string) => [...(usedIn.get(name.toLowerCase()) ?? [])];
 
 const areas: SkillArea[] = skillCategories.map((c) => ({

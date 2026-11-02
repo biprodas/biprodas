@@ -28,6 +28,14 @@
   summary: >-
     Multi-tenant SaaS platform for competition prediction pools with automated scoring, live
     leaderboards, and subscription billing.
+  description: >-
+    PitchPool runs prediction competitions. Participants join pools, predict match results and
+    follow live leaderboards that update as each result is scored automatically. Every tenant gets
+    its own isolated pools, participants and roles, and subscription plans decide which features a
+    tenant can use.
+  type: product
+  status: in-progress
+  role: Founder & sole engineer
   featured: true
   links:
     - { kind: live, url: "https://pitchpool.io" }

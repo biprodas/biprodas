@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRightIcon, ArrowUpRightIcon, GithubLogoIcon } from "@phosphor-icons/react/ssr";
 import type { Project } from "@/content/types";
+import { urlLabel } from "@/content/projects";
 import { Tag } from "@/components/page";
 
 const MAX_TAGS = 5;
@@ -33,10 +34,8 @@ function CornerLink({
 
 /** Grid card: topics and links, title, a short summary, and the stack. */
 export function ProjectCard({ project }: { project: Project }) {
-  const repo = project.links.find((l) => l.kind === "repo");
-  const live = project.links.find((l) => l.kind === "live");
   const name = project.shortTitle ?? project.title;
-  const extra = project.tech.length - MAX_TAGS;
+  const extra = project.technologies.length - MAX_TAGS;
 
   return (
     <article className="group relative flex flex-col bg-card p-6 transition-colors duration-300 focus-within:bg-[color-mix(in_oklab,var(--primary)_5%,var(--card))] hover:bg-[color-mix(in_oklab,var(--primary)_5%,var(--card))]">
@@ -48,10 +47,14 @@ export function ProjectCard({ project }: { project: Project }) {
       <div className="flex items-start justify-between gap-3">
         <p className="pt-1 text-[0.78rem] text-muted-foreground">{project.topics.join(" · ")}</p>
         <div className="-mt-0.5 -mr-1.5 flex shrink-0">
-          <CornerLink href={repo?.url} label={`${name} on GitHub`} missing="Private repository">
+          <CornerLink href={project.sourceUrl} label={`${name} on GitHub`} missing="Private repository">
             <GithubLogoIcon />
           </CornerLink>
-          <CornerLink href={live?.url} label={`Visit ${live?.label ?? name}`} missing="No public site">
+          <CornerLink
+            href={project.liveUrl}
+            label={`Visit ${project.liveUrl ? urlLabel(project.liveUrl) : name}`}
+            missing="No public site"
+          >
             <ArrowUpRightIcon />
           </CornerLink>
         </div>
@@ -72,7 +75,7 @@ export function ProjectCard({ project }: { project: Project }) {
         {project.summary}
       </p>
       <ul className="mt-auto flex flex-wrap items-center gap-1.5 pt-5" aria-label="Stack">
-        {project.tech.slice(0, MAX_TAGS).map((t) => (
+        {project.technologies.slice(0, MAX_TAGS).map((t) => (
           <li key={t}>
             <Tag className="bg-background transition-colors group-hover:border-primary/30">{t}</Tag>
           </li>

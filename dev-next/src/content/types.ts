@@ -1,8 +1,6 @@
 /** "YYYY" or "YYYY-MM", same convention as data/. */
 export type PartialDate = string;
 
-export type Link = { kind: "live" | "repo"; url: string; label: string };
-
 export type EmploymentType = "Full-time" | "Part-time" | "Contract" | "Freelance" | "Internship" | "Founder";
 
 export type Position = {
@@ -62,7 +60,7 @@ export type Education = {
   order: number;
 };
 
-export type Domain = "FinTech" | "SaaS" | "AI" | "EdTech" | "GovTech";
+export type Domain = "FinTech" | "SaaS" | "AI" | "EdTech" | "GovTech" | "Sports & Competition";
 
 export type DiagramNodeKind = "client" | "service" | "data" | "queue" | "external" | "worker";
 
@@ -87,20 +85,51 @@ export type DiagramEdge = {
 
 export type Diagram = { title: string; cols: number; rows: number; nodes: DiagramNode[]; edges: DiagramEdge[] };
 
+/** Who it was built for. "Product" is my own product. How it is sold (e.g. SaaS) goes in `domains`. */
+export type ProjectType = "Product" | "Enterprise" | "Client Project" | "Open Source" | "Research";
+
+export type ProjectStatus = "Completed" | "In Progress" | "Maintained" | "Experimental";
+
+/** Path under public/ ("/projects/…") or an https URL. */
+export type ImagePath = string;
+
 export type Project = {
   slug: string;
   title: string;
   /** Short name for tight spaces. */
   shortTitle?: string;
+  /** One line, for cards and link previews. */
   summary: string;
+  /** A paragraph for the case-study header; falls back to `summary`. */
+  description?: string;
+  type?: ProjectType;
+  /** My role on it, e.g. "Lead engineer". */
+  role?: string;
+  status?: ProjectStatus;
   domains: Domain[];
   topics: string[];
-  tech: string[];
-  links: Link[];
-  /** Facts from data/projects.yaml. */
+  technologies: string[];
+  /** What the product does. */
+  features?: string[];
+  /** Facts from data/projects.yaml: results and what was shipped. */
   highlights: string[];
+  /** What I did, when it differs from the team's work. */
+  contributions?: string[];
+  /** Hard problems met along the way. */
+  challenges?: string[];
+  /** Card image; decorative, the title sits next to it. */
+  thumbnail?: ImagePath;
+  images?: { src: ImagePath; alt: string }[];
+  liveUrl?: string;
+  sourceUrl?: string;
+  /** A write-up hosted elsewhere. The on-site case study is /projects/<slug>. */
+  caseStudyUrl?: string;
+  startDate?: PartialDate;
+  /** Unset while ongoing. */
+  endDate?: PartialDate;
   featured: boolean;
-  kind?: "product";
+  /** Position in lists, ascending. */
+  order: number;
   /** Case-study narrative (invented copy). */
   story: { problem: string; approach: string; decisions: { title: string; body: string }[] };
   diagram: Diagram;
