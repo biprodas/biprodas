@@ -53,17 +53,48 @@
 - id: startdescribe
   title: StartDescribe
   summary: >-
-    AI SaaS platform for e-commerce product descriptions and image generation, with multi-tenant
-    architecture and Stripe-based subscriptions.
+    AI SaaS that turns e-commerce listings into multilingual, SEO-ready product pages, syncing with
+    Shopify, WooCommerce and BigCommerce or working from CSV and Google Sheets.
+  type: client
+  role: Sole engineer
   links:
     - { kind: live, url: "https://startdescribe.com" }
-  tech: [Next.js, TypeScript, Tailwind, Supabase, Stripe, OpenAI, Perplexity]
-  topics: [AI, SaaS, E-commerce]
+  tech: [Next.js, TypeScript, Tailwind, Supabase, Shopify, Stripe, OpenAI, Perplexity]
+  topics: [AI, SaaS, E-commerce, Shopify, SEO, Multilingual Content]
   highlights:
+    - Built the Shopify app. Merchants install it in their store, products are fetched
+      automatically, and AI-enhanced descriptions and images sync back to Shopify.
     - Implemented secure authentication, an AI content generation pipeline, transactional emails,
       and SEO-optimized pages.
     - Increased onboarding conversion by 40% and reduced content generation time by 30% through
       optimized workflows and automation.
+
+- id: startintegrate
+  title: StartIntegrate
+  summary: >-
+    iPaaS platform offering custom apps for Make.com, Zapier and Workato, with usage statistics,
+    error tracking and subscription access to a library of integrations.
+  type: client
+  status: completed
+  role: Sole engineer
+  links:
+    - { kind: live, url: "https://startintegrate.com" }
+  tech: [Next.js, TypeScript, Tailwind, Supabase, Stripe, OpenAI, Perplexity]
+  topics: [iPaaS, No-code Automation, API Integrations]
+
+- id: startautomate
+  title: StartAutomate
+  summary: >-
+    Website and AI automations for an automation agency that builds no-code and AI workflows on
+    Make, Zapier and n8n.
+  type: client
+  status: completed
+  role: Engineer, with one other developer on automations
+  teamSize: 2
+  links:
+    - { kind: live, url: "https://startautomate.com" }
+  tech: [Next.js, TypeScript, Tailwind, Supabase, Stripe, OpenAI, Perplexity, n8n, Make, Zapier]
+  topics: [AI Automation, No-code Automation, Chatbots, RAG]
 
 - id: akaunty
   title: Akaunty
