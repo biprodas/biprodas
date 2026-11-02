@@ -211,3 +211,10 @@ describe("research", () => {
     expect(text).not.toMatch(/\bsample\b/i);
   });
 });
+
+describe("testimonials", () => {
+  it("keeps sample content out of the real testimonials", async () => {
+    const { realTestimonials } = await import("./testimonials");
+    expect(JSON.stringify(realTestimonials)).not.toMatch(/\bsample\b/i);
+  });
+});

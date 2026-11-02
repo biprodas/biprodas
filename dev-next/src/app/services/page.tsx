@@ -2,7 +2,9 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRightIcon } from "@phosphor-icons/react/ssr";
-import { Eyebrow, Section, Tag } from "@/components/page";
+import { Eyebrow, MoreLink, Section, Tag } from "@/components/page";
+import { Quote } from "@/components/testimonials/quote";
+import { featuredTestimonials } from "@/content/testimonials-content";
 import { JsonLd } from "@/components/json-ld";
 import { HireActions } from "@/components/services/actions";
 import { Faq } from "@/components/services/faq";
@@ -118,6 +120,19 @@ export default function ServicesPage() {
           })}
         </ul>
       </Section>
+
+      {isEnabled("testimonials") && featuredTestimonials.length > 0 && (
+        <Section title="What clients say" id="testimonials" className="wide">
+          <ul className="grid grid-cols-1 gap-x-10 gap-y-8 md:grid-cols-2">
+            {featuredTestimonials.slice(0, 2).map((t) => (
+              <li key={t.id} className="border-l-2 border-primary/50 pl-5">
+                <Quote t={t} />
+              </li>
+            ))}
+          </ul>
+          <MoreLink href="/testimonials">All testimonials</MoreLink>
+        </Section>
+      )}
 
       <Section title="Ways to work together" id="engagements" className="wide">
         <ul className="border-t border-foreground/70">

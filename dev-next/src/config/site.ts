@@ -53,7 +53,7 @@ export const siteConfig: SiteConfig = {
     experience: true,
     research: true,
     articles: false,
-    testimonials: false,
+    testimonials: true,
     contact: true,
   },
 };

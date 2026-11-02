@@ -217,3 +217,22 @@ export type Research = {
   publications: Publication[];
   talks: Talk[];
 };
+
+export type TestimonialRelationship = "client" | "manager" | "colleague" | "mentee";
+
+export type Testimonial = {
+  id: string;
+  quote: string;
+  name: string;
+  position: string;
+  company?: string;
+  linkedinUrl?: string;
+  relationship: TestimonialRelationship;
+  workedOn?: { label: string; href: string };
+  source?: { label: string; url: string };
+  date?: PartialDate;
+  avatar?: string;
+  featured: boolean;
+  visible: boolean;
+  order: number;
+};

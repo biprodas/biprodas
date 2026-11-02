@@ -1,5 +1,6 @@
 import { isEnabled, type Feature } from "@/config/site";
 import { showResearch } from "@/content/research";
+import { indexTestimonials, showTestimonials } from "@/content/testimonials";
 
 const pages: { href: string; label: string; feature?: Feature }[] = [
   { href: "/", label: "About" },
@@ -16,7 +17,10 @@ export const nav: { href: string; label: string }[] = pages
   .map(({ href, label }) => ({ href, label }));
 
 /** Pages outside the menu, and the menu entry they belong under. */
-const parents: Record<string, string> = { "/certifications": "/skills" };
+const parents: Record<string, string> = {
+  "/certifications": "/skills",
+  ...(showTestimonials ? { "/testimonials": "/services" } : {}),
+};
 
 /** The nav entry a path belongs to: "/projects/akaunty" → Projects, "/certifications" → Skills. */
 export function sectionFor(pathname: string) {
@@ -25,4 +29,10 @@ export function sectionFor(pathname: string) {
 }
 
 /** Pages that aren't in the menu but should be in the sitemap. */
-export const extraPages = Object.keys(parents).filter((p) => p !== "/certifications" || isEnabled("certifications"));
+export const extraPages = Object.keys(parents).filter((p) =>
+  p === "/certifications"
+    ? isEnabled("certifications")
+    : p === "/testimonials"
+      ? indexTestimonials && isEnabled("testimonials")
+      : true,
+);
