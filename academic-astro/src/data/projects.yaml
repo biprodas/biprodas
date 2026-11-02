@@ -118,6 +118,8 @@
   summary: >-
     Multi-tenant core banking platform for NGO microfinance operations, deployed across 3
     organizations and 20 branches.
+  status: maintained
+  role: Founding Engineer & Tech Lead
   featured: true
   tech: [Next.js, NestJS, PostgreSQL, Redis, BullMQ, TypeORM]
   topics: [FinTech, Microfinance, Accounting]
@@ -126,6 +128,8 @@
       field-agent collection, with training and technical support for deployments.
     - Engineered the double-entry accounting ledger with transaction posting and reconciliation,
       alongside microcredit portfolio management, HR/payroll, and MIS/AIS reporting.
+    - Led the foundation end to end (requirements analysis, system architecture, database design
+      and tech stack), then led teams of 5–7 mid-level and junior engineers while staying hands-on.
 
 - id: larmts
   title: Land Acquisition and Resettlement Management Tracking System (LARMTS)

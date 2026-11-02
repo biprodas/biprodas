@@ -180,8 +180,11 @@ const allProjects: Project[] = [
       "Multi-tenant core banking platform for NGO microfinance operations, deployed across 3 organizations and 20 branches.",
     description:
       "A core banking system for NGOs that run microfinance programmes. It covers group lending and savings products from loan disbursement through repayment schedules and field-agent collection, and posts every transaction to a double-entry ledger that reconciles. It runs in 3 organizations across 20 branches, with microcredit portfolio management, HR/payroll and MIS/AIS reporting alongside.",
+    type: "Enterprise",
+    role: "Founding Engineer & Tech Lead",
+    status: "Maintained",
     domains: ["FinTech"],
-    topics: ["FinTech", "Microfinance", "Accounting"],
+    topics: ["Core Banking", "Microfinance", "Double-entry Accounting", "Multi-tenancy"],
     technologies: ["Next.js", "NestJS", "PostgreSQL", "Redis", "BullMQ", "TypeORM"],
     featured: true,
     order: 3,
@@ -192,6 +195,13 @@ const allProjects: Project[] = [
       "Microcredit portfolio management",
       "HR and payroll",
       "MIS and AIS reporting",
+    ],
+    contributions: [
+      "Ran requirements analysis with the microfinance operations it had to serve",
+      "Architected the system and chose the tech stack",
+      "Designed the database, including the multi-tenant model and the double-entry ledger",
+      "Built the foundation across frontend, backend and database so other engineers and teams could build on it without friction",
+      "Kept engineering hands-on while leading teams of 5–7 mid-level and junior engineers on the project",
     ],
     highlights: [
       "Covers group lending, savings products, loan disbursement, repayment scheduling and field-agent collection, with training and technical support for deployments.",
@@ -395,13 +405,13 @@ const allProjects: Project[] = [
       "Practice app for AWS certification exams, with questions organized by certification and AWS service, an explanation on every answer and per-topic accuracy tracking.",
     description:
       "Cloud Prep is a practice app for four AWS certification exams: Cloud Practitioner, AI Practitioner, Developer Associate and Solutions Architect Associate. Questions are organized by certification and AWS service, every answer comes with an explanation, and accuracy is tracked per topic so you can see where you're weak.",
-    domains: ["EdTech"],
-    topics: ["EdTech", "AWS", "Certification Prep"],
+    type: "Product",
+    domains: ["EdTech", "SaaS"],
+    topics: ["AWS Certification", "Exam Preparation", "Progress Tracking"],
     technologies: ["Next.js", "TypeScript", "Supabase", "TanStack Query", "Tailwind CSS", "Paddle"],
     liveUrl: "https://cloudprep.biprodas.dev",
     featured: false,
     order: 6,
-    type: "Product",
     // data/projects.yaml lists these as highlights; they describe what the product does, so they live in `features`.
     highlights: [],
     features: [
