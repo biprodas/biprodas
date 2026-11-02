@@ -1,7 +1,11 @@
 import Link from "next/link";
-import { ArrowRightIcon } from "@phosphor-icons/react/ssr";
+import { ArrowRightIcon, ArrowUpRightIcon, GithubLogoIcon } from "@phosphor-icons/react/ssr";
 import type { Project } from "@/content/types";
 import { Tag } from "@/components/page";
+
+// Sits above the card-wide title link so it stays clickable.
+const external =
+  "relative z-10 inline-flex items-center gap-1 px-2 py-1 font-mono text-xs text-ink-2 transition-colors hover:bg-primary/10 hover:text-primary [&_svg]:size-3.5";
 
 /** One project in a list: text-first, like an entry in a catalogue. */
 export function ProjectEntry({ project, number }: { project: Project; number: string }) {
@@ -29,9 +33,26 @@ export function ProjectEntry({ project, number }: { project: Project; number: st
             </li>
           ))}
         </ul>
-        <span className="mt-3 inline-flex items-center gap-1 font-mono text-xs text-primary">
-          Case study <ArrowRightIcon className="size-3 transition-transform group-hover:translate-x-0.5" />
-        </span>
+        <div className="mt-2 -ml-2 flex flex-wrap items-center gap-1">
+          <span className="inline-flex items-center gap-1 px-2 py-1 font-mono text-xs text-primary transition-colors group-hover:bg-primary/10 group-has-[[data-external]:hover]:bg-transparent">
+            Case study <ArrowRightIcon className="size-3 transition-transform group-hover:translate-x-0.5" />
+          </span>
+          {project.liveUrl && (
+            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" data-external className={external}>
+              Live <ArrowUpRightIcon />
+            </a>
+          )}
+          {project.demoUrl && (
+            <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" data-external className={external}>
+              Explore demo <ArrowUpRightIcon />
+            </a>
+          )}
+          {project.sourceUrl && (
+            <a href={project.sourceUrl} target="_blank" rel="noopener noreferrer" data-external className={external}>
+              <GithubLogoIcon /> Source
+            </a>
+          )}
+        </div>
       </div>
     </article>
   );

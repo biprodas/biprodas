@@ -8,7 +8,7 @@ import { ArchitectureDiagram } from "@/components/projects/architecture-diagram"
 import { JsonLd } from "@/components/json-ld";
 import { HireActions } from "@/components/services/actions";
 import { buttonVariants } from "@/components/ui/button";
-import { getProject, projects, urlLabel } from "@/content/projects";
+import { getProject, projects } from "@/content/projects";
 import { services } from "@/content/services";
 import type { Project, ProjectStatus } from "@/content/types";
 import { formatRange, pad2 } from "@/lib/format";
@@ -119,7 +119,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
                 rel="noopener noreferrer"
                 className={cn(buttonVariants(), button)}
               >
-                Visit {urlLabel(project.liveUrl)}
+                Visit live site
                 <ArrowUpRightIcon data-icon="inline-end" />
               </a>
             )}
@@ -130,7 +130,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
                 rel="noopener noreferrer"
                 className={cn(buttonVariants({ variant: project.liveUrl ? "outline" : "default" }), button)}
               >
-                Try the demo
+                Explore the demo
                 <ArrowUpRightIcon data-icon="inline-end" />
               </a>
             )}
