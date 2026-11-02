@@ -32,3 +32,10 @@ export function duration(start: PartialDate, end: PartialDate | "present"): stri
   const m = total % 12;
   return [y && `${y} yr${y > 1 ? "s" : ""}`, m && `${m} mo${m > 1 ? "s" : ""}`].filter(Boolean).join(" ");
 }
+
+export const initials = (name: string) =>
+  name
+    .split(/\s+/)
+    .filter((w) => /^[A-Z]/.test(w))
+    .map((w) => w[0])
+    .join("");

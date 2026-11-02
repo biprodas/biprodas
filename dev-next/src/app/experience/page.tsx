@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Eyebrow, Section } from "@/components/page";
 import { Timeline } from "@/components/timeline";
@@ -8,6 +9,7 @@ import { certifications, latestCertification } from "@/content/certifications";
 import { getProject } from "@/content/projects";
 import { awards } from "@/content/skills";
 import { duration, formatRange, yearRange } from "@/lib/format";
+import { publicFileExists } from "@/lib/public-file";
 
 export const metadata: Metadata = {
   title: "Experience",
@@ -126,12 +128,58 @@ export default function ExperiencePage() {
         <ol className="timeline">
           {education.map((e) => (
             <li key={e.id} data-kind="education">
-              <span className="mb-0.5 block text-meta">{yearRange(e.start, e.end)}</span>
-              <h3 className={entryTitle}>{e.degree}</h3>
-              <p className="text-ink-2">{e.institution}</p>
+              {e.startDate ? (
+                <span className="mb-0.5 block text-meta">{yearRange(e.startDate, e.endDate ?? "present")}</span>
+              ) : (
+                e.endDate && <span className="mb-0.5 block text-meta">{e.endDate.slice(0, 4)}</span>
+              )}
+              <div className="flex items-start gap-3">
+                {e.institution.logo && publicFileExists(e.institution.logo) && (
+                  <Image
+                    src={e.institution.logo}
+                    alt=""
+                    width={40}
+                    height={40}
+                    className="mt-1 size-10 shrink-0 object-contain"
+                  />
+                )}
+                <div>
+                  <h3 className={entryTitle}>
+                    {e.degree} in {e.fieldOfStudy}
+                  </h3>
+                  <p className="text-ink-2">
+                    {e.institution.website ? (
+                      <a href={e.institution.website} className="prose-link">
+                        {e.institution.name}
+                      </a>
+                    ) : (
+                      e.institution.name
+                    )}
+                  </p>
+                </div>
+              </div>
               <p className={meta}>
-                {e.location}, {formatRange(e.start, e.end)}
+                {[
+                  e.institution.location,
+                  e.startDate && formatRange(e.startDate, e.endDate ?? "present"),
+                  e.grade && `Grade ${e.grade}`,
+                ]
+                  .filter(Boolean)
+                  .join(", ")}
               </p>
+              {e.description && <p className="mt-2 text-[0.95rem] leading-relaxed text-ink-2">{e.description}</p>}
+              {e.activities && e.activities.length > 0 && (
+                <ul className="dashes mt-2 text-[0.95rem] leading-relaxed text-ink-2">
+                  {e.activities.map((a) => (
+                    <li key={a}>{a}</li>
+                  ))}
+                </ul>
+              )}
+              {e.relevantCourses && e.relevantCourses.length > 0 && (
+                <p className="mt-2 text-[0.88rem] text-muted-foreground">
+                  Relevant courses: {e.relevantCourses.join(", ")}
+                </p>
+              )}
             </li>
           ))}
         </ol>

@@ -40,13 +40,26 @@ export type Experience = ExperienceEntry & {
   current: boolean;
 };
 
+export type Institution = {
+  name: string;
+  website?: string;
+  logo?: string;
+  location?: string;
+};
+
 export type Education = {
   id: string;
-  institution: string;
-  location: string;
+  institution: Institution;
   degree: string;
-  start: PartialDate;
-  end: PartialDate;
+  degreeShort?: string;
+  fieldOfStudy: string;
+  startDate?: PartialDate;
+  endDate?: PartialDate;
+  grade?: string;
+  description?: string;
+  activities?: string[];
+  relevantCourses?: string[];
+  order: number;
 };
 
 export type Domain = "FinTech" | "SaaS" | "AI" | "EdTech" | "GovTech";

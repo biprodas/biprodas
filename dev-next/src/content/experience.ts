@@ -118,16 +118,25 @@ export const experience: Experience[] = [...entries]
     };
   });
 
-export const education: Education[] = [
+const educationEntries: Education[] = [
   {
     id: "bsc-cse-just",
-    institution: "Jashore University of Science & Technology",
-    location: "Jashore, Bangladesh",
-    degree: "B.Sc. in Computer Science & Engineering",
-    start: "2013-05",
-    end: "2017-09",
+    institution: {
+      name: "Jashore University of Science & Technology",
+      location: "Jashore, Bangladesh",
+      website: "https://just.edu.bd/",
+      logo: "/images/logos/just.png",
+    },
+    degree: "Bachelor of Science",
+    degreeShort: "B.Sc.",
+    fieldOfStudy: "Computer Science & Engineering",
+    startDate: "2013-05",
+    endDate: "2017-09",
+    order: 1,
   },
 ];
+
+export const education = [...educationEntries].sort((a, b) => a.order - b.order);
 
 export const teaching: Teaching[] = [
   {

@@ -4,6 +4,7 @@ import { education, experience } from "@/content/experience";
 import { projects } from "@/content/projects";
 import { certifications } from "@/content/certifications";
 import { awards } from "@/content/skills";
+import { initials } from "@/lib/format";
 
 export type Fact = { label: string; value: string; detail: string };
 
@@ -23,8 +24,8 @@ export function glanceFacts(): Fact[] {
     { label: "Problem solving", value: solved?.title.split(" ")[0] ?? "", detail: "algorithmic problems solved" },
     {
       label: "Education",
-      value: "B.Sc. CSE",
-      detail: `JUST, ${degree.end.slice(0, 4)}`,
+      value: `${degree.degreeShort ?? degree.degree} ${initials(degree.fieldOfStudy)}`,
+      detail: [initials(degree.institution.name), degree.endDate?.slice(0, 4)].filter(Boolean).join(", "),
     },
   ];
 }

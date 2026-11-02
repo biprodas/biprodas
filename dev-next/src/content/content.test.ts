@@ -73,10 +73,30 @@ describe("experience", () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it("matches data/education.yaml dates", () => {
-    const yaml: { id: string; start: string; end: string }[] = master("education.yaml");
-    expect(education.map(({ id, start, end }) => ({ id, start, end }))).toEqual(
-      yaml.map(({ id, start, end }) => ({ id, start, end })),
+  it("matches data/education.yaml institutions, fields and dates", () => {
+    const yaml: {
+      id: string;
+      institution: { name: string };
+      degree: { field: string };
+      start: string;
+      end: string;
+    }[] = master("education.yaml");
+    expect(
+      education.map((e) => ({
+        id: e.id,
+        institution: e.institution.name,
+        field: e.fieldOfStudy,
+        start: e.startDate,
+        end: e.endDate,
+      })),
+    ).toEqual(
+      yaml.map((y) => ({
+        id: y.id,
+        institution: y.institution.name,
+        field: y.degree.field,
+        start: y.start,
+        end: y.end,
+      })),
     );
   });
 });
