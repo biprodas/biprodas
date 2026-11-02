@@ -88,36 +88,25 @@
       transactions, and dashboards and reports.
 
 - id: must-hiring
-  title: MUST Hiring
+  title: MUST Hiring & Match Hire
   summary: >-
-    AI hiring platform with resume matching, AI interview practice and job description
-    generation, plus an ATS for recruiters with scheduling and analytics.
+    Two AI hiring platforms at MUST Company: MUST Hiring, with resume matching, interview practice
+    and an ATS, built full-stack; and Match Hire, an AI-first hiring workspace, where I worked on
+    the frontend.
   status: completed
-  role: Full-stack engineer
+  role: Full-stack engineer (MUST Hiring), frontend engineer (Match Hire)
   period: { start: "2024-05", end: "2026-06" }
   experience: must-company
   links:
     - { kind: live, url: "https://hiring.must.company" }
   tech: [Python, FastAPI, DynamoDB, Next.js, TypeScript]
-  topics: [AI, Recruitment, Applicant Tracking, AI Matching]
+  topics: [AI, Recruitment, Applicant Tracking, AI Matching, AI Search]
   highlights:
     - Built the whole platform full-stack, covering AI resume matching, AI interview practice with
       recorded answers, an AI job description generator, and a recruiter ATS with scheduling and
       analytics.
-
-- id: match-hire
-  title: Match Hire
-  summary: >-
-    AI hiring workspace where teams describe who they want to hire and get candidates ranked by
-    fit, with an AI assistant, pipeline automations and a joint inbox.
-  status: completed
-  role: Frontend engineer
-  period: { start: "2024-05", end: "2026-06" }
-  experience: must-company
-  links:
-    - { kind: live, url: "https://matchhire.must.company" }
-  tech: [Next.js, TypeScript]
-  topics: [AI, Recruitment, AI Search]
+    - Worked on the frontend of Match Hire, the AI-first successor with deep candidate search, an AI
+      hiring assistant and a talent workspace.
 
 - id: must-mate
   title: MUST Mate
@@ -240,6 +229,31 @@
   # repo: github.com/biprodas/ielzy is private
   tech: [Next.js, React, TypeScript, Better Auth, Drizzle, Neon Postgres, Cloudflare R2, Resend, Tiptap]
   topics: [EdTech, IELTS, Exam Preparation, Mock Tests]
+
+- id: detgate
+  title: DETGate
+  summary: >-
+    Planned practice app for the Duolingo English Test, built on the same foundation as Ielzy:
+    practice by question type, timed mock tests and a personal study plan.
+  type: product
+  status: planning
+  role: Founder & sole engineer
+  tech: [Next.js, React, TypeScript, Better Auth, Drizzle, Neon Postgres, Cloudflare R2, Resend]
+  topics: [EdTech, Duolingo English Test, Exam Preparation]
+
+- id: reslo
+  title: Reslo
+  summary: >-
+    AI-powered career toolkit that centralises your profile and builds ATS-ready resumes and cover
+    letters, with share links, an ATS checker and a job tracker.
+  type: product
+  status: in-progress
+  role: Founder & sole engineer
+  links:
+    - { kind: demo, url: "https://reslo-nine.vercel.app" }
+    # repo: github.com/biprodas/reslo is private
+  tech: [Next.js, TypeScript, Better Auth, Drizzle, Neon Postgres, OpenAI, Anthropic, Polar, Resend, Tailwind CSS]
+  topics: [SaaS, AI, Resume Builder, Career Profiles, ATS Optimization]
 
 - id: cloud-prep
   title: Cloud Prep

@@ -42,6 +42,7 @@ const statusDot: Record<ProjectStatus, string> = {
   Maintained: "bg-primary",
   Completed: "bg-muted-foreground",
   Experimental: "border border-primary",
+  Planned: "border border-dashed border-muted-foreground",
 };
 
 /** One row of the "At a glance" panel: label on the left, value on the right. */

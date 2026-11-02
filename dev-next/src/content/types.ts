@@ -88,7 +88,7 @@ export type Diagram = { title: string; cols: number; rows: number; nodes: Diagra
 /** Who it was built for. "Product" is my own product. How it is sold (e.g. SaaS) goes in `domains`. */
 export type ProjectType = "Product" | "Enterprise" | "Client Project" | "Open Source" | "Research";
 
-export type ProjectStatus = "Completed" | "In Progress" | "Maintained" | "Experimental";
+export type ProjectStatus = "Completed" | "In Progress" | "Maintained" | "Experimental" | "Planned";
 
 /** Path under public/ ("/projects/…") or an https URL. */
 export type ImagePath = string;

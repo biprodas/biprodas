@@ -39,6 +39,7 @@ describe("projects", () => {
       maintained: "Maintained",
       completed: "Completed",
       experimental: "Experimental",
+      planning: "Planned",
     };
     for (const p of projects) {
       const m = yaml.find((y) => y.id === p.slug);
