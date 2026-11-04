@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRightIcon } from "@phosphor-icons/react/ssr";
 import { Eyebrow, MoreLink, Section, Tag } from "@/components/page";
-import { Quote } from "@/components/testimonials/quote";
+import { TestimonialCard } from "@/components/testimonials/testimonial-card";
 import { featuredTestimonials } from "@/content/testimonials-content";
 import { JsonLd } from "@/components/json-ld";
 import { HireActions } from "@/components/services/actions";
@@ -24,6 +24,9 @@ export const metadata: Metadata = {
 
 const orgName = (id: string) => experience.find((e) => e.id === id)?.company.name;
 const MAX_OFFERINGS = 3;
+
+/** "What clients say": featured client testimonials only (managers and teammates live on /testimonials). */
+const clientQuotes = featuredTestimonials.filter((t) => t.relationship === "client").slice(0, 2);
 
 export default function ServicesPage() {
   if (!isEnabled("services")) notFound();
@@ -121,12 +124,12 @@ export default function ServicesPage() {
         </ul>
       </Section>
 
-      {isEnabled("testimonials") && featuredTestimonials.length > 0 && (
+      {isEnabled("testimonials") && clientQuotes.length > 0 && (
         <Section title="What clients say" id="testimonials" className="wide">
-          <ul className="grid grid-cols-1 gap-x-10 gap-y-8 md:grid-cols-2">
-            {featuredTestimonials.slice(0, 2).map((t) => (
-              <li key={t.id} className="border-l-2 border-primary/50 pl-5">
-                <Quote t={t} />
+          <ul className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            {clientQuotes.map((t) => (
+              <li key={t.id}>
+                <TestimonialCard quotes={[t]} className="h-full" />
               </li>
             ))}
           </ul>

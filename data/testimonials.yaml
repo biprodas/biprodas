@@ -1,0 +1,113 @@
+# Testimonials: real words from real people, quoted exactly (keep their spelling and grammar).
+# Never invent or reword these. Only add a testimonial the person wrote or agreed to share.
+#
+# - id: kebab-case
+#   quote: ...                      # exact text; paragraph breaks may be joined with spaces
+#   name: ...
+#   position: ...                   # their title, or "Client" when unknown
+#   company: ...                    # optional
+#   linkedin: ...                   # optional profile URL
+#   relationship: client            # client | manager | colleague | mentee
+#   source: { label, url }          # where the words were published
+#   project: ...                    # optional: the job or project they're about
+#   date: "YYYY-MM"                 # when it was written (job end date for marketplace reviews)
+#   avatar: assets/testimonials/<id>.jpg  # optional photo
+
+- id: m-hasan-khan
+  quote: >-
+    I've had the pleasure of working with Biprodas, and I can confidently say that he is one of the
+    most talented developers I've worked with. He has a strong logical mindset and an impressive
+    ability to break down complex problems into practical solutions. What stands out most is his
+    persistence and problem-solving skills. No matter how challenging the issue, he consistently finds
+    an effective solution while maintaining high-quality work. Beyond his technical expertise, he is a
+    great teammate who is always willing to collaborate, share knowledge, and support others. Working
+    with him has been a genuinely positive experience, and I highly recommend him to any team looking
+    for a skilled developer and an exceptional problem solver.
+  name: M. Hasan Khan
+  linkedin: "https://www.linkedin.com/in/m-hasan-khan-50a56611a/"
+  position: Senior AI Engineer & Team Lead
+  relationship: manager         # "managed Biprodas directly"; was his project leader
+  source: { label: LinkedIn, url: "https://www.linkedin.com/in/biprodas-roy/details/recommendations/" }
+  date: "2026-06"               # June 3, 2026
+  avatar: assets/testimonials/m-hasan-khan.jpg
+
+- id: milon-hossain
+  quote: >-
+    Biprodas is the best programmer i ever worked with & i can recommend! He harnesses amazing
+    problem solving & programming skills. Always keen to learn new technologies its been fun working
+    with him for the last 3 years. I always wish the best for him!
+  name: Milon Hossain
+  linkedin: "https://www.linkedin.com/in/milon-hossain-ab6492201/"
+  position: Partner & colleague # former partner at Semicolon; LinkedIn headline: "DevOps, AWS, Cloud Computing, Linux Fan"
+  company: Semicolon IT Solutions
+  relationship: colleague       # "worked with Biprodas on the same team"
+  source: { label: LinkedIn, url: "https://www.linkedin.com/in/biprodas-roy/details/recommendations/" }
+  date: "2022-06"               # June 6, 2022
+  avatar: assets/testimonials/milon-hossain.jpg
+
+- id: masud-pervez
+  quote: >-
+    I had the pleasure of working with him for 2 year and I can say without hesitation that he is one
+    of the most skilled and experienced developers I have ever worked with. He has a deep
+    understanding of multiple programming languages and frameworks, as well as a keen eye for detail
+    and problem-solving skills that are second to none.
+  name: Masud Pervez
+  linkedin: "https://www.linkedin.com/in/masud-pervez-/"
+  position: Software Engineer (Web) # current LinkedIn headline; Specialist Engineer at Purrfect Software Limited
+  relationship: mentee          # Biprodas led him; LinkedIn says "worked with Biprodas on the same team"
+  source: { label: LinkedIn, url: "https://www.linkedin.com/in/biprodas-roy/details/recommendations/" }
+  date: "2023-02"               # February 18, 2023
+  avatar: assets/testimonials/masud-pervez.jpg
+
+- id: ashish-sarker
+  quote: >-
+    Mr. Biprodas Roy dada has great personality. I found him as a good team lead, teacher, mentor,
+    colleague, programmer and developer. May God bless you. Good luck.
+  name: Ashish Sarker
+  linkedin: "https://www.linkedin.com/in/ashish-sarker-3122321b3/"
+  position: Software Engineer   # current LinkedIn headline: "BSc. Engg. | Software Engineer | Problem Solver"
+  relationship: mentee          # "reported to Biprodas directly"
+  source: { label: LinkedIn, url: "https://www.linkedin.com/in/biprodas-roy/details/recommendations/" }
+  date: "2022-06"               # June 8, 2022
+  avatar: assets/testimonials/ashish-sarker.jpg
+
+- id: fahad-moin-crm
+  quote: >-
+    Working with Biprodas was an absolute pleasure!! I hired him to tackle some complex tasks, and he
+    was excellent. I was thoroughly impressed by his depth of technical expertise and business
+    knowledge. He is proactive in clarifying requirements, and communication was clear and timely. I
+    would definitely work with him again and would highly recommend him.
+  name: Fahad Moin
+  linkedin: "https://www.linkedin.com/in/fahad-moain/"
+  position: Client
+  relationship: client
+  source: { label: Upwork, url: "https://www.upwork.com/freelancers/~017dd9d645b9e068e4" }
+  project: Full Stack JavaScript Developer for CRM Completion (Sep 2023 – Mar 2024, 5.0)
+  date: "2024-03"
+
+- id: maxim-melnic-admin-dashboard
+  quote: >-
+    I hired Biprodas for fairly complex project with charts, tables and other UI/UX things that
+    needed huge attention to detail. He implemented design pixel-perfect from Figma, and
+    responsiveness was just amazing on EVERY screen size. I would definitely recommend him and will
+    hire for on-going support after launch!
+  name: Maxim Melnic
+  linkedin: "https://www.linkedin.com/in/maxim-melnic-41a64034b/"
+  position: Client
+  relationship: client
+  source: { label: Upwork, url: "https://www.upwork.com/freelancers/~017dd9d645b9e068e4" }
+  project: Expert React / Next.js Developer Required for Admin Dashboard Development (May 2024, 5.0)
+  date: "2024-05"
+
+- id: maxim-melnic-frontend
+  quote: >-
+    I enjoyed work together! He is really skilled and the code is clean and thoroughly designed. I
+    can definitely recommend Biprodas, he was always ready to help and available to answer my
+    questions!
+  name: Maxim Melnic
+  linkedin: "https://www.linkedin.com/in/maxim-melnic-41a64034b/"
+  position: Client
+  relationship: client
+  source: { label: Upwork, url: "https://www.upwork.com/freelancers/~017dd9d645b9e068e4" }
+  project: Front-End - Next.js / React / 3 Pages Needed (Apr – May 2024, 5.0)
+  date: "2024-05"

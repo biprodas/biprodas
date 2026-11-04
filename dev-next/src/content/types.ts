@@ -254,6 +254,8 @@ export type TestimonialRelationship = "client" | "manager" | "colleague" | "ment
 export type Testimonial = {
   id: string;
   quote: string;
+  /** A verbatim excerpt of `quote` to emphasise; must appear in it exactly. */
+  highlight?: string;
   name: string;
   position: string;
   company?: string;

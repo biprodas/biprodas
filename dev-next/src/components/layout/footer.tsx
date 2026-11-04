@@ -3,6 +3,8 @@ import { ArrowRightIcon, ArrowUpIcon, ArrowUpRightIcon } from "@phosphor-icons/r
 import { buttonVariants } from "@/components/ui/button";
 import { availability, profile } from "@/content/profile";
 import { getLink, links } from "@/content/links";
+import { isEnabled } from "@/config/site";
+import { showTestimonials } from "@/content/testimonials";
 import { nav } from "@/lib/nav";
 import { LocalTime } from "./local-time";
 import { cn } from "@/lib/utils";
@@ -12,6 +14,10 @@ const link = "text-muted-foreground transition-colors hover:text-primary";
 
 const elsewhere = links.filter((l) => l.platform !== "website");
 const academic = getLink("website");
+
+// Testimonials sit outside the main menu, so the footer is where they get a link.
+const pages =
+  showTestimonials && isEnabled("testimonials") ? [...nav, { href: "/testimonials", label: "Testimonials" }] : nav;
 
 export function Footer() {
   return (
@@ -43,7 +49,7 @@ export function Footer() {
           <nav aria-label="Footer">
             <p className={label}>Pages</p>
             <ul className="mt-2.5 grid grid-cols-2 gap-x-4 gap-y-1.5 sm:grid-cols-1">
-              {nav.map((n) => (
+              {pages.map((n) => (
                 <li key={n.href}>
                   <Link href={n.href} className={link}>
                     {n.label}

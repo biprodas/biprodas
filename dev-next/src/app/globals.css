@@ -40,9 +40,10 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  /* Extra tokens: secondary ink and a faint accent wash. */
+  /* Extra tokens: secondary ink, a faint accent wash, and the marker behind highlighted words. */
   --color-ink-2: var(--ink-2);
   --color-wash: var(--wash);
+  --color-highlight: var(--highlight);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -89,6 +90,7 @@
   --accent: #ebe8e1;
   --accent-foreground: #1f2328;
   --wash: #33598a14;
+  --highlight: #33598a38;
   --destructive: #b42318;
   --border: #e3dfd6;
   --input: #d9d4c9;
@@ -128,6 +130,7 @@
   --accent: #262a31;
   --accent-foreground: #e8e6e1;
   --wash: #8fb0da17;
+  --highlight: #8fb0da42;
   --destructive: #f97066;
   --border: #2e3239;
   --input: #383c44;
