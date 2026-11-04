@@ -19,7 +19,7 @@ export function NavLinks() {
             >
               <span
                 aria-hidden
-                className="hidden min-w-[1.1rem] font-mono text-[0.62rem] text-muted-foreground/70 group-aria-[current=page]:text-primary lg:inline"
+                className="hidden min-w-[1.1rem] font-mono text-[0.62rem] text-muted-foreground group-aria-[current=page]:text-primary lg:inline"
               >
                 {pad2(i + 1)}
               </span>
