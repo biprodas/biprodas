@@ -1,5 +1,5 @@
 // Facts mirror data/profile.yaml.
-// INVENTED COPY: `headlineLine`, `about`, `now.focus` and `principles` are narrative written
+// INVENTED COPY: `headlineLine`, `now.focus` and `principles` are narrative written
 // for biprodas.dev. Edit freely.
 
 import portrait from "@/assets/biprodas-roy.png";
@@ -35,9 +35,9 @@ export const profile = {
     { value: "2,000+", label: "problems solved" },
   ],
   about: [
-    "I started out writing C and C++ for programming contests at university, and the habit stuck: find the constraint, model it precisely, then make it fast. These days the constraints are tenants, ledgers, queues, and latency budgets rather than time limits, but the work feels the same.",
-    "Most of my career has been close to money and operations: double-entry ledgers for microfinance NGOs, billing and payroll engines for rental fleets, multi-tenant ERPs for schools and businesses. More recently I've been building real-time AI systems, with live transcription, translation, and LLM pipelines that have to keep up with a conversation.",
-    "I co-founded a software company, led a team of 10–15 engineers, and mentored more than twenty juniors along the way. I care about the unglamorous parts that make software trustworthy: schemas that can't hold invalid states, reports that reconcile, and code the next person can read.",
+    "I'm a backend-focused full-stack developer who builds and ships SaaS products end to end. In my free time I mostly work on my own products. Right now I'm working on Akaunty, a multi-tenant accounting app for freelancers, agencies, NGOs, and small businesses, with proper double-entry bookkeeping underneath. I also work on my other products from time to time: PitchPool, a prediction-pool platform live at pitchpool.io, where I cut idle database traffic by about 90% so serverless PostgreSQL can scale to zero, and Cloud Prep, an AI-powered AWS certification practice app with weak-area tracking.",
+    "Most recently, at MUST Company in Seoul, I worked remotely on MustBreak, a real-time meeting platform with live transcription, translation, and AI summaries, and integrated it with Slack. Before that, as a contractor for CodePal in Sydney, I architected Drivus, a CRM/ERP for car-rental and rent-to-own operators, and built its accounting, payroll, and loan-amortization engines, cutting manual reconciliation time by 35%.",
+    "Earlier I co-founded Semicolon IT Solutions, where as CTO I led a team of 10–15 engineers, served 50+ customers, and mentored 20+ developers and interns. I also led a multi-tenant core banking system for microfinance NGOs, deployed across 3 organizations and 20 branches, and brought ERP report generation from ~40s to under 5s. I hold a B.Sc. in Computer Science & Engineering from Jashore University of Science & Technology.",
   ],
 } as const;
 
@@ -55,29 +55,46 @@ export const availability = {
 
 /** "What I'm up to". `focus` is invented; `building` lists my own products from data/projects.yaml. */
 export const now = {
-  focus:
-    "Real-time AI systems and multi-tenant SaaS: LLM pipelines that keep up with a conversation, on infrastructure that stays cheap when idle.",
+  focus: "Shipping my own SaaS products end to end, and starting part-time research alongside them.",
   building: [
-    { slug: "akaunty", note: "double-entry accounting for small businesses" },
-    { slug: "cloud-prep", note: "AWS certification practice with weak-area tracking" },
+    {
+      slug: "akaunty",
+      note: "double-entry accounting for freelancers and small businesses, with balanced books and reports",
+    },
+    { slug: "pitchpool", note: "multi-tenant prediction pools with automated scoring and live leaderboards" },
+    {
+      slug: "cloud-prep",
+      note: "AI-powered AWS certification practice that explains every answer and tracks weak topics",
+    },
+  ],
+  /** Certification exams and courses I'm working through. */
+  preparing: [
+    "AWS Machine Learning Engineer – Associate (MLA-C02)",
+    "AWS Solutions Architect – Professional (SAP-C02)",
+    "Hugging Face LLM Course",
   ],
 } as const;
 
+/** `service` is the slug in services.ts where the principle shows up; the home page lists them beside the principles. */
 export const principles = [
   {
     title: "Model the domain first",
+    service: "saas-mvp-development",
     body: "A good schema removes whole categories of bugs. I start with entities, invariants, and who may see what, before any UI exists.",
   },
   {
     title: "Make the money add up",
+    service: "fintech-accounting",
     body: "Financial systems get double-entry, idempotent writes, and reconciliation from day one. Every number on a report traces back to the rows that produced it.",
   },
   {
     title: "Measure, then optimise",
+    service: "architecture-performance",
     body: "Slow reports and chatty APIs get fixed with query plans and profiles, not guesses.",
   },
   {
     title: "Leave it documented",
+    service: "software-engineering-consultancy",
     body: "Clear READMEs, decision notes, and careful code review keep a team fast after I've moved on.",
   },
 ] as const;

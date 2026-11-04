@@ -166,6 +166,8 @@ export type Certification = {
   id: string;
   name: string;
   issuer: string;
+  /** Exam code and version, e.g. "DVA-C02". */
+  examCode?: string;
   issueDate?: PartialDate;
   expiryDate?: PartialDate;
   credentialId?: string;
