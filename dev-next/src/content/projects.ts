@@ -8,9 +8,9 @@ const allProjects: Project[] = [
     slug: "akaunty",
     title: "Akaunty",
     summary:
-      "Multi-tenant SaaS that gives freelancers, agencies, NGOs and small businesses simple financial tracking, with proper double-entry accounting underneath.",
+      "Multi-tenant SaaS that gives freelancers, agencies, NGOs, and small businesses simple financial tracking, with proper double-entry accounting underneath.",
     description:
-      "Akaunty is bookkeeping for people who don't want to learn bookkeeping. Freelancers, agencies, NGOs and small businesses record money in and money out in plain terms, and Akaunty writes the balanced double-entry journal underneath. From that journal it produces profit and loss, cash flow, balance sheet, trial balance and general ledger reports.",
+      "Akaunty is bookkeeping for people who don't want to learn bookkeeping. Freelancers, agencies, NGOs, and small businesses record money in and money out in plain terms, and Akaunty writes the balanced double-entry journal underneath. From that journal it produces profit and loss, cash flow, balance sheet, trial balance, and general ledger reports.",
     type: "Product",
     role: "Founder & sole engineer",
     status: "In Progress",
@@ -24,7 +24,7 @@ const allProjects: Project[] = [
       'Plain-language entry: record "I got paid" or "I spent money", and the balanced journal entry is written for you',
       "A chart of accounts for each business, ready to use from day one",
       "Double-entry general ledger underneath every transaction",
-      "Profit & loss, cash flow and balance sheet reports",
+      "Profit & loss, cash flow, and balance sheet reports",
       "Trial balance and general ledger views",
       "A separate, isolated workspace for each business",
       "Subscription billing through Paddle",
@@ -49,7 +49,7 @@ const allProjects: Project[] = [
         },
         {
           title: "Reports from the journal",
-          body: "P&L, cash flow, balance sheet and trial balance all derive from posted lines, so they reconcile with each other by design.",
+          body: "P&L, cash flow, balance sheet, and trial balance all derive from posted lines, so they reconcile with each other by design.",
         },
         {
           title: "Billing via webhooks",
@@ -85,9 +85,9 @@ const allProjects: Project[] = [
     slug: "inventory-commerce",
     title: "Inventory Commerce",
     summary:
-      "Multi-tenant ERP SaaS for retail, distribution and e-commerce: inventory, warehouses, POS, procurement, omnichannel commerce with COD and couriers, and double-entry accounting with a configurable tax engine.",
+      "Multi-tenant ERP SaaS for retail, distribution, and e-commerce: inventory, warehouses, POS, procurement, omnichannel commerce with COD and couriers, and double-entry accounting with a configurable tax engine.",
     description:
-      "Retailers, distributors and online sellers in Bangladesh often run on spreadsheets, a separate POS, order lists from Facebook pages and manual accounting, so stock is wrong across branches and channels and the books lag behind. Inventory Commerce brings stock, warehouses, point of sale, purchasing, B2B sales, an online storefront with cash-on-delivery and courier fulfilment, and double-entry accounting into one system, where every sale, receipt and transfer posts its stock movement and its journal together. It starts with Bangladesh VAT and is built so a new country is a new country pack, not a rewrite.",
+      "Retailers, distributors, and online sellers in Bangladesh often run on spreadsheets, a separate POS, order lists from Facebook pages, and manual accounting, so stock is wrong across branches and channels and the books lag behind. Inventory Commerce brings stock, warehouses, point of sale, purchasing, B2B sales, an online storefront with cash-on-delivery and courier fulfilment, and double-entry accounting into one system, where every sale, receipt, and transfer posts its stock movement and its journal together. It starts with Bangladesh VAT and is built so a new country is a new country pack, not a rewrite.",
     type: "Product",
     role: "Founder & sole engineer",
     status: "In Progress",
@@ -114,10 +114,10 @@ const allProjects: Project[] = [
     featured: false,
     order: 5,
     features: [
-      "Inventory across branches, warehouses, zones and bins, with moving-average costing",
-      "Warehouse management: receiving, transfers and stock counts",
+      "Inventory across branches, warehouses, zones, and bins, with moving-average costing",
+      "Warehouse management: receiving, transfers, and stock counts",
       "Point of sale for retail branches, with cash and mobile-money payments",
-      "Procurement: purchase orders, goods receipts, supplier bills and imports with landed cost",
+      "Procurement: purchase orders, goods receipts, supplier bills, and imports with landed cost",
       "B2B credit sales and accounts receivable for distributors",
       "Online storefront with cash-on-delivery and courier fulfilment",
       "Returns and refunds across every channel",
@@ -126,17 +126,17 @@ const allProjects: Project[] = [
       "Multi-currency documents, with books kept in each legal entity's base currency",
     ],
     contributions: [
-      "Came up with the product and wrote its product requirements, technical design and database specification",
+      "Came up with the product and wrote its product requirements, technical design, and database specification",
       "Designed the architecture: a NestJS modular monolith with PostgreSQL row-level security and a single write path for stock and for journals",
       "Defined the accounting model: a posting matrix from business events to journals, with COD revenue recognised on delivery",
-      "Set up the monorepo with Turborepo and pnpm, with lint rules that enforce module boundaries, tenant safety and no hard-coded country rules",
+      "Set up the monorepo with Turborepo and pnpm, with lint rules that enforce module boundaries, tenant safety, and no hard-coded country rules",
     ],
     highlights: [],
     story: {
       problem:
-        "A shop with two branches, a stockroom and a Facebook page already has three versions of its stock. Add cash-on-delivery orders that come back undelivered, VAT forms and a distributor buying on credit, and spreadsheets stop adding up.",
+        "A shop with two branches, a stockroom, and a Facebook page already has three versions of its stock. Add cash-on-delivery orders that come back undelivered, VAT forms, and a distributor buying on credit, and spreadsheets stop adding up.",
       approach:
-        "Every business command runs in one database transaction: the document, its stock movements, the updated costs, the journal and any statutory number commit together or not at all. Stock changes only through the inventory service and journals only through the posting service, so the warehouse and the ledger can't disagree.",
+        "Every business command runs in one database transaction: the document, its stock movements, the updated costs, the journal, and any statutory number commit together or not at all. Stock changes only through the inventory service and journals only through the posting service, so the warehouse and the ledger can't disagree.",
       decisions: [
         {
           title: "One write path each",
@@ -148,7 +148,7 @@ const allProjects: Project[] = [
         },
         {
           title: "Country packs",
-          body: "Tax rules, statutory documents, the chart of accounts and providers live in country packs, and lint rules stop country details leaking into the core.",
+          body: "Tax rules, statutory documents, the chart of accounts, and providers live in country packs, and lint rules stop country details leaking into the core.",
         },
       ],
     },
@@ -180,9 +180,9 @@ const allProjects: Project[] = [
     slug: "school-erp",
     title: "School ERP",
     summary:
-      "Multi-tenant school management SaaS for Bangladesh: mobile-first, in Bangla and English, covering academics, attendance, exams and results, fees, communication and reporting.",
+      "Multi-tenant school management SaaS for Bangladesh: mobile-first, in Bangla and English, covering academics, attendance, exams and results, fees, communication, and reporting.",
     description:
-      "Most schools in Bangladesh still run on paper registers, spreadsheets and desktop software: fees reconciled by hand, results tabulated in Excel, and guardians hearing about absences days late. School ERP puts a school's academics, finance, people and communication on one affordable, mobile-first platform in Bangla and English. A school signs up and configures itself (sessions, classes, grading rules, fee heads, roles) without a sales call, and every school's data is isolated by PostgreSQL row-level security in a single shared deployment. The first release targets a pilot with a handful of schools: student records, attendance, exams and results with Bangladesh GPA grading, fee collection, notices and a guardian portal.",
+      "Most schools in Bangladesh still run on paper registers, spreadsheets, and desktop software: fees reconciled by hand, results tabulated in Excel, and guardians hearing about absences days late. School ERP puts a school's academics, finance, people, and communication on one affordable, mobile-first platform in Bangla and English. A school signs up and configures itself (sessions, classes, grading rules, fee heads, roles) without a sales call, and every school's data is isolated by PostgreSQL row-level security in a single shared deployment. The first release targets a pilot with a handful of schools: student records, attendance, exams and results with Bangladesh GPA grading, fee collection, notices, and a guardian portal.",
     domains: ["EdTech", "SaaS"],
     topics: ["School Management", "ERP", "Multi-tenancy", "Row-level Security", "Localization"],
     technologies: [
@@ -205,22 +205,22 @@ const allProjects: Project[] = [
     status: "In Progress",
     features: [
       "Self-serve signup and a setup wizard, so a school can be running within a day",
-      "Academic structure: sessions, shifts, classes, sections, subjects and teacher assignments",
+      "Academic structure: sessions, shifts, classes, sections, subjects, and teacher assignments",
       "Student and guardian records, with Excel import",
       "Mobile attendance and student leave",
       "Exams and results with Bangladesh GPA grading and report-card PDFs",
-      "Fee heads, invoices, counter collection, receipts and dues",
-      "Notices, in-app notifications and email",
+      "Fee heads, invoices, counter collection, receipts, and dues",
+      "Notices, in-app notifications, and email",
       "A web portal for guardians and students",
       "Role-based access with configurable roles, including a managing-committee role",
       "Bangla and English throughout",
       "A dashboard sidebar each school can configure",
     ],
     contributions: [
-      "Came up with the product and wrote its product requirements: personas, tenancy model, module scope and a phased roadmap",
+      "Came up with the product and wrote its product requirements: personas, tenancy model, module scope, and a phased roadmap",
       "Designed the multi-tenant architecture, with PostgreSQL row-level security on every tenanted table",
       "Built the tenancy foundation: a NestJS API with TypeORM migrations and seeders, and a Next.js dashboard with a configurable sidebar",
-      "Set up local infrastructure with Docker Compose: PostgreSQL, Redis and a mail catcher",
+      "Set up local infrastructure with Docker Compose: PostgreSQL, Redis, and a mail catcher",
     ],
     highlights: [
       "Tenant isolation with PostgreSQL row-level security on tenanted tables.",
@@ -228,7 +228,7 @@ const allProjects: Project[] = [
     ],
     story: {
       problem:
-        "A school ERP touches admissions, classes, exams, fees, staff and guardians, and most schools in Bangladesh still do all of it on paper and in spreadsheets. To be affordable it has to serve many schools from one deployment, and a single missing WHERE clause must never leak one school's students to another.",
+        "A school ERP touches admissions, classes, exams, fees, staff, and guardians, and most schools in Bangladesh still do all of it on paper and in spreadsheets. To be affordable it has to serve many schools from one deployment, and a single missing WHERE clause must never leak one school's students to another.",
       approach:
         "Isolation is enforced by the database, not by convention. Each request sets the tenant in the session and PostgreSQL row-level security policies filter every tenanted table, so application code can't forget. Notices and long reports run on a queue.",
       decisions: [
@@ -242,7 +242,7 @@ const allProjects: Project[] = [
         },
         {
           title: "Configurable, not custom",
-          body: "Grading rules, fee heads, terms, shifts, roles and report cards are settings, so a new school never needs a code change.",
+          body: "Grading rules, fee heads, terms, shifts, roles, and report cards are settings, so a new school never needs a code change.",
         },
       ],
     },
@@ -273,7 +273,7 @@ const allProjects: Project[] = [
     visible: false,
     title: "Reslo",
     summary:
-      "AI-powered career toolkit that centralises your profile and builds ATS-ready resumes and cover letters, with share links, an ATS checker and a job tracker.",
+      "AI-powered career toolkit that centralises your profile and builds ATS-ready resumes and cover letters, with share links, an ATS checker, and a job tracker.",
     description:
       "Reslo puts a whole job search in one place. You keep reusable career profiles as the single source of your experience, then generate a resume from one in a click, or start from a template or an imported PDF. A drag-and-drop builder with a live preview and an AI writing copilot help you sharpen each bullet, an ATS checker scores the result against a job description, and matching cover letters are drafted from the resume and the job post. Finished resumes export to PDF or go out as private share links and portfolio pages, and a Kanban job tracker follows every application.",
     type: "Product",
@@ -297,33 +297,33 @@ const allProjects: Project[] = [
     featured: false,
     order: 6,
     features: [
-      "Reusable career profiles, with presets for developers, designers, academics, students and general use",
+      "Reusable career profiles, with presets for developers, designers, academics, students, and general use",
       "One-click resume generation from a career profile",
       "Drag-and-drop builder with 16 section types and a live preview",
-      "ATS-ready templates with customizable colors, fonts and spacing",
+      "ATS-ready templates with customizable colors, fonts, and spacing",
       "AI writing copilot that improves bullets and adds metrics, grounded in your real experience",
       "Cover letters drafted from a resume and a job post",
       "ATS checker with a readability score and missing keywords for a job description",
       "PDF import that parses an existing resume into editable sections",
       "Watermark-free PDF export",
-      "Share links and hosted portfolio pages, with passwords, expiry and view counts",
-      "Kanban job tracker with list view, archive and an activity log per application",
-      "Document storage for transcripts, portfolios and references, attached to profiles",
-      "Free, Basic and Pro plans with monthly AI credits",
+      "Share links and hosted portfolio pages, with passwords, expiry, and view counts",
+      "Kanban job tracker with list view, archive, and an activity log per application",
+      "Document storage for transcripts, portfolios, and references, attached to profiles",
+      "Free, Basic, and Pro plans with monthly AI credits",
     ],
     contributions: [
       "Came up with the product and built it alone",
       "Built the drag-and-drop resume builder with live preview and PDF export",
-      "Built the AI copilot, cover letter drafting and ATS checker on OpenAI and Anthropic models",
+      "Built the AI copilot, cover letter drafting, and ATS checker on OpenAI and Anthropic models",
       "Built PDF import, share links and portfolio pages, and the Kanban job tracker",
-      "Set up auth with Better Auth, Drizzle on Neon Postgres, Resend emails and Polar billing driven by a catalog in the database",
+      "Set up auth with Better Auth, Drizzle on Neon Postgres, Resend emails, and Polar billing driven by a catalog in the database",
     ],
     highlights: [],
     story: {
       problem:
-        "A job search scatters the same facts across a dozen resumes, cover letters, portfolio links and a spreadsheet of applications. Every new role means editing copies, and they drift apart.",
+        "A job search scatters the same facts across a dozen resumes, cover letters, portfolio links, and a spreadsheet of applications. Every new role means editing copies, and they drift apart.",
       approach:
-        "Career profiles hold your experience once. Resumes and cover letters are generated from a profile and tailored per job with AI that only works from what's in the profile, so nothing is invented. The same workspace exports, shares and tracks every application.",
+        "Career profiles hold your experience once. Resumes and cover letters are generated from a profile and tailored per job with AI that only works from what's in the profile, so nothing is invented. The same workspace exports, shares, and tracks every application.",
       decisions: [
         {
           title: "Profile as the source of truth",
@@ -366,9 +366,9 @@ const allProjects: Project[] = [
     slug: "cloud-prep",
     title: "Cloud Prep",
     summary:
-      "Practice app for AWS certification exams, with questions organized by certification and AWS service, an explanation on every answer and per-topic accuracy tracking.",
+      "Practice app for AWS certification exams, with questions organized by certification and AWS service, an explanation on every answer, and per-topic accuracy tracking.",
     description:
-      "Cloud Prep is a practice app for four AWS certification exams: Cloud Practitioner, AI Practitioner, Developer Associate and Solutions Architect Associate. Questions are organized by certification and AWS service, every answer comes with an explanation, and accuracy is tracked per topic so you can see where you're weak.",
+      "Cloud Prep is a practice app for four AWS certification exams: Cloud Practitioner, AI Practitioner, Developer Associate, and Solutions Architect Associate. Questions are organized by certification and AWS service, every answer comes with an explanation, and accuracy is tracked per topic so you can see where you're weak.",
     type: "Product",
     domains: ["EdTech", "SaaS"],
     topics: ["AWS Certification", "Exam Preparation", "Progress Tracking"],
@@ -379,7 +379,7 @@ const allProjects: Project[] = [
     // data/projects.yaml lists these as highlights; they describe what the product does, so they live in `features`.
     highlights: [],
     features: [
-      "Practice questions for Cloud Practitioner, AI Practitioner, Developer Associate and Solutions Architect Associate",
+      "Practice questions for Cloud Practitioner, AI Practitioner, Developer Associate, and Solutions Architect Associate",
       "Questions organized by certification and AWS service",
       "An explanation on every answer",
       "Per-topic accuracy and weak-area tracking",
@@ -427,9 +427,9 @@ const allProjects: Project[] = [
     slug: "pitchpool",
     title: "PitchPool",
     summary:
-      "Multi-tenant SaaS platform for competition prediction pools with automated scoring, live leaderboards and subscription billing.",
+      "Multi-tenant SaaS platform for competition prediction pools with automated scoring, live leaderboards, and subscription billing.",
     description:
-      "PitchPool runs prediction competitions. Participants join pools, predict match results and follow live leaderboards that update as each result is scored automatically. Every tenant gets its own isolated pools, participants and roles, and subscription plans decide which features a tenant can use.",
+      "PitchPool runs prediction competitions. Participants join pools, predict match results, and follow live leaderboards that update as each result is scored automatically. Every tenant gets its own isolated pools, participants, and roles, and subscription plans decide which features a tenant can use.",
     type: "Product",
     role: "Founder & sole engineer",
     status: "In Progress",
@@ -452,10 +452,10 @@ const allProjects: Project[] = [
     featured: true,
     order: 3,
     features: [
-      "Multi-tenant workspaces, each with its own pools, participants and roles",
+      "Multi-tenant workspaces, each with its own pools, participants, and roles",
       "Automated scoring of predictions as match results come in",
       "Live leaderboards, re-ranked after every scored result",
-      "Platform, organisation and pool roles, with safeguards against privilege escalation",
+      "Platform, organisation, and pool roles, with safeguards against privilege escalation",
       "Match results ingested automatically from an external feed",
       "Subscription plans with feature gating and webhook-driven billing",
     ],
@@ -467,13 +467,13 @@ const allProjects: Project[] = [
     ],
     challenges: [
       "Traffic is near zero for days, then spikes when a match ends and every prediction has to be scored at once",
-      "Keeping leaderboards accurate when the upstream match feed is slow, rate-limited or failing",
+      "Keeping leaderboards accurate when the upstream match feed is slow, rate-limited, or failing",
       "Letting serverless PostgreSQL scale to zero between match days, which meant moving scheduled work off database polling",
     ],
     highlights: [
-      "Shipped subscription billing (plans, entitlement gating and webhooks) behind a provider-agnostic gateway; designed three-tier RBAC with privilege-escalation safeguards.",
+      "Shipped subscription billing (plans, entitlement gating, and webhooks) behind a provider-agnostic gateway; designed three-tier RBAC with privilege-escalation safeguards.",
       "Cut idle database traffic by ~90% through in-memory job scheduling and consolidated tasks, enabling serverless PostgreSQL to scale to zero.",
-      "Built BullMQ ingestion with rate limiting, circuit breaking and retry/backoff, keeping leaderboards accurate through match-day spikes.",
+      "Built BullMQ ingestion with rate limiting, circuit breaking, and retry/backoff, keeping leaderboards accurate through match-day spikes.",
     ],
     story: {
       problem:
@@ -487,7 +487,7 @@ const allProjects: Project[] = [
         },
         {
           title: "Three-tier RBAC",
-          body: "Platform, organisation and pool roles are checked separately, with explicit guards against granting a role higher than your own.",
+          body: "Platform, organisation, and pool roles are checked separately, with explicit guards against granting a role higher than your own.",
         },
         {
           title: "Idle should be free",
@@ -526,9 +526,9 @@ const allProjects: Project[] = [
     visible: false,
     title: "Ielzy",
     summary:
-      "AI-powered IELTS preparation app with adaptive Reading, Listening, Writing and Speaking practice, full mock tests and a personal study planner.",
+      "AI-powered IELTS preparation app with adaptive Reading, Listening, Writing, and Speaking practice, full mock tests, and a personal study planner.",
     description:
-      "Ielzy prepares candidates for IELTS across all four skills. Each skill has guides, lessons, practice sets, a mistake log, vocabulary and progress tracking, and timed mock tests run per skill or as a full exam, including a speaking test with a device check. A diagnostic on sign-up feeds a personal study planner with goals, a calendar, scheduled mocks and reviews, while vocabulary and grammar paths, flashcards, daily practice and an AI assistant fill the gaps. Behind it, an admin area manages the content library, media, users and plans.",
+      "Ielzy prepares candidates for IELTS across all four skills. Each skill has guides, lessons, practice sets, a mistake log, vocabulary and progress tracking, and timed mock tests run per skill or as a full exam, including a speaking test with a device check. A diagnostic on sign-up feeds a personal study planner with goals, a calendar, scheduled mocks, and reviews, while vocabulary and grammar paths, flashcards, daily practice, and an AI assistant fill the gaps. Behind it, an admin area manages the content library, media, users, and plans.",
     type: "Product",
     role: "Founder & sole engineer",
     status: "In Progress",
@@ -548,16 +548,16 @@ const allProjects: Project[] = [
     featured: false,
     order: 7,
     features: [
-      "Reading, Listening, Writing and Speaking modules, each with guides, lessons, practice, a mistake log and progress",
+      "Reading, Listening, Writing, and Speaking modules, each with guides, lessons, practice, a mistake log, and progress",
       "Timed mock tests per skill and as a full exam, with results and answer review",
       "Speaking tests with a microphone and device check",
-      "Onboarding diagnostic and a personal study planner with goals, a calendar, scheduled mocks and reviews",
-      "Vocabulary learning paths, collections, flashcards, quizzes and daily practice",
-      "Grammar lessons, quizzes, daily practice and a mistake log",
-      "Writing task bank, model articles, drills and writing reports",
+      "Onboarding diagnostic and a personal study planner with goals, a calendar, scheduled mocks, and reviews",
+      "Vocabulary learning paths, collections, flashcards, quizzes, and daily practice",
+      "Grammar lessons, quizzes, daily practice, and a mistake log",
+      "Writing task bank, model articles, drills, and writing reports",
       "An AI study assistant",
       "Achievements and progress tracking across skills",
-      "Admin content library for test series, papers and parts, with previews and a media library",
+      "Admin content library for test series, papers, and parts, with previews and a media library",
       "Email and Google sign-in, with email verification and password reset",
     ],
     contributions: [
@@ -569,13 +569,13 @@ const allProjects: Project[] = [
     highlights: [],
     story: {
       problem:
-        "IELTS candidates juggle PDFs, YouTube videos and scattered practice tests, with no clear sense of which skill is holding their band score back or what to study next.",
+        "IELTS candidates juggle PDFs, YouTube videos, and scattered practice tests, with no clear sense of which skill is holding their band score back or what to study next.",
       approach:
         "Every skill follows the same loop: learn, practise, review your mistakes, track progress. A diagnostic at sign-up seeds a study plan, and mock tests that mirror the real exam feed results back into it. All content is authored in an admin area, so new tests and lessons ship without code changes.",
       decisions: [
         {
           title: "One loop per skill",
-          body: "Reading, Listening, Writing and Speaking share the same guide, practice, mistakes and progress structure, so moving between skills feels familiar.",
+          body: "Reading, Listening, Writing, and Speaking share the same guide, practice, mistakes, and progress structure, so moving between skills feels familiar.",
         },
         {
           title: "Direct-to-storage media",
@@ -583,7 +583,7 @@ const allProjects: Project[] = [
         },
         {
           title: "Content as data",
-          body: "Test series, papers and passages live in the database and are managed in the admin, not hard-coded into pages.",
+          body: "Test series, papers, and passages live in the database and are managed in the admin, not hard-coded into pages.",
         },
       ],
     },
@@ -614,9 +614,9 @@ const allProjects: Project[] = [
     visible: false,
     title: "DETGate",
     summary:
-      "Planned practice app for the Duolingo English Test, built on the same foundation as Ielzy: practice by question type, timed mock tests and a personal study plan.",
+      "Planned practice app for the Duolingo English Test, built on the same foundation as Ielzy: practice by question type, timed mock tests, and a personal study plan.",
     description:
-      "DETGate is a planned companion to Ielzy for the Duolingo English Test. The DET is short, adaptive and taken at home, with many small question types instead of four long papers, so practice has to be quick, varied and timed. DETGate will let candidates drill each question type, take full timed mock tests, review their mistakes and follow a study plan, reusing the practice, mock-test and content foundations built for Ielzy.",
+      "DETGate is a planned companion to Ielzy for the Duolingo English Test. The DET is short, adaptive, and taken at home, with many small question types instead of four long papers, so practice has to be quick, varied, and timed. DETGate will let candidates drill each question type, take full timed mock tests, review their mistakes, and follow a study plan, reusing the practice, mock-test, and content foundations built for Ielzy.",
     type: "Product",
     role: "Founder & sole engineer",
     status: "Planned",
@@ -640,11 +640,11 @@ const allProjects: Project[] = [
       "Speaking and writing practice with recorded and typed answers",
       "Mistake review and progress tracking by question type",
       "A personal study plan",
-      "An admin content library for questions, audio and images",
+      "An admin content library for questions, audio, and images",
     ],
     contributions: [
       "Defining the product as the Duolingo English Test counterpart to Ielzy",
-      "Planning to reuse Ielzy's stack and its practice, mock-test and content foundations",
+      "Planning to reuse Ielzy's stack and its practice, mock-test, and content foundations",
     ],
     highlights: [],
     story: {
@@ -655,7 +655,7 @@ const allProjects: Project[] = [
       decisions: [
         {
           title: "Build on Ielzy",
-          body: "Auth, the content library, media storage and the mock-test engine are reused rather than rebuilt.",
+          body: "Auth, the content library, media storage, and the mock-test engine are reused rather than rebuilt.",
         },
         {
           title: "Question types first",
@@ -696,7 +696,7 @@ const allProjects: Project[] = [
     summary:
       "Multi-tenant core banking platform for NGO microfinance operations, deployed across 3 organizations and 20 branches.",
     description:
-      "A core banking system for NGOs that run microfinance programmes. It covers group lending and savings products from loan disbursement through repayment schedules and field-agent collection, and posts every transaction to a double-entry ledger that reconciles. It runs in 3 organizations across 20 branches, with microcredit portfolio management, HR/payroll and MIS/AIS reporting alongside.",
+      "A core banking system for NGOs that run microfinance programmes. It covers group lending and savings products from loan disbursement through repayment schedules and field-agent collection, and posts every transaction to a double-entry ledger that reconciles. It runs in 3 organizations across 20 branches, with microcredit portfolio management, HR/payroll, and MIS/AIS reporting alongside.",
     type: "Enterprise",
     role: "Founding Engineer & Tech Lead",
     status: "Maintained",
@@ -707,7 +707,7 @@ const allProjects: Project[] = [
     order: 9,
     features: [
       "Group lending and savings products",
-      "Loan disbursement, repayment schedules and field-agent collection",
+      "Loan disbursement, repayment schedules, and field-agent collection",
       "Double-entry ledger with transaction posting and reconciliation",
       "Microcredit portfolio management",
       "HR and payroll",
@@ -717,30 +717,30 @@ const allProjects: Project[] = [
       "Ran requirements analysis with the microfinance operations it had to serve",
       "Architected the system and chose the tech stack",
       "Designed the database, including the multi-tenant model and the double-entry ledger",
-      "Built the foundation across frontend, backend and database so other engineers and teams could build on it without friction",
+      "Built the foundation across frontend, backend, and database so other engineers and teams could build on it without friction",
       "Kept engineering hands-on while leading teams of 5–7 mid-level and junior engineers on the project",
     ],
     highlights: [
-      "Covers group lending, savings products, loan disbursement, repayment scheduling and field-agent collection, with training and technical support for deployments.",
-      "Engineered the double-entry accounting ledger with transaction posting and reconciliation, alongside microcredit portfolio management, HR/payroll and MIS/AIS reporting.",
+      "Covers group lending, savings products, loan disbursement, repayment scheduling, and field-agent collection, with training and technical support for deployments.",
+      "Engineered the double-entry accounting ledger with transaction posting and reconciliation, alongside microcredit portfolio management, HR/payroll, and MIS/AIS reporting.",
     ],
     story: {
       problem:
         "Microfinance NGOs run on small loans to groups of borrowers, collected weekly by field agents. Every taka has to be accounted for, across many branches, under audit. Spreadsheets break down quickly at that scale.",
       approach:
-        "Every operation, whether a disbursement, a collection or an interest accrual, becomes a balanced journal posting in one double-entry ledger. Branch, product and borrower views are projections of that ledger, so reports reconcile by construction. Repayment schedules and accruals run as scheduled background jobs rather than request-time calculations.",
+        "Every operation, whether a disbursement, a collection, or an interest accrual, becomes a balanced journal posting in one double-entry ledger. Branch, product, and borrower views are projections of that ledger, so reports reconcile by construction. Repayment schedules and accruals run as scheduled background jobs rather than request-time calculations.",
       decisions: [
         {
           title: "One ledger, many views",
-          body: "Portfolio, savings and branch reports are queries over posted journal lines, not separately maintained totals, so they can't drift apart.",
+          body: "Portfolio, savings, and branch reports are queries over posted journal lines, not separately maintained totals, so they can't drift apart.",
         },
         {
           title: "Tenant per organisation",
-          body: "Each NGO is a tenant with its own branches, products and chart of accounts, so one deployment serves several organisations.",
+          body: "Each NGO is a tenant with its own branches, products, and chart of accounts, so one deployment serves several organisations.",
         },
         {
           title: "Jobs for time-based money",
-          body: "Interest, schedules and overdue flags are computed by queued jobs with retries, keeping the API responsive at month end.",
+          body: "Interest, schedules, and overdue flags are computed by queued jobs with retries, keeping the API responsive at month end.",
         },
       ],
     },
@@ -775,9 +775,9 @@ const allProjects: Project[] = [
     title: "Land Acquisition and Resettlement Management Tracking System (LARMTS)",
     shortTitle: "LARMTS",
     summary:
-      "Government GIS platform for land acquisition, compensation tracking and resettlement of affected individuals across infrastructure projects.",
+      "Government GIS platform for land acquisition, compensation tracking, and resettlement of affected individuals across infrastructure projects.",
     description:
-      "LARMTS is a government GIS platform for the land side of large infrastructure projects. It maps every parcel a project needs, tracks acquisition and compensation for each affected owner, follows the resettlement of the people displaced, and records their grievances through to resolution. It was deployed separately for two national infrastructure projects in Bangladesh, MRT Line 5 (Northern Route) and the Coastal Embankment Improvement Project, Phase-1 (CEIP-1). Both follow the same land acquisition and resettlement process, but each project has its own land, affected people and records.",
+      "LARMTS is a government GIS platform for the land side of large infrastructure projects. It maps every parcel a project needs, tracks acquisition and compensation for each affected owner, follows the resettlement of the people displaced, and records their grievances through to resolution. It was deployed separately for two national infrastructure projects in Bangladesh, MRT Line 5 (Northern Route) and the Coastal Embankment Improvement Project, Phase-1 (CEIP-1). Both follow the same land acquisition and resettlement process, but each project has its own land, affected people, and records.",
     type: "Enterprise",
     role: "Lead engineer",
     status: "Completed",
@@ -793,12 +793,12 @@ const allProjects: Project[] = [
       "Resettlement tracking for displaced people",
       "Grievance management, from complaint to resolution",
       "Reporting for project officials",
-      "Separate deployments for MRT Line 5 (Northern Route) and CEIP-1, each with its own parcels, affected people and records",
+      "Separate deployments for MRT Line 5 (Northern Route) and CEIP-1, each with its own parcels, affected people, and records",
     ],
     contributions: [
       "Led a team of 4–5 engineers at Semicolon IT Solutions",
       "Designed the system architecture and the API structure",
-      "Designed the PostGIS data model, linking each parcel's geometry to its owners, valuations and payments",
+      "Designed the PostGIS data model, linking each parcel's geometry to its owners, valuations, and payments",
       "Built the React and Leaflet GIS map of project parcels",
       "Built compensation and resettlement tracking for each affected person",
       "Implemented grievance management and reporting",
@@ -816,7 +816,7 @@ const allProjects: Project[] = [
       problem:
         "Large infrastructure projects acquire land parcel by parcel and must compensate and resettle every affected person. On paper it's hard to see what has been paid, what is disputed, and where.",
       approach:
-        "Parcels live as geometries in PostGIS and are drawn on a Leaflet map. Each parcel links to its owners, valuations, compensation payments and grievances, so officials move between the map and the case file.",
+        "Parcels live as geometries in PostGIS and are drawn on a Leaflet map. Each parcel links to its owners, valuations, compensation payments, and grievances, so officials move between the map and the case file.",
       decisions: [
         { title: "Map as the index", body: "Pick a parcel on the map and see everything attached to it." },
         {
@@ -855,7 +855,7 @@ const allProjects: Project[] = [
     summary:
       "Web-based CRM for car-rental and rent-to-own operators, covering leads, customers, contracts, payments, vehicles, tolls and fines, and financial reporting.",
     description:
-      "Drivus runs the business side of a car-rental and rent-to-own operator. It collects and analyses lead data, manages customers and their contracts, automates recurring payments through Pay Advantage, keeps vehicle records and tracking, and handles tolls, fines and incidents. Accounting and loan-amortization engines generate the financial reports, and task automation, CRM notifications, SMS and email keep staff and customers informed. Automated workflows cut manual reconciliation time by 35%.",
+      "Drivus runs the business side of a car-rental and rent-to-own operator. It collects and analyses lead data, manages customers and their contracts, automates recurring payments through Pay Advantage, keeps vehicle records and tracking, and handles tolls, fines, and incidents. Accounting and loan-amortization engines generate the financial reports, and task automation, CRM notifications, SMS, and email keep staff and customers informed. Automated workflows cut manual reconciliation time by 35%.",
     type: "Enterprise",
     role: "Founding Software Engineer & Tech Lead",
     domains: ["FinTech"],
@@ -870,33 +870,33 @@ const allProjects: Project[] = [
       "Customer management",
       "Contract management with automated recurring payments",
       "Vehicle records and tracking",
-      "Tolls, fines and incident management",
+      "Tolls, fines, and incident management",
       "Loan amortization for rent-to-own contracts",
       "Financial and accounting report generation",
       "Task automation and CRM notifications",
       "SMS and email integration",
     ],
     contributions: [
-      "Joined as the founding software engineer and laid the foundation: requirements, architecture, database design and tech stack",
+      "Joined as the founding software engineer and laid the foundation: requirements, architecture, database design, and tech stack",
       "Engineered the accounting and loan-amortization engines and the automated workflows around them",
       "Integrated Pay Advantage for recurring billing",
-      "Built an event-driven notification system for payments, contracts and compliance",
+      "Built an event-driven notification system for payments, contracts, and compliance",
       "Led the engineering team as tech lead",
     ],
     highlights: [
-      "Architected and delivered Drivus, a CRM/ERP platform for car-rental and rent-to-own operators, covering fleet, vehicle tracking, contract management, payments, tolls/fines and financial reporting.",
+      "Architected and delivered Drivus, a CRM/ERP platform for car-rental and rent-to-own operators, covering fleet, vehicle tracking, contract management, payments, tolls/fines, and financial reporting.",
       "Engineered accounting and loan-amortization engines with automated workflows, cutting manual reconciliation time by 35%.",
-      "Integrated Pay Advantage for recurring billing and built an event-driven notification system for payments, contracts and compliance.",
+      "Integrated Pay Advantage for recurring billing and built an event-driven notification system for payments, contracts, and compliance.",
     ],
     story: {
       problem:
-        "A rent-to-own car business is part rental desk, part lender and part fleet manager. Every contract carries recurring payments, an amortization schedule, a vehicle, and a stream of tolls, fines and incidents to pass on to the right driver. Run in spreadsheets, reconciliation alone eats days.",
+        "A rent-to-own car business is part rental desk, part lender, and part fleet manager. Every contract carries recurring payments, an amortization schedule, a vehicle, and a stream of tolls, fines, and incidents to pass on to the right driver. Run in spreadsheets, reconciliation alone eats days.",
       approach:
-        "One platform follows a customer from lead to contract to final payment. Contracts drive recurring billing through Pay Advantage and an amortization schedule; payments, tolls and fines post to the accounting engine, so reports come from the same records the staff work in. Events from billing and contracts fan out as notifications, SMS and email.",
+        "One platform follows a customer from lead to contract to final payment. Contracts drive recurring billing through Pay Advantage and an amortization schedule; payments, tolls, and fines post to the accounting engine, so reports come from the same records the staff work in. Events from billing and contracts fan out as notifications, SMS, and email.",
       decisions: [
         {
           title: "Contracts at the centre",
-          body: "Payments, amortization, vehicles, tolls and fines all hang off the contract, so a driver's full position is one lookup.",
+          body: "Payments, amortization, vehicles, tolls, and fines all hang off the contract, so a driver's full position is one lookup.",
         },
         {
           title: "Accounting by automation",
@@ -937,9 +937,9 @@ const allProjects: Project[] = [
     slug: "mustbreak",
     title: "MustBreak",
     summary:
-      "AI real-time meeting platform for transcription, translation and multilingual collaboration, with AI summaries, searchable history and a Slack translator bot.",
+      "AI real-time meeting platform for transcription, translation, and multilingual collaboration, with AI summaries, searchable history, and a Slack translator bot.",
     description:
-      "MustBreak, built at MUST Company in Seoul, is a real-time AI translator for meetings and chat. People speak in their own language and everyone in the room reads the conversation in theirs, with automatic language detection, speaker identification and noise cancelling. Meetings become shareable minutes with speaker separation, AI summaries and chat, and searchable history, so late joiners can catch up. In Slack, the @MustBreak bot translates conversations in place.",
+      "MustBreak, built at MUST Company in Seoul, is a real-time AI translator for meetings and chat. People speak in their own language and everyone in the room reads the conversation in theirs, with automatic language detection, speaker identification, and noise cancelling. Meetings become shareable minutes with speaker separation, AI summaries and chat, and searchable history, so late joiners can catch up. In Slack, the @MustBreak bot translates conversations in place.",
     type: "Enterprise",
     role: "Full-stack engineer",
     status: "Completed",
@@ -957,7 +957,7 @@ const allProjects: Project[] = [
       "Automatic language and voice recognition",
       "Noise cancelling that isolates the speaker's voice",
       "Pronunciation support for non-native English speakers",
-      "Meeting notes with speaker separation, AI summaries and AI chat",
+      "Meeting notes with speaker separation, AI summaries, and AI chat",
       "Searchable conversation history, including catch-up for late joiners",
       "Shareable, confidential meeting minutes",
       "@MustBreak Slack bot for translation inside Slack",
@@ -971,14 +971,14 @@ const allProjects: Project[] = [
       "Built responsive frontend features in Next.js and TypeScript",
     ],
     highlights: [
-      "Developed MustBreak, an AI-powered real-time meeting platform for transcription, translation and multilingual collaboration across distributed teams, with AI-generated summaries and searchable conversation history.",
+      "Developed MustBreak, an AI-powered real-time meeting platform for transcription, translation, and multilingual collaboration across distributed teams, with AI-generated summaries and searchable conversation history.",
       "Integrated Slack workflows and low-latency real-time communication infrastructure to support enterprise-grade multilingual collaboration.",
     ],
     story: {
       problem:
         "Distributed teams lose meetings to language. Non-native speakers follow half the conversation, notes miss what was said, and the same friction carries over into chat.",
       approach:
-        "Audio streams from each participant are transcribed and translated in real time, tagged by speaker and fanned out to everyone in their chosen language. The same transcript then drives meeting notes, AI summaries and searchable history, and a Slack bot brings translation into the team's chat.",
+        "Audio streams from each participant are transcribed and translated in real time, tagged by speaker, and fanned out to everyone in their chosen language. The same transcript then drives meeting notes, AI summaries, and searchable history, and a Slack bot brings translation into the team's chat.",
       decisions: [
         {
           title: "Latency first",
@@ -986,7 +986,7 @@ const allProjects: Project[] = [
         },
         {
           title: "One transcript, many uses",
-          body: "Live captions, minutes, summaries and search all read from the same speaker-tagged transcript.",
+          body: "Live captions, minutes, summaries, and search all read from the same speaker-tagged transcript.",
         },
         {
           title: "Meet teams where they talk",
@@ -1019,9 +1019,9 @@ const allProjects: Project[] = [
     slug: "msquare-market",
     title: "MSquare Market",
     summary:
-      "Blockchain-based digital asset marketplace from the MSQUARE ecosystem, with crypto wallet connection, transaction flows and an admin panel for listings, users and transactions.",
+      "Blockchain-based digital asset marketplace from the MSQUARE ecosystem, with crypto wallet connection, transaction flows, and an admin panel for listings, users, and transactions.",
     description:
-      "MSquare Market is a blockchain-based digital asset marketplace built at MUST Company in Seoul as part of the MSQUARE ecosystem. Users connect a crypto wallet, browse and trade digital assets, follow their transactions and manage their accounts. Behind it, an admin panel lets staff manage listings and assets, manage users, monitor transactions and follow sales and activity on dashboards. I worked on the frontend, mostly on the admin panel.",
+      "MSquare Market is a blockchain-based digital asset marketplace built at MUST Company in Seoul as part of the MSQUARE ecosystem. Users connect a crypto wallet, browse and trade digital assets, follow their transactions, and manage their accounts. Behind it, an admin panel lets staff manage listings and assets, manage users, monitor transactions, and follow sales and activity on dashboards. I worked on the frontend, mostly on the admin panel.",
     type: "Enterprise",
     role: "Frontend engineer",
     status: "Completed",
@@ -1044,7 +1044,7 @@ const allProjects: Project[] = [
     ],
     contributions: [
       "Worked as a frontend engineer at MUST Company, mostly on the admin panel",
-      "Built admin screens for managing listings, assets and users, monitoring transactions, and dashboards and reports",
+      "Built admin screens for managing listings, assets, and users, monitoring transactions, and dashboards and reports",
       "Implemented crypto wallet connection flows and transaction UIs",
       "Built responsive marketplace and user account pages in Next.js and TypeScript",
     ],
@@ -1055,7 +1055,7 @@ const allProjects: Project[] = [
       problem:
         "A digital asset marketplace has two audiences. Buyers need wallet connection and transactions that make on-chain steps understandable, and staff need to see and control everything that happens on the marketplace.",
       approach:
-        "The user-facing app wraps wallet connection and each transaction in clear, step-by-step UI with visible status. The admin panel brings listings, users and transactions into one place, with dashboards for sales and activity, so staff can act without touching the chain directly.",
+        "The user-facing app wraps wallet connection and each transaction in clear, step-by-step UI with visible status. The admin panel brings listings, users, and transactions into one place, with dashboards for sales and activity, so staff can act without touching the chain directly.",
       decisions: [
         {
           title: "Status at every step",
@@ -1063,7 +1063,7 @@ const allProjects: Project[] = [
         },
         {
           title: "Admin as an operations tool",
-          body: "Listings, users and transactions are managed from one panel, with reports alongside, instead of separate scripts or spreadsheets.",
+          body: "Listings, users, and transactions are managed from one panel, with reports alongside, instead of separate scripts or spreadsheets.",
         },
         {
           title: "Responsive throughout",
@@ -1098,9 +1098,9 @@ const allProjects: Project[] = [
     title: "MUST Hiring & Match Hire",
     shortTitle: "MUST Hiring",
     summary:
-      "Two AI hiring platforms at MUST Company: MUST Hiring, with resume matching, interview practice and an ATS, built full-stack; and Match Hire, an AI-first hiring workspace, where I worked on the frontend.",
+      "Two AI hiring platforms at MUST Company: MUST Hiring, with resume matching, interview practice, and an ATS, built full-stack; and Match Hire, an AI-first hiring workspace, where I worked on the frontend.",
     description:
-      "MUST Hiring, built at MUST Company in Seoul, serves both sides of hiring. Candidates build a profile, see an AI match score on every job before they apply, apply in one click with a saved resume and cover letter, and practise with AI-generated interview questions, recording their answers for instant feedback. Recruiters describe a role in plain language to get a full job description in 8+ languages, then work from an ATS dashboard with a searchable candidate database, AI match scores, interview scheduling and hiring analytics. Its successor, Match Hire, is AI-first: a team describes who it wants to hire and gets candidates ranked by fit, with Kyu, an AI hiring assistant, a talent workspace, pipeline automations and a joint inbox.",
+      "MUST Hiring, built at MUST Company in Seoul, serves both sides of hiring. Candidates build a profile, see an AI match score on every job before they apply, apply in one click with a saved resume and cover letter, and practise with AI-generated interview questions, recording their answers for instant feedback. Recruiters describe a role in plain language to get a full job description in 8+ languages, then work from an ATS dashboard with a searchable candidate database, AI match scores, interview scheduling, and hiring analytics. Its successor, Match Hire, is AI-first: a team describes who it wants to hire and gets candidates ranked by fit, with Kyu, an AI hiring assistant, a talent workspace, pipeline automations, and a joint inbox.",
     type: "Enterprise",
     role: "Full-stack engineer (MUST Hiring), frontend engineer (Match Hire)",
     status: "Completed",
@@ -1114,30 +1114,30 @@ const allProjects: Project[] = [
     order: 14,
     features: [
       "AI resume matching, with a match score and recommendations for each job",
-      "AI interview practice with role-specific questions, recorded audio answers and instant feedback",
+      "AI interview practice with role-specific questions, recorded audio answers, and instant feedback",
       "One-click apply with a saved resume and cover letter",
-      "Guided candidate onboarding, resume management and a career dashboard",
+      "Guided candidate onboarding, resume management, and a career dashboard",
       "AI job description generator in 8+ languages",
-      "ATS dashboard with KPI cards, funnel charts and top-job insights",
-      "Searchable candidate database with profiles, resumes and match scores",
+      "ATS dashboard with KPI cards, funnel charts, and top-job insights",
+      "Searchable candidate database with profiles, resumes, and match scores",
       "Interview scheduling linked to applications",
-      "Analytics on hiring performance, recruiter activity and time-to-hire",
+      "Analytics on hiring performance, recruiter activity, and time-to-hire",
       "Match Hire: deep search that ranks candidates by fit from a plain-language description",
-      "Match Hire: profile cards with CV, persona, skills, trust score and LinkedIn and GitHub enrichments",
-      "Match Hire: Kyu, an AI hiring assistant, plus a talent workspace, automations and a joint inbox",
+      "Match Hire: profile cards with CV, persona, skills, trust score, and LinkedIn and GitHub enrichments",
+      "Match Hire: Kyu, an AI hiring assistant, plus a talent workspace, automations, and a joint inbox",
     ],
     contributions: [
       "Built the whole product as a full-stack engineer at MUST Company: Python and FastAPI backend, DynamoDB, and a Next.js and TypeScript frontend",
-      "Built the candidate side: profiles, AI match scores, one-click apply and AI interview practice with audio answers",
-      "Built the recruiter side: the AI job description generator, ATS dashboard, candidate database, interview scheduling and analytics",
-      "Worked as a frontend engineer on Match Hire, the AI-first successor, across search, profile cards, the talent workspace, the inbox and reporting",
+      "Built the candidate side: profiles, AI match scores, one-click apply, and AI interview practice with audio answers",
+      "Built the recruiter side: the AI job description generator, ATS dashboard, candidate database, interview scheduling, and analytics",
+      "Worked as a frontend engineer on Match Hire, the AI-first successor, across search, profile cards, the talent workspace, the inbox, and reporting",
     ],
     highlights: [],
     story: {
       problem:
         "Candidates apply blind and walk into interviews unprepared, while recruiters spend hours writing job descriptions and sorting applications by hand.",
       approach:
-        "AI sits at the three points where both sides lose the most time: matching a resume to a job, writing the job description, and preparing for the interview. Everything else is a standard ATS (candidates, applications, interviews and reports) built around those match scores.",
+        "AI sits at the three points where both sides lose the most time: matching a resume to a job, writing the job description, and preparing for the interview. Everything else is a standard ATS (candidates, applications, interviews, and reports) built around those match scores.",
       decisions: [
         {
           title: "Score before you apply",
@@ -1178,9 +1178,9 @@ const allProjects: Project[] = [
     slug: "must-mate",
     title: "MUST Mate",
     summary:
-      "AI-powered project management and time-tracking tool with project time visualization, detailed reports, client billing, attendance and payroll.",
+      "AI-powered project management and time-tracking tool with project time visualization, detailed reports, client billing, attendance, and payroll.",
     description:
-      "MUST Mate, from MUST Company, is an AI-powered project management tool built around time. Teams track time on tasks, see project progress and time efficiency at a glance, and turn logged hours into detailed reports, transparent client billing and payroll, with attendance management in the same app. Team performance views help managers spot productivity pitfalls, and integrations connect it to the tools a team already uses. I joined after the app was built, as a full-stack engineer on the team that maintained it.",
+      "MUST Mate, from MUST Company, is an AI-powered project management tool built around time. Teams track time on tasks, see project progress and time efficiency at a glance, and turn logged hours into detailed reports, transparent client billing, and payroll, with attendance management in the same app. Team performance views help managers spot productivity pitfalls, and integrations connect it to the tools a team already uses. I joined after the app was built, as a full-stack engineer on the team that maintained it.",
     type: "Enterprise",
     role: "Full-stack engineer (maintenance)",
     status: "Completed",
@@ -1200,7 +1200,7 @@ const allProjects: Project[] = [
       "Attendance management and payroll from logged hours",
       "Team performance analysis",
       "Integrations with other workplace apps",
-      "Starter, Advanced and Enterprise plans",
+      "Starter, Advanced, and Enterprise plans",
     ],
     contributions: [
       "Joined the team after the app was built, as a full-stack engineer at MUST Company",
@@ -1259,9 +1259,9 @@ const allProjects: Project[] = [
     slug: "startdescribe",
     title: "StartDescribe",
     summary:
-      "AI SaaS that turns e-commerce listings into multilingual, SEO-ready product pages, syncing with Shopify, WooCommerce and BigCommerce or working from CSV and Google Sheets.",
+      "AI SaaS that turns e-commerce listings into multilingual, SEO-ready product pages, syncing with Shopify, WooCommerce, and BigCommerce or working from CSV and Google Sheets.",
     description:
-      "StartDescribe turns product listings into high-converting, multilingual, SEO-ready pages for dropshippers, retailers, multilingual sellers and agencies. Merchants install it in Shopify, connect WooCommerce or BigCommerce, or upload a CSV or Google Sheet; StartDescribe fetches the products, and an AI pipeline writes descriptions, bullet points, pros and cons and SEO copy, enhances images and translates the results. After review and approval, the content syncs back to the store, and new products are enhanced automatically as they arrive. Teams pay through tiered Stripe subscriptions. Reworked onboarding and automation raised onboarding conversion by 40% and cut content generation time by 30%.",
+      "StartDescribe turns product listings into high-converting, multilingual, SEO-ready pages for dropshippers, retailers, multilingual sellers, and agencies. Merchants install it in Shopify, connect WooCommerce or BigCommerce, or upload a CSV or Google Sheet; StartDescribe fetches the products, and an AI pipeline writes descriptions, bullet points, pros and cons, and SEO copy, enhances images, and translates the results. After review and approval, the content syncs back to the store, and new products are enhanced automatically as they arrive. Teams pay through tiered Stripe subscriptions. Reworked onboarding and automation raised onboarding conversion by 40% and cut content generation time by 30%.",
     type: "Client Project",
     role: "Sole engineer",
     domains: ["AI", "SaaS"],
@@ -1278,15 +1278,15 @@ const allProjects: Project[] = [
       "AI image enhancement",
       "Multilingual content with automatic translation",
       "Review and approval before publishing, then sync back to the store",
-      "Team permissions, a client dashboard and white-label options for agencies",
-      "Zapier, Make and n8n modules, plus a REST API",
+      "Team permissions, a client dashboard, and white-label options for agencies",
+      "Zapier, Make, and n8n modules, plus a REST API",
       "Tiered Stripe subscriptions with a free trial",
       "Transactional emails",
     ],
     contributions: [
       "Turned the client's requirements into a product scope and architecture",
       "Built the whole product alone: Next.js frontend and server routes, Supabase auth and database, and Tailwind UI",
-      "Built the Shopify app: installation, automatic product fetching and syncing enhanced content back to the store",
+      "Built the Shopify app: installation, automatic product fetching, and syncing enhanced content back to the store",
       "Built the WooCommerce and BigCommerce connections and the CSV and Google Sheets import",
       "Built the AI content generation pipeline on OpenAI and Perplexity",
       "Integrated Stripe subscriptions and transactional emails",
@@ -1294,12 +1294,12 @@ const allProjects: Project[] = [
     ],
     highlights: [
       "Built the Shopify app. Merchants install it in their store, products are fetched automatically, and AI-enhanced descriptions and images sync back to Shopify.",
-      "Implemented secure authentication, an AI content generation pipeline, transactional emails and SEO-optimized pages.",
+      "Implemented secure authentication, an AI content generation pipeline, transactional emails, and SEO-optimized pages.",
       "Increased onboarding conversion by 40% and reduced content generation time by 30% through optimized workflows and automation.",
     ],
     story: {
       problem:
-        "Store owners with hundreds of products need descriptions and images that are accurate, on-brand and good for search, without spending a day per catalogue.",
+        "Store owners with hundreds of products need descriptions and images that are accurate, on-brand, and good for search, without spending a day per catalogue.",
       approach:
         "A generation pipeline first researches the product, then drafts copy and images with the store's tone and constraints in the prompt. Products are fetched from Shopify automatically, and results land in the merchant's workspace for review before they sync back to the store. Onboarding was shortened so a new store sees its first generated description quickly.",
       decisions: [
@@ -1346,9 +1346,9 @@ const allProjects: Project[] = [
     slug: "startintegrate",
     title: "StartIntegrate",
     summary:
-      "iPaaS platform offering custom apps for Make.com, Zapier and Workato, with usage statistics, error tracking and subscription access to a library of integrations.",
+      "iPaaS platform offering custom apps for Make.com, Zapier, and Workato, with usage statistics, error tracking, and subscription access to a library of integrations.",
     description:
-      "StartIntegrate builds and maintains custom apps for the no-code platforms Make.com, Zapier and Workato. Subscribers get access to a library of integrations for data processing, invoicing, social media, messaging and database tools, from OpenAI and Supabase to DoorLoop and Paymongo. Every execution is logged, so customers can search API logs, follow usage statistics and set up their own error notifications.",
+      "StartIntegrate builds and maintains custom apps for the no-code platforms Make.com, Zapier, and Workato. Subscribers get access to a library of integrations for data processing, invoicing, social media, messaging, and database tools, from OpenAI and Supabase to DoorLoop and Paymongo. Every execution is logged, so customers can search API logs, follow usage statistics, and set up their own error notifications.",
     type: "Client Project",
     role: "Sole engineer",
     status: "Completed",
@@ -1359,31 +1359,31 @@ const allProjects: Project[] = [
     featured: false,
     order: 17,
     features: [
-      "Custom apps for Make.com, Zapier and Workato",
-      "A library of integrations for data processing, invoicing, social media, messaging and database tools",
+      "Custom apps for Make.com, Zapier, and Workato",
+      "A library of integrations for data processing, invoicing, social media, messaging, and database tools",
       "Tiered subscription plans, including a free tier with test launches",
       "Usage statistics and customizable error notifications",
       "Full-text search across API logs",
       "Usage statistics and error logs kept for up to 3 months on paid plans",
-      "GDPR-compliant data access, download and deletion",
+      "GDPR-compliant data access, download, and deletion",
       "Ongoing app code maintenance as third-party APIs change",
     ],
     contributions: [
       "Turned the client's requirements into a product scope and architecture",
       "Built the whole platform alone: Next.js frontend, Supabase auth and database, and Tailwind UI",
-      "Built the execution logging, usage statistics and error notifications behind the customer dashboard",
+      "Built the execution logging, usage statistics, and error notifications behind the customer dashboard",
       "Integrated Stripe for tiered subscription plans",
     ],
     highlights: [],
     story: {
       problem:
-        "No-code platforms only reach the apps they have connectors for. When a business needs a tool that Make.com, Zapier or Workato doesn't support well, the fallback is hand-written HTTP calls that are fragile, hard to debug and break when the API changes.",
+        "No-code platforms only reach the apps they have connectors for. When a business needs a tool that Make.com, Zapier, or Workato doesn't support well, the fallback is hand-written HTTP calls that are fragile, hard to debug and break when the API changes.",
       approach:
-        "StartIntegrate ships maintained custom apps for each platform instead. Every execution passes through a logging layer, so customers can search their API logs, see usage and get notified when something fails. Access is sold by subscription tier, and the apps are updated as the upstream APIs change.",
+        "StartIntegrate ships maintained custom apps for each platform instead. Every execution passes through a logging layer, so customers can search their API logs, see usage, and get notified when something fails. Access is sold by subscription tier, and the apps are updated as the upstream APIs change.",
       decisions: [
         {
           title: "One app, three platforms",
-          body: "The same integration is offered on Make.com, Zapier and Workato, so customers aren't tied to one automation tool.",
+          body: "The same integration is offered on Make.com, Zapier, and Workato, so customers aren't tied to one automation tool.",
         },
         {
           title: "Logs as a product feature",
@@ -1421,9 +1421,9 @@ const allProjects: Project[] = [
     visible: false,
     title: "StartAutomate",
     summary:
-      "Website and AI automations for an automation agency that builds no-code and AI workflows on Make, Zapier and n8n.",
+      "Website and AI automations for an automation agency that builds no-code and AI workflows on Make, Zapier, and n8n.",
     description:
-      "StartAutomate is an AI and no-code automation agency. I built its website, which presents the agency's services and use cases and books strategy calls, and worked with a second developer on the automations it delivers: AI appointment scheduling, customer support and follow-ups, custom chatbots, smart email assistants and RAG systems that answer questions from a business's own documents.",
+      "StartAutomate is an AI and no-code automation agency. I built its website, which presents the agency's services and use cases and books strategy calls, and worked with a second developer on the automations it delivers: AI appointment scheduling, customer support and follow-ups, custom chatbots, smart email assistants, and RAG systems that answer questions from a business's own documents.",
     type: "Client Project",
     role: "Engineer, with one other developer on automations",
     status: "Completed",
@@ -1445,25 +1445,25 @@ const allProjects: Project[] = [
     featured: false,
     order: 18,
     features: [
-      "Agency website with services, use cases and consultation booking",
+      "Agency website with services, use cases, and consultation booking",
       "AI appointment scheduling that captures customer details into a CRM",
       "AI customer support and follow-ups for payment reminders and feedback",
       "Custom chatbots that qualify leads and book from CRM or staff availability",
       "Smart email assistants that reply in the client's own writing style",
-      "RAG automations that answer questions from documents, databases and wikis",
-      "Workflows on Make, Zapier and n8n, connected to CRMs such as HubSpot and Salesforce",
+      "RAG automations that answer questions from documents, databases, and wikis",
+      "Workflows on Make, Zapier, and n8n, connected to CRMs such as HubSpot and Salesforce",
     ],
     contributions: ["Built the agency's website", "Built AI and no-code automations together with a second developer"],
     highlights: [],
     story: {
       problem:
-        "Small teams lose hours to repetitive work: answering the same questions, chasing payments, booking calls and copying data between tools. Off-the-shelf automations rarely fit how a particular business actually runs.",
+        "Small teams lose hours to repetitive work: answering the same questions, chasing payments, booking calls, and copying data between tools. Off-the-shelf automations rarely fit how a particular business actually runs.",
       approach:
         "Each automation starts from a strategy call and is built on the no-code platform that fits the client, with AI steps where judgement is needed: classifying a lead, drafting a reply, answering from the company's documents. The website is the front door, explaining the services with concrete use cases and booking the first call.",
       decisions: [
         {
           title: "Platform to fit the client",
-          body: "Make, Zapier or n8n is chosen per client, so the automation lives where their team already works.",
+          body: "Make, Zapier, or n8n is chosen per client, so the automation lives where their team already works.",
         },
         {
           title: "Answers from their own data",

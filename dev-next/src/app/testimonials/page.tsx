@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Testimonials",
-  description: `What clients, managers and engineers say about working with ${profile.name}.`,
+  description: `What clients, managers, and engineers say about working with ${profile.name}.`,
   alternates: { canonical: "/testimonials" },
   ...(indexTestimonials ? {} : { robots: { index: false, follow: false } }),
 };

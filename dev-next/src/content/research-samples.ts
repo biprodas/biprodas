@@ -5,12 +5,12 @@ import type { Research } from "./types";
 export const sampleResearch: Research = {
   statement: [
     "My research grows out of problems I hit in production. Real-time AI products have to answer within a conversation's rhythm, and financial systems have to stay correct while many tenants write at once. I study both: how to keep language-model pipelines fast enough for live speech, and how to make multi-tenant data systems provably consistent.",
-    "I care about results that ship. Each question below started as an incident, a slow report or a latency budget, and the aim is a method other engineers can apply, not only a paper.",
+    "I care about results that ship. Each question below started as an incident, a slow report, or a latency budget, and the aim is a method other engineers can apply, not only a paper.",
   ],
   interests: [
     {
       topic: "Low-latency LLM pipelines for live speech",
-      note: "Streaming transcription, translation and summarisation that keep up with a conversation.",
+      note: "Streaming transcription, translation, and summarisation that keep up with a conversation.",
       origin: { label: "MustBreak at MUST Company", href: "/experience#must-company-software-engineer" },
     },
     {
@@ -40,7 +40,7 @@ export const sampleResearch: Research = {
       venueShort: "SAMPLE '26",
       date: "2026-04",
       abstract:
-        "Sample abstract. Live translation must emit text within a few hundred milliseconds of speech. We break the pipeline into transcription, segmentation and translation stages, measure where latency accumulates, and evaluate scheduling strategies that trade a small loss in quality for a large gain in responsiveness.",
+        "Sample abstract. Live translation must emit text within a few hundred milliseconds of speech. We break the pipeline into transcription, segmentation, and translation stages, measure where latency accumulates, and evaluate scheduling strategies that trade a small loss in quality for a large gain in responsiveness.",
       keywords: ["speech translation", "LLM serving", "latency"],
       links: [
         { kind: "pdf", url: "#" },

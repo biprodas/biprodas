@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Resume",
-  description: `${profile.name}'s resume as a PDF: experience, skills, projects and certifications.`,
+  description: `${profile.name}'s resume as a PDF: experience, skills, projects, and certifications.`,
   alternates: { canonical: "/resume" },
 };
 

@@ -19,7 +19,7 @@ export function glanceFacts(): Fact[] {
       detail: `${experience.length} organisations, remote since 2023`,
     },
     { label: "Leadership", value: "10–15", detail: "engineers led as co-founder & CTO" },
-    { label: "Systems built", value: String(projects.length), detail: "with case studies on this site" },
+    { label: "Systems built", value: `${projects.length}+`, detail: "with case studies on this site" },
     { label: "Certifications", value: String(certifications.length), detail: issuers.join(", ") },
     { label: "Problem solving", value: solved?.title.split(" ")[0] ?? "", detail: "algorithmic problems solved" },
     {

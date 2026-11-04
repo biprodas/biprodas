@@ -17,7 +17,7 @@ import { isEnabled } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Research",
-  description: `${profile.name}'s research interests, publications and talks, from real-time AI to multi-tenant data systems.`,
+  description: `${profile.name}'s research interests, publications, and talks, from real-time AI to multi-tenant data systems.`,
   alternates: { canonical: "/research" },
   ...(indexResearch ? {} : { robots: { index: false, follow: false } }),
 };
@@ -57,7 +57,7 @@ function Authors({ authors }: { authors: string[] }) {
     <p className="mt-0.5 text-sm text-ink-2">
       {authors.map((a, i) => (
         <span key={a}>
-          {i > 0 && (i === authors.length - 1 ? " and " : ", ")}
+          {i > 0 && (i === authors.length - 1 ? (authors.length > 2 ? ", and " : " and ") : ", ")}
           {a === profile.name ? <strong className="font-semibold text-foreground">{a}</strong> : a}
         </span>
       ))}

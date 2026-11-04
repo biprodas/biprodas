@@ -31,7 +31,7 @@ export function Footer() {
             <p className="font-semibold text-foreground">{profile.name}</p>
             <p className="mt-0.5 text-meta">{profile.role}</p>
             <p className="mt-3 max-w-[38ch] leading-relaxed">
-              I design software that holds up in production: multi-tenant SaaS, ERP, FinTech and real-time AI.
+              I design software that holds up in production: multi-tenant SaaS, ERP, FinTech, and real-time AI.
               {availability.open && " Available for remote roles and contracts."}
               {academic && (
                 <>

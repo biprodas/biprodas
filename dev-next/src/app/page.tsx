@@ -1,19 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRightIcon, ArrowUpRightIcon } from "@phosphor-icons/react/ssr";
+import { ArrowRightIcon, ArrowUpRightIcon, LinkedinLogoIcon } from "@phosphor-icons/react/ssr";
 import { buttonVariants } from "@/components/ui/button";
 import { MarginNote, MoreLink, Section, Tag } from "@/components/page";
 import { ProjectCard } from "@/components/projects/project-card";
 import { Timeline } from "@/components/timeline";
 import { now, principles, profile } from "@/content/profile";
+import { getService } from "@/content/services";
 import { experience } from "@/content/experience";
-import { featuredProjects, getProject, projects } from "@/content/projects";
-import { featuredCertifications, latestCertification } from "@/content/certifications";
+import { featuredProjects, getProject, projects, urlLabel } from "@/content/projects";
+import { featuredCertifications } from "@/content/certifications";
 import { awards, getSkill, skillCategories, skills } from "@/content/skills";
 import { glanceFacts } from "@/lib/glance";
-import { formatDate, formatRange, pad2 } from "@/lib/format";
+import { formatRange, pad2 } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { getLink } from "@/content/links";
+import { showTestimonials } from "@/content/testimonials";
 
 const label = "font-mono text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase";
 
@@ -26,6 +28,7 @@ export default function HomePage() {
   const latest = experience[0];
   const icpc = awards.find((a) => a.id === "icpc-dhaka-2015");
   const solved = awards.find((a) => a.id === "problem-solving-2000");
+  const linkedin = getLink("linkedin");
 
   return (
     <>
@@ -96,11 +99,9 @@ export default function HomePage() {
             </p>
           )}
         </MarginNote>
-        <div className="space-y-5 leading-7">
+        <div className="space-y-5 leading-7 text-ink-2">
           {profile.about.map((p, i) => (
-            <p key={i} className={i === 0 ? undefined : "text-ink-2"}>
-              {p}
-            </p>
+            <p key={i}>{p}</p>
           ))}
         </div>
       </Section>
@@ -157,6 +158,20 @@ export default function HomePage() {
       </Section>
 
       <Section title="How I work" id="principles">
+        <MarginNote label="Services I offer">
+          <ul className="space-y-1">
+            {principles.map((p) => {
+              const s = getService(p.service)!;
+              return (
+                <li key={s.slug}>
+                  <Link href={`/services/${s.slug}`} className="prose-link">
+                    {s.title}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </MarginNote>
         <ol className="grid gap-7">
           {principles.map((p, i) => (
             <li key={p.title} className="group grid grid-cols-[3.25rem_1fr] items-start gap-x-3">
@@ -179,6 +194,22 @@ export default function HomePage() {
       </Section>
 
       <Section title="What I'm up to" id="now">
+        <MarginNote label="Try them live">
+          <ul className="space-y-1">
+            {now.building.map((b) => {
+              const url = getProject(b.slug)?.liveUrl;
+              return (
+                url && (
+                  <li key={b.slug}>
+                    <a href={url} target="_blank" rel="noopener noreferrer" className="prose-link">
+                      {urlLabel(url)}
+                    </a>
+                  </li>
+                )
+              );
+            })}
+          </ul>
+        </MarginNote>
         <dl className="border-t *:grid *:grid-cols-1 *:gap-x-6 *:gap-y-1 *:border-b *:py-4 sm:*:grid-cols-[7.5rem_1fr]">
           <div>
             <dt className={cn(label, "pt-1")}>Focus</dt>
@@ -213,19 +244,13 @@ export default function HomePage() {
             </dd>
           </div>
           <div>
-            <dt className={cn(label, "pt-1")}>Certified</dt>
-            <dd className="text-sm text-ink-2">
-              <a
-                href={latestCertification.credentialUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="prose-link"
-              >
-                {latestCertification.name}
-              </a>
-              {latestCertification.issueDate && (
-                <span className="ml-1.5 text-meta">{formatDate(latestCertification.issueDate)}</span>
-              )}
+            <dt className={cn(label, "pt-1")}>Preparing</dt>
+            <dd>
+              <ul className="space-y-1 text-sm text-ink-2">
+                {now.preparing.map((exam) => (
+                  <li key={exam}>{exam}</li>
+                ))}
+              </ul>
             </dd>
           </div>
         </dl>
@@ -239,13 +264,24 @@ export default function HomePage() {
           </p>
         </MarginNote>
         <p className="leading-7">
-          I&apos;m glad to hear from hiring teams, founders and fellow engineers, whether it&apos;s about a role, a
-          project or a system design question. Email is the best way to reach me.
+          I&apos;m glad to hear from hiring teams, founders, and fellow engineers, whether it&apos;s about a role, a
+          project, or a system design question. Email is the best way to reach me.
         </p>
         <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
           <Link href="/contact" className={cn(buttonVariants({ size: "lg" }), "h-10 px-4 text-sm")}>
             Write to me <ArrowRightIcon data-icon="inline-end" />
           </Link>
+          {linkedin && (
+            <a
+              href={linkedin.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-10 px-4 text-sm")}
+            >
+              <LinkedinLogoIcon data-icon="inline-start" />
+              Message me on LinkedIn
+            </a>
+          )}
           <a
             href={getLink("github")?.url}
             target="_blank"
@@ -262,6 +298,15 @@ export default function HomePage() {
           </Link>
           .
         </p>
+        {showTestimonials && (
+          <p className="mt-1 text-sm text-muted-foreground">
+            Want a second opinion?{" "}
+            <Link href="/testimonials" className="prose-link text-ink-2">
+              What people say about working with me
+            </Link>
+            .
+          </p>
+        )}
       </Section>
     </>
   );

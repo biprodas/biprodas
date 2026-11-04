@@ -6,6 +6,7 @@ export const allCertifications: Certification[] = [
     id: "aws-developer-associate",
     name: "AWS Certified Developer – Associate",
     issuer: "Amazon Web Services",
+    examCode: "DVA-C02",
     issueDate: "2026-03",
     expiryDate: "2029-03",
     credentialId: "8fcf622b4cba473cb801adc76b4a4433",

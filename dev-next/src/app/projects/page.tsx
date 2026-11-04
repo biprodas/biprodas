@@ -6,7 +6,7 @@ import { isEnabled } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "SaaS, FinTech, AI, EdTech and GovTech systems by Biprodas Roy, each with a case study.",
+  description: "SaaS, FinTech, AI, EdTech, and GovTech systems by Biprodas Roy, each with a case study.",
   alternates: { canonical: "/projects" },
 };
 
