@@ -20,6 +20,8 @@ export const profile = {
   yearsOfExperience,
   avatar: { src: portrait, alt: "Watercolour portrait of Biprodas Roy" },
   email: "biprodas.cse@gmail.com",
+  /** WhatsApp number in international format, e.g. "+8801XXXXXXXXX". The Contact page button stays hidden while empty. */
+  whatsapp: "" as string,
   location: { city: "Jashore", country: "Bangladesh" },
   timezone: "Asia/Dhaka",
   utcOffset: "UTC+6",

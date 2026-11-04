@@ -8,6 +8,7 @@ import {
   EnvelopeSimpleIcon,
   FileTextIcon,
   MapPinIcon,
+  WhatsappLogoIcon,
 } from "@phosphor-icons/react/ssr";
 import { buttonVariants } from "@/components/ui/button";
 import { Eyebrow, Section } from "@/components/page";
@@ -25,6 +26,10 @@ export const metadata: Metadata = {
   description: `Email ${profile.name} about a remote role, a contract project, an architecture review or an idea you want to build. Based in ${profile.location.city}, ${profile.location.country} (${profile.utcOffset}).`,
   alternates: { canonical: "/contact" },
 };
+
+/** wa.me chat link with a short opener, so messages from the site are easy to spot. */
+const whatsappUrl = (number: string) =>
+  `https://wa.me/${number.replace(/[^0-9]/g, "")}?text=${encodeURIComponent("Hi Biprodas, I found you through biprodas.dev.")}`;
 
 const mailto = (subject: string) => `mailto:${profile.email}?subject=${encodeURIComponent(subject)}`;
 
@@ -101,6 +106,17 @@ export default function ContactPage() {
             <EnvelopeSimpleIcon data-icon="inline-start" />
             Compose an email
           </a>
+          {profile.whatsapp && (
+            <a
+              href={whatsappUrl(profile.whatsapp)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(buttonVariants({ variant: "outline" }), "h-9 px-3.5 text-sm")}
+            >
+              <WhatsappLogoIcon data-icon="inline-start" />
+              Message on WhatsApp
+            </a>
+          )}
           <CopyEmail />
           <Link href="/resume" className={cn(buttonVariants({ variant: "ghost" }), "h-9 px-3 text-sm")}>
             <FileTextIcon data-icon="inline-start" />
