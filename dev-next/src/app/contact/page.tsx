@@ -4,10 +4,14 @@ import Link from "next/link";
 import {
   ArrowRightIcon,
   ArrowUpRightIcon,
+  BriefcaseIcon,
   ClockIcon,
   EnvelopeSimpleIcon,
   FileTextIcon,
+  HandshakeIcon,
+  LightbulbIcon,
   MapPinIcon,
+  StackIcon,
   WhatsappLogoIcon,
 } from "@phosphor-icons/react/ssr";
 import { buttonVariants } from "@/components/ui/button";
@@ -34,25 +38,34 @@ const whatsappUrl = (number: string) =>
 const mailto = (subject: string) => `mailto:${profile.email}?subject=${encodeURIComponent(subject)}`;
 
 // INVENTED COPY: topics people might write about. Edit freely.
-const topics: { title: string; body: string; action: { label: string; href: string } }[] = [
+const topics: {
+  title: string;
+  body: string;
+  icon: typeof BriefcaseIcon;
+  action: { label: string; href: string };
+}[] = [
   {
-    title: "A role on your team",
+    title: "An open role",
     body: "Senior full-stack or backend positions, remote. Tell me about the product, the team and the hardest problem on the roadmap.",
+    icon: BriefcaseIcon,
     action: { label: "Email about a role", href: mailto("Role enquiry") },
   },
   {
-    title: "A system to build",
-    body: "Contract work on SaaS platforms, ledgers and billing, or AI features: from schema design through to production.",
+    title: "A project to build",
+    body: "Contract work on SaaS, ERP, FinTech or AI features, from schema design to production, or a second opinion on an architecture you're unsure about.",
+    icon: StackIcon,
     action: { label: "See services", href: "/services" },
   },
   {
-    title: "A design review",
-    body: "Multi-tenancy, data modelling, queues or performance. Happy to give a second opinion on an architecture you're unsure about.",
-    action: { label: "About architecture reviews", href: "/services/architecture-performance" },
+    title: "A collaboration",
+    body: "Research, open source or a product worth building together. Share what you have in mind and where you think I fit.",
+    icon: HandshakeIcon,
+    action: { label: "Propose a collaboration", href: mailto("Collaboration") },
   },
   {
-    title: "Talking shop",
-    body: "Competitive programming, AWS certifications, or anything you've read on this site. Engineers and students are welcome.",
+    title: "A question or an idea",
+    body: "Something you read here, a contest problem, or an idea you're not sure how to build. Engineers and students are welcome.",
+    icon: LightbulbIcon,
     action: { label: "Say hello", href: mailto("Hello") },
   },
 ];
@@ -141,21 +154,32 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <Section title="What you might be writing about" id="topics" className="wide">
+      <Section title="What brings you here?" id="topics" className="wide">
+        <p className="-mt-2 mb-6 max-w-(--spacing-main) text-muted-foreground">
+          Pick whichever fits. Each opens an email with the subject filled in, or points you to the details.
+        </p>
         <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {topics.map((t) => (
             <li
               key={t.title}
               className="group relative flex flex-col border bg-card px-5 pt-4 pb-5 transition-colors hover:border-primary/40 hover:bg-[color-mix(in_oklab,var(--primary)_4%,var(--card))]"
             >
-              <h3 className="text-base font-semibold transition-colors group-hover:text-primary">{t.title}</h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-ink-2">{t.body}</p>
+              <div className="flex items-center gap-2.5">
+                <span
+                  aria-hidden
+                  className="grid size-7 shrink-0 place-items-center border bg-wash text-primary transition-colors group-hover:border-primary/40"
+                >
+                  <t.icon className="size-4" />
+                </span>
+                <h3 className="text-base font-semibold transition-colors group-hover:text-primary">{t.title}</h3>
+              </div>
+              <p className="mt-2.5 text-sm leading-relaxed text-ink-2">{t.body}</p>
               <Link
                 href={t.action.href}
                 className="mt-auto inline-flex items-center gap-1 pt-3 font-mono text-xs text-primary after:absolute after:inset-0"
               >
                 {t.action.label}
-                <ArrowRightIcon aria-hidden className="size-3 transition-transform group-hover:translate-x-0.5" />
+                <ArrowRightIcon aria-hidden className="size-3" />
               </Link>
             </li>
           ))}
