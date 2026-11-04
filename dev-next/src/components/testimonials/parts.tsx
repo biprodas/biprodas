@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { ReactNode } from "react";
 import { ArrowUpRightIcon } from "@phosphor-icons/react/ssr";
 import type { Testimonial, TestimonialRelationship } from "@/content/types";
 import { initials } from "@/lib/format";
@@ -35,25 +36,35 @@ export function Avatar({ name, src, size }: { name: string; src?: string; size: 
   );
 }
 
-/** The exact quote, with its `highlight` (a verbatim excerpt) set in full ink so the card can be skimmed. */
+/** The exact quote, with its `highlights` (verbatim excerpts) marked so the card can be skimmed. */
 export function QuoteText({ t }: { t: Testimonial }) {
-  const at = t.highlight ? t.quote.indexOf(t.highlight) : -1;
-  if (!t.highlight || at < 0) return <>{t.quote}</>;
-  return (
-    <>
-      {t.quote.slice(0, at)}
-      <mark className="-mx-0.5 bg-transparent bg-[image:linear-gradient(transparent_42%,var(--highlight)_42%,var(--highlight)_94%,transparent_94%)] box-decoration-clone px-0.5 font-medium text-foreground">
-        {t.highlight}
-      </mark>
-      {t.quote.slice(at + t.highlight.length)}
-    </>
-  );
+  const spans = (t.highlights ?? [])
+    .map((h) => ({ at: t.quote.indexOf(h), h }))
+    .filter((s) => s.at >= 0)
+    .sort((a, b) => a.at - b.at);
+  const parts: ReactNode[] = [];
+  let pos = 0;
+  for (const { at, h } of spans) {
+    if (at < pos) continue; // overlaps the previous highlight
+    parts.push(t.quote.slice(pos, at));
+    parts.push(
+      <mark
+        key={at}
+        className="-mx-0.5 bg-transparent bg-[image:linear-gradient(transparent_42%,var(--highlight)_42%,var(--highlight)_94%,transparent_94%)] box-decoration-clone px-0.5 font-medium text-foreground"
+      >
+        {h}
+      </mark>,
+    );
+    pos = at + h.length;
+  }
+  parts.push(t.quote.slice(pos));
+  return <>{parts}</>;
 }
 
 /** Name (linked to their profile when known) over their position. */
 export function Person({ t, className }: { t: Testimonial; className?: string }) {
   return (
-    <div className={cn("min-w-0 leading-snug", className)}>
+    <div className={cn("min-w-0 leading-tight", className)}>
       <p className="font-semibold text-foreground">
         {t.linkedinUrl ? (
           <a
@@ -68,7 +79,7 @@ export function Person({ t, className }: { t: Testimonial; className?: string })
           t.name
         )}
       </p>
-      <p className="mt-0.5 text-[0.84rem] text-muted-foreground">
+      <p className="text-[0.84rem] leading-tight text-muted-foreground">
         {t.position}
         {t.company && ` · ${t.company}`}
       </p>

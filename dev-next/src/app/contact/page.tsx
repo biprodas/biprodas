@@ -22,7 +22,7 @@ import { isEnabled } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: `Email ${profile.name} about a remote role, a contract project or an architecture review. Based in ${profile.location.city}, ${profile.location.country} (${profile.utcOffset}).`,
+  description: `Email ${profile.name} about a remote role, a contract project, an architecture review or an idea you want to build. Based in ${profile.location.city}, ${profile.location.country} (${profile.utcOffset}).`,
   alternates: { canonical: "/contact" },
 };
 
@@ -76,12 +76,13 @@ export default function ContactPage() {
   return (
     <>
       <JsonLd data={schema} />
-      <header>
+      <header className="wide">
         <Eyebrow>Contact</Eyebrow>
         <h1 className="mt-4 text-3xl leading-tight font-semibold text-balance sm:text-4xl">Let&apos;s talk</h1>
         <p className="mt-2 text-muted-foreground">
-          Whether it&apos;s a role, a project or a question about something I&apos;ve built, email reaches me fastest. A
-          few lines on what you&apos;re working on is plenty.
+          Have an open role, a project to discuss, an opportunity to collaborate, a question about my work, or just an
+          idea you&apos;d like to talk through? My inbox is always open. Send me a few lines, and let&apos;s start a
+          conversation.
         </p>
       </header>
 

@@ -270,7 +270,7 @@ describe("testimonials", () => {
 
   it("only highlight words that appear verbatim in the quote", async () => {
     const { realTestimonials } = await import("./testimonials");
-    for (const t of realTestimonials) if (t.highlight) expect(t.quote, t.id).toContain(t.highlight);
+    for (const t of realTestimonials) for (const h of t.highlights ?? []) expect(t.quote, t.id).toContain(h);
   });
 });
 

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { EnvelopeSimpleIcon, LinkedinLogoIcon, SealCheckIcon } from "@phosphor-icons/react/ssr";
 import { buttonVariants } from "@/components/ui/button";
 import { Eyebrow, Section } from "@/components/page";
-import { circleOf } from "@/components/testimonials/parts";
+// import { circleOf } from "@/components/testimonials/parts";
 import { Spotlight } from "@/components/testimonials/spotlight";
 import { TestimonialWall } from "@/components/testimonials/testimonial-wall";
 import { isEnabled } from "@/config/site";
@@ -11,7 +11,7 @@ import { getLink } from "@/content/links";
 import { profile } from "@/content/profile";
 import { indexTestimonials, testimonialsAreSample } from "@/content/testimonials";
 import { featuredTestimonials, testimonials } from "@/content/testimonials-content";
-import { yearRange } from "@/lib/format";
+// import { yearRange } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -21,17 +21,17 @@ export const metadata: Metadata = {
   ...(indexTestimonials ? {} : { robots: { index: false, follow: false } }),
 };
 
-/** Counts for the strip under the header, all derived from the testimonials themselves. */
-function stats() {
-  const dates = testimonials.flatMap((t) => (t.date ? [t.date] : [])).sort();
-  const clients = testimonials.filter((t) => circleOf(t) === "clients").length;
-  return [
-    { label: "Recommendations", value: String(testimonials.length) },
-    { label: "From clients", value: String(clients) },
-    { label: "From teammates", value: String(testimonials.length - clients) },
-    ...(dates.length ? [{ label: "Written", value: yearRange(dates[0], dates[dates.length - 1]) }] : []),
-  ];
-}
+// /** Counts for the strip under the header, all derived from the testimonials themselves. */
+// function stats() {
+//   const dates = testimonials.flatMap((t) => (t.date ? [t.date] : [])).sort();
+//   const clients = testimonials.filter((t) => circleOf(t) === "clients").length;
+//   return [
+//     { label: "Recommendations", value: String(testimonials.length) },
+//     { label: "From clients", value: String(clients) },
+//     { label: "From teammates", value: String(testimonials.length - clients) },
+//     ...(dates.length ? [{ label: "Written", value: yearRange(dates[0], dates[dates.length - 1]) }] : []),
+//   ];
+// }
 
 export default function TestimonialsPage() {
   if (!isEnabled("testimonials") || testimonials.length === 0) notFound();
@@ -52,21 +52,28 @@ export default function TestimonialsPage() {
         </p>
       )}
 
-      <header>
+      <header className="wide">
         <Eyebrow>Testimonials</Eyebrow>
         <h1 className="mt-4 text-3xl leading-tight font-semibold text-balance sm:text-4xl">
           What people say about working with me
         </h1>
-        <p className="mt-3 leading-relaxed text-ink-2">
-          Clients who hired me, the leads I reported to, and the engineers I built and learned alongside, across{" "}
-          {profile.yearsOfExperience}+ years of shipping software.
+        <p className="mt-2 text-muted-foreground">
+          From clients and team leads to engineers I&apos;ve collaborated and grown alongside, these are reflections
+          from the people I&apos;ve worked with throughout {profile.yearsOfExperience}+ years of building software.
         </p>
-        <p className="mt-3 flex items-start gap-2 text-sm text-muted-foreground">
-          <SealCheckIcon aria-hidden weight="duotone" className="mt-0.5 size-4 shrink-0 text-primary" />
-          Every quote is copied word for word from where it was first posted, and links back to the original.
+        <p className="mt-5 inline-flex flex-wrap items-center gap-x-2.5 gap-y-1 border border-primary/20 bg-wash px-3 py-2 text-[0.82rem] leading-snug text-ink-2">
+          <span className="inline-flex items-center gap-1.5 font-mono text-[0.68rem] font-semibold tracking-[0.14em] text-primary uppercase">
+            <SealCheckIcon aria-hidden weight="fill" className="size-3.5" />
+            Verbatim
+          </span>
+          <span aria-hidden className="hidden h-3.5 w-px bg-primary/25 sm:block" />
+          <span>
+            Every quote is copied word for word from where it was first posted, and links back to the original.
+          </span>
         </p>
       </header>
 
+      {/* Stats strip, hidden while there are few testimonials. Bring it back at ~15–20.
       <dl className="wide mt-10 grid grid-cols-2 border-y sm:grid-cols-4">
         {stats().map((s, i) => (
           <div
@@ -85,6 +92,7 @@ export default function TestimonialsPage() {
           </div>
         ))}
       </dl>
+      */}
 
       <section aria-label="Featured testimonial" className="wide mt-12">
         <Spotlight t={lead} />
