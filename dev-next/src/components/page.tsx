@@ -19,9 +19,19 @@ export function Eyebrow({ children, className }: { children: ReactNode; classNam
 }
 
 /** Top of every inner page: eyebrow, title, optional lede. */
-export function PageHeader({ eyebrow, title, lede }: { eyebrow: string; title: ReactNode; lede?: ReactNode }) {
+export function PageHeader({
+  eyebrow,
+  title,
+  lede,
+  className,
+}: {
+  eyebrow: string;
+  title: ReactNode;
+  lede?: ReactNode;
+  className?: string;
+}) {
   return (
-    <header className="mb-14">
+    <header className={cn("mb-14", className)}>
       <Eyebrow>{eyebrow}</Eyebrow>
       <h1 className="mt-4 text-3xl leading-tight font-semibold text-balance sm:text-4xl">{title}</h1>
       {lede && <p className="mt-2 text-muted-foreground">{lede}</p>}

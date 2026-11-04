@@ -112,7 +112,7 @@ const allProjects: Project[] = [
       "Docker",
     ],
     featured: false,
-    order: 2,
+    order: 5,
     features: [
       "Inventory across branches, warehouses, zones and bins, with moving-average costing",
       "Warehouse management: receiving, transfers and stock counts",
@@ -199,7 +199,7 @@ const allProjects: Project[] = [
     ],
     sourceUrl: "https://github.com/biprodas/school-erp",
     featured: false,
-    order: 3,
+    order: 4,
     type: "Product",
     role: "Founder & sole engineer",
     status: "In Progress",
@@ -270,6 +270,7 @@ const allProjects: Project[] = [
   },
   {
     slug: "reslo",
+    visible: false,
     title: "Reslo",
     summary:
       "AI-powered career toolkit that centralises your profile and builds ATS-ready resumes and cover letters, with share links, an ATS checker and a job tracker.",
@@ -294,7 +295,7 @@ const allProjects: Project[] = [
     ],
     demoUrl: "https://reslo-nine.vercel.app",
     featured: false,
-    order: 4,
+    order: 6,
     features: [
       "Reusable career profiles, with presets for developers, designers, academics, students and general use",
       "One-click resume generation from a career profile",
@@ -374,7 +375,7 @@ const allProjects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Supabase", "TanStack Query", "Tailwind CSS", "Paddle"],
     liveUrl: "https://cloudprep.biprodas.dev",
     featured: false,
-    order: 5,
+    order: 2,
     // data/projects.yaml lists these as highlights; they describe what the product does, so they live in `features`.
     highlights: [],
     features: [
@@ -449,7 +450,7 @@ const allProjects: Project[] = [
     liveUrl: "https://pitchpool.io",
     // TODO: set `thumbnail: "/images/projects/pitchpool/cover.png"` once the file is in public/.
     featured: true,
-    order: 6,
+    order: 3,
     features: [
       "Multi-tenant workspaces, each with its own pools, participants and roles",
       "Automated scoring of predictions as match results come in",
@@ -522,6 +523,7 @@ const allProjects: Project[] = [
   },
   {
     slug: "ielzy",
+    visible: false,
     title: "Ielzy",
     summary:
       "AI-powered IELTS preparation app with adaptive Reading, Listening, Writing and Speaking practice, full mock tests and a personal study planner.",
@@ -609,6 +611,7 @@ const allProjects: Project[] = [
   },
   {
     slug: "detgate",
+    visible: false,
     title: "DETGate",
     summary:
       "Planned practice app for the Duolingo English Test, built on the same foundation as Ielzy: practice by question type, timed mock tests and a personal study plan.",
@@ -1091,6 +1094,7 @@ const allProjects: Project[] = [
   },
   {
     slug: "must-hiring",
+    visible: false,
     title: "MUST Hiring & Match Hire",
     shortTitle: "MUST Hiring",
     summary:
@@ -1414,6 +1418,7 @@ const allProjects: Project[] = [
   },
   {
     slug: "startautomate",
+    visible: false,
     title: "StartAutomate",
     summary:
       "Website and AI automations for an automation agency that builds no-code and AI workflows on Make, Zapier and n8n.",
@@ -1493,7 +1498,7 @@ const allProjects: Project[] = [
   },
 ];
 
-export const projects = allProjects.toSorted((a, b) => a.order - b.order);
+export const projects = allProjects.filter((p) => p.visible !== false).toSorted((a, b) => a.order - b.order);
 
 export const domains: Domain[] = ["FinTech", "SaaS", "AI", "EdTech", "GovTech", "Sports & Competition"];
 

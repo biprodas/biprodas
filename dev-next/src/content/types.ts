@@ -130,6 +130,8 @@ export type Project = {
   /** Unset while ongoing. */
   endDate?: PartialDate;
   featured: boolean;
+  /** `false` hides the project everywhere (list, case study, sitemap) but keeps its content. Default: shown. */
+  visible?: boolean;
   /** Position in lists, ascending. */
   order: number;
   /** Case-study narrative (invented copy). */
