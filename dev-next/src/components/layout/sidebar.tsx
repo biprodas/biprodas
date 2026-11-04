@@ -60,7 +60,7 @@ export function Sidebar() {
             "border bg-background px-3 py-2",
             // Soft glow: the accent blue in light mode, green (matching the status light) in dark mode.
             availability.open &&
-              "border-primary/30 shadow-[0_0_22px_-6px_color-mix(in_oklab,var(--primary)_45%,transparent)] dark:border-emerald-500/35 dark:shadow-[0_0_22px_-6px_color-mix(in_oklab,var(--color-emerald-500)_55%,transparent)]",
+              "border-primary/20 shadow-[0_0_16px_-8px_color-mix(in_oklab,var(--primary)_25%,transparent)] dark:border-emerald-500/25 dark:shadow-[0_0_16px_-8px_color-mix(in_oklab,var(--color-emerald-500)_30%,transparent)]",
           )}
         >
           <div className="flex items-center justify-between gap-2">
@@ -86,7 +86,7 @@ export function Sidebar() {
           </div>
           <p className="mt-1 text-[0.8rem] leading-tight text-ink-2">{availability.focus}</p>
           {availability.open && (
-            <p className="mt-1.5 text-[0.76rem] leading-snug font-semibold">
+            <p className="mt-1 text-[0.76rem] leading-[1.2] font-semibold">
               {/* Highlighter stroke, repeated on each wrapped line. */}
               <span className="bg-[linear-gradient(transparent_50%,color-mix(in_oklab,var(--primary)_22%,transparent)_50%,color-mix(in_oklab,var(--primary)_22%,transparent)_90%,transparent_90%)] box-decoration-clone px-0.5">
                 {availability.roles.join(" · ")}

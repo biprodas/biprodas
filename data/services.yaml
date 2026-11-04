@@ -36,7 +36,7 @@ services: # listed in display order
     title: Software Engineering Consultancy
     experience: [semicolon]
 
-engagements: [fixed-scope, monthly-retainer, hourly-consulting, long-term-contract]
+engagements: [fixed-scope, monthly-retainer, hourly-consulting, long-term-contract, full-time-role]
 
 pricing: quote # no published prices; clients ask for a quote
 
