@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { ArrowUpRightIcon, DownloadSimpleIcon } from "@phosphor-icons/react/ssr";
 import { buttonVariants } from "@/components/ui/button";
 import { Eyebrow } from "@/components/page";
@@ -18,17 +17,16 @@ const button = "h-9 px-3.5 text-sm";
 export default function ResumePage() {
   return (
     <>
-      <header>
-        <Eyebrow>Resume</Eyebrow>
-        <h1 className="mt-4 text-3xl leading-tight font-semibold text-balance sm:text-4xl">Resume</h1>
-        <p className="mt-2 text-muted-foreground">
-          The short version, as a PDF. The full story is on the{" "}
-          <Link href="/experience" className="prose-link">
-            experience page
-          </Link>
-          .
-        </p>
-        <div className="mt-7 flex flex-wrap items-center gap-2.5">
+      <header className="col-span-full flex flex-wrap items-end justify-between gap-x-6 gap-y-7">
+        <div>
+          <Eyebrow>Resume</Eyebrow>
+          <h1 className="mt-4 text-3xl leading-tight font-semibold text-balance sm:text-4xl">Resume</h1>
+          <p className="mt-2 text-muted-foreground">
+            A closer look at my professional journey, technical experience, education, and the skills I&apos;ve developed
+            along the way.
+          </p>
+        </div>
+        <div className="flex flex-wrap items-center gap-2.5">
           <a
             href={resume.downloadUrl}
             target="_blank"
@@ -50,7 +48,7 @@ export default function ResumePage() {
         </div>
       </header>
 
-      <div className="wide mt-10 border bg-sidebar">
+      <div className="col-span-full mt-10 border bg-sidebar pt-4">
         <iframe
           src={resume.embedUrl}
           title={`${profile.name}'s resume (PDF)`}
