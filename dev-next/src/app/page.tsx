@@ -178,7 +178,7 @@ export default function HomePage() {
               {/* Top-aligned with the title rather than baseline-aligned, so it doesn't rise above it. */}
               <span
                 aria-hidden
-                className="pt-0.5 text-3xl leading-none font-semibold text-[color-mix(in_oklab,var(--primary)_55%,var(--background))] tabular-nums transition-colors duration-300 group-hover:text-primary"
+                className="pt-0.5 text-3xl leading-none font-semibold text-[color-mix(in_oklab,var(--primary)_70%,var(--background))] tabular-nums transition-colors duration-300 group-hover:text-primary"
               >
                 {pad2(i + 1)}
               </span>

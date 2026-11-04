@@ -16,6 +16,8 @@ export function ProjectList() {
 
   return (
     <div>
+      {/* Keeps the heading outline h1 → h2 → h3 for the entries' titles. */}
+      <h2 className="sr-only">All projects</h2>
       <div className="mb-8 flex flex-wrap items-center gap-1.5" role="group" aria-label="Filter by domain">
         {[ALL, ...domains].map((d) => (
           <button
