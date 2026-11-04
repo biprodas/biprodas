@@ -18,6 +18,27 @@
 #   links: [ { kind, url, label } ]
 #   featured: false
 
+- id: elite-research-lab
+  org:
+    name: Elite Research Lab
+    location: { city: Queens, region: New York, country: USA }
+  employmentType: part-time
+  workMode: remote
+  positions:
+    - title: Student Researcher
+      start: "2026-09"
+      end: present
+  summary: >-
+    Part-time research engagement focused on Transactions of the Association for Computational Linguistics (TACL), exploring
+    research problems, reviewing relevant literature, and investigating technical approaches through
+    research-driven exploration.
+  highlights:
+    - Beginning research work on TACL, focusing on understanding the research problem, reviewing
+      relevant literature, and exploring existing approaches.
+    - Investigating technical concepts and research methodologies relevant to TACL.
+    - Contributing to research discussions, experimentation, and the exploration of potential
+      solutions.
+
 - id: must-company
   org:
     name: MUST Company

@@ -3,6 +3,27 @@ import type { Education, Experience, ExperienceEntry, Teaching } from "./types";
 
 const entries: ExperienceEntry[] = [
   {
+    id: "elite-research-lab",
+    company: { name: "Elite Research Lab", location: "Queens, New York, USA" },
+    workMode: "Remote",
+    positions: [
+      {
+        id: "elite-research-lab-student-researcher",
+        title: "Student Researcher",
+        employmentType: "Part-time",
+        startDate: "2026-09",
+        description:
+          "Part-time research engagement focused on Transactions of the Association for Computational Linguistics (TACL), exploring research problems, reviewing relevant literature, and investigating technical approaches through research-driven exploration.",
+        bullets: [
+          "Beginning research work on TACL, focusing on understanding the research problem, reviewing relevant literature, and exploring existing approaches.",
+          "Investigating technical concepts and research methodologies relevant to TACL.",
+          "Contributing to research discussions, experimentation, and the exploration of potential solutions.",
+        ],
+      },
+    ],
+    order: 1,
+  },
+  {
     id: "must-company",
     company: { name: "MUST Company", location: "Seoul, South Korea" },
     workMode: "Remote",
@@ -23,7 +44,7 @@ const entries: ExperienceEntry[] = [
         technologies: ["Python", "FastAPI", "DynamoDB", "Next.js", "TypeScript"],
       },
     ],
-    order: 1,
+    order: 2,
   },
   {
     id: "codepal",
@@ -46,7 +67,7 @@ const entries: ExperienceEntry[] = [
         technologies: ["NestJS", "PostgreSQL", "Next.js", "Pay Advantage"],
       },
     ],
-    order: 2,
+    order: 3,
   },
   {
     id: "semicolon",
@@ -77,7 +98,7 @@ const entries: ExperienceEntry[] = [
         ],
       },
     ],
-    order: 3,
+    order: 4,
   },
   {
     id: "utshab",
@@ -97,7 +118,7 @@ const entries: ExperienceEntry[] = [
         technologies: ["MongoDB", "Express", "React", "Node.js", "C", "C++"],
       },
     ],
-    order: 4,
+    order: 5,
   },
 ];
 
