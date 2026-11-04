@@ -9,7 +9,7 @@
 #   skills: [ ... ]
 #   file: /certifications/<name>.pdf   # certificate PDF in dev-next/public
 
-# TODO: issue dates for the HackerRank, Coursera and BCC certificates
+# TODO: issue date for the BCC certificate
 - id: aws-developer-associate
   title: AWS Certified Developer – Associate
   issuer: Amazon Web Services
@@ -60,7 +60,7 @@
 - id: hackerrank-sql-intermediate
   title: SQL (Intermediate)
   issuer: HackerRank
-  issued: "2020"
+  issued: "2020-09"
   audience: engineering
   credentialId: "59df22a2bb22"
   url: https://www.hackerrank.com/certificates/59df22a2bb22
@@ -70,6 +70,7 @@
 - id: hackerrank-problem-solving-basic
   title: Problem Solving (Basic)
   issuer: HackerRank
+  issued: "2020-09"
   audience: engineering
   credentialId: "d5eddb13c63b"
   url: https://www.hackerrank.com/certificates/d5eddb13c63b
@@ -79,6 +80,7 @@
 - id: hackerrank-sql-basic
   title: SQL (Basic)
   issuer: HackerRank
+  issued: "2020-09"
   audience: engineering
   credentialId: "6866657050b5"
   url: https://www.hackerrank.com/certificates/6866657050b5
@@ -88,6 +90,7 @@
 - id: hackerrank-javascript-intermediate
   title: JavaScript (Intermediate)
   issuer: HackerRank
+  issued: "2024-01"
   audience: engineering
   credentialId: "a59fcbaed944"
   url: https://www.hackerrank.com/certificates/a59fcbaed944
@@ -97,6 +100,7 @@
 - id: hackerrank-javascript-basic
   title: JavaScript (Basic)
   issuer: HackerRank
+  issued: "2024-01"
   audience: engineering
   credentialId: "f14c9f09d2bd"
   url: https://www.hackerrank.com/certificates/f14c9f09d2bd
@@ -106,6 +110,7 @@
 - id: hackerrank-cpp-intermediate
   title: C++ (Intermediate)
   issuer: HackerRank
+  issued: "2020-09"
   audience: engineering
   credentialId: "1917f55e319b"
   url: https://www.hackerrank.com/certificates/1917f55e319b
@@ -115,6 +120,7 @@
 - id: hackerrank-cpp-basic
   title: C++ (Basic)
   issuer: HackerRank
+  issued: "2020-09"
   audience: engineering
   credentialId: "28aeeba26da6"
   url: https://www.hackerrank.com/certificates/28aeeba26da6
@@ -124,6 +130,7 @@
 - id: hackerrank-c-intermediate
   title: C (Intermediate)
   issuer: HackerRank
+  issued: "2020-09"
   audience: engineering
   credentialId: "f9ddaf75b79d"
   url: https://www.hackerrank.com/certificates/f9ddaf75b79d
@@ -133,6 +140,7 @@
 - id: hackerrank-c-basic
   title: C (Basic)
   issuer: HackerRank
+  issued: "2020-09"
   audience: engineering
   credentialId: "5162b7062457"
   url: https://www.hackerrank.com/certificates/5162b7062457
@@ -142,6 +150,7 @@
 - id: hackerrank-java-basic
   title: Java (Basic)
   issuer: HackerRank
+  issued: "2024-01"
   audience: engineering
   credentialId: "29f4621a0cd6"
   url: https://www.hackerrank.com/certificates/29f4621a0cd6
@@ -151,6 +160,7 @@
 - id: hackerrank-python-basic
   title: Python (Basic)
   issuer: HackerRank
+  issued: "2024-01"
   audience: engineering
   credentialId: "dc7c323e1686"
   url: https://www.hackerrank.com/certificates/dc7c323e1686
@@ -160,6 +170,7 @@
 - id: hackerrank-frontend-developer-react
   title: Frontend Developer (React)
   issuer: HackerRank
+  issued: "2024-04"
   audience: engineering
   credentialId: "99ac41af73c4"
   url: https://www.hackerrank.com/certificates/99ac41af73c4
@@ -169,6 +180,7 @@
 - id: hackerrank-software-engineer-intern
   title: Software Engineer Intern
   issuer: HackerRank
+  issued: "2024-01"
   audience: engineering
   credentialId: "539a81a986b4"
   url: https://www.hackerrank.com/certificates/539a81a986b4
@@ -178,6 +190,7 @@
 - id: coursera-architecting-solutions-on-aws
   title: Architecting Solutions on AWS
   issuer: Coursera
+  issued: "2024-12"
   credentialId: "QJG5F3TP65CG"
   url: https://www.coursera.org/verify/QJG5F3TP65CG
   file: /certifications/coursera-architecting-solutions-on-aws-qjg5f3tp65cg.pdf # dev-next/public
@@ -185,6 +198,7 @@
 - id: coursera-aws-cloud-technical-essentials
   title: AWS Cloud Technical Essentials
   issuer: Coursera
+  issued: "2024-02"
   credentialId: "Q58GV3XG5LEK"
   url: https://www.coursera.org/verify/Q58GV3XG5LEK
   file: /certifications/coursera-aws-cloud-technical-essentials-q58gv3xg5lek.pdf # dev-next/public
@@ -192,6 +206,7 @@
 - id: coursera-google-cloud-fundamentals
   title: Google Cloud Fundamentals
   issuer: Coursera
+  issued: "2024-04"
   credentialId: "JKDXFD8RKMU4"
   url: https://www.coursera.org/verify/JKDXFD8RKMU4
   file: /certifications/coursera-google-cloud-fundamentals-jkdxfd8rkmu4.pdf # dev-next/public
@@ -199,6 +214,7 @@
 - id: coursera-neural-networks-and-deep-learning
   title: Neural Networks and Deep Learning
   issuer: Coursera
+  issued: "2024-12"
   credentialId: "TC6R2CSZ5HAJ"
   url: https://www.coursera.org/verify/TC6R2CSZ5HAJ
   file: /certifications/coursera-neural-networks-and-deep-learning-tc6r2csz5haj.pdf # dev-next/public
@@ -206,6 +222,7 @@
 - id: coursera-basic-image-classification-with-tensorflow
   title: Basic Image Classification with TensorFlow
   issuer: Coursera
+  issued: "2023-12"
   credentialId: "PF9QCDWNXTWD"
   url: https://www.coursera.org/verify/PF9QCDWNXTWD
   file: /certifications/coursera-basic-image-classification-with-tensorflow-pf9qcdwnxtwd.pdf # dev-next/public
@@ -213,6 +230,7 @@
 - id: coursera-machine-learning-pipelines-with-azure-ml-studio
   title: Machine Learning Pipelines with Azure ML Studio
   issuer: Coursera
+  issued: "2023-12"
   credentialId: "4YG8AA8EUP6L"
   url: https://www.coursera.org/verify/4YG8AA8EUP6L
   file: /certifications/coursera-machine-learning-pipelines-with-azure-ml-studio-4yg8aa8eup6l.pdf # dev-next/public
@@ -220,6 +238,7 @@
 - id: coursera-software-processes-and-agile-practices
   title: Software Processes and Agile Practices
   issuer: Coursera
+  issued: "2024-02"
   credentialId: "3CL9T3MNJFK2"
   url: https://www.coursera.org/verify/3CL9T3MNJFK2
   file: /certifications/coursera-software-processes-and-agile-practices-3cl9t3mnjfk2.pdf # dev-next/public
@@ -227,6 +246,7 @@
 - id: coursera-introduction-to-software-product-management
   title: Introduction to Software Product Management
   issuer: Coursera
+  issued: "2024-02"
   credentialId: "7DKHZW6AAW4E"
   url: https://www.coursera.org/verify/7DKHZW6AAW4E
   file: /certifications/coursera-introduction-to-software-product-management-7dkhzw6aaw4e.pdf # dev-next/public
@@ -234,6 +254,7 @@
 - id: coursera-speak-english-professionally
   title: Speak English Professionally
   issuer: Coursera
+  issued: "2024-03"
   credentialId: "Z7CK85HS2B67"
   url: https://www.coursera.org/verify/Z7CK85HS2B67
   file: /certifications/coursera-speak-english-professionally-z7ck85hs2b67.pdf # dev-next/public

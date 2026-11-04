@@ -15,15 +15,17 @@ const link = "text-muted-foreground transition-colors hover:text-primary";
 const elsewhere = links.filter((l) => l.platform !== "website");
 const academic = getLink("website");
 
-// Testimonials sit outside the main menu, so the footer is where they get a link.
-const pages =
-  showTestimonials && isEnabled("testimonials") ? [...nav, { href: "/testimonials", label: "Testimonials" }] : nav;
+// Certifications and testimonials sit outside the main menu, so the footer is where they get a link.
+const more = [
+  ...(isEnabled("certifications") ? [{ href: "/certifications", label: "Certifications" }] : []),
+  ...(showTestimonials && isEnabled("testimonials") ? [{ href: "/testimonials", label: "Testimonials" }] : []),
+];
 
 export function Footer() {
   return (
     <footer className="page mt-24 pb-10 text-[0.84rem] text-muted-foreground">
       <div className="wide border-t pt-8">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-[1.5fr_1fr_1fr]">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-[2.4fr_0.65fr_1fr_1fr]">
           <div>
             <p className="font-semibold text-foreground">{profile.name}</p>
             <p className="mt-0.5 text-meta">{profile.role}</p>
@@ -49,7 +51,7 @@ export function Footer() {
           <nav aria-label="Footer">
             <p className={label}>Pages</p>
             <ul className="mt-2.5 grid grid-cols-2 gap-x-4 gap-y-1.5 sm:grid-cols-1">
-              {pages.map((n) => (
+              {nav.map((n) => (
                 <li key={n.href}>
                   <Link href={n.href} className={link}>
                     {n.label}
@@ -58,6 +60,20 @@ export function Footer() {
               ))}
             </ul>
           </nav>
+          {more.length > 0 && (
+            <nav aria-label="More pages">
+              <p className={label}>More</p>
+              <ul className="mt-2.5 grid gap-1.5">
+                {more.map((n) => (
+                  <li key={n.href}>
+                    <Link href={n.href} className={link}>
+                      {n.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
           <div>
             <p className={label}>Elsewhere</p>
             <ul className="mt-2.5 grid gap-1.5">
