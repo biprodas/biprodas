@@ -349,6 +349,7 @@ export const allCertifications: Certification[] = [
     id: "bcc-top-up-it-java",
     name: "Top-up IT Java",
     issuer: "Bangladesh Computer Council",
+    issueDate: "2017-04",
     credentialId: "G014805",
     file: "/certifications/bcc-top-up-it-java-g014805.pdf",
     visible: true,

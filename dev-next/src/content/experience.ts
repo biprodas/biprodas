@@ -4,7 +4,11 @@ import type { Education, Experience, ExperienceEntry, Teaching } from "./types";
 const entries: ExperienceEntry[] = [
   {
     id: "elite-research-lab",
-    company: { name: "Elite Research Lab", location: "Queens, New York, USA" },
+    company: {
+      name: "Elite Research Lab",
+      location: "Queens, New York, USA",
+      logo: "/images/logos/elite-lab-logo.png",
+    },
     workMode: "Remote",
     positions: [
       {
@@ -25,7 +29,7 @@ const entries: ExperienceEntry[] = [
   },
   {
     id: "must-company",
-    company: { name: "MUST Company", location: "Seoul, South Korea" },
+    company: { name: "MUST Company", location: "Seoul, South Korea", logo: "/images/logos/must_company_logo.jpg" },
     workMode: "Remote",
     positions: [
       {
@@ -71,7 +75,12 @@ const entries: ExperienceEntry[] = [
   },
   {
     id: "semicolon",
-    company: { name: "Semicolon IT Solutions", location: "Jashore, Bangladesh" },
+    company: {
+      name: "Semicolon IT Solutions",
+      location: "Jashore, Bangladesh",
+      logo: "/images/logos/semicolon-logog-full.webp",
+      logoFocus: "left",
+    },
     positions: [
       {
         id: "semicolon-cto",
@@ -102,7 +111,7 @@ const entries: ExperienceEntry[] = [
   },
   {
     id: "utshab",
-    company: { name: "Utshab Technology Ltd", location: "Jashore, Bangladesh" },
+    company: { name: "Utshab Technology Ltd", location: "Jashore, Bangladesh", logo: "/images/logos/utshab-logo.png" },
     positions: [
       {
         id: "utshab-web-developer",

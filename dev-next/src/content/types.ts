@@ -20,6 +20,8 @@ export type Company = {
   name: string;
   website?: string;
   logo?: string;
+  /** "left" crops a wide wordmark to its left square, where the icon usually sits. Default: fit the whole logo. */
+  logoFocus?: "left";
   location?: string;
   industry?: string;
 };

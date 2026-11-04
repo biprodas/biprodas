@@ -9,7 +9,6 @@
 #   skills: [ ... ]
 #   file: /certifications/<name>.pdf   # certificate PDF in dev-next/public
 
-# TODO: issue date for the BCC certificate
 - id: aws-developer-associate
   title: AWS Certified Developer – Associate
   issuer: Amazon Web Services
@@ -262,5 +261,6 @@
 - id: bcc-top-up-it-java
   title: Top-up IT Java
   issuer: Bangladesh Computer Council
+  issued: "2017-04"
   credentialId: "G014805"
   file: /certifications/bcc-top-up-it-java-g014805.pdf # dev-next/public

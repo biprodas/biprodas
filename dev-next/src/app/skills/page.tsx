@@ -68,7 +68,7 @@ export default function SkillsPage() {
         <p className="mt-3 text-sm text-muted-foreground">Numbers show how many projects and roles use each skill.</p>
       </Section>
 
-      <Section title="Certifications" id="certifications" className="wide">
+      <Section title="Certifications" id="certifications">
         <p className="mb-6 max-w-(--spacing-main) text-muted-foreground">
           The most recent, with verification links. The full list, grouped by issuer, has its own page.
         </p>
