@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRightIcon } from "@phosphor-icons/react/ssr";
 import { Eyebrow, MoreLink, Section } from "@/components/page";
-import { SkillAreas, type SkillArea } from "@/components/skills/skill-areas";
+import { SkillAreas, SkillViewToggle, type SkillArea } from "@/components/skills/skill-areas";
 import { experience } from "@/content/experience";
 import { projects } from "@/content/projects";
 import { certifications } from "@/content/certifications";
@@ -37,20 +37,22 @@ export default function SkillsPage() {
   if (!isEnabled("skills")) notFound();
   return (
     <>
-      <header>
+      <header className="wide">
         <Eyebrow>Skills</Eyebrow>
-        <h1 className="mt-4 text-3xl leading-tight font-semibold text-balance sm:text-4xl">What I work with</h1>
+        <h1 className="mt-4 text-3xl leading-tight font-semibold text-balance sm:text-4xl">
+          Technologies &amp; expertise
+        </h1>
         <p className="mt-2 text-muted-foreground">
-          The languages, frameworks and practices I use, grouped by area. Hover a skill to see where I&apos;ve used it;
-          the{" "}
+          The tools, technologies, and engineering practices I use to design, build, and deliver software. Explore my
+          skills by area, see them in action across my{" "}
           <Link href="/projects" className="prose-link">
             projects
           </Link>{" "}
           and{" "}
           <Link href="/experience" className="prose-link">
-            experience
-          </Link>{" "}
-          pages have the details. Verified credentials are under{" "}
+            professional experience
+          </Link>
+          , and find verified credentials under{" "}
           <a href="#certifications" className="prose-link">
             certifications
           </a>
@@ -61,11 +63,9 @@ export default function SkillsPage() {
         </p>
       </header>
 
-      <Section title="By area" id="areas" className="wide">
+      <Section title="By area" id="areas" className="wide" action={<SkillViewToggle />}>
         <SkillAreas areas={areas} />
-        <p className="mt-3 text-sm text-muted-foreground">
-          The small number is how many projects and roles list that skill in their stack.
-        </p>
+        <p className="mt-3 text-sm text-muted-foreground">Numbers show how many projects and roles use each skill.</p>
       </Section>
 
       <Section title="Certifications" id="certifications" className="wide">

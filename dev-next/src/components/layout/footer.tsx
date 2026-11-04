@@ -6,6 +6,7 @@ import { getLink, links } from "@/content/links";
 import { isEnabled } from "@/config/site";
 import { showTestimonials } from "@/content/testimonials";
 import { nav } from "@/lib/nav";
+import { PlatformIcon } from "@/components/platform-icon";
 import { LocalTime } from "./local-time";
 import { cn } from "@/lib/utils";
 
@@ -43,9 +44,9 @@ export function Footer() {
                 </>
               )}
             </p>
-            <Link href="/contact" className={cn(buttonVariants(), "group mt-5 h-9 px-3.5 text-[0.8rem]")}>
+            <Link href="/contact" className={cn(buttonVariants(), "mt-5 h-9 px-3.5 text-[0.8rem]")}>
               Get in touch
-              <ArrowRightIcon data-icon="inline-end" className="transition-transform group-hover:translate-x-0.5" />
+              <ArrowRightIcon data-icon="inline-end" />
             </Link>
           </div>
           <nav aria-label="Footer">
@@ -83,18 +84,20 @@ export function Footer() {
                     href={e.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`${link} group inline-flex items-center gap-1`}
+                    className={`${link} group inline-flex items-center gap-1.5`}
                   >
+                    <PlatformIcon platform={e.platform} className="size-3.5 shrink-0" />
                     {e.label}
                     <ArrowUpRightIcon
                       aria-hidden
-                      className="size-3 opacity-60 transition-transform group-hover:translate-x-px group-hover:-translate-y-px motion-reduce:transition-none"
+                      className="size-3 opacity-60 transition-opacity group-hover:opacity-100"
                     />
                   </a>
                 </li>
               ))}
               <li>
-                <a href={`mailto:${profile.email}`} className={link}>
+                <a href={`mailto:${profile.email}`} className={`${link} inline-flex items-center gap-1.5`}>
+                  <PlatformIcon platform="email" className="size-3.5 shrink-0" />
                   Email
                 </a>
               </li>
