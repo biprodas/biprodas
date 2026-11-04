@@ -239,8 +239,8 @@ export default function HomePage() {
           </p>
         </MarginNote>
         <p className="leading-7">
-          I&apos;m glad to hear from hiring teams, founders and fellow engineers, whether it&apos;s about a role, a
-          project or a system design question. Email is the best way to reach me.
+          I&apos;m glad to hear from hiring teams, founders, and fellow engineers, whether it&apos;s about a role, a
+          project, or a system design question. Email is the best way to reach me.
         </p>
         <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
           <Link href="/contact" className={cn(buttonVariants({ size: "lg" }), "h-10 px-4 text-sm")}>

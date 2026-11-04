@@ -17,7 +17,7 @@ import { profile } from "@/content/profile";
 
 export const metadata: Metadata = {
   title: "Experience",
-  description: "Biprodas Roy's roles, education, mentoring and awards, in order.",
+  description: "Biprodas Roy's roles, education, mentoring, and awards, in order.",
   alternates: { canonical: "/experience" },
 };
 
@@ -257,7 +257,7 @@ export default function ExperiencePage() {
         </ul>
         <p className="mt-4 text-sm text-muted-foreground">
           Plus {certifications.length - trainingAndCerts.length} more from{" "}
-          {new Intl.ListFormat("en-GB").format(otherIssuers)}.{" "}
+          {new Intl.ListFormat("en-US").format(otherIssuers)}.{" "}
           <Link href="/certifications" className="prose-link">
             See all {certifications.length}, with verification links
           </Link>

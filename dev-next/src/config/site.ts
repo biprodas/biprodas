@@ -33,13 +33,13 @@ export type SiteConfig = {
 export const siteConfig: SiteConfig = {
   name: profile.name,
   title: "Software Engineer",
-  description: "Software engineer specializing in SaaS, ERP, FinTech and backend systems.",
+  description: "Software engineer specializing in SaaS, ERP, FinTech, and backend systems.",
   url: profile.site,
   language: "en",
   seo: {
     defaultTitle: `${profile.name} · Software Engineer`,
     titleTemplate: `%s · ${profile.name}`,
-    defaultDescription: `${profile.name}, software engineer: multi-tenant SaaS, FinTech ledgers and real-time AI systems. Projects, experience and skills.`,
+    defaultDescription: `${profile.name}, software engineer: multi-tenant SaaS, FinTech ledgers, and real-time AI systems. Projects, experience, and skills.`,
   },
   appearance: {
     theme: "system",

@@ -41,7 +41,7 @@ const entries: ExperienceEntry[] = [
         description:
           "Remote engineering for a Seoul-based company, on real-time AI meeting software and a blockchain marketplace.",
         bullets: [
-          "Developed MustBreak, an AI-powered real-time meeting platform for transcription, translation and multilingual collaboration across distributed teams, with AI-generated summaries and searchable conversation history.",
+          "Developed MustBreak, an AI-powered real-time meeting platform for transcription, translation, and multilingual collaboration across distributed teams, with AI-generated summaries and searchable conversation history.",
           "Integrated Slack workflows and low-latency real-time communication infrastructure to support enterprise-grade multilingual collaboration.",
           "Developed responsive frontend features for MSquare Market, a blockchain-based digital asset marketplace, implementing crypto wallet connection flows and transaction UIs.",
         ],
@@ -64,9 +64,9 @@ const entries: ExperienceEntry[] = [
         description:
           "Remote contract work for a Sydney-based company, building a CRM/ERP platform for car-rental and rent-to-own operators.",
         bullets: [
-          "Architected and delivered Drivus, a CRM/ERP platform for car-rental and rent-to-own operators, covering fleet, vehicle tracking, contract management, payments, tolls/fines and financial reporting.",
-          "Engineered accounting, payroll and loan-amortization engines with automated workflows, cutting manual reconciliation time by 35%.",
-          "Integrated Pay Advantage for recurring billing and built an event-driven notification system for payments, contracts and compliance.",
+          "Architected and delivered Drivus, a CRM/ERP platform for car-rental and rent-to-own operators, covering fleet, vehicle tracking, contract management, payments, tolls/fines, and financial reporting.",
+          "Engineered accounting, payroll, and loan-amortization engines with automated workflows, cutting manual reconciliation time by 35%.",
+          "Integrated Pay Advantage for recurring billing and built an event-driven notification system for payments, contracts, and compliance.",
         ],
         technologies: ["NestJS", "PostgreSQL", "Next.js", "Pay Advantage"],
       },
@@ -90,8 +90,8 @@ const entries: ExperienceEntry[] = [
         endDate: "2023-12",
         description: "The software firm I co-founded in Jashore and later led as CTO.",
         bullets: [
-          "Co-founded a software firm serving 50+ clients globally; directed technical strategy, the engineering roadmap and delivery.",
-          "Led 10–15 engineers across frontend, backend and QA; established coding standards, code review, software testing and agile processes.",
+          "Co-founded a software firm serving 50+ clients globally; directed technical strategy, the engineering roadmap, and delivery.",
+          "Led 10–15 engineers across frontend, backend, and QA; established coding standards, code review, software testing, and agile processes.",
           "Mentored 20+ junior engineers and interns through code reviews and pairing.",
         ],
       },
@@ -121,7 +121,7 @@ const entries: ExperienceEntry[] = [
         endDate: "2019-03",
         description: "Full-stack web development on the MERN stack, plus algorithms training for new developers.",
         bullets: [
-          "Built full-stack web apps on the MERN stack, owning REST API design, MongoDB schema modeling and modular frontend components.",
+          "Built full-stack web apps on the MERN stack, owning REST API design, MongoDB schema modeling, and modular frontend components.",
           "Delivered Data Structures & Algorithms training in C/C++, mentoring entry-level developers and interns.",
         ],
         technologies: ["MongoDB", "Express", "React", "Node.js", "C", "C++"],

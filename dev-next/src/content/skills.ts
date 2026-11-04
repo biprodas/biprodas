@@ -100,6 +100,6 @@ export const awards: Award[] = [
   {
     id: "problem-solving-2000",
     title: "2,000+ algorithmic problems solved",
-    description: "Across Codeforces, LeetCode, UVa, CodeChef and HackerRank.",
+    description: "Across Codeforces, LeetCode, UVa, CodeChef, and HackerRank.",
   },
 ];

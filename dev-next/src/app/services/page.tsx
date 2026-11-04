@@ -17,7 +17,7 @@ import { serviceSchema } from "@/lib/service-schema";
 import { isEnabled } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Services: SaaS, ERP, FinTech and AI development",
+  title: "Services: SaaS, ERP, FinTech, and AI development",
   description: `Hire ${profile.name} for SaaS and MVP development, ERP and FinTech systems, AI features, APIs, architecture reviews, cloud and DevOps, and consultancy.`,
   alternates: { canonical: "/services" },
 };

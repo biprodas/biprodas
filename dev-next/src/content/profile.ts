@@ -15,8 +15,8 @@ export const profile = {
   titles: ["Software Engineer", "Full Stack Developer", "AI Researcher"],
   headlineLine: "I build software that holds up in production.",
   tagline: "Coding the future, one commit at a time!",
-  bio: `Full-stack engineer with ${yearsOfExperience}+ years building SaaS, ERP, FinTech and real-time systems. Focused on scalable backends and AI.`,
-  summary: `Full-stack engineer with ${yearsOfExperience}+ years of experience designing and building scalable SaaS and real-time systems for ERP, FinTech and AI platforms. Expertise in TypeScript, Node.js/NestJS, Python/FastAPI, React/Next.js, PostgreSQL and AWS, specialising in system architecture, multi-tenant applications and low-latency infrastructure. Led small engineering teams and delivered platforms serving 100+ businesses.`,
+  bio: `Full-stack engineer with ${yearsOfExperience}+ years building SaaS, ERP, FinTech, and real-time systems. Focused on scalable backends and AI.`,
+  summary: `For ${yearsOfExperience}+ years, I've been designing and shipping SaaS platforms and real-time systems across ERP, FinTech, and AI, mostly using TypeScript (NestJS, React/Next.js), Python (FastAPI), PostgreSQL, and AWS. I like owning the whole stack, from interfaces people find easy to use to scalable architecture, multi-tenant systems, and low-latency infrastructure. I've led small engineering teams and delivered platforms serving 100+ businesses.`,
   yearsOfExperience,
   avatar: { src: portrait, alt: "Watercolour portrait of Biprodas Roy" },
   email: "biprodas.cse@gmail.com",
@@ -35,9 +35,9 @@ export const profile = {
     { value: "2,000+", label: "problems solved" },
   ],
   about: [
-    "I started out writing C and C++ for programming contests at university, and the habit stuck: find the constraint, model it precisely, then make it fast. These days the constraints are tenants, ledgers, queues and latency budgets rather than time limits, but the work feels the same.",
-    "Most of my career has been close to money and operations: double-entry ledgers for microfinance NGOs, billing and payroll engines for rental fleets, multi-tenant ERPs for schools and businesses. More recently I've been building real-time AI systems, with live transcription, translation and LLM pipelines that have to keep up with a conversation.",
-    "I co-founded a software company, led a team of 10–15 engineers and mentored more than twenty juniors along the way. I care about the unglamorous parts that make software trustworthy: schemas that can't hold invalid states, reports that reconcile, and code the next person can read.",
+    "I started out writing C and C++ for programming contests at university, and the habit stuck: find the constraint, model it precisely, then make it fast. These days the constraints are tenants, ledgers, queues, and latency budgets rather than time limits, but the work feels the same.",
+    "Most of my career has been close to money and operations: double-entry ledgers for microfinance NGOs, billing and payroll engines for rental fleets, multi-tenant ERPs for schools and businesses. More recently I've been building real-time AI systems, with live transcription, translation, and LLM pipelines that have to keep up with a conversation.",
+    "I co-founded a software company, led a team of 10–15 engineers, and mentored more than twenty juniors along the way. I care about the unglamorous parts that make software trustworthy: schemas that can't hold invalid states, reports that reconcile, and code the next person can read.",
   ],
 } as const;
 
@@ -66,11 +66,11 @@ export const now = {
 export const principles = [
   {
     title: "Model the domain first",
-    body: "A good schema removes whole categories of bugs. I start with entities, invariants and who may see what, before any UI exists.",
+    body: "A good schema removes whole categories of bugs. I start with entities, invariants, and who may see what, before any UI exists.",
   },
   {
     title: "Make the money add up",
-    body: "Financial systems get double-entry, idempotent writes and reconciliation from day one. Every number on a report traces back to the rows that produced it.",
+    body: "Financial systems get double-entry, idempotent writes, and reconciliation from day one. Every number on a report traces back to the rows that produced it.",
   },
   {
     title: "Measure, then optimise",
@@ -78,6 +78,6 @@ export const principles = [
   },
   {
     title: "Leave it documented",
-    body: "Clear READMEs, decision notes and careful code review keep a team fast after I've moved on.",
+    body: "Clear READMEs, decision notes, and careful code review keep a team fast after I've moved on.",
   },
 ] as const;

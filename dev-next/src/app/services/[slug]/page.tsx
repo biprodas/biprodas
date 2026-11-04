@@ -131,7 +131,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
             <HireActions subject={`Project enquiry: ${service.title}`} linkedin />
           </div>
           <p className="mt-4 border-t pt-3 text-sm text-muted-foreground">
-            How engagements, pricing and handover work:{" "}
+            How engagements, pricing, and handover work:{" "}
             <Link href="/services#engagements" className="prose-link">
               ways to work together
             </Link>

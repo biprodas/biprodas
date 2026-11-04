@@ -12,7 +12,7 @@ import { isEnabled } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Skills",
-  description: "Biprodas Roy's languages, frameworks, infrastructure, practices and certifications.",
+  description: "Biprodas Roy's languages, frameworks, infrastructure, practices, and certifications.",
   alternates: { canonical: "/skills" },
 };
 

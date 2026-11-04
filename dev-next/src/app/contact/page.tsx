@@ -27,7 +27,7 @@ import { isEnabled } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: `Email ${profile.name} about a remote role, a contract project, an architecture review or an idea you want to build. Based in ${profile.location.city}, ${profile.location.country} (${profile.utcOffset}).`,
+  description: `Email ${profile.name} about a remote role, a contract project, an architecture review, or an idea you want to build. Based in ${profile.location.city}, ${profile.location.country} (${profile.utcOffset}).`,
   alternates: { canonical: "/contact" },
 };
 
@@ -46,19 +46,19 @@ const topics: {
 }[] = [
   {
     title: "An open role",
-    body: "Senior full-stack or backend positions, remote. Tell me about the product, the team and the hardest problem on the roadmap.",
+    body: "Senior full-stack or backend positions, remote. Tell me about the product, the team, and the hardest problem on the roadmap.",
     icon: BriefcaseIcon,
     action: { label: "Email about a role", href: mailto("Role enquiry") },
   },
   {
     title: "A project to build",
-    body: "Contract work on SaaS, ERP, FinTech or AI features, from schema design to production, or a second opinion on an architecture you're unsure about.",
+    body: "Contract work on SaaS, ERP, FinTech, or AI features, from schema design to production, or a second opinion on an architecture you're unsure about.",
     icon: StackIcon,
     action: { label: "See services", href: "/services" },
   },
   {
     title: "A collaboration",
-    body: "Research, open source or a product worth building together. Share what you have in mind and where you think I fit.",
+    body: "Research, open source, or a product worth building together. Share what you have in mind and where you think I fit.",
     icon: HandshakeIcon,
     action: { label: "Propose a collaboration", href: mailto("Collaboration") },
   },
