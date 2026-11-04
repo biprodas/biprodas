@@ -275,13 +275,36 @@ export const engagements = [
     body: "Joining your team as a contractor for months at a time, working inside your process and tools.",
     bestFor: "Teams that need a senior engineer now",
   },
+  {
+    id: "full-time-role",
+    title: "Full-time role",
+    body: "Joining your company as a permanent, remote senior engineer, owning features and systems end to end.",
+    bestFor: "Companies hiring a senior full-stack or backend engineer",
+    link: { label: "View resume", href: "/resume" },
+  },
 ] as const;
 
 export const process = [
-  { title: "Talk it through", body: "A short call or email thread about the problem, the users and the constraints." },
-  { title: "Proposal", body: "A written scope, a timeline and a quote, with the open questions called out." },
-  { title: "Build", body: "Work in small iterations with regular demos, so you can steer as it takes shape." },
-  { title: "Launch & handover", body: "Deployment, documentation and a handover, with optional support after." },
+  {
+    title: "Talk it through",
+    body: "A short call or email thread about the problem, the users and the constraints. No cost and no commitment.",
+    outcome: "A straight answer on fit and approach",
+  },
+  {
+    title: "Proposal",
+    body: "A written scope, timeline and quote, with milestones, open questions and risks called out up front.",
+    outcome: "Scope, milestones and price in writing",
+  },
+  {
+    title: "Build",
+    body: "Small iterations with regular demos on a staging link, so you can steer while it takes shape.",
+    outcome: "Working software at every milestone",
+  },
+  {
+    title: "Launch & handover",
+    body: "Deployment, documentation and a walkthrough for your team, with optional support afterwards.",
+    outcome: "Code, docs and access, handed over",
+  },
 ] as const;
 
 export const faq = [

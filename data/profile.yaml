@@ -11,7 +11,7 @@ titles:                      # biprodas.com hero line
   academic: [Senior Software Engineer, Full Stack Developer, AI Researcher]
 bio:                         # one or two sentences shown under your name in the site sidebar
   # academic: ...
-  engineering: Full-stack engineer with 8+ years building SaaS, FinTech and real-time AI systems.
+  engineering: Full-stack engineer with 8+ years building SaaS, ERP, FinTech and real-time systems. Focused on scalable backends and AI.
   # Alternatives, kept for later. Every claim comes from facts already in this repo.
   #   First person:
   #     - I design and build the systems behind SaaS, FinTech and real-time AI products, from the schema up.

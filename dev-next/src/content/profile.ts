@@ -15,11 +15,13 @@ export const profile = {
   titles: ["Software Engineer", "Full Stack Developer", "AI Researcher"],
   headlineLine: "I build software that holds up in production.",
   tagline: "Coding the future, one commit at a time!",
-  bio: `Full-stack engineer with ${yearsOfExperience}+ years building SaaS, FinTech and real-time AI systems.`,
+  bio: `Full-stack engineer with ${yearsOfExperience}+ years building SaaS, ERP, FinTech and real-time systems. Focused on scalable backends and AI.`,
   summary: `Full-stack engineer with ${yearsOfExperience}+ years of experience designing and building scalable SaaS and real-time systems for ERP, FinTech and AI platforms. Expertise in TypeScript, Node.js/NestJS, Python/FastAPI, React/Next.js, PostgreSQL and AWS, specialising in system architecture, multi-tenant applications and low-latency infrastructure. Led small engineering teams and delivered platforms serving 100+ businesses.`,
   yearsOfExperience,
   avatar: { src: portrait, alt: "Watercolour portrait of Biprodas Roy" },
   email: "biprodas.cse@gmail.com",
+  /** WhatsApp number in international format, e.g. "+8801XXXXXXXXX". The Contact page button stays hidden while empty. */
+  whatsapp: "" as string,
   location: { city: "Jashore", country: "Bangladesh" },
   timezone: "Asia/Dhaka",
   utcOffset: "UTC+6",
@@ -46,8 +48,8 @@ export const profile = {
  */
 export const availability = {
   open: true,
-  focus: "Building real-time AI and multi-tenant SaaS systems.",
-  roles: ["Senior full-stack & backend roles", "Contract projects"],
+  focus: "Building SaaS and real-time AI products end to end, from scalable APIs to polished interfaces.",
+  roles: ["Senior full-stack, frontend & backend roles", "Contract projects"],
   where: "Remote · UTC+6",
 } as const;
 

@@ -71,31 +71,39 @@ const views = [
   { id: "list", label: "List", icon: RowsIcon },
 ] as const;
 
+const useView = () => useSyncExternalStore(subscribe, readView, () => "cards" as const);
+
+/** Cards / List switch; lives in the section heading and drives `SkillAreas` through the shared store. */
+export function SkillViewToggle() {
+  const view = useView();
+  return (
+    <div role="group" aria-label="Layout" className="shrink-0">
+      <div className="inline-flex border bg-card p-0.5">
+        {views.map((v) => (
+          <button
+            key={v.id}
+            type="button"
+            aria-pressed={view === v.id}
+            onClick={() => writeView(v.id)}
+            className={cn(
+              "inline-flex h-7 items-center gap-1.5 px-2.5 text-[0.78rem] transition-colors focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-primary",
+              view === v.id ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-primary",
+            )}
+          >
+            <v.icon aria-hidden className="size-3.5" />
+            {v.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function SkillAreas({ areas }: { areas: SkillArea[] }) {
-  const view = useSyncExternalStore(subscribe, readView, () => "cards" as const);
+  const view = useView();
 
   return (
     <>
-      <div role="group" aria-label="Layout" className="mb-4 flex justify-end">
-        <div className="inline-flex border bg-card p-0.5">
-          {views.map((v) => (
-            <button
-              key={v.id}
-              type="button"
-              aria-pressed={view === v.id}
-              onClick={() => writeView(v.id)}
-              className={cn(
-                "inline-flex h-7 items-center gap-1.5 px-2.5 text-[0.78rem] transition-colors focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-primary",
-                view === v.id ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-primary",
-              )}
-            >
-              <v.icon aria-hidden className="size-3.5" />
-              {v.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
       {view === "cards" ? (
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           {areas.map((a) => (

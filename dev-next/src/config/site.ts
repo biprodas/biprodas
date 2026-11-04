@@ -51,7 +51,7 @@ export const siteConfig: SiteConfig = {
     projects: true,
     services: true,
     experience: true,
-    research: true,
+    research: false,
     articles: false,
     testimonials: true,
     contact: true,

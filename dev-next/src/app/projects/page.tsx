@@ -15,9 +15,10 @@ export default function ProjectsPage() {
   return (
     <>
       <PageHeader
+        className="wide"
         eyebrow="Projects"
         title="Things I've built"
-        lede="Platforms for lending, accounting, billing, schools, land records and AI content. Each case study covers the problem, the architecture and the decisions behind it."
+        lede="A collection of products and platforms I've designed and developed across FinTech, accounting, ERP, education, government services, and AI. Each project highlights the problems I set out to solve, the engineering decisions I made, and the technologies that brought them to life."
       />
       <ProjectList />
     </>

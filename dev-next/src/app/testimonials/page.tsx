@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { EnvelopeSimpleIcon, LinkedinLogoIcon } from "@phosphor-icons/react/ssr";
+import { EnvelopeSimpleIcon, LinkedinLogoIcon, SealCheckIcon } from "@phosphor-icons/react/ssr";
 import { buttonVariants } from "@/components/ui/button";
 import { Eyebrow, Section } from "@/components/page";
-import { Quote } from "@/components/testimonials/quote";
+// import { circleOf } from "@/components/testimonials/parts";
+import { Spotlight } from "@/components/testimonials/spotlight";
+import { TestimonialWall } from "@/components/testimonials/testimonial-wall";
 import { isEnabled } from "@/config/site";
 import { getLink } from "@/content/links";
 import { profile } from "@/content/profile";
 import { indexTestimonials, testimonialsAreSample } from "@/content/testimonials";
 import { featuredTestimonials, testimonials } from "@/content/testimonials-content";
-import type { TestimonialRelationship } from "@/content/types";
+// import { yearRange } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -19,15 +21,22 @@ export const metadata: Metadata = {
   ...(indexTestimonials ? {} : { robots: { index: false, follow: false } }),
 };
 
-const groups: { title: string; id: string; kinds: TestimonialRelationship[] }[] = [
-  { title: "Clients", id: "clients", kinds: ["client"] },
-  { title: "Managers & leads", id: "managers", kinds: ["manager"] },
-  { title: "Colleagues & mentees", id: "colleagues", kinds: ["colleague", "mentee"] },
-];
+// /** Counts for the strip under the header, all derived from the testimonials themselves. */
+// function stats() {
+//   const dates = testimonials.flatMap((t) => (t.date ? [t.date] : [])).sort();
+//   const clients = testimonials.filter((t) => circleOf(t) === "clients").length;
+//   return [
+//     { label: "Recommendations", value: String(testimonials.length) },
+//     { label: "From clients", value: String(clients) },
+//     { label: "From teammates", value: String(testimonials.length - clients) },
+//     ...(dates.length ? [{ label: "Written", value: yearRange(dates[0], dates[dates.length - 1]) }] : []),
+//   ];
+// }
 
 export default function TestimonialsPage() {
   if (!isEnabled("testimonials") || testimonials.length === 0) notFound();
   const lead = featuredTestimonials[0] ?? testimonials[0];
+  const rest = testimonials.filter((t) => t.id !== lead.id);
   const linkedin = getLink("linkedin");
 
   return (
@@ -43,44 +52,71 @@ export default function TestimonialsPage() {
         </p>
       )}
 
-      <header>
+      <header className="wide">
         <Eyebrow>Testimonials</Eyebrow>
         <h1 className="mt-4 text-3xl leading-tight font-semibold text-balance sm:text-4xl">
           What people say about working with me
         </h1>
         <p className="mt-2 text-muted-foreground">
-          From clients, managers and engineers I&apos;ve worked with. Where a quote was first posted elsewhere, it links
-          to the original.
+          From clients and team leads to engineers I&apos;ve collaborated and grown alongside, these are reflections
+          from the people I&apos;ve worked with throughout {profile.yearsOfExperience}+ years of building software.
+        </p>
+        <p className="mt-5 inline-flex flex-wrap items-center gap-x-2.5 gap-y-1 border border-primary/20 bg-wash px-3 py-2 text-[0.82rem] leading-snug text-ink-2">
+          <span className="inline-flex items-center gap-1.5 font-mono text-[0.68rem] font-semibold tracking-[0.14em] text-primary uppercase">
+            <SealCheckIcon aria-hidden weight="fill" className="size-3.5" />
+            Verbatim
+          </span>
+          <span aria-hidden className="hidden h-3.5 w-px bg-primary/25 sm:block" />
+          <span>
+            Every quote is copied word for word from where it was first posted, and links back to the original.
+          </span>
         </p>
       </header>
 
-      <section aria-label="Featured testimonial" className="wide mt-12 border-y border-foreground/70 py-8">
-        <Quote t={lead} size="large" />
+      {/* Stats strip, hidden while there are few testimonials. Bring it back at ~15–20.
+      <dl className="wide mt-10 grid grid-cols-2 border-y sm:grid-cols-4">
+        {stats().map((s, i) => (
+          <div
+            key={s.label}
+            className={cn(
+              "px-4 py-4 first:pl-0 sm:py-5",
+              i % 2 === 1 && "border-l",
+              i >= 2 && "border-t sm:border-t-0",
+              i === 2 && "pl-0 sm:border-l sm:pl-4",
+            )}
+          >
+            <dt className="font-mono text-[0.68rem] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+              {s.label}
+            </dt>
+            <dd className="mt-1 text-2xl font-semibold tabular-nums">{s.value}</dd>
+          </div>
+        ))}
+      </dl>
+      */}
+
+      <section aria-label="Featured testimonial" className="wide mt-12">
+        <Spotlight t={lead} />
       </section>
 
-      {groups.map((g) => {
-        const list = testimonials.filter((t) => t.id !== lead.id && g.kinds.includes(t.relationship));
-        if (list.length === 0) return null;
-        return (
-          <Section key={g.id} title={g.title} id={g.id} className="wide">
-            <ul className="grid grid-cols-1 gap-x-10 gap-y-8 md:grid-cols-2">
-              {list.map((t) => (
-                <li key={t.id} className="border-l-2 border-border pl-5">
-                  <Quote t={t} />
-                </li>
-              ))}
-            </ul>
-          </Section>
-        );
-      })}
+      {rest.length > 0 && (
+        <Section title="More in their words" id="all" className="wide">
+          <TestimonialWall testimonials={rest} />
+        </Section>
+      )}
 
-      <Section title="Worked with me?" id="recommend" className="wide">
-        <div className="border bg-sidebar px-6 py-5">
-          <p className="leading-relaxed">
-            A few lines on what we built and how it went help the next team decide. A LinkedIn recommendation is
-            easiest, since it stays verifiable.
-          </p>
-          <div className="mt-4 flex flex-wrap items-center gap-2.5">
+      <section aria-labelledby="recommend-h" id="recommend" className="wide mt-16 scroll-mt-6">
+        <div className="grid gap-6 border bg-sidebar px-6 py-7 sm:px-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
+          <div>
+            <Eyebrow>Worked with me?</Eyebrow>
+            <h2 id="recommend-h" className="mt-3 text-xl font-semibold">
+              I&apos;d be glad to hear how it went
+            </h2>
+            <p className="mt-2 max-w-prose text-[0.95rem] leading-relaxed text-ink-2">
+              A few lines on what we built help the next team decide. A LinkedIn recommendation is easiest, since it
+              stays verifiable.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2.5 md:flex-col md:items-stretch">
             {linkedin && (
               <a
                 href={linkedin.url}
@@ -89,7 +125,7 @@ export default function TestimonialsPage() {
                 className={cn(buttonVariants(), "h-9 px-3.5 text-sm")}
               >
                 <LinkedinLogoIcon data-icon="inline-start" />
-                Write a LinkedIn recommendation
+                Write a recommendation
               </a>
             )}
             <a
@@ -101,7 +137,7 @@ export default function TestimonialsPage() {
             </a>
           </div>
         </div>
-      </Section>
+      </section>
     </>
   );
 }

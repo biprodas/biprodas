@@ -48,13 +48,21 @@ export function Sidebar() {
         <ThemeToggle className="size-9 lg:hidden" />
       </div>
 
-      <p className="mt-4 hidden text-[0.9rem] leading-relaxed text-ink-2 lg:block">{profile.bio}</p>
+      <p className="mt-4 hidden text-[0.84rem] leading-snug text-ink-2 lg:block">{profile.bio}</p>
       <hr className={cn(dash, "mt-4 mb-3 hidden lg:block")} />
 
       <NavLinks />
 
       <div className="mt-auto hidden pt-5 lg:block">
-        <section aria-labelledby="open-h" className="border bg-background px-3 py-2">
+        <section
+          aria-labelledby="open-h"
+          className={cn(
+            "border bg-background px-3 py-2",
+            // Soft glow: the accent blue in light mode, green (matching the status light) in dark mode.
+            availability.open &&
+              "border-primary/20 shadow-[0_0_16px_-8px_color-mix(in_oklab,var(--primary)_25%,transparent)] dark:border-emerald-500/25 dark:shadow-[0_0_16px_-8px_color-mix(in_oklab,var(--color-emerald-500)_30%,transparent)]",
+          )}
+        >
           <div className="flex items-center justify-between gap-2">
             <h2
               id="open-h"
@@ -76,18 +84,14 @@ export function Sidebar() {
             </h2>
             <span className="text-[0.62rem] text-muted-foreground">{availability.where}</span>
           </div>
-          <p className="mt-1 text-[0.8rem] leading-snug text-ink-2">{availability.focus}</p>
+          <p className="mt-1 text-[0.8rem] leading-tight text-ink-2">{availability.focus}</p>
           {availability.open && (
-            <ul className="mt-1.5 text-[0.76rem] leading-snug font-semibold">
-              {availability.roles.map((r) => (
-                <li key={r}>
-                  {/* Highlighter stroke, repeated on each wrapped line. */}
-                  <span className="bg-[linear-gradient(transparent_50%,color-mix(in_oklab,var(--primary)_22%,transparent)_50%,color-mix(in_oklab,var(--primary)_22%,transparent)_90%,transparent_90%)] box-decoration-clone px-0.5">
-                    {r}
-                  </span>
-                </li>
-              ))}
-            </ul>
+            <p className="mt-1 text-[0.76rem] leading-[1.2] font-semibold">
+              {/* Highlighter stroke, repeated on each wrapped line. */}
+              <span className="bg-[linear-gradient(transparent_50%,color-mix(in_oklab,var(--primary)_22%,transparent)_50%,color-mix(in_oklab,var(--primary)_22%,transparent)_90%,transparent_90%)] box-decoration-clone px-0.5">
+                {availability.roles.join(" · ")}
+              </span>
+            </p>
           )}
           <Link
             href="/contact"

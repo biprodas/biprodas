@@ -20,6 +20,8 @@ export type Company = {
   name: string;
   website?: string;
   logo?: string;
+  /** "left" crops a wide wordmark to its left square, where the icon usually sits. Default: fit the whole logo. */
+  logoFocus?: "left";
   location?: string;
   industry?: string;
 };
@@ -130,6 +132,8 @@ export type Project = {
   /** Unset while ongoing. */
   endDate?: PartialDate;
   featured: boolean;
+  /** `false` hides the project everywhere (list, case study, sitemap) but keeps its content. Default: shown. */
+  visible?: boolean;
   /** Position in lists, ascending. */
   order: number;
   /** Case-study narrative (invented copy). */
@@ -254,6 +258,8 @@ export type TestimonialRelationship = "client" | "manager" | "colleague" | "ment
 export type Testimonial = {
   id: string;
   quote: string;
+  /** Verbatim excerpts of `quote` to emphasise; each must appear in it exactly. */
+  highlights?: string[];
   name: string;
   position: string;
   company?: string;

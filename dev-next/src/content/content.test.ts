@@ -267,6 +267,11 @@ describe("testimonials", () => {
     const { realTestimonials } = await import("./testimonials");
     expect(JSON.stringify(realTestimonials)).not.toMatch(/\bsample\b/i);
   });
+
+  it("only highlight words that appear verbatim in the quote", async () => {
+    const { realTestimonials } = await import("./testimonials");
+    for (const t of realTestimonials) for (const h of t.highlights ?? []) expect(t.quote, t.id).toContain(h);
+  });
 });
 
 describe("articles", () => {

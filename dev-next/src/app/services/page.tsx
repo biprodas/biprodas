@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRightIcon } from "@phosphor-icons/react/ssr";
+import { ArrowRightIcon, CheckIcon } from "@phosphor-icons/react/ssr";
 import { Eyebrow, MoreLink, Section, Tag } from "@/components/page";
-import { Quote } from "@/components/testimonials/quote";
+import { TestimonialCard } from "@/components/testimonials/testimonial-card";
 import { featuredTestimonials } from "@/content/testimonials-content";
 import { JsonLd } from "@/components/json-ld";
 import { HireActions } from "@/components/services/actions";
@@ -25,6 +25,9 @@ export const metadata: Metadata = {
 const orgName = (id: string) => experience.find((e) => e.id === id)?.company.name;
 const MAX_OFFERINGS = 3;
 
+/** "What clients say": featured client testimonials only (managers and teammates live on /testimonials). */
+const clientQuotes = featuredTestimonials.filter((t) => t.relationship === "client").slice(0, 2);
+
 export default function ServicesPage() {
   if (!isEnabled("services")) notFound();
   return (
@@ -36,15 +39,18 @@ export default function ServicesPage() {
           itemListElement: services.map((s, i) => ({ "@type": "ListItem", position: i + 1, item: serviceSchema(s) })),
         }}
       />
-      <header>
+      <header className="wide">
         <Eyebrow>Services</Eyebrow>
-        <h1 className="mt-4 text-3xl leading-tight font-semibold text-balance sm:text-4xl">Work with me</h1>
+        <h1 className="mt-4 text-3xl leading-tight font-semibold text-balance sm:text-4xl">
+          Let&apos;s build something together
+        </h1>
         <p className="mt-2 text-muted-foreground">
-          I build and fix the systems behind SaaS products, ERPs and FinTech platforms, for founders and teams who need
-          a senior engineer. Open a service for the details and the work behind it.
+          I help founders, startups, and growing businesses build, improve, and scale SaaS products, ERP systems, and
+          FinTech platforms — from first ideas to established production systems ready for the next stage of growth.
+          Explore the services below to see how we can work together.
         </p>
         <div className="mt-6">
-          <HireActions />
+          <HireActions linkedin />
         </div>
       </header>
 
@@ -121,12 +127,12 @@ export default function ServicesPage() {
         </ul>
       </Section>
 
-      {isEnabled("testimonials") && featuredTestimonials.length > 0 && (
+      {isEnabled("testimonials") && clientQuotes.length > 0 && (
         <Section title="What clients say" id="testimonials" className="wide">
-          <ul className="grid grid-cols-1 gap-x-10 gap-y-8 md:grid-cols-2">
-            {featuredTestimonials.slice(0, 2).map((t) => (
-              <li key={t.id} className="border-l-2 border-primary/50 pl-5">
-                <Quote t={t} />
+          <ul className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            {clientQuotes.map((t) => (
+              <li key={t.id}>
+                <TestimonialCard quotes={[t]} className="h-full" />
               </li>
             ))}
           </ul>
@@ -145,6 +151,11 @@ export default function ServicesPage() {
               <div>
                 <p className="text-sm leading-relaxed text-ink-2">{e.body}</p>
                 <p className="mt-1 text-sm text-muted-foreground">Best for: {e.bestFor}</p>
+                {"link" in e && (
+                  <Link href={e.link.href} className="mt-1.5 inline-block text-sm prose-link text-ink-2">
+                    {e.link.label}
+                  </Link>
+                )}
               </div>
             </li>
           ))}
@@ -153,21 +164,31 @@ export default function ServicesPage() {
       </Section>
 
       <Section title="How a project runs" id="process" className="wide">
-        <ol className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+        <p className="-mt-2 mb-8 max-w-(--spacing-main) text-muted-foreground">
+          Four steps from first message to handover. You see working software throughout, not just at the end.
+        </p>
+        <ol className="grid grid-cols-1 gap-y-8 md:grid-cols-4">
           {process.map((p, i) => (
-            <li key={p.title} className="group grid grid-cols-[3.25rem_1fr] items-start gap-x-3">
+            <li key={p.title} className="group relative pl-12 md:pt-12 md:pr-6 md:pl-0">
+              {/* Connector to the next step: vertical on phones, horizontal from md. */}
               <span
                 aria-hidden
-                className="pt-0.5 text-3xl leading-none font-semibold text-[color-mix(in_oklab,var(--primary)_55%,var(--background))] tabular-nums transition-colors duration-300 group-hover:text-primary"
+                className="absolute top-8 -bottom-8 left-3.5 w-px bg-border group-last:hidden md:top-3.5 md:right-0 md:bottom-auto md:left-8 md:h-px md:w-auto"
+              />
+              <span
+                aria-hidden
+                className="absolute top-0 left-0 grid size-7 place-items-center border bg-card font-mono text-xs text-primary transition-colors duration-300 group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground"
               >
                 {pad2(i + 1)}
               </span>
-              <div>
-                <h3 className="text-base leading-snug font-semibold transition-colors duration-300 group-hover:text-primary">
-                  {p.title}
-                </h3>
-                <p className="mt-1 text-sm leading-relaxed text-ink-2">{p.body}</p>
-              </div>
+              <h3 className="text-base leading-snug font-semibold transition-colors duration-300 group-hover:text-primary">
+                {p.title}
+              </h3>
+              <p className="mt-1.5 text-[0.82rem] leading-relaxed text-ink-2">{p.body}</p>
+              <p className="mt-3 flex items-start gap-1.5 text-[0.8rem] leading-snug text-foreground">
+                <CheckIcon aria-hidden className="mt-0.5 size-3.5 shrink-0 text-primary" />
+                {p.outcome}
+              </p>
             </li>
           ))}
         </ol>
