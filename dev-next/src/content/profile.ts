@@ -10,7 +10,7 @@ const yearsOfExperience = 8;
 export const profile = {
   name: "Biprodas Roy",
   firstName: "Biprodas",
-  role: "Full-Stack Software Engineer · AI Systems",
+  role: "Full-Stack Software Engineer · AI & Research",
   headline: "Software Engineer · Full Stack Developer · AI Researcher",
   titles: ["Software Engineer", "Full Stack Developer", "AI Researcher"],
   headlineLine: "I build software that holds up in production.",
