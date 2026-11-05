@@ -41,7 +41,7 @@ export default async function OpengraphImage() {
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 80, fontWeight: 700, letterSpacing: -3, lineHeight: 1 }}>{profile.name}</div>
-          <div style={{ marginTop: 20, fontSize: 30, color: "#33598a" }}>{profile.role}</div>
+          <div style={{ marginTop: 20, fontSize: 28, color: "#33598a" }}>{profile.role}</div>
           <div style={{ marginTop: 32, fontSize: 26, color: "#3f454d", lineHeight: 1.4 }}>{profile.bio}</div>
         </div>
         <div style={{ display: "flex", fontSize: 22, color: "#6b7079" }}>
