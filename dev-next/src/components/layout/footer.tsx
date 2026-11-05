@@ -17,7 +17,10 @@ const elsewhere = links.filter((l) => l.platform !== "website");
 const academic = getLink("website");
 
 // Certifications and testimonials sit outside the main menu, so the footer is where they get a link.
+// Research is in the menu but sits here too, to keep the Pages column short.
+const pages = nav.filter((n) => n.href !== "/research");
 const more = [
+  ...nav.filter((n) => n.href === "/research"),
   ...(isEnabled("certifications") ? [{ href: "/certifications", label: "Certifications" }] : []),
   ...(showTestimonials && isEnabled("testimonials") ? [{ href: "/testimonials", label: "Testimonials" }] : []),
 ];
@@ -52,7 +55,7 @@ export function Footer() {
           <nav aria-label="Footer">
             <p className={label}>Pages</p>
             <ul className="mt-2.5 grid grid-cols-2 gap-x-4 gap-y-1.5 sm:grid-cols-1">
-              {nav.map((n) => (
+              {pages.map((n) => (
                 <li key={n.href}>
                   <Link href={n.href} className={link}>
                     {n.label}
