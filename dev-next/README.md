@@ -34,3 +34,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Analytics
+
+The root layout renders `<Analytics />` from `@vercel/analytics/next`. It only collects data once Web Analytics is enabled on the Vercel project (Project → Analytics → Enable). Until then, `/_vercel/insights/script.js` returns 404. In local dev it logs to the console and sends nothing.

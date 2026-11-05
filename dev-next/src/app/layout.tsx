@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { themeScript } from "@/lib/theme";
@@ -58,6 +59,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <Footer />
           </div>
         </div>
+        <Analytics />
       </body>
     </html>
   );
