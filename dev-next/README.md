@@ -37,4 +37,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## Analytics
 
-The root layout renders `<Analytics />` from `@vercel/analytics/next`. It only collects data once Web Analytics is enabled on the Vercel project (Project → Analytics → Enable). Until then, `/_vercel/insights/script.js` returns 404. In local dev it logs to the console and sends nothing.
+The root layout renders `<Analytics />` from `@vercel/analytics/next` and `<SpeedInsights />` from `@vercel/speed-insights/next`. Each only collects data once it is enabled on the Vercel project (Project → Analytics → Enable, and Project → Speed Insights → Enable). Until then, their `/_vercel/*` scripts return 404. In local dev they log to the console and send nothing.
